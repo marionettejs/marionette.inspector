@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Backbone Debugger</title>
+
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<style>
+			#wrap {
+				min-height: 100%;
+				height: auto !important;
+				height: 100%;
+				margin: 0 auto -60px;
+			}
+
+			.page-header h2 {
+				text-align: center;
+			}
+
+			.screenshot {
+				width: 50%;
+				height: 50%;
+				margin: 0 auto 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap"><div class="container">
+			<div class="page-header">
+				<h2><a title="Backbone Debugger on Chrome Web Store" href="https://chrome.google.com/webstore/detail/backbone-debugger/bhljhndlimiafopmmhjlgfpnnchjjbhd">Backbone Debugger</a>
+					has been successfully updated to v0.2.5!</h2>
+			</div>
+
+			<p class="lead">
+			Changes from last version:
+			<ul>
+				<li>Added instant <b>free text search</b> for filtering components and actions, with real time update in case components change.</li>
+			   	<li>Use view selectors (e.g. li.done) as <b>view names</b> in panel, with real time update.</li>
+				<li>New components navigation style.</li>
+				<li>Break long words in panel to prevent overflow in case of long names, long urls, etc.</li>
+				<li>Bugfix: Fix WatchJS bug (<a href="https://github.com/Maluen/Backbone-Debugger/issues/14">#14</a>).</li>
+				<li>Bugfix: Make hidden properties really hidden (<a href="https://github.com/Maluen/Backbone-Debugger/issues/16">#16</a>).</li>
+				<li>Optimization: better handling of backbone agent reports.</li>
+				<li>Only show the view index in the Elements sidebar pane.</li>
+			</ul>
+			</p>
+
+			<br />
+			<h4>Hope you enjoy!</h4>
+			<br />
+			<p>P.S: You can get the source code and contribute at <a href="https://github.com/Maluen/Backbone-Debugger" title="Github">https://github.com/Maluen/Backbone-Debugger</a></p>
+		</div></div>
+
+		<script src="js/lib/jquery.js"></script>
+		<script src="js/lib/bootstrap.min.js"></script>
+	</body>
+</html>

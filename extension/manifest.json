@@ -1,0 +1,41 @@
+{
+  "name": "Backbone Debugger",
+  "version": "0.2.5",
+  "description": "Developer Tools extension for debugging Backbone.js applications.",
+  "author": "Manuel Dell'Elce and contributors",
+  "minimum_chrome_version": "22.0",
+  "icons": {
+    "16": "img/extension16.png",
+    "48": "img/extension48.png",
+    "128": "img/extension128.png"
+  },
+  "manifest_version": 2,
+
+  "devtools_page": "devtools.html",
+
+  "background": {
+    "scripts": ["js/background.js"],
+    "persistent": false
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*", "file://*/*"],
+      "js": ["js/marionette_contentscript.js"],
+      "run_at": "document_start"
+    }
+  ],
+
+  // needed by backboneAgent loader
+  "web_accessible_resources": [
+    "js/lib/*",
+    "js/backboneAgent/*"
+  ],
+
+  // fix the handlebars template unsafe eval error
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+
+  "permissions": [
+    "tabs" // needed for accessing tab urls (to check if they changed)
+  ]
+}

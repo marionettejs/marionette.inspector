@@ -1,0 +1,147 @@
+html, body {
+    height: 100%;
+}
+
+.fill { 
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background-color: #F5F5F5;
+    padding: 0;
+    -webkit-user-select: none; /* disable text selection */
+    word-break: break-all;
+}
+
+.btn-link {
+    padding: 0;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+#debugDisabled {
+    padding: 15px;
+}
+
+#waiting {
+    padding: 15px;
+}
+
+.mainTabs {
+    height: 100%;
+    margin-right: 0 !important;
+    margin-bottom: 0;
+}
+
+/* Turns dropdown into dropright for left-aligned nav-tabs */
+.tabs-left .nav-tabs .dropdown-menu {
+    position: absolute;
+    left: 99px;
+    top: -2px;
+}
+.caret-right {
+    -webkit-transform: rotate(270deg);
+}
+
+.mainTabsContent {
+    position: relative; /* required for .tab-pane absolute positioning */
+}
+
+.mainTabsContent>.tab-pane {
+    height: 100%;
+    overflow-y: auto;
+    display: block !important; /* prevents render on tab change */
+    position: absolute;
+    width: 100%;
+}
+
+.appComponentsOptions .navbar-inner {
+    border: none;
+    padding-left: 12px;
+    padding-right: 12px;
+    box-shadow: none;
+    background-image: -webkit-linear-gradient(rgb(243,243,243), rgb(235,235,235));
+}
+.appComponentsOptions li {
+    height: 40px;
+}
+
+.icon-chevron-bottom {
+    -webkit-transform: rotate(90deg);
+}
+
+.icon-chevron-top {
+    -webkit-transform: rotate(-90deg);
+    margin-top: 3px;
+}
+
+/* prevent highlight around button on click */
+.resetSearch:focus {
+    outline: none;
+}
+
+.appComponentList {
+    margin: 0;
+    padding: 5px 15px 15px 15px;
+}
+
+.appComponentList>li {
+    background-color: #EBEBEB;
+    margin-bottom: 0;
+}
+
+.appComponentToggle {
+    text-align: left;
+    margin-top: -1px;
+}
+.appComponentToggle span {
+    -webkit-user-select: text;
+}
+
+.removed {
+    text-decoration: line-through;
+    color: #808080; /* grey */
+}
+
+@-webkit-keyframes highlight {
+    0%  { background-color: #57A0FF; 
+          color: black; }
+}
+.highlight {
+    -webkit-animation: highlight 2s;
+}
+
+.appComponent {
+    background-color: white;
+    border-style: solid;
+    border-color: rgb(221, 221, 221);
+    border-width: 1px;
+    border-collapse: collapse;
+    -webkit-user-select: text;
+}
+
+.appComponent ul {
+    padding-top: 5px;
+}
+
+.appComponentActions {
+    max-height: 185px !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.appComponentActions .searchForm {
+    margin-bottom: 10px;
+}
+
+.appComponentActions .searchForm .searchTerm {
+    height: 10px;
+}
+
+.appComponentActions table {
+    margin-bottom: 0;
+}
