@@ -2,11 +2,12 @@ define([
   'marionette',
   'util/Radio',
   'util/Logger',
-  'app/modules/Radio/views/Layout'
+  'app/modules/UI/views/Layout'
 ], function(Marionette, Radio, Logger, Layout) {
   return Marionette.Module.extend({
 
-    channelName: 'radio',
+    channelName: 'ui',
+    appName: 'ui',
 
     initialize: function() {
       console.log('Radio App Initialized')
@@ -20,11 +21,12 @@ define([
 
     showModule: function() {
       var layout = new Layout({});
-      Radio.command('app', 'show:tool', 'radio', layout);
+
+      Radio.command('app', 'show:tool', this.appName, layout);
     },
 
     startModule: function() {
-      console.log('Radio App Started');
+      Logger.debug('UI App Started');
     },
 
     controller: {

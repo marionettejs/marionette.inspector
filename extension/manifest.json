@@ -1,8 +1,8 @@
 {
-  "name": "Backbone Debugger",
-  "version": "0.2.5",
-  "description": "Developer Tools extension for debugging Backbone.js applications.",
-  "author": "Manuel Dell'Elce and contributors",
+  "name": "Marionette Inspector",
+  "version": "0.0.1",
+  "description": "....",
+  "author": "Jason Laster",
   "minimum_chrome_version": "22.0",
   "icons": {
     "16": "img/extension16.png",

@@ -1,4 +1,5 @@
 define([
+  'backbone',
   'marionette',
   'util/Radio',
   'util/Logger',
@@ -6,40 +7,47 @@ define([
   'util/ModuleRoutes',
   'app/views/Layout',
   'util/Logger',
-], function(Marionette, Radio, Logge, Router, moduleRoutes, Layout, Logger) {
+], function(Backbone, Marionette, Radio, Logge, Router, moduleRoutes, Layout, Logger) {
 
   return Marionette.Application.extend({
 
     commands: function() {
         return {
-          'show:tool': this.showTool
+          'show:tool': this.showTool,
+          'navigate': this.navigate
         }
     },
 
-
     onStart: function() {
-      console.log('app start');
+      Logger.debug('app start');
       this.addRegions({layout: "[data-region='app-region']"});
       this.router = new Router(this, moduleRoutes);
       this.router.begin();
 
+      this.setupData();
       this.setupEvents();
-      this.layout.show(new Layout());
+      this.layout.show(new Layout({
+        model: this.appData
+      }));
+    },
+
+    setupData: function() {
+      this.appData = new Backbone.Model();
     },
 
     setupEvents: function() {
       Radio.comply('app', this.commands, this);
     },
 
-
-    showTool: function(layout) {
+    showTool: function(tool, layout) {
+      this.appData.set('tool', tool);
       this.layout.currentView.tool.show(layout);
     },
 
-     navigate: function(route) {
-       Logger.debug('app', 'navigate', route);
-       this.router.navigate(route, {trigger: true});
-     },
+    navigate: function(route) {
+      Logger.debug('app', 'navigate', route);
+      this.router.navigate(route, {trigger: true});
+    },
 
   });
 });

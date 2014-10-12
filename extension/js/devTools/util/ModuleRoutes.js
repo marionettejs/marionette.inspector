@@ -1,5 +1,6 @@
 define([], function() {
   return [
-    ['radio(/)', ['Radio', 'index']]
+    ['radio(/)', ['Radio', 'index']],
+    ['ui(/)',    ['UI', 'index']]
   ];
 })

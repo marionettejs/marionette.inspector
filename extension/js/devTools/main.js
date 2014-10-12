@@ -62,8 +62,9 @@ require([
   "handlebars",
   "marionette",
   "app",
-  "app/modules/Radio"
-], function($, Handlebars, Marionette, App, RadioApp) {
+  "app/modules/Radio",
+  "app/modules/UI"
+], function($, Handlebars, Marionette, App, RadioApp, UIApp) {
 
     Marionette.Renderer.render = function(template, data, view) {
       return Handlebars.compile(template)(data);
@@ -75,7 +76,7 @@ require([
 
         window.app = new App();
         app.start();
-        app.navigate('radio');
+        app.navigate('ui');
     });
 
     console.log('devtools started!')

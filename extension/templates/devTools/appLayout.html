@@ -1,20 +1,19 @@
-<div class="row">
-  <div class="span12">
-    <div class="navbar">
-      <div class="navbar-inner">
-        <a class="brand" href="#">DevTools</a>
-        <ul class="nav">
-          <li class="active"><a href="#">App</a></li>
-          <li><a href="#">Radio</a></li>
-          <li><a href="#">Regions</a></li>
-          <li><a href="#">Finder</a></li>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+
+      <div id="app-header">
+        <ul class="nav nav-pills">
+          <li class="{{#active_tool.is_ui}}active{{/active_tool.is_ui}}"><a data-route="ui" href="#">UI</a></li>
+          <li class="{{#active_tool.is_radio}}active{{/active_tool.is_radio}}"><a data-route="radio" href="#">Radio</a></li>
         </ul>
       </div>
+
+
+      <div data-region="tool" class="col12">
+        <h2>App</h2>
+      </div>
+
     </div>
-  </div>
-</div>
-<div class="row">
-  <div data-region="tool" class="span12">
-    <h2>App</h2>
   </div>
 </div>
