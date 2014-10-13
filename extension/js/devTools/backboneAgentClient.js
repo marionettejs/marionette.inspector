@@ -16,7 +16,7 @@ define(["backbone", "underscore", "inspectedPageClient"], function(Backbone, _, 
         // Activate the Backbone Agent by reloading the inspected page and injecting it at
         // the beginning.
         this.activate = function() {
-            inspectedPageClient.reloadInjecting(chrome.extension.getURL("js/backboneAgentFoo"));
+            inspectedPageClient.reloadInjecting(chrome.extension.getURL("js/backboneAgent"));
         };
 
         // Execute the passed function in the inspected page using the Backbone Agent as context.

@@ -8,7 +8,7 @@ var patchAppComponentTrigger = bind(function(appComponent) {
     patchFunctionLater(appComponent, "trigger", function(originalFunction) { return function() {
         var result = originalFunction.apply(this, arguments);
 
-        // function signature: trigger(eventName, arg1, arg2, ...) 
+        // function signature: trigger(eventName, arg1, arg2, ...)
         var eventName = arguments[0];
         var eventArguments = undefined;
         if (arguments.length > 1) { // the event has arguments
@@ -95,7 +95,7 @@ var patchBackboneView = bind(function(BackboneView) {
             var events = arguments[0]; // hash <selector, callback>
             if (events === undefined) {
                 // delegateEvents usa internamente this.events se viene chiamata senza
-                // argomenti, non rendendo possibile la modifica dell'input, 
+                // argomenti, non rendendo possibile la modifica dell'input,
                 // per cui in questo caso anticipiamo il comportamento e usiamo this.events
                 // come input.
                 // (this.events può essere anche una funzione che restituisce l'hash)
@@ -114,7 +114,7 @@ var patchBackboneView = bind(function(BackboneView) {
                         callback = this[callback];
                     }
                     if (!callback) {
-                        // lascia la callback non valida invariata in modo che 
+                        // lascia la callback non valida invariata in modo che
                         // il metodo originale possa avvisare dell'errore
                         continue;
                     }
@@ -285,6 +285,7 @@ var onBackboneDetected = function(callback) {
 // @private
 // Metodo eseguito automaticamente all'atto della creazione dell'oggetto.
 var initialize = function() {
+    debug.active = true;
     debug.log("Backbone agent is starting...");
 
     onBackboneDetected(function(Backbone) {

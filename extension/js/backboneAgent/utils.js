@@ -6,6 +6,7 @@ var debug = {
     active: false, // set to true in logic to activate debugging
     log: function() {
         if (!this.active) return;
+        arguments[0] = 'bb: ' + arguments[0];
         console.log.apply(console, arguments);
     }
 }
@@ -47,7 +48,7 @@ var clone = function(object) {
 var watchOnce = function(object, property, callback) {
     watch(object, property, function onceHandler(prop, action, newValue, oldValue) {
         // facendo l'unwatch prima di chiamare la callback (invece di farlo dopo),
-        // è possibile in quest'ultima impostare la proprietà property 
+        // è possibile in quest'ultima impostare la proprietà property
         // senza incorrere in un loop infinito.
         unwatch(object, property, onceHandler);
 
@@ -146,12 +147,12 @@ var patchFunction = function(object, functionName, patcher) {
     object[functionName] = patcher(originalFunction);
 
     // When calling onString on the patched function, call the originalFunction onString.
-    // This is needed to allow an user of the originalFunction to manipulate its 
+    // This is needed to allow an user of the originalFunction to manipulate its
     // original string representation and not that of the patcher function.
     // NOTE: if the original function is undefined, use the string representation of the empty function.
     var emptyFunction = function(){};
     object[functionName].toString = function() {
-        return originalFunction ? originalFunction.toString.apply(originalFunction, arguments) 
+        return originalFunction ? originalFunction.toString.apply(originalFunction, arguments)
                                 : emptyFunction.toString.apply(emptyFunction, arguments);
     }
 };

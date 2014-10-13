@@ -13,6 +13,7 @@ define(["backbone", "underscore", "panelPort", "utils"], function(Backbone, _, p
             // so that Backbone.Events methods like the useful "listenTo" can be used
             panelPort.onMessage.addListener(_.bind(function(message) {
                 if (message && message.target == "page") {
+                    message.data = message.data || {};
                     console.log('ipc: ', message.name, message.data, message);
                     this.trigger(message.name, message.data);
                 }
@@ -28,6 +29,7 @@ define(["backbone", "underscore", "panelPort", "utils"], function(Backbone, _, p
             if (context === undefined) { context = "this"; }
 
             var evalCode = "("+func.toString()+").apply("+context+", "+JSON.stringify(args)+");";
+            console.log('code: ', evalCode);
 
             chrome.devtools.inspectedWindow.eval(evalCode, function(result, isException) {
                 if (isException) {
