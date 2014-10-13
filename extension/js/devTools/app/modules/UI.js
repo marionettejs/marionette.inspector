@@ -18,13 +18,20 @@ define([
 
     setupData: function() {
       this.uiData = new UiData();
+      setInterval(_.bind(this.fetchData, this), 500);
     },
 
     setupEvents: function() {
     },
 
+    fetchData: function() {
+      this.uiData.fetch();
+    },
+
     showModule: function() {
-      var layout = new Layout({});
+      var layout = new Layout({
+        model: this.uiData
+      });
 
       Radio.command('app', 'show:tool', this.appName, layout);
     },

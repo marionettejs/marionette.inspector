@@ -15,7 +15,7 @@ define(["backbone", "underscore", "panelPort", "utils", "bluebird"],
             panelPort.onMessage.addListener(_.bind(function(message) {
                 if (message && message.target == "page") {
                     message.data = message.data || {};
-                    console.log('ipc: ', message.name, message.data, message);
+                    // console.log('ipc: ', message.name, message.data, message);
                     this.trigger(message.name, message.data);
                 }
             }, this));

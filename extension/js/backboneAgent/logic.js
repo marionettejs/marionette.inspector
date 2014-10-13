@@ -285,7 +285,7 @@ var onBackboneDetected = function(callback) {
 // @private
 // Metodo eseguito automaticamente all'atto della creazione dell'oggetto.
 var initialize = function() {
-    debug.active = true;
+    // debug.active = true;
     debug.log("Backbone agent is starting...");
 
     onBackboneDetected(function(Backbone) {

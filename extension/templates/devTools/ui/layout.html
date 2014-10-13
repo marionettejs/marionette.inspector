@@ -11,24 +11,14 @@
         </tr>
       </thead>
       <tbody>
+        {{#views}}
         <tr>
-          <td>Layout</td>
-          <td>app-layout.mustache</td>
-          <td>div.foo.bar</td>
-          <td>AppData</td>
+          <td>{{path}}</td>
+          <td>...</td>
+          <td>{{element}}</td>
+          <td>{{model}}</td>
         </tr>
-        <tr>
-          <td>Header</td>
-          <td>app-header.mustache</td>
-          <td>div#header</td>
-          <td>AppData</td>
-        </tr>
-        <tr>
-          <td>List</td>
-          <td>app-list.mustache</td>
-          <td>ul.app-list</td>
-          <td>ListData</td>
-        </tr>
+        {{/views}}
       </tbody>
     </table>
   </div>

@@ -52,8 +52,7 @@ var _regionInspector = function(obj) {
 
   } else if (obj.regionManager) { // layout
     var subViews = _subViews(obj);
-    subViews._view = 'view'; //obj;
-    _.extend(subViews, tools);
+    subViews._view = viewSerializer(obj) ; //obj;
     return subViews;
 
   } else if (obj.children) { // collection view
@@ -61,7 +60,7 @@ var _regionInspector = function(obj) {
 
   } else { // simple view
     return {
-      _view: 'view' //obj
+      _view: viewSerializer(obj) //obj
     }
   }
 };
@@ -76,3 +75,21 @@ var _subViews = function(obj) {
   });
   return subViews;
 };
+
+var viewSerializer = function(view) {
+  var data = {};
+
+  if (!_.isObject(view)) {
+    return {};
+  }
+
+  data.ui = Object.keys(view.ui || {});
+  data.events = Object.keys(view.events || {});
+  data.options = Object.keys(view.options || {});
+  // data.element = document.createElement('div'); //view.el;
+  // data.model = view.model;
+
+
+  console.log('serialize', data);
+  return data;
+}
