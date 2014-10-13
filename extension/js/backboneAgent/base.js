@@ -2,52 +2,10 @@
 
 window._ = this._;
 
-var AppObserver = function() {
-  this.appExpression = "app"
-  this.radioExpression = ""
-};
-
-_.extend(AppObserver.prototype, {
-
-  // expression that's eval'd on the window to get the app
-  appExpression: "app",
-
-  // expresion that's eval'd on the window to get the radio
-  radioExpression: "app.wreqr",
-
-  // called by inspector to get the current region tree
-  getRegionTree: function () {
-    return {
-      foo: 2
-    }
-  },
-
-  // called by the inspector to get the current channel list
-  getChannelList: function () {
-  },
-
-});
-
-
-this.appObserver = new AppObserver();
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Restituisce un array con gli indici dei componenti dell'applicazione
 // della categoria specificata che sono presenti nell'app.
 this.getAppComponentsIndexes = bind(function(appComponentCategory) {
-  debugger;
     var appComponentsInfo = this.appComponentsInfo[appComponentCategory];
 
     var appComponentsIndexes = [];
