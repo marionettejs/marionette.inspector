@@ -14,7 +14,8 @@ require.config({
         bootstrap: '../lib/bootstrap.min',
         handlebars_original: '../lib/handlebars',
         handlebars: '../lib/handlebars-blocks',
-        setImmediate: '../lib/setImmediate'
+        setImmediate: '../lib/setImmediate',
+        bluebird: '../lib/bluebird'
     },
     // non-amd library loaders
     shim: {

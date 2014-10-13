@@ -34,6 +34,10 @@ define([
         model: this.appData
       }));
 
+
+      this.backboneAgentClient = backboneAgentClient;
+      this.inspectedPageClient = inspectedPageClient;
+
       this.setupInspectedPageClient();
       this.startBackboneAgentClient();
     },

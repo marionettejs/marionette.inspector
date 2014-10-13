@@ -1,4 +1,5 @@
-define(["backbone", "underscore", "panelPort", "utils"], function(Backbone, _, panelPort, utils) {
+define(["backbone", "underscore", "panelPort", "utils", "bluebird"],
+  function(Backbone, _, panelPort, utils, Promise) {
     var inspectedPageClient = new (function() {
         _.extend(this, Backbone.Events);
 
@@ -29,8 +30,6 @@ define(["backbone", "underscore", "panelPort", "utils"], function(Backbone, _, p
             if (context === undefined) { context = "this"; }
 
             var evalCode = "("+func.toString()+").apply("+context+", "+JSON.stringify(args)+");";
-            console.log('code: ', evalCode);
-
             chrome.devtools.inspectedWindow.eval(evalCode, function(result, isException) {
                 if (isException) {
                     var error = _.isObject(isException) ? isException.value : result;
@@ -39,6 +38,22 @@ define(["backbone", "underscore", "panelPort", "utils"], function(Backbone, _, p
                     onExecuted(result);
                 }
             });
+        };
+
+        this.exec = function(func, context) {
+          if (context === undefined) { context = "this"; }
+
+          var evalCode = "("+func.toString()+").apply("+context+");";
+
+          return new Promise(function(resolve, reject) {
+            chrome.devtools.inspectedWindow.eval(evalCode, function(result, isException) {
+                if (isException) {
+                  reject(_.isObject(isException) ? isException.value : result)
+                } else {
+                  resolve(result)
+                }
+            })
+          })
         };
 
         // Call the callback when the inspected page DOM is fully loaded

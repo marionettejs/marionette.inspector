@@ -1,33 +1,35 @@
 //// BASE ////
 
+window._ = this._;
 
-console.log(this);
-//
-// var AppObserver = function() {
-//   this.appExpression = "app"
-//   this.radioExpression = ""
-// };
-//
-// _.extend(AppObserver.prototype, {
-//
-//   // expression that's eval'd on the window to get the app
-//   appExpression: "app",
-//
-//   // expresion that's eval'd on the window to get the radio
-//   radioExpression: "app.wreqr",
-//
-//   // called by inspector to get the current region tree
-//   getRegionTree: function () {
-//   },
-//
-//   // called by the inspector to get the current channel list
-//   getChannelList: function () {
-//   },
-//
-// });
+var AppObserver = function() {
+  this.appExpression = "app"
+  this.radioExpression = ""
+};
+
+_.extend(AppObserver.prototype, {
+
+  // expression that's eval'd on the window to get the app
+  appExpression: "app",
+
+  // expresion that's eval'd on the window to get the radio
+  radioExpression: "app.wreqr",
+
+  // called by inspector to get the current region tree
+  getRegionTree: function () {
+    return {
+      foo: 2
+    }
+  },
+
+  // called by the inspector to get the current channel list
+  getChannelList: function () {
+  },
+
+});
 
 
-// this.appObserver = new AppObserver();
+this.appObserver = new AppObserver();
 
 
 

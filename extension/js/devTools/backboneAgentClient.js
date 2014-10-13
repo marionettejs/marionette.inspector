@@ -24,6 +24,13 @@ define(["backbone", "underscore", "inspectedPageClient"], function(Backbone, _, 
             inspectedPageClient.execFunction(func, args, onExecuted, "window.__backboneAgent");
         };
 
+
+        // deferred versioned of execFunction
+        this.exec = function(func) {
+          return inspectedPageClient.exec(func, "window.__backboneAgent");
+        }
+
+
         this.initialize();
     })();
     return backboneAgentClient;

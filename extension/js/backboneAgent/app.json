@@ -2,10 +2,12 @@
     "name": "__backboneAgent",
 
     "dependencies": [
-        "../lib/watch.js"
+        "../lib/watch.js",
+        "../lib/bluebird.js"
     ],
 
     "files": [
+        "underscore.js",
         "utils.js",
         "data.js",
         "base.js",
