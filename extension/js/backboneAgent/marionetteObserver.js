@@ -38,6 +38,7 @@ var regionInspector = function(app, path) {
     regions = objectPath(regions, path, {});
   }
 
+  console.log('ri: ', regions);
   return regions;
 };
 
@@ -83,13 +84,43 @@ var viewSerializer = function(view) {
     return {};
   }
 
+  data.cid = view.cid;
   data.ui = Object.keys(view.ui || {});
   data.events = Object.keys(view.events || {});
   data.options = Object.keys(view.options || {});
-  // data.element = document.createElement('div'); //view.el;
-  // data.model = view.model;
 
+  data.element = serializeElement(view.el, true);
+
+  data.model = {
+    attributes: JSON.stringify({})
+  };
+
+  if (_.isObject(view.model)) {
+      data.model = {
+        cid: view.model.cid,
+        attributes: JSON.stringify(view.model.attributes),
+      }
+  }
 
   console.log('serialize', data);
   return data;
+}
+
+
+var serializeElement = function (element, recurse) {
+    var el = $(element),
+        o = {
+            tagName: el[0].tagName
+        };
+
+    _.each(el[0].attributes, function(attribute){
+        o[attribute.name] = attribute.value;
+    });
+
+    if (recurse) {
+        o.children = _.map(el.children(), function(child){
+            return serializeElement(child, true);
+        }, this);
+    }
+    return  o;
 }

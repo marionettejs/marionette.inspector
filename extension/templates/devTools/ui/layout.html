@@ -1,69 +1,10 @@
 <div class="container-fluid">
 <div class="row">
   <div class="col-xs-8">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>View</th>
-          <th>Template</th>
-          <th>Element</th>
-          <th>Model</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#views}}
-        <tr>
-          <td>{{path}}</td>
-          <td>...</td>
-          <td>{{element}}</td>
-          <td>{{model}}</td>
-        </tr>
-        {{/views}}
-      </tbody>
-    </table>
+    <div data-region="view-list"></div>
   </div>
   <div class="col-xs-4">
-    <div class="panel-group" id="accordion">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          UI
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse in">
-      <div class="panel-body">
-      </div>
-    </div>
+    <div data-region="view-more-info"></div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-          Events
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse">
-      <div class="panel-body">
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-          Options
-        </a>
-      </h4>
-    </div>
-    <div id="collapseThree" class="panel-collapse collapse">
-      <div class="panel-body">
-      </div>
-    </div>
-  </div>
-</div>
-  </div
 </div>
 </div>

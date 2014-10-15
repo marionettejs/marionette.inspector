@@ -18,7 +18,7 @@ define([
 
     setupData: function() {
       this.uiData = new UiData();
-      setInterval(_.bind(this.fetchData, this), 500);
+      // setInterval(_.bind(this.fetchData, this), 500);
     },
 
     setupEvents: function() {

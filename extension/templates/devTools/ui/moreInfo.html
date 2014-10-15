@@ -1,0 +1,66 @@
+<div class="panel-group" id="">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a>
+          UI
+        </a>
+      </h4>
+    </div>
+    <div>
+      <div class="panel-body">
+        {{#ui}}
+        <div>{{.}}</div>
+        {{/ui}}
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a>
+          Events
+        </a>
+      </h4>
+    </div>
+    <div>
+      <div class="panel-body">
+        {{#events}}
+        <div>{{.}}</div>
+        {{/events}}
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a>
+          Options
+        </a>
+      </h4>
+    </div>
+    <div>
+      <div class="panel-body">
+        {{#options}}
+        <div>{{.}}</div>
+        {{/options}}
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a>
+          Model
+        </a>
+      </h4>
+    </div>
+    <div>
+      <div class="panel-body">
+        {{#model}}
+        <div>{{{attributes}}}</div>
+        {{/model}}
+      </div>
+    </div>
+  </div>
+</div>

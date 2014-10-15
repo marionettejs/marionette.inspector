@@ -1,50 +1,45 @@
-define(['marionette', "text!templates/devTools/ui/layout.html"], function(Marionette, tpl) {
-
-
-  var buildViewList = function(regionTree, subPath) {
-
-    var viewData = {};
-
-    if (_.has(regionTree, '_view')) {
-      viewData = {
-        view: regionTree._view,
-        path: subPath
-      }
-    }
-
-    subPath = subPath || '';
-
-    var subTreeData = _.flatten(_.map(_.omit(regionTree, ['_view', '_region']), function(subTree, regionName) {
-      return buildViewList(subTree, subPath+"."+regionName);
-    }),1);
-
-    return subTreeData.concat(viewData);
-  }
+define([
+  'marionette',
+  'backbone',
+  'text!templates/devTools/ui/layout.html',
+  'util/Radio',
+  'app/modules/UI/views/ViewList',
+  'app/modules/UI/views/ViewMoreInfo'
+], function(Marionette, Backbone, tpl, Radio, ViewList, ViewMoreInfo) {
 
   return Marionette.LayoutView.extend({
 
     template: tpl,
 
     regions: {
+      viewList: '[data-region="view-list"]',
+      viewMoreInfo: '[data-region="view-more-info"]'
     },
 
     modelEvents: {
       'change': 'render'
     },
 
-    onShow: function() {
+    uiCommands: {
+      'show:more-info': 'showMoreInfo'
     },
 
-    presentViews: function() {
-      var regionTree = this.model.get('regionTree') || {};
-      return buildViewList(regionTree);
+    initialize: function(options) {
+      Radio.connectCommands('ui', this.uiCommands, this);
     },
 
-    serializeData: function() {
-      var data = {};
+    onRender: function() {
+      var views = new Backbone.Collection(this.model.viewList());
 
-      data.views = this.presentViews();
-      return data;
+      this.getRegion('viewList').show(new ViewList({
+        collection: views
+      }))
+    },
+
+    showMoreInfo: function(viewModel) {
+      this.getRegion('viewMoreInfo').show(new ViewMoreInfo({
+        model: viewModel
+      }));
     }
   });
 });
