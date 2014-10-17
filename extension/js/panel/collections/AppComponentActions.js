@@ -1,6 +1,6 @@
 /* This collection is sorted in reverse order (latest first) */
 
-define(["backbone", "underscore", "backboneAgentClient", "inspectedPageClient",
+define(["backbone", "underscore", "client/backboneAgent", "client/inspectedPage",
         "collections/Collection", "models/AppComponentAction", "setImmediate"],
 function(Backbone, _, backboneAgentClient, inspectedPageClient, Collection, AppComponentAction, setImmediate) {
 

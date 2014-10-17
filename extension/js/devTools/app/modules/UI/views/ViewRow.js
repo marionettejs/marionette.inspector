@@ -1,8 +1,9 @@
 define([
   'marionette',
   "text!templates/devTools/ui/row.html",
-  'util/Radio'
-], function(Marionette, tpl, Radio) {
+  'util/Radio',
+  'util/presenters/formatEL'
+], function(Marionette, tpl, Radio, formatEL) {
 
   return Marionette.ItemView.extend({
     template: tpl,
@@ -34,19 +35,10 @@ define([
         return "";
       }
 
-      var str = "";
-      str += element.tagName.toLowerCase();
-
-      if (element.id) {
-        str += "#" + element.id;
-      }
-
-      if (_.isArray(element.class)) {
-        str += "." + element.class.join(".");
-      }
-
-      return str;
+      return formatEL(element);
     }
+
+
   })
 
 })

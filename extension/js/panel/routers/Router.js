@@ -1,5 +1,5 @@
 define([
-  "backbone", "inspectedPageClient", "backboneAgentClient",
+  "backbone", "client/inspectedPage", "client/backboneAgent",
   "views/main/WaitingView", "views/main/DebuggerView", "views/main/DebugDisabledView"
 ], function(Backbone, inspectedPageClient, backboneAgentClient, WaitingView, DebuggerView, DebugDisabledView) {
 

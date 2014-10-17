@@ -1,4 +1,4 @@
-define(["backbone", "underscore", "backboneAgentClient", "setImmediate"],
+define(["backbone", "underscore", "client/backboneAgent", "setImmediate"],
 function(Backbone, _, backboneAgentClient, setImmediate) {
 
     var AppComponentAction = Backbone.Model.extend({

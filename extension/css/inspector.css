@@ -1,0 +1,289 @@
+.outline-disclosure li.hovered:not(.selected) .selection {
+    display: block;
+    left: 3px;
+    right: 3px;
+    background-color: rgba(56, 121, 217, 0.1);
+    border-radius: 5px;
+}
+
+.outline-disclosure li .selection {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 15px;
+    z-index: -1;
+}
+
+.outline-disclosure li.selected .selection {
+    display: block;
+    background-color: rgb(212, 212, 212);
+}
+
+.outline-disclosure li.in-clipboard .highlight {
+    outline: 1px dotted darkgrey;
+}
+
+.outline-disclosure li.elements-drag-over .selection {
+    display: block;
+    margin-top: -2px;
+    border-top: 2px solid rgb(56, 121, 217);
+}
+
+.outline-disclosure ol:focus li.selected .selection {
+    background-color: rgb(56, 121, 217);
+}
+
+.outline-disclosure ol:focus li.parent.selected::before {
+    background-color: white;
+}
+
+.outline-disclosure > ol {
+    position: relative;
+    padding: 2px 6px !important;
+    margin: 0;
+    cursor: default;
+    min-width: 100%;
+}
+
+.outline-disclosure,
+.outline-disclosure ol {
+    list-style-type: none;
+    -webkit-padding-start: 12px;
+    margin: 0;
+}
+
+.source-code {
+    font-family: monospace;
+    font-size: 11px !important;
+    /*white-space: pre-wrap;*/
+}
+
+.outline-disclosure li {
+    padding: 0 0 0 14px;
+    margin-top: 1px;
+    margin-left: -2px;
+    word-wrap: break-word;
+}
+
+.outline-disclosure ol:focus li.selected {
+    color: white;
+}
+
+.outline-disclosure ol:focus li.selected * {
+    color: inherit;
+}
+
+.outline-disclosure li.parent {
+    margin-left: -12px
+}
+
+.outline-disclosure li .webkit-html-tag.close {
+    margin-left: -12px;
+}
+
+.outline-disclosure li.parent::before {
+    float: left;
+    width: 10px;
+    padding-right: 2px;
+    box-sizing: border-box;
+}
+
+.outline-disclosure li.parent::before {
+    /*-webkit-user-select: none;*/
+    -webkit-mask-image: url(Images/statusbarButtonGlyphs.png);
+    -webkit-mask-size: 320px 144px;
+    content: "a";
+    color: transparent;
+    text-shadow: none;
+    position: relative;
+    top: 2px;
+    margin-right: 1px;
+    height: 12px;
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.5) {
+.outline-disclosure li.parent::before {
+    -webkit-mask-image: url(Images/statusbarButtonGlyphs_2x.png);
+}
+} /* media */
+
+.outline-disclosure li.parent::before {
+    -webkit-mask-position: -4px -96px;
+    background-color: rgb(110, 110, 110);
+}
+
+.outline-disclosure li.parent.expanded::before {
+    -webkit-mask-position: -20px -96px;
+}
+
+/*.outline-disclosure ol.children {
+    display: none;
+}*/
+
+.outline-disclosure ol.children.expanded {
+    display: block;
+}
+
+/* inspectorCommon.css */
+
+html {
+    height: 100%;
+}
+/*
+body {
+    cursor: default;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    font-family: Lucida Grande, sans-serif;
+    font-size: 12px;
+    margin: 0;
+    tab-size: 4;
+    color: #222;
+}*/
+
+#elements-content {
+    cursor: default;
+    position: relative;
+    /*height: 100%;
+    width: 100%;*/
+
+    overflow: hidden;
+    font-family: Lucida Grande, sans-serif;
+    font-size: 12px;
+    margin: 0;
+    tab-size: 4;
+    /*-webkit-user-select: none;*/
+    color: #222;
+}*/
+
+* {
+    box-sizing: border-box;
+}
+
+:focus {
+    outline: none;
+}
+
+img {
+    -webkit-user-drag: none;
+}
+
+iframe,
+a img {
+    border: none;
+}
+
+iframe.view {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.monospace {
+    font-size: 10px !important;
+    font-family: monospace;
+}
+
+
+.webkit-html-comment {
+    /* Keep this in sync with view-source.css (.webkit-html-comment) */
+    color: rgb(35, 110, 37);
+}
+
+.webkit-html-tag {
+    /* Keep this in sync with view-source.css (.webkit-html-tag) */
+    color: rgb(136, 18, 128);
+}
+
+.webkit-html-pseudo-element {
+    /* This one is non-standard. */
+    color: brown;
+}
+
+.webkit-html-text-node {
+    unicode-bidi: -webkit-isolate;
+}
+
+.webkit-html-entity-value {
+    /* This one is non-standard. */
+    background-color: rgba(0, 0, 0, 0.15);
+    unicode-bidi: -webkit-isolate;
+}
+
+.webkit-html-doctype {
+    /* Keep this in sync with view-source.css (.webkit-html-doctype) */
+    color: rgb(192, 192, 192);
+}
+
+.webkit-html-attribute-name {
+    /* Keep this in sync with view-source.css (.webkit-html-attribute-name) */
+    color: rgb(153, 69, 0);
+    unicode-bidi: -webkit-isolate;
+}
+
+.webkit-html-attribute-value {
+    /* Keep this in sync with view-source.css (.webkit-html-attribute-value) */
+    color: rgb(26, 26, 166);
+    unicode-bidi: -webkit-isolate;
+}
+
+.webkit-html-external-link,
+.webkit-html-resource-link {
+    /* Keep this in sync with view-source.css (.webkit-html-external-link, .webkit-html-resource-link) */
+    color: #00e;
+}
+
+.webkit-html-resource-link {
+    /* Required for consistency with view-source.css, since anchors may not have href attributes */
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.webkit-html-external-link {
+    /* Keep this in sync with view-source.css (.webkit-html-external-link) */
+    text-decoration: none;
+}
+
+.webkit-html-external-link:hover {
+    /* Keep this in sync with view-source.css (.webkit-html-external-link:hover) */
+    text-decoration: underline;
+}
+
+.webkit-html-end-of-file {
+    /* Keep this in sync with view-source.css (.webkit-html-end-of-file) */
+    color: rgb(255, 0, 0);
+    font-weight: bold;
+}
+
+
+#elements-content {
+    flex: 1 1;
+    overflow: auto;
+    padding-left: 0;
+    -webkit-transform: translateZ(0);
+}
+
+#elements-crumbs {
+    flex: 0 0 19px;
+    background-color: white;
+    border-top: 1px solid #ccc;
+    overflow: hidden;
+    height: 19px;
+    width: 100%;
+}
+
+#elements-content > ol {
+    display: inline-block;
+    min-height: 100%;
+    -webkit-transform: translateZ(0);
+}

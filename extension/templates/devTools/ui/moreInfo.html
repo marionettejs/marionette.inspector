@@ -1,66 +1,83 @@
-<div class="panel-group" id="">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a>
-          UI
-        </a>
-      </h4>
-    </div>
-    <div>
-      <div class="panel-body">
-        {{#ui}}
-        <div>{{.}}</div>
-        {{/ui}}
+<div class="sidebar-pane-stack flex-auto visible">
+
+  <div class="sidebar-pane-title expanded" tabindex="0">
+    Options
+  </div>
+  <div class="sidebar-pane visible">
+    <div class="body">
+      <div class="section expanded">
+        <ol class="properties properties-tree monospace">
+          {{#options}}
+          <li title="" style="">
+            <span class="name">{{option}}</span><span class="separator">: </span>
+            <span class="value console-formatted-undefined" title="undefined"> {{value}} </span>
+          </li>
+          {{/options}}
+        </ol>
       </div>
     </div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a>
-          Events
-        </a>
-      </h4>
-    </div>
-    <div>
-      <div class="panel-body">
-        {{#events}}
-        <div>{{.}}</div>
-        {{/events}}
+
+
+  <div class="sidebar-pane-title expanded" tabindex="1">
+    UI
+  </div>
+  <div class="sidebar-pane visible">
+    <div class="body">
+      <div class="section expanded">
+        <ol class="properties properties-tree monospace">
+          {{#ui}}
+          <li title="">
+            <span class="name">{{ui}}</span><span class="separator">: </span>
+            <span class="value console-formatted-undefined" title="undefined">
+              {{{element}}}
+            </span>
+          </li>
+          {{/ui}}
+        </ol>
       </div>
     </div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a>
-          Options
-        </a>
-      </h4>
-    </div>
-    <div>
-      <div class="panel-body">
-        {{#options}}
-        <div>{{.}}</div>
-        {{/options}}
+
+
+  <div class="sidebar-pane-title expanded" tabindex="2">
+    Events
+  </div>
+  <div class="sidebar-pane visible">
+    <div class="body">
+      <div class="section expanded">
+        <ol class="properties properties-tree monospace">
+          {{#events}}
+          <li title="">
+            <span class="name">{{event}}</span>
+            <span class="separator">: </span>
+            <span class="value console-formatted-undefined" title="undefined">{{handler}}</span>
+          </li>
+          {{/events}}
+
+        </ol>
       </div>
     </div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a>
-          Model
-        </a>
-      </h4>
-    </div>
-    <div>
-      <div class="panel-body">
-        {{#model}}
-        <div>{{{attributes}}}</div>
-        {{/model}}
+
+  <div class="sidebar-pane-title expanded" tabindex="3">
+    Model
+  </div>
+  <div class="sidebar-pane visible">
+    <div class="body">
+      <div class="section expanded">
+        <ol class="properties properties-tree monospace">
+          {{#model}}
+          {{#attributes}}
+          <li title="">
+            <span class="name">{{name}}</span><span class="separator">: </span>
+            <span class="value console-formatted-undefined" title="undefined">{{value}}</span>
+          </li>
+          {{/attributes}}
+          {{/model}}
+        </ol>
       </div>
     </div>
   </div>
+
 </div>

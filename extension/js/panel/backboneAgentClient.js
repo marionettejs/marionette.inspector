@@ -1,4 +1,4 @@
-define(["backbone", "underscore", "inspectedPageClient"], function(Backbone, _, inspectedPageClient) {
+define(["backbone", "underscore", "client/inspectedPage"], function(Backbone, _, inspectedPageClient) {
     var backboneAgentClient = new (function() {
         _.extend(this, Backbone.Events);
 

@@ -1,7 +1,7 @@
 /* L'aggiornamento in tempo reale viene attivato automaticamente al termine della fetch. */
 
 define(["backbone", "underscore", "collections/AppComponentActions",
-        "backboneAgentClient", "inspectedPageClient", "setImmediate"],
+        "client/backboneAgent", "client/inspectedPage", "setImmediate"],
 function(Backbone, _, AppComponentActions, backboneAgentClient, inspectedPageClient, setImmediate) {
 
     var AppComponent = Backbone.Model.extend({

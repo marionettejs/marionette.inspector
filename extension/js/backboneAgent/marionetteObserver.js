@@ -24,6 +24,14 @@ _.extend(AppObserver.prototype, {
   getApp: function() {
     var app = window.eval(this.appExpression);
     return app;
+  },
+
+  isAppLoaded: function() {
+
+  },
+
+  waitForApp: function() {
+
   }
 
 });
@@ -85,15 +93,58 @@ var viewSerializer = function(view) {
   }
 
   data.cid = view.cid;
-  data.ui = Object.keys(view.ui || {});
-  data.events = Object.keys(view.events || {});
-  data.options = Object.keys(view.options || {});
+
+  data.options = _.map(view.options || {}, function(optValue, optName) {
+
+    var optType;
+    if (_.isString(optValue)) {
+      optType = "string";
+    } else if (_.isNumber(optValue)) {
+      optType = "number";
+    } else if (_.isFunction(optValue)) {
+       optType = "function"
+    } else if (_.isObject(optValue)) {
+      optType = "object";
+    } else if (_.isUndefined(optValue)) {
+      optType = "undefined";
+    }
+
+    var val = "";
+    if (optValue == "string" || optValue == "number") {
+      val = optValue;
+    }
+
+    return {
+      option: optName,
+      optType: optType,
+      optValue: val
+    }
+
+  }, this);
 
   data.element = serializeElement(view.el, true);
 
   data.model = {
     attributes: JSON.stringify({})
   };
+
+  data.events = _.map(view.events, function(callback, eventName) {
+    return {
+      eventName: eventName,
+      functionSrc: callback.toString(),
+      isNativeFunction: callback.toString().match(/native code/),
+      isFunction: _.isFunction(callback),
+      eventHandler: !_.isFunction(callback) ? callback : ''
+    }
+  });
+
+
+  data.ui = _.map(view.ui, function(element, uiName) {
+    return {
+      ui: uiName,
+      element: serializeElement(element)
+    }
+  });
 
   if (_.isObject(view.model)) {
       data.model = {
@@ -108,19 +159,24 @@ var viewSerializer = function(view) {
 
 
 var serializeElement = function (element, recurse) {
-    var el = $(element),
-        o = {
-            tagName: el[0].tagName
-        };
+    var $el = $(element);
 
-    _.each(el[0].attributes, function(attribute){
-        o[attribute.name] = attribute.value;
+    var obj = {};
+
+    obj.tagName = $el[0].tagName;
+
+    obj.attributes = _.map($el[0].attributes, function(v,i) {
+      return {
+        name: v.name,
+        value: v.value
+      }
     });
 
     if (recurse) {
-        o.children = _.map(el.children(), function(child){
+        obj.children = _.map($el.children(), function(child){
             return serializeElement(child, true);
         }, this);
     }
-    return  o;
+
+    return  obj;
 }

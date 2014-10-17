@@ -1,4 +1,4 @@
-define(["backbone", "underscore", "models/AppComponent", "backboneAgentClient"],
+define(["backbone", "underscore", "models/AppComponent", "client/backboneAgent"],
 function(Backbone, _, AppComponent, backboneAgentClient) {
 
     var AppModel = AppComponent.extend({

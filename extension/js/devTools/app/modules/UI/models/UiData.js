@@ -1,8 +1,8 @@
 define([
   'backbone',
   'underscore',
-  'backboneAgentClient',
-  'inspectedPageClient'
+  'client/backboneAgent',
+  'client/inspectedPage'
   ], function(Backbone, _, backboneAgentClient, inspectedPageClient) {
 
   return Backbone.Model.extend({
