@@ -26,10 +26,14 @@ define(["backbone", "underscore", "client/inspectedPage"], function(Backbone, _,
 
 
         // deferred versioned of execFunction
-        this.exec = function(func) {
-          return inspectedPageClient.exec(func, "window.__backboneAgent");
-        }
+        this.exec = function(func, args) {//
+          args = args || [];
+          return inspectedPageClient.exec(func, args, "window.__backboneAgent");
+        };
 
+        this.waitFor = function(condition) {
+          return inspectedPageClient.waitFor(condition);
+        };
 
         this.initialize();
     })();

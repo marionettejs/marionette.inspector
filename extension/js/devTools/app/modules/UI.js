@@ -44,6 +44,7 @@ define([
       index: function() {
         this.startModule();
         this.showModule();
+        this.fetchData();
       }
     }
   });

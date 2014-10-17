@@ -27,10 +27,7 @@ define(["backbone", "underscore", "panelPort", "utils", "bluebird"],
         // The callback "onExecuted" is called with the function return value.
         // The method is implemented by using devtools.inspectedWindow.eval.
         this.execFunction = function(func, args, onExecuted, context) {
-            if (context === undefined) { context = "this"; }
-
-            var evalCode = "("+func.toString()+").apply("+context+", "+JSON.stringify(args)+");";
-            chrome.devtools.inspectedWindow.eval(evalCode, function(result, isException) {
+            chrome.devtools.inspectedWindow.eval(serializeFunc(func, args, context), function(result, isException) {
                 if (isException) {
                     var error = _.isObject(isException) ? isException.value : result;
                     throw error;
@@ -40,13 +37,10 @@ define(["backbone", "underscore", "panelPort", "utils", "bluebird"],
             });
         };
 
-        this.exec = function(func, context) {
-          if (context === undefined) { context = "this"; }
-
-          var evalCode = "("+func.toString()+").apply("+context+");";
+        this.exec = function(func, args, context) {
 
           return new Promise(function(resolve, reject) {
-            chrome.devtools.inspectedWindow.eval(evalCode, function(result, isException) {
+            chrome.devtools.inspectedWindow.eval(serializeFunc(func, args, context), function(result, isException) {
                 if (isException) {
                   reject(_.isObject(isException) ? isException.value : result)
                 } else {
@@ -55,6 +49,45 @@ define(["backbone", "underscore", "panelPort", "utils", "bluebird"],
             })
           })
         };
+
+        var serializeFunc = function(func, args, context ) {
+          if (context === undefined) { context = "window.__backboneAgent"; }
+          var evalCode = "("+func.toString()+").apply("+context+", "+JSON.stringify(args)+");";
+
+          return evalCode;
+        }
+
+
+       this._waitFor = function(condition, context, done, _maxTimeout) {
+         var that = this;
+         var maxTimeout;
+         if(_maxTimeout === undefined) {
+           maxTimeout = 10000;
+         } else {
+           maxTimeout = _maxTimeout;
+         }
+
+         if(maxTimeout <= 0) {
+           console.log('waitFor timed out on ' + condition);
+           return false;
+         }
+
+         that.exec(condition).then(function(result) {
+          if(result) {
+            setTimeout(done, 100, result);
+          } else {
+            setTimeout(function() { that._waitFor(condition, context, done, maxTimeout - 100) }, 100);
+          }
+         });
+       };
+
+       this.waitFor = function(condition) {
+         var that = this;
+         return new Promise(function(resolve, reject) {
+           that._waitFor(condition, that, resolve);
+         });
+       };
+
 
         // Call the callback when the inspected page DOM is fully loaded
         // or immediately if that is already true.

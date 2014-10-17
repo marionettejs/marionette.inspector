@@ -1,27 +1,19 @@
 define([
   'backbone',
   'underscore',
-  'client/backboneAgent',
-  'client/inspectedPage'
-  ], function(Backbone, _, backboneAgentClient, inspectedPageClient) {
+  'client'
+  ], function(Backbone, _, Client) {
 
   return Backbone.Model.extend({
 
     initialize: function() {
-      this.backboneAgentClient = backboneAgentClient;
-      this.inspectedPageClient = inspectedPageClient;
+      this.client = new Client();
 
-      // this.listenTo(this.inspectedPageClient, '*', this.onEvent)
-      //
-      var interval = window.setInterval(_.bind(this.fetch, this), 500);
-      this.once('change:regionTree', function() {
-        window.clearInterval(interval);
-      })
+      // var interval = window.setInterval(_.bind(this.fetch, this), 500);
+      // this.once('change:regionTree', function() {
+      //   window.clearInterval(interval);
+      // })
     },
-    //
-    // onEvent: function() {
-    //   console.log('event', arguments);
-    // },
 
     fetch: function() {
       this.getRegionTree();
@@ -33,15 +25,10 @@ define([
     },
 
     getRegionTree: function() {
-      this.backboneAgentClient.exec(function() {
-        if (!this.appObserver) {
-          return;
-        }
 
-        return this.appObserver.getRegionTree()
-      }).then(_.bind(function(ret) {
-        this.set('regionTree', ret);
-      }, this));
+      this.client
+        .fetchAppData('regionTree')
+        .then(_.bind(this.set, this, 'regionTree'))
     },
 
     buildViewList: function(regionTree, subPath) {

@@ -14,7 +14,7 @@ _.extend(AppObserver.prototype, {
   radioExpression: "app.wreqr",
 
   // called by inspector to get the current region tree
-  getRegionTree: function() {
+  regionTree: function() {
     return regionInspector(this.getApp());
   },
 
@@ -27,11 +27,7 @@ _.extend(AppObserver.prototype, {
   },
 
   isAppLoaded: function() {
-
-  },
-
-  waitForApp: function() {
-
+    return !_.isUndefined(this.getApp());
   }
 
 });
@@ -162,6 +158,10 @@ var serializeElement = function (element, recurse) {
     var $el = $(element);
 
     var obj = {};
+
+    if (_.isUndefined($el[0])) {
+      return {};
+    }
 
     obj.tagName = $el[0].tagName;
 

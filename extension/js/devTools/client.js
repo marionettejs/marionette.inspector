@@ -10,11 +10,43 @@ define([
     initialize: function() {
       this.backboneAgent = backboneAgent;
       this.inspectedPage = inspectedPage;
+
+      this.exec = _.bind(this.exec, this);
+      this.waitForAppLoad = _.bind(this.waitForAppLoad, this);
     },
 
     start: function() {
       this.backboneAgent.activate();
       this.setupInspectedPageClient();
+    },
+
+    exec: function(fnc, args) {
+      return this.backboneAgent.exec(fnc, args);
+    },
+
+    fetchAppData: function(dataType) {
+      return this.waitForClientLoad()
+        .then(this.waitForAppLoad())
+        .then(_.bind(function() {
+          console.log('app is loaded!Q!!!')
+          return this.exec(function(dataType) {
+            return this.appObserver[dataType]()
+          },[dataType])
+        }, this));
+    },
+
+    waitForAppLoad: function() {
+      return this.backboneAgent.waitFor(function() {
+        console.log('waitinf for app load')
+        return this.appObserver.isAppLoaded();
+      });
+    },
+
+    waitForClientLoad: function() {
+      return this.backboneAgent.waitFor(function() {
+        console.log('waiting for client load');
+        return !_.isUndefined(this.appObserver);
+      });
     },
 
     setupInspectedPageClient: function() {
