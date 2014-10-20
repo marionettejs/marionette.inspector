@@ -13,7 +13,9 @@ define([
 
       this.exec = _.bind(this.exec, this);
       this.waitForAppLoad = _.bind(this.waitForAppLoad, this);
-      this._initializePageReady();
+      this.listenTo(this.inspectedPage, 'ready', function () {
+        this.trigger('page:ready');
+      });
     },
 
     start: function() {
@@ -82,16 +84,6 @@ define([
               }, this));
           }
       }, this));
-    },
-
-    _initializePageReady: function () {
-      var resolvePageReady;
-      this.pageReady = new Promise(function (resolve) {
-        resolvePageReady = resolve;
-      });
-      this.listenTo(this.inspectedPage, 'ready', function () {
-        resolvePageReady();
-      });
     }
   });
 

@@ -77,7 +77,7 @@ require([
 
         window.app = new App();
         app.start();
-        app.pageReady.then(function () {
+        app.once('client:page:ready', function () {
           app.navigate('ui');
         });
     });
