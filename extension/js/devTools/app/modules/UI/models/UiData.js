@@ -25,10 +25,9 @@ define([
     },
 
     getRegionTree: function() {
-
       this.client
         .fetchAppData('regionTree')
-        .then(_.bind(this.set, this, 'regionTree'))
+        .then(_.bind(this.set, this, 'regionTree'));
     },
 
     buildViewList: function(regionTree, subPath) {
