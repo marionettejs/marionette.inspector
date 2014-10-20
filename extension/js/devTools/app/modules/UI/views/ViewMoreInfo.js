@@ -7,6 +7,20 @@ define([
   return Marionette.ItemView.extend({
     template: tpl,
 
+    events: {
+      'click @ui.panelHeader': 'onClickPanelHeader'
+    },
+
+    ui: {
+      panelHeader: '.sidebar-pane-title'
+    },
+
+    onClickPanelHeader: function(e) {
+      var $target = $(e.currentTarget);
+      $target.toggleClass('expanded');
+      $target.next().toggleClass('visible');
+    },
+
     presentModel: function(model) {
       var data = _.clone(model);
 
@@ -99,5 +113,5 @@ define([
       data.ui = this.presentUI(this.model.get('ui'));
       return data;
     }
-  })
+  });
 });
