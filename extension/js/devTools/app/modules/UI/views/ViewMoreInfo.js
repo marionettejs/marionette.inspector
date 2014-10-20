@@ -40,7 +40,7 @@ define([
       var $target = $(e.currentTarget);
       var eventHandler = $target.data('event');
 
-      Radio.command('ui', 'inspect:view-property', {
+      Radio.command('ui', 'inspect:view-function', {
         viewPath: this.model.get('path'),
         viewPropPath: eventHandler
       })
@@ -80,7 +80,15 @@ define([
       return data;
     },
 
-    presentEvents: function(events) {
+    presentEvents: function(viewModel) {
+      var events = [];
+      return events
+        .concat(this._presentEvents(null, viewModel.get('events')))
+        .concat(this._presentEvents('model', viewModel.get('modelEvents')))
+        .concat(this._presentEvents('collection', viewModel.get('collectionEvents')))
+    },
+
+    _presentEvents: function(objName, events) {
       var data = _.clone(events);
 
       if (_.isEmpty(events)) {
@@ -100,11 +108,14 @@ define([
           handler = _event.eventHandler;
         }
 
+
+        var eventName = (!!this.objName) ? (this.objName + " " + _event.eventName) : _event.eventName;
+
         return {
-          event: _event.eventName,
+          event: eventName,
           handler: handler
         }
-      });
+      }, {objName: objName});
 
       return data;
     },
@@ -132,9 +143,8 @@ define([
     serializeData: function() {
       var data = this.serializeModel(this.model);
       data.model = this.presentModel(this.model.get('model'));
-      data.events = this.presentEvents(this.model.get('events'));
       data.options = this.presentOptions(this.model.get('options'));
-
+      data.events = this.presentEvents(this.model);
       data.ui = this.presentUI(this.model.get('ui'));
       return data;
     }

@@ -14,7 +14,7 @@ define([
 
     uiCommands: {
       'inspect:view-element': 'inspectViewElement',
-      'inspect:view-property': 'inspectViewProperty',
+      'inspect:view-function': 'inspectViewFunction',
       'log': 'log'
     },
 
@@ -50,11 +50,17 @@ define([
       }, [data])
     },
 
-    inspectViewProperty: function(data) {
+    inspectViewFunction: function(data) {
       this.client.exec(function(data) {
         var view = this.appObserver.getView(data.viewPath);
-        var property = this.objectPath(view, data.viewPropPath);
-        inspect(property);
+        var fnc = this.objectPath(view, data.viewPropPath);
+
+        if (fnc.toString().match(/native code/)) {
+          console.log('Mn: ', fnc);
+          return;
+        }
+
+        inspect(fnc);
       }, [data])
     },
 

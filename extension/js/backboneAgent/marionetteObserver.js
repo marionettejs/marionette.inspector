@@ -151,16 +151,9 @@ var viewSerializer = function(view) {
     attributes: JSON.stringify({})
   };
 
-  data.events = _.map(view.events, function(callback, eventName) {
-    return {
-      eventName: eventName,
-      functionSrc: callback.toString(),
-      isNativeFunction: callback.toString().match(/native code/),
-      isFunction: _.isFunction(callback),
-      eventHandler: !_.isFunction(callback) ? callback : ''
-    }
-  });
-
+  data.events = serializeEventsHash(view.events);
+  data.modelEvents = serializeEventsHash(view.modelEvents);
+  data.collectionEvents = serializeEventsHash(view.collectionEvents);
 
   data.ui = _.map(view.ui, function(element, uiName) {
     return {
@@ -205,4 +198,16 @@ var serializeElement = function (element, recurse) {
     }
 
     return  obj;
+}
+
+var serializeEventsHash = function(events) {
+  return _.map(events, function(callback, eventName) {
+    return {
+      eventName: eventName,
+      functionSrc: callback.toString(),
+      isNativeFunction: callback.toString().match(/native code/),
+      isFunction: _.isFunction(callback),
+      eventHandler: !_.isFunction(callback) ? callback : ''
+    }
+  });
 }
