@@ -11,16 +11,22 @@ define([
     tagName: 'tr',
 
     ui: {
-      moreInfoLink: "[data-action='more-info']"
+      moreInfoLink: "[data-action='more-info']",
+      inspectElementLink: "[data-action='inspect-element']"
     },
 
     events: {
-      "click @ui.moreInfoLink": "onClickMoreInfo"
+      "click @ui.moreInfoLink": "onClickMoreInfo",
+      "click @ui.inspectElementLink": 'onClickInspectElement'
     },
 
 
     onClickMoreInfo: function() {
       Radio.command('ui', 'show:more-info', this.model);
+    },
+
+    onClickInspectElement: function() {
+      Radio.command('ui', 'link-to:element', this.model.get('path'))
     },
 
     serializeData: function() {

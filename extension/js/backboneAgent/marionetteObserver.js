@@ -1,11 +1,11 @@
 window._ = this._;
 
 var AppObserver = function() {
-  this.appExpression = "app"
-  this.radioExpression = ""
 };
 
 _.extend(AppObserver.prototype, {
+
+  _: window._,
 
   // expression that's eval'd on the window to get the app
   appExpression: "app",
@@ -14,8 +14,19 @@ _.extend(AppObserver.prototype, {
   radioExpression: "app.wreqr",
 
   // called by inspector to get the current region tree
-  regionTree: function() {
-    return regionInspector(this.getApp());
+  regionTree: function(path) {//
+    path = path || '';
+    return regionInspector(this.getApp(), path, true);
+  },
+
+  getView: function(path) {
+    var subTree = regionInspector(this.getApp(), path);
+
+    if (!subTree._view) {
+      throw new Error('could not find view');
+    }
+
+    return subTree._view;
   },
 
   // called by the inspector to get the current channel list
@@ -34,11 +45,12 @@ _.extend(AppObserver.prototype, {
 
 this.appObserver = new AppObserver();
 
+var regionInspector = function(app, path, shouldSerialize) {
+  shouldSerialize = !!shouldSerialize;
 
+  var regions = _regionInspector(app, shouldSerialize)
 
-var regionInspector = function(app, path) {
-  var regions = _regionInspector(app);
-  if (!_.isUndefined(path)) {
+  if (!!path) {
     regions = objectPath(regions, path, {});
   }
 
@@ -46,40 +58,53 @@ var regionInspector = function(app, path) {
   return regions;
 };
 
-var _regionInspector = function(obj) {
+var _regionInspector = function (obj, shouldSerialize) {
+
+
   if (!obj) {
     return {};
   }
 
   if (obj._regionManager) { // app
-    var subViews = _subViews(obj);
+    var subViews = _subViews(obj, shouldSerialize);
     return subViews;
 
   } else if (obj.regionManager) { // layout
-    var subViews = _subViews(obj);
-    subViews._view = viewSerializer(obj) ; //obj;
+    var subViews = _subViews(obj, shouldSerialize);
+    subViews._view =  shouldSerialize ? viewSerializer(obj) :  obj;
     return subViews;
 
   } else if (obj.children) { // collection view
-    return _.map(obj.children._views, _regionInspector);
+    return _.map(obj.children._views, _.partial(_regionInspector, _, shouldSerialize));
 
   } else { // simple view
     return {
-      _view: viewSerializer(obj) //obj
+      _view: shouldSerialize ? viewSerializer(obj) :  obj
     }
   }
 };
 
-var _subViews = function(obj) {
+var _subViews = function(obj, shouldSerialize) {
   var subViews = {};
   var regions = (obj._regionManager || obj.regionManager)._regions;
   _.each(regions, function(region, regionName) {
-    var subRegions = _regionInspector(region.currentView);
+    var subRegions = _regionInspector(region.currentView, shouldSerialize);
     subRegions._region = 'region' //region;
     subViews[regionName] = subRegions;
   });
   return subViews;
 };
+
+var objectPath = function (obj, path, defaultValue) {
+  if (typeof path == "string") path = path.split(".");
+  if (obj === undefined) return defaultValue;
+  if (path.length === 0) return obj;
+  if (obj === null) return defaultValue;
+
+
+  return objectPath(obj[_.first(path)], _.rest(path), defaultValue);
+};
+
 
 var viewSerializer = function(view) {
   var data = {};
@@ -152,7 +177,6 @@ var viewSerializer = function(view) {
   console.log('serialize', data);
   return data;
 }
-
 
 var serializeElement = function (element, recurse) {
     var $el = $(element);

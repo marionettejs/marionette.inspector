@@ -41,10 +41,11 @@ define([
         });
       }
 
-      subPath = subPath || '';
+      subPath = subPath || null;
 
       var subTreeData = _.flatten(_.map(_.omit(regionTree, ['_view', '_region']), function(subTree, regionName) {
-        return this.buildViewList(subTree, subPath+"."+regionName);
+        var path = !!subPath ? subPath+"."+regionName : regionName;
+        return this.buildViewList(subTree, path);
       }, this),1);
 
       return subTreeData.concat(viewData);
