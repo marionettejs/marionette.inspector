@@ -10,12 +10,14 @@ define([
 
     events: {
       'click @ui.panelHeader': 'onClickPanelHeader',
-      'click @ui.uiElement': 'onClickUIElement'
+      'click @ui.uiElement': 'onClickUIElement',
+      'click @ui.eventHandler': 'onClickEventHandler'
     },
 
     ui: {
       panelHeader: '.sidebar-pane-title',
-      uiElement: '[data-ui-elem]'
+      uiElement: '[data-ui-elem]',
+      eventHandler: '[data-event]'
     },
 
     onClickPanelHeader: function(e) {
@@ -28,9 +30,19 @@ define([
       var $target = $(e.currentTarget);
       var uiElement = $target.data('ui-elem');
 
-      Radio.command('ui', 'link-to:element', {
+      Radio.command('ui', 'inspect:view-element', {
         viewPath: this.model.get('path'),
         viewPropPath: ['ui'].concat(uiElement).join('.')
+      })
+    },
+
+    onClickEventHandler: function(e) {
+      var $target = $(e.currentTarget);
+      var eventHandler = $target.data('event');
+
+      Radio.command('ui', 'inspect:view-property', {
+        viewPath: this.model.get('path'),
+        viewPropPath: eventHandler
       })
     },
 

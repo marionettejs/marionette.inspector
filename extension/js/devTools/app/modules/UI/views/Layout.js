@@ -33,7 +33,7 @@ define([
 
       this.getRegion('viewList').show(new ViewList({
         collection: views
-      }))
+      }));
     },
 
     showMoreInfo: function(viewModel) {

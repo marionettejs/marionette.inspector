@@ -13,7 +13,8 @@ define([
     appName: 'ui',
 
     uiCommands: {
-      'link-to:element': 'linkToElement',
+      'inspect:view-element': 'inspectViewElement',
+      'inspect:view-property': 'inspectViewProperty',
       'log': 'log'
     },
 
@@ -37,7 +38,7 @@ define([
       this.uiData.fetch();
     },
 
-    linkToElement: function(data) {
+    inspectViewElement: function(data) {
       this.client.exec(function(data) {
         var view = this.appObserver.getView(data.viewPath);
         var element = this.objectPath(view, data.viewPropPath);
@@ -46,6 +47,14 @@ define([
         element = element.length ? element[0] : element;
 
         inspect(element);
+      }, [data])
+    },
+
+    inspectViewProperty: function(data) {
+      this.client.exec(function(data) {
+        var view = this.appObserver.getView(data.viewPath);
+        var property = this.objectPath(view, data.viewPropPath);
+        inspect(property);
       }, [data])
     },
 
