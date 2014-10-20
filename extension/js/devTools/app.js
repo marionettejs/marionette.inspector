@@ -35,6 +35,7 @@ define([
 
       this.client = new Client();
       this.client.start();
+      this.pageReady = this.client.pageReady;
     },
 
     setupData: function() {

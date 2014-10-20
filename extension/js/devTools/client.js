@@ -13,6 +13,7 @@ define([
 
       this.exec = _.bind(this.exec, this);
       this.waitForAppLoad = _.bind(this.waitForAppLoad, this);
+      this._initializePageReady();
     },
 
     start: function() {
@@ -28,7 +29,7 @@ define([
       return this.waitForClientLoad()
         .then(this.waitForAppLoad())
         .then(_.bind(function() {
-          console.log('app is loaded!Q!!!')
+          console.log('app is loaded!Q!!!');
           return this.exec(function(dataType) {
             return this.appObserver[dataType]()
           },[dataType])
@@ -37,7 +38,7 @@ define([
 
     waitForAppLoad: function() {
       return this.backboneAgent.waitFor(function() {
-        console.log('waitinf for app load')
+        console.log('waiting for app load');
         return this.appObserver.isAppLoaded();
       });
     },
@@ -80,11 +81,18 @@ define([
                   }
               }, this));
           }
-
-          //window.location.href = "";
       }, this));
-    }
+    },
 
+    _initializePageReady: function () {
+      var resolvePageReady;
+      this.pageReady = new Promise(function (resolve) {
+        resolvePageReady = resolve;
+      });
+      this.listenTo(this.inspectedPage, 'ready', function () {
+        resolvePageReady();
+      });
+    }
   });
 
 
