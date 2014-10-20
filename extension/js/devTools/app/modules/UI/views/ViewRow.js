@@ -12,12 +12,14 @@ define([
 
     ui: {
       moreInfoLink: "[data-action='more-info']",
-      inspectElementLink: "[data-action='inspect-element']"
+      inspectElementLink: "[data-action='inspect-element']",
+      logViewLink: "[data-action='log-view']"
     },
 
     events: {
       "click @ui.moreInfoLink": "onClickMoreInfo",
-      "click @ui.inspectElementLink": 'onClickInspectElement'
+      "click @ui.inspectElementLink": 'onClickInspectElement',
+      "click @ui.logViewLink": 'onClickLogViewLink'
     },
 
 
@@ -27,6 +29,13 @@ define([
 
     onClickInspectElement: function() {
       Radio.command('ui', 'link-to:element', this.model.get('path'))
+    },
+
+    onClickLogViewLink: function() {
+      Radio.command('ui', 'log', {
+        viewPath: this.model.get('path'),
+        message: 'view'
+      })
     },
 
     serializeData: function() {

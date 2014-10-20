@@ -13,7 +13,8 @@ define([
     appName: 'ui',
 
     uiCommands: {
-      'link-to:element': 'linkToElement'
+      'link-to:element': 'linkToElement',
+      'log': 'log'
     },
 
     initialize: function() {
@@ -40,9 +41,16 @@ define([
       this.client.exec(function(viewPath) {
         var view = this.appObserver.getView(viewPath);
         var element = view.el;
-        console.log('link to element', element);
         inspect(element);
       }, [viewPath])
+    },
+
+    log: function(data) {
+      this.client.exec(function(data) {
+        var view = this.appObserver.getView(data.viewPath);
+        window.temp = view;
+        console.log('MN: temp = ', view);
+      }, [data])
     },
 
     showModule: function() {
