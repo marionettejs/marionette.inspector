@@ -34,6 +34,9 @@ define([
       }));
 
       this.client = new Client();
+      this.listenTo(this.client, 'page:ready', function () {
+        this.trigger('client:page:ready');
+      });
       this.client.start();
     },
 

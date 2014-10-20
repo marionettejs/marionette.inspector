@@ -40,8 +40,10 @@ define(["backbone", "underscore", "panelPort", "utils", "bluebird"],
         this.exec = function(func, args, context) {
 
           return new Promise(function(resolve, reject) {
-            chrome.devtools.inspectedWindow.eval(serializeFunc(func, args, context), function(result, isException) {
+            var serializedFn = serializeFunc(func, args, context);
+            chrome.devtools.inspectedWindow.eval(serializedFn, function(result, isException) {
                 if (isException) {
+                  console.log("exec failed for " + serializedFn);
                   reject(_.isObject(isException) ? isException.value : result)
                 } else {
                   resolve(result)
@@ -55,10 +57,10 @@ define(["backbone", "underscore", "panelPort", "utils", "bluebird"],
           var evalCode = "("+func.toString()+").apply("+context+", "+JSON.stringify(args)+");";
 
           return evalCode;
-        }
+        };
 
 
-       this._waitFor = function(condition, context, done, _maxTimeout) {
+       this._waitFor = function(condition, context, done, _maxTimeout, fail) {
          var that = this;
          var maxTimeout;
          if(_maxTimeout === undefined) {
@@ -69,6 +71,7 @@ define(["backbone", "underscore", "panelPort", "utils", "bluebird"],
 
          if(maxTimeout <= 0) {
            console.log('waitFor timed out on ' + condition);
+           fail();
            return false;
          }
 
@@ -84,7 +87,7 @@ define(["backbone", "underscore", "panelPort", "utils", "bluebird"],
        this.waitFor = function(condition) {
          var that = this;
          return new Promise(function(resolve, reject) {
-           that._waitFor(condition, that, resolve);
+           that._waitFor(condition, that, resolve, reject);
          });
        };
 

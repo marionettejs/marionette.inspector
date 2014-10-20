@@ -77,7 +77,9 @@ require([
 
         window.app = new App();
         app.start();
-        app.navigate('ui');
+        app.once('client:page:ready', function () {
+          app.navigate('ui');
+        });
     });
 
     console.log('devtools started!')

@@ -27,7 +27,7 @@ _.extend(AppObserver.prototype, {
   },
 
   isAppLoaded: function() {
-    return !_.isUndefined(this.getApp());
+    return window.eval("typeof " + this.appExpression + " !== 'undefined'");
   }
 
 });
