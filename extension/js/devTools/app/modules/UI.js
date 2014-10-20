@@ -2,16 +2,25 @@ define([
   'marionette',
   'util/Radio',
   'util/Logger',
+  'client',
   'app/modules/UI/views/Layout',
   'app/modules/UI/models/UiData'
-], function(Marionette, Radio, Logger, Layout, UiData) {
+], function(Marionette, Radio, Logger, Client, Layout, UiData) {
   return Marionette.Module.extend({
 
     channelName: 'ui',
+
     appName: 'ui',
+
+    uiCommands: {
+      'inspect:view-element': 'inspectViewElement',
+      'inspect:view-function': 'inspectViewFunction',
+      'log': 'log'
+    },
 
     initialize: function() {
       console.log('Radio App Initialized');
+      this.client = new Client();
       this.setupData();
       this.setupEvents();
     },
@@ -22,10 +31,45 @@ define([
     },
 
     setupEvents: function() {
+      Radio.connectCommands('ui', this.uiCommands, this);
     },
 
     fetchData: function() {
       this.uiData.fetch();
+    },
+
+    inspectViewElement: function(data) {
+      this.client.exec(function(data) {
+        var view = this.appObserver.getView(data.viewPath);
+        var element = this.objectPath(view, data.viewPropPath);
+
+        // if it's a jQuery element, get the dom element
+        element = element.length ? element[0] : element;
+
+        inspect(element);
+      }, [data])
+    },
+
+    inspectViewFunction: function(data) {
+      this.client.exec(function(data) {
+        var view = this.appObserver.getView(data.viewPath);
+        var fnc = this.objectPath(view, data.viewPropPath);
+
+        if (fnc.toString().match(/native code/)) {
+          console.log('Mn: ', fnc);
+          return;
+        }
+
+        inspect(fnc);
+      }, [data])
+    },
+
+    log: function(data) {
+      this.client.exec(function(data) {
+        var view = this.appObserver.getView(data.viewPath);
+        window.temp = view;
+        console.log('MN: temp = ', view);
+      }, [data])
     },
 
     showModule: function() {

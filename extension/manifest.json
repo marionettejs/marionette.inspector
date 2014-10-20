@@ -1,14 +1,15 @@
 {
   "name": "Marionette Inspector",
-  "version": "0.0.1",
-  "description": "....",
+  "version": "0.0.2",
+  "description": "A devtool for Marionette",
   "author": "Jason Laster",
   "minimum_chrome_version": "22.0",
   "icons": {
-    "16": "img/extension16.png",
-    "48": "img/extension48.png",
-    "128": "img/extension128.png"
+    "16": "img/marionette-16.png",
+    "48": "img/marionette-48.png",
+    "128": "img/marionette-128.jpg"
   },
+
   "manifest_version": 2,
 
   "devtools_page": "devtools.html",
@@ -26,16 +27,14 @@
     }
   ],
 
-  // needed by backboneAgent loader
   "web_accessible_resources": [
     "js/lib/*",
     "js/backboneAgent/*"
   ],
 
-  // fix the handlebars template unsafe eval error
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 
   "permissions": [
-    "tabs" // needed for accessing tab urls (to check if they changed)
+    "tabs"
   ]
 }
