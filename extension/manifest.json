@@ -5,10 +5,11 @@
   "author": "Jason Laster",
   "minimum_chrome_version": "22.0",
   "icons": {
-    "16": "img/extension16.png",
-    "48": "img/extension48.png",
-    "128": "img/extension128.png"
+    "16": "img/marionette-16.png",
+    "48": "img/marionette-48.png",
+    "128": "img/marionette-128.jpg"
   },
+
   "manifest_version": 2,
 
   "devtools_page": "devtools.html",
