@@ -1,24 +1,37 @@
 define([
   'marionette',
+  'util/Radio',
   "text!templates/devTools/ui/moreInfo.html",
   'util/presenters/formatEL'
-], function(Marionette, tpl, formatEL) {
+], function(Marionette, Radio, tpl, formatEL) {
 
   return Marionette.ItemView.extend({
     template: tpl,
 
     events: {
-      'click @ui.panelHeader': 'onClickPanelHeader'
+      'click @ui.panelHeader': 'onClickPanelHeader',
+      'click @ui.uiElement': 'onClickUIElement'
     },
 
     ui: {
-      panelHeader: '.sidebar-pane-title'
+      panelHeader: '.sidebar-pane-title',
+      uiElement: '[data-ui-elem]'
     },
 
     onClickPanelHeader: function(e) {
       var $target = $(e.currentTarget);
       $target.toggleClass('expanded');
       $target.next().toggleClass('visible');
+    },
+
+    onClickUIElement: function(e) {
+      var $target = $(e.currentTarget);
+      var uiElement = $target.data('ui-elem');
+
+      Radio.command('ui', 'link-to:element', {
+        viewPath: this.model.get('path'),
+        viewPropPath: ['ui'].concat(uiElement).join('.')
+      })
     },
 
     presentModel: function(model) {

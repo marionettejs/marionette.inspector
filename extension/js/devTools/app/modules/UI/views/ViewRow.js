@@ -28,7 +28,10 @@ define([
     },
 
     onClickInspectElement: function() {
-      Radio.command('ui', 'link-to:element', this.model.get('path'))
+      Radio.command('ui', 'link-to:element', {
+        viewPath: this.model.get('path'),
+        viewPropPath: 'el'
+      })
     },
 
     onClickLogViewLink: function() {

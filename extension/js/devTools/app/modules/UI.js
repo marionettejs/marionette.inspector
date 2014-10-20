@@ -37,12 +37,16 @@ define([
       this.uiData.fetch();
     },
 
-    linkToElement: function(viewPath) {
-      this.client.exec(function(viewPath) {
-        var view = this.appObserver.getView(viewPath);
-        var element = view.el;
+    linkToElement: function(data) {
+      this.client.exec(function(data) {
+        var view = this.appObserver.getView(data.viewPath);
+        var element = this.objectPath(view, data.viewPropPath);
+
+        // if it's a jQuery element, get the dom element
+        element = element.length ? element[0] : element;
+
         inspect(element);
-      }, [viewPath])
+      }, [data])
     },
 
     log: function(data) {

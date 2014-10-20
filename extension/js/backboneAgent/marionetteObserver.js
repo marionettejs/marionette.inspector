@@ -105,6 +105,8 @@ var objectPath = function (obj, path, defaultValue) {
   return objectPath(obj[_.first(path)], _.rest(path), defaultValue);
 };
 
+this.objectPath = objectPath;
+
 
 var viewSerializer = function(view) {
   var data = {};
