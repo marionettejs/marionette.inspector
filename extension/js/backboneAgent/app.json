@@ -11,7 +11,9 @@
         "underscore-contrib.js",
         "utils.js",
         "data.js",
+        "backbone.radio.js",
         "marionetteObserver.js",
+        "eventInterceptor.js",
         "base.js",
         "logic.js"
     ]
