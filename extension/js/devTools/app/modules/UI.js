@@ -5,7 +5,7 @@ define([
   'client',
   'app/modules/UI/views/Layout',
   'app/modules/UI/models/UiData'
-], function(Marionette, Radio, Logger, Client, Layout, UiData) {
+], function(Marionette, Radio, Logger, client, Layout, UiData) {
   return Marionette.Module.extend({
 
     channelName: 'ui',
@@ -20,7 +20,7 @@ define([
 
     initialize: function() {
       console.log('Radio App Initialized');
-      this.client = new Client();
+      this.client = client;
       this.setupData();
       this.setupEvents();
     },

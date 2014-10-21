@@ -2,17 +2,12 @@ define([
   'backbone',
   'underscore',
   'client'
-  ], function(Backbone, _, Client) {
+  ], function(Backbone, _, client) {
 
   return Backbone.Model.extend({
 
     initialize: function() {
-      this.client = new Client();
-
-      // var interval = window.setInterval(_.bind(this.fetch, this), 500);
-      // this.once('change:regionTree', function() {
-      //   window.clearInterval(interval);
-      // })
+      this.client = client;
     },
 
     fetch: function() {

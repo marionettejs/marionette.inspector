@@ -18,7 +18,7 @@ define([
     },
 
     modelEvents: {
-      'change:tool': 'render'
+      'change': 'render',
     },
 
     onShow: function() {
@@ -30,7 +30,7 @@ define([
     },
 
     serializeData: function() {
-      var data = {};
+      var data = this.serializeModel(this.model);
       data.active_tool = currentValue(['ui', 'radio'], this.model.get('tool'));
 
       return data;
