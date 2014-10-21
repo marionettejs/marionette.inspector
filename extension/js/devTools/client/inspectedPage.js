@@ -39,7 +39,7 @@ define(["backbone", "underscore", "panelPort", "utils", "bluebird"],
 
         this.exec = function(func, args, context) {
 
-          return new Promise(function(resolve, reject) {
+          var promise = new Promise(function(resolve, reject) {
             var serializedFn = serializeFunc(func, args, context);
             chrome.devtools.inspectedWindow.eval(serializedFn, function(result, isException) {
                 if (isException) {
@@ -49,7 +49,13 @@ define(["backbone", "underscore", "panelPort", "utils", "bluebird"],
                   resolve(result)
                 }
             })
-          })
+          });
+
+          promise.catch(function(e) {
+            // console.log('exec failed for ' + func);
+          });
+
+          return promise;
         };
 
         var serializeFunc = function(func, args, context ) {
@@ -60,7 +66,7 @@ define(["backbone", "underscore", "panelPort", "utils", "bluebird"],
         };
 
 
-       this._waitFor = function(condition, context, done, _maxTimeout, fail) {
+       this._waitFor = function(condition, context, done, fail, _maxTimeout) {
          var that = this;
          var maxTimeout;
          if(_maxTimeout === undefined) {
@@ -70,8 +76,7 @@ define(["backbone", "underscore", "panelPort", "utils", "bluebird"],
          }
 
          if(maxTimeout <= 0) {
-           console.log('waitFor timed out on ' + condition);
-           fail();
+           fail(new Error('waitFor timed out'));
            return false;
          }
 
@@ -79,16 +84,22 @@ define(["backbone", "underscore", "panelPort", "utils", "bluebird"],
           if(result) {
             setTimeout(done, 100, result);
           } else {
-            setTimeout(function() { that._waitFor(condition, context, done, maxTimeout - 100) }, 100);
+            setTimeout(function() { that._waitFor(condition, context, done, fail, maxTimeout - 100) }, 100);
           }
          });
        };
 
        this.waitFor = function(condition) {
          var that = this;
-         return new Promise(function(resolve, reject) {
+         var promise =  new Promise(function(resolve, reject) {
            that._waitFor(condition, that, resolve, reject);
          });
+
+         promise.catch(function(e) {
+          //  console.log('waitFor failed to complete');
+         });
+
+         return promise;
        };
 
 
