@@ -2,17 +2,9 @@
     "name": "__backboneAgent",
 
     "dependencies": [
-        "../lib/watch.js",
-        "../lib/bluebird.js"
     ],
 
     "files": [
-        "underscore.js",
-        "underscore-contrib.js",
-        "utils.js",
-        "data.js",
-        "marionetteObserver.js",
-        "base.js",
-        "logic.js"
+      "build/backboneAgent.js"
     ]
 }
