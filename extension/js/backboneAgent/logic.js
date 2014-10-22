@@ -5,6 +5,7 @@ debug.active = false; // true for backbone agent debug mode
 // @private
 // Patcha il metodo trigger del componente dell'app.
 var patchAppComponentTrigger = bind(function(appComponent) {
+    var Radio = this.Radio;
     patchFunctionLater(appComponent, "trigger", function(originalFunction) { return function() {
         var result = originalFunction.apply(this, arguments);
 
@@ -226,21 +227,22 @@ var patchBackboneRouter = bind(function(BackboneRouter) {
     }, this));
 }, this);
 
+
+
+var onBackboneDetected = function(Backbone) {
+  debug.log("Backbone detected: ", Backbone);
+
+  // note: the Backbone object might be only partially defined.
+  onceDefined(Backbone, "View", patchBackboneView);
+  onceDefined(Backbone, "Model", patchBackboneModel);
+  onceDefined(Backbone, "Collection", patchBackboneCollection);
+  onceDefined(Backbone, "Router", patchBackboneRouter);
+}
+
 // @private
 // Calls the callback passing to it the Backbone object every time it's detected.
 // The function uses multiple methods of detection.
-var onBackboneDetected = function(callback) {
-    var handleBackbone = function(Backbone) {
-        // skip if already detected
-        // (needed because the app could define Backbone in multiple ways at once)
-        if (getHiddenProperty(Backbone, "isDetected")) return;
-        setHiddenProperty(Backbone, "isDetected", true);
-
-        callback(Backbone);
-    }
-
-    // global
-    onSetted(window, "Backbone", handleBackbone);
+var setupAMDBackboneListener = function(callback) {
 
     // AMD
     patchFunctionLater(window, "define", function(originalFunction) { return function() {
@@ -263,14 +265,9 @@ var onBackboneDetected = function(callback) {
                     // check if Backbone has been defined by the factory fuction
                     // (some factories set "this" to Backbone)
                     var BackboneCandidate = module || this;
-                    var isBackbone = isObject(BackboneCandidate) &&
-                                     typeof BackboneCandidate.View == "function" &&
-                                     typeof BackboneCandidate.Model == "function" &&
-                                     typeof BackboneCandidate.Collection == "function" &&
-                                     typeof BackboneCandidate.Router == "function";
-                    if (isBackbone) {
-                        handleBackbone(BackboneCandidate);
-                    }
+
+                    callback(BackboneCandidate);
+
 
                     return module;
                 }});
@@ -282,20 +279,19 @@ var onBackboneDetected = function(callback) {
     }});
 };
 
+var setupWindowBackboneListener = function(callback) {
+  return onObjectAndPropertiesSetted(window, 'Backbone', ['View', 'Model', 'Router', 'Wreqr', 'Collection'], callback);
+}
+
+
 // @private
 // Metodo eseguito automaticamente all'atto della creazione dell'oggetto.
 var initialize = function() {
     // debug.active = true;
     debug.log("Backbone agent is starting...");
 
-    onBackboneDetected(function(Backbone) {
-        debug.log("Backbone detected: ", Backbone);
-        // note: the Backbone object might be only partially defined.
-        onceDefined(Backbone, "View", patchBackboneView);
-        onceDefined(Backbone, "Model", patchBackboneModel);
-        onceDefined(Backbone, "Collection", patchBackboneCollection);
-        onceDefined(Backbone, "Router", patchBackboneRouter);
-    });
-};
+    setupAMDBackboneListener(onBackboneDetected);
+    setupWindowBackboneListener(onBackboneDetected);
+}
 
 initialize();

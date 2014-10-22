@@ -15,9 +15,14 @@
  */
 
 // @include utils.js
+// @include utils/watchers/stopWatching.js
+// @include utils/watchers/onObjectAndPropertiesSetted.js
+
 // @include data.js
 // @include base.js
 // @include logic.js
+
+
 
 
 /*
