@@ -16,32 +16,12 @@ Ofcourse, there's also a helpful :mag: as well.
 
 ---
 ### Developing Locally
+[Install Guide](docs/developing_locally.md)
 
-##### Installing the Extension in Chrome
-
-###### 1. git clone the repo
-```bash
-git clone git@github.com:MarionetteLabs/marionette.inspector.git
-```
-
-###### 2. build the backboneAgent
-The backboneAgent needs to be built with this grunt command: ``
-
-```bash
-grunt backboneAgent
-```
-
-
-###### 3. install in chrome
-```
-1. go to the Extensions tab in chrome > Window
-2. check the "Developer Mode" checkbox
-3. click the "Load unpacked extension" and select the extension folder in the repo
-```
 
 ---
 ### Special Thanks
 
 **Etsy** - The Inspector has largely been built as an open-source project at Etsy.
 
-**Backbone-Debugger** - The Inspector is built on top of the Backbone Debugger core, written in large part by @Maluen.
+**Backbone-Debugger** - The Inspector is built on top of the [Backbone Debugger](https://github.com/Maluen/Backbone-Debugger) core, written in large part by @Maluen.
