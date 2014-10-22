@@ -5,8 +5,7 @@ debug.active = false; // true for backbone agent debug mode
 // @private
 // Patcha il metodo trigger del componente dell'app.
 var patchAppComponentTrigger = bind(function(appComponent) {
-    var Radio = this.Radio;
-    patchFunctionLater(appComponent, "trigger", function(originalFunction, channel) { return function() {
+    patchFunctionLater(appComponent, "trigger", function(originalFunction) { return function() {
         var result = originalFunction.apply(this, arguments);
 
         // function signature: trigger(eventName, arg1, arg2, ...)
@@ -23,10 +22,6 @@ var patchAppComponentTrigger = bind(function(appComponent) {
         addAppComponentAction(this, new AppComponentAction(
             "Trigger", eventName, data, dataKind
         ));
-
-        if (channel) {
-          Radio.trigger(channel, eventName);
-        }
 
         return result;
     };});
@@ -93,7 +88,7 @@ var patchBackboneView = bind(function(BackboneView) {
 
         // Patcha i metodi del componente dell'app
 
-        patchAppComponentTrigger(view, 'view');
+        patchAppComponentTrigger(view);
         patchAppComponentEvents(view);
 
         patchFunctionLater(view, "delegateEvents", function(originalFunction) { return function() {
@@ -289,26 +284,18 @@ var onBackboneDetected = function(callback) {
 
 // @private
 // Metodo eseguito automaticamente all'atto della creazione dell'oggetto.
-var initialize = bind(function() {
+var initialize = function() {
     // debug.active = true;
     debug.log("Backbone agent is starting...");
 
-    onBackboneDetected(bind(function(Backbone) {
+    onBackboneDetected(function(Backbone) {
         debug.log("Backbone detected: ", Backbone);
-        loadRadio.call({
-          Backbone: Backbone,
-          _: this._
-        });
-        this.Radio = Backbone.Radio.noConflict();
-        this.eventInterceptor = new EventInterceptor(this.Radio);
-        this.eventInterceptor.interceptEvents();
-
         // note: the Backbone object might be only partially defined.
         onceDefined(Backbone, "View", patchBackboneView);
         onceDefined(Backbone, "Model", patchBackboneModel);
         onceDefined(Backbone, "Collection", patchBackboneCollection);
         onceDefined(Backbone, "Router", patchBackboneRouter);
-    }, this));
-}, this);
+    });
+};
 
 initialize();
