@@ -22,7 +22,7 @@ define([
     },
 
     clientEvents: {
-      'page:ready': 'triggerPageReady',
+      'ready': 'triggerPageReady',
       'app:load-failed': 'onAppLoadFail'
     },
 

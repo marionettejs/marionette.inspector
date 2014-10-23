@@ -11,11 +11,13 @@ define([
       this.backboneAgent = backboneAgent;
       this.inspectedPage = inspectedPage;
 
+      // bind deferreds
       this.exec = _.bind(this.exec, this);
       this.waitForAppLoad = _.bind(this.waitForAppLoad, this);
-      this.listenTo(this.inspectedPage, 'ready', function () {
-        this.trigger('page:ready');
-      });
+      this.waitForClientLoad = _.bind(this.waitForClientLoad, this);
+
+      // proxy inspectedPage events
+      this.inspectedPage.on('all', this.trigger, this);
     },
 
     start: function() {

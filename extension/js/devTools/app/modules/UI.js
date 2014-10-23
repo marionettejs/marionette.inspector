@@ -18,6 +18,10 @@ define([
       'log': 'log'
     },
 
+    clientEvents: {
+      'backboneAgent:regionTree:updated': 'onRegionTreeUpdated'
+    },
+
     initialize: function() {
       console.log('Radio App Initialized');
       this.client = client;
@@ -32,6 +36,11 @@ define([
 
     setupEvents: function() {
       Radio.connectCommands('ui', this.uiCommands, this);
+      Marionette.bindEntityEvents(this, this.client, this.clientEvents);
+    },
+
+    onRegionTreeUpdated: function() {
+      this.fetchData();
     },
 
     fetchData: function() {
