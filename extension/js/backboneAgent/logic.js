@@ -1,8 +1,7 @@
 //// LOGIC ////
 
-debug.active = false; // true for backbone agent debug mode
+debug.active = true; // true for backbone agent debug mode
 var hiddenPropertyPrefix = "__backboneDebugger__";
-
 
 var onBackboneDetected = function(Backbone) {
   debug.log("Backbone detected: ", Backbone);
