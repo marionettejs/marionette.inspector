@@ -4,6 +4,8 @@
 
 ![](http://f.cl.ly/items/3A3c421s0p2Y0V0X1E1W/Image%202014-10-20%20at%207.12.22%20PM.png)
 
+### Download it now!
+[Chrome Web Store](https://chrome.google.com/webstore/detail/marionette-inspector/fbgfjlockdhidoaempmjcddibjklhpka?hl=en)
 
 ### A tool for good
 
