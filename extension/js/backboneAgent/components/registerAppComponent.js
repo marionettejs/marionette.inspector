@@ -14,7 +14,8 @@ var registerAppComponent = bind(function(appComponentCategory, appComponent) {
 
     // invia un report riguardante il nuovo componente dell'app
     sendAppComponentReport(appComponentCategory+":new", { componentIndex: appComponentIndex });
-    debug.log("New " + appComponentCategory, appComponent);
+
+    // debug.log("New " + appComponentCategory, appComponent);
 
     return appComponentIndex;
 }, this);

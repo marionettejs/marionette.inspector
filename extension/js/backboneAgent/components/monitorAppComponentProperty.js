@@ -22,7 +22,7 @@ var monitorAppComponentProperty = bind(function(appComponent, property, recursio
             componentProperty: property
         });
 
-        debug.log("Property " + property + " of a " + appComponentInfo.category + " has changed: ", appComponent[property]);
+        // debug.log("Property " + property + " of a " + appComponentInfo.category + " has changed: ", appComponent[property]);
     }, this);
 
     options = options || {};

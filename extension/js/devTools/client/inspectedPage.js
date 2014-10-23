@@ -23,7 +23,6 @@ define(["backbone", "underscore", "panelPort", "utils"],
               _.each(messages, function(message) {
                 if (message && message.target == "page") {
                     message.data = message.data || {};
-                    console.log('ipc: ', message.name, message.data, message);
                     this.trigger(message.name, message.data);
                 }
               }, this);

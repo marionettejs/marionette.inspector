@@ -169,7 +169,7 @@ var viewSerializer = function(view) {
       }
   }
 
-  console.log('serialize', data);
+  // console.log('serialize', data);
   return data;
 }
 
