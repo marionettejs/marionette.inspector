@@ -1,5 +1,5 @@
-define(["backbone", "underscore", "panelPort", "utils", "bluebird"],
-  function(Backbone, _, panelPort, utils, Promise) {
+define(["backbone", "underscore", "panelPort", "utils"],
+  function(Backbone, _, panelPort, utils) {
     var inspectedPageClient = new (function() {
         _.extend(this, Backbone.Events);
 
