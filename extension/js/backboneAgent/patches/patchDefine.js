@@ -23,8 +23,18 @@ var patchDefine = function(callback) {
 
                     // check if Backbone has been defined by the factory fuction
                     // (some factories set "this" to Backbone)
-                    var BackboneCandidate = module || this;
-                    callback(BackboneCandidate);
+                    var BackboneCandidate = module || this;//
+
+
+                    var isBackbone = isObject(BackboneCandidate) &&
+                                     typeof BackboneCandidate.View == "function" &&
+                                     typeof BackboneCandidate.Model == "function" &&
+                                     typeof BackboneCandidate.Collection == "function" &&
+                                     typeof BackboneCandidate.Router == "function";
+                    if (isBackbone) {
+                        callback(BackboneCandidate);
+                    }
+
                     return module;
                 }});
 
