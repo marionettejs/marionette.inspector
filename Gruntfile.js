@@ -30,7 +30,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
 
 
-  grunt.registerTask('backboneAgent', ['clean', 'preprocess']);
+  grunt.registerTask('backboneAgent', ['preprocess']);
 
 
   grunt.registerTask('build', ['backboneAgent']);

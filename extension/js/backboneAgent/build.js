@@ -4,7 +4,6 @@
   *
   */
 
-// @include ../lib/bluebird.js
 // @include ../lib/watch.js
 // @include underscore.js
 // @include underscore-contrib.js
@@ -17,11 +16,7 @@
 // @include utils.js
 // @include utils/watchers/stopWatching.js
 // @include utils/watchers/onObjectAndPropertiesSetted.js
-
-// @include data.js
-// @include base.js
-// @include logic.js
-
+//
 
 
 
@@ -31,3 +26,10 @@
  */
 
 // @include marionetteObserver.js
+// @include marionette/EventInterceptor.js
+//
+
+
+// @include data.js
+// @include base.js
+// @include logic.js

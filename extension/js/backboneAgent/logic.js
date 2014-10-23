@@ -4,18 +4,18 @@ debug.active = false; // true for backbone agent debug mode
 
 // @private
 // Patcha il metodo trigger del componente dell'app.
-var patchAppComponentTrigger = bind(function(appComponent) {
-    var Radio = this.Radio;
-    patchFunctionLater(appComponent, "trigger", function(originalFunction) { return function() {
+var patchAppComponentTrigger = bind(function(appComponent, eventType) {//
+
+    var eventInterceptor = this.eventInterceptor;
+
+    patchFunctionLater(appComponent, "trigger", function(originalFunction) {
+      return function(eventName, component) {
         var result = originalFunction.apply(this, arguments);
 
         // function signature: trigger(eventName, arg1, arg2, ...)
-        var eventName = arguments[0];
-        var eventArguments = undefined;
-        if (arguments.length > 1) { // the event has arguments
-            // get the event arguments by skipping the first function argument (i.e the event name)
-            eventArguments = Array.prototype.slice.call(arguments, 1);
-        }
+        // var eventName = arguments[0];
+        var eventArguments = eventArguments = _.rest(arguments);
+
         // save data only if there is
         var data = eventArguments;
         var dataKind = (data === undefined) ? undefined : "event arguments";
@@ -24,8 +24,13 @@ var patchAppComponentTrigger = bind(function(appComponent) {
             "Trigger", eventName, data, dataKind
         ));
 
+        if (eventType) {
+          eventInterceptor.send(eventType, eventName);
+        }
+
         return result;
-    };});
+    };
+  });
 }, this);
 
 // @private
@@ -89,7 +94,7 @@ var patchBackboneView = bind(function(BackboneView) {
 
         // Patcha i metodi del componente dell'app
 
-        patchAppComponentTrigger(view);
+        patchAppComponentTrigger(view, 'view');
         patchAppComponentEvents(view);
 
         patchFunctionLater(view, "delegateEvents", function(originalFunction) { return function() {
@@ -280,18 +285,24 @@ var setupAMDBackboneListener = function(callback) {
 };
 
 var setupWindowBackboneListener = function(callback) {
-  return onObjectAndPropertiesSetted(window, 'Backbone', ['View', 'Model', 'Router', 'Wreqr', 'Collection'], callback);
+  return onObjectAndPropertiesSetted(
+    window,
+    'Backbone', ['View', 'Model', 'Router', 'Wreqr', 'Collection'],
+    callback
+  );
 }
 
 
 // @private
 // Metodo eseguito automaticamente all'atto della creazione dell'oggetto.
-var initialize = function() {
-    // debug.active = true;
-    debug.log("Backbone agent is starting...");
+this.initialize = function() {
+    debug.active = true;
+    debug.log("Backbone agent is starting...");//
+
+    this.eventInterceptor = new EventInterceptor();
 
     setupAMDBackboneListener(onBackboneDetected);
     setupWindowBackboneListener(onBackboneDetected);
 }
 
-initialize();
+this.initialize();
