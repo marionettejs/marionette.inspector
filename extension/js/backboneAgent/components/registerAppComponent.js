@@ -17,7 +17,8 @@ var registerAppComponent = bind(function(appComponentCategory, appComponent) {
     var reportName = appComponentCategory+":new";
     sendAppComponentReport(reportName, {
       componentIndex: appComponentIndex,
-      type: 'new'
+      type: 'new',
+      name: appComponentCategory
     });
 
     // debug.log("New " + appComponentCategory, appComponent);

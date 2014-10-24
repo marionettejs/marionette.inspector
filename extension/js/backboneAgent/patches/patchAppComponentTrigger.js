@@ -2,8 +2,6 @@
 // Patcha il metodo trigger del componente dell'app.
 var patchAppComponentTrigger = bind(function(appComponent, eventType) {//
 
-    var eventInterceptor = this.eventInterceptor;
-
     patchFunctionLater(appComponent, "trigger", function(originalFunction) {
       return function(eventName, component) {
         var result = originalFunction.apply(this, arguments);
@@ -17,14 +15,9 @@ var patchAppComponentTrigger = bind(function(appComponent, eventType) {//
         var data = eventArguments;
         var dataKind = (data === undefined) ? undefined : "event arguments";
 
-
         addAppComponentAction(this, new AppComponentAction(
             "trigger", eventName, data, dataKind
         ));
-
-        // if (eventType) {
-        //   eventInterceptor.send(eventType, eventName);
-        // }
 
         return result;
     };

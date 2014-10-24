@@ -4,8 +4,18 @@ define([
   'util/Logger',
   'client',
   'app/modules/UI/views/Layout',
-  'app/modules/UI/models/UiData'
-], function(Marionette, Radio, Logger, client, Layout, UiData) {
+  'app/modules/UI/models/UiData',
+  'app/modules/UI/util/ComponentReportToRegionTreeMap'
+], function(
+  Marionette,
+  Radio,
+  Logger,
+  client,
+  Layout,
+  UiData,
+  ComponentReportToRegionTreeMap
+) {
+
   return Marionette.Module.extend({
 
     channelName: 'ui',
@@ -19,7 +29,10 @@ define([
     },
 
     clientEvents: {
-      'backboneAgent:regionTree:updated': 'onRegionTreeUpdated'
+    },
+
+    regionTreeEvents: {
+      'regionTree:update': 'onRegionTreeUpdate'
     },
 
     initialize: function() {
@@ -34,15 +47,17 @@ define([
 
     setupData: function() {
       this.uiData = new UiData();
-      // setInterval(_.bind(this.fetchData, this), 500);
     },
 
     setupEvents: function() {
       Radio.connectCommands('ui', this.uiCommands, this);
       Marionette.bindEntityEvents(this, this.client, this.clientEvents);
+
+      var regionTreeEvents = new ComponentReportToRegionTreeMap();
+      Marionette.bindEntityEvents(this, regionTreeEvents, this.regionTreeEvents);
     },
 
-    onRegionTreeUpdated: function() {
+    onRegionTreeUpdate: function() {
       this.fetchData();
     },
 
