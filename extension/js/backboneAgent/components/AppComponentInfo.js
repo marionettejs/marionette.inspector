@@ -1,12 +1,14 @@
 // @private
 var AppComponentInfo = function(category, index, component, actions) {
 
-    // nome del componente Backbone di cui questo componente dell'app è un discendente.
-    // I valori validi sono "View", "Model", "Collection", "Router"
+    this.component = component;
+
+    // The category is a backbone class  ("View", "Model", "Collection", "Router")
     this.category = category;
-    // usato come identificatore tra tutti i componenti dell'app della sua categoria
+
+    // used to identify the component by index
     this.index = index;
 
-    this.component = component; // oggetto
-    this.actions = actions || []; // array di oggetti AppComponentAction
+    // array of AppComponentAction
+    this.actions = actions || [];
 };

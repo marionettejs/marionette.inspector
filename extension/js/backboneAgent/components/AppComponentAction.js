@@ -6,6 +6,7 @@ var AppComponentAction = function(type, name, data, dataKind) {
     this.type = type; // stringa
     this.name = name; // stringa
     this.data = data; // oggetto
+
     // obbligatorio se data è definito, può essere
     // - "jQuery Event": data è l'oggetto relativo ad un evento jQuery
     // - "event arguments": data è un array di argomenti di un evento Backbone

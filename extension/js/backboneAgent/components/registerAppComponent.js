@@ -7,13 +7,18 @@ var registerAppComponent = bind(function(appComponentCategory, appComponent) {
     // calcola l'indice del nuovo componente
     var appComponentIndex = ++lastAppComponentsIndex[appComponentCategory];
 
-    var appComponentInfo = new AppComponentInfo(appComponentCategory,
-                                                appComponentIndex,
-                                                appComponent);
-    setAppComponentInfo(appComponent, appComponentInfo);
+    setAppComponentInfo(appComponent, new AppComponentInfo(
+      appComponentCategory,
+      appComponentIndex,
+      appComponent
+    ));
 
     // invia un report riguardante il nuovo componente dell'app
-    sendAppComponentReport(appComponentCategory+":new", { componentIndex: appComponentIndex });
+    var reportName = appComponentCategory+":new";
+    sendAppComponentReport(reportName, {
+      componentIndex: appComponentIndex,
+      type: 'new'
+    });
 
     // debug.log("New " + appComponentCategory, appComponent);
 
