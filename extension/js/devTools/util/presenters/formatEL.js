@@ -48,7 +48,7 @@ define(['jquery'], function($) {
   }
 
   function buildTag(element) {
-    var tagName = element.tagName.toLowerCase();
+    var tagName = element.tagName ? element.tagName.toLowerCase() : '';
 
     var openTag =
       $('<span>')
@@ -69,6 +69,11 @@ define(['jquery'], function($) {
   }
 
   function createDOMNode(element) {
+
+    if (_.isEmpty(element)) {
+      return "";
+    }
+
     var tag = $('<span>')
       .addClass('source-code')
       .css('user-select', 'none')
