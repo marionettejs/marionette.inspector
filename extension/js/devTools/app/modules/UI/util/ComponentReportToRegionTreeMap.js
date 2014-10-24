@@ -13,8 +13,7 @@ define([
 
     reportMap: {
       'trigger': ['show'],
-      'operation': ['remove'],
-      'new': ['View']
+      'operation': ['remove']
     },
 
     initialize: function() {
