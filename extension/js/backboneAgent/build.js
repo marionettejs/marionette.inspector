@@ -93,7 +93,6 @@ var _ = this._;
  */
 
 // @include marionetteObserver.js
-// @include marionette/EventInterceptor.js
 //
 
 

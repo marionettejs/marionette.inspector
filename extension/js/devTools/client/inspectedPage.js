@@ -18,7 +18,7 @@ define(["backbone", "underscore", "panelPort", "utils"],
                 messages = [messages];
               }
 
-              console.log('ipc: batch ', JSON.stringify(messages))
+              // console.log('ipc: batch ', JSON.stringify(messages))
 
               _.each(messages, function(message) {
                 if (message && message.target == "page") {

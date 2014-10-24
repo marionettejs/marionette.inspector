@@ -19,8 +19,6 @@ var onBackboneDetected = function(Backbone) {
 this.initialize = function() {
     debug.log("Backbone agent is starting...");//
 
-    this.eventInterceptor = new EventInterceptor();
-
     patchDefine(onBackboneDetected);
     patchBackbone(onBackboneDetected);
 }
