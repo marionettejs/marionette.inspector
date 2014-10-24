@@ -8,8 +8,12 @@ var addAppComponentAction = bind(function(appComponent, appComponentAction) {
     var actionIndex = appComponentInfo.actions.length-1;
 
     // invia un report riguardante la nuova azione
-    sendAppComponentReport(appComponentInfo.category+":"+appComponentInfo.index+":action", {
-        componentActionIndex: actionIndex
+    var reportName = appComponentInfo.category+":"+appComponentInfo.index+":action";
+    sendAppComponentReport(reportName, {
+        componentActionIndex: actionIndex,
+        type: appComponentAction.type,
+        name: appComponentAction.name
+
     });
     //debug.log("New action: ", appComponentAction);
 

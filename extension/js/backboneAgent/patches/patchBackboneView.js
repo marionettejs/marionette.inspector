@@ -53,7 +53,7 @@ var patchBackboneView = bind(function(BackboneView) {
                             // event è l'evento jquery
 
                             addAppComponentAction(view, new AppComponentAction(
-                                "Page event handling", eventType, event, "jQuery Event"
+                                "dom-event", eventType, event, "jQuery Event"
                             ));
 
                             var result = callback.apply(this, arguments);
@@ -76,7 +76,7 @@ var patchBackboneView = bind(function(BackboneView) {
             var result = originalFunction.apply(this, arguments);
 
             addAppComponentAction(this, new AppComponentAction(
-                "Operation", "render"
+                "operation", "render"
             ));
 
             return result;
@@ -86,7 +86,7 @@ var patchBackboneView = bind(function(BackboneView) {
             var result = originalFunction.apply(this, arguments);
 
             addAppComponentAction(this, new AppComponentAction(
-                "Operation", "remove"
+                "operation", "remove"
             ));
 
             return result;
