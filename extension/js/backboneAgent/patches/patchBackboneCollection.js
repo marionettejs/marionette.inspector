@@ -7,9 +7,9 @@ var patchBackboneCollection = bind(function(BackboneCollection) {
         var collectionIndex = registerAppComponent("Collection", collection);
 
         // monitora i cambiamenti alle proprietà d'interesse del componente dell'app
-        monitorAppComponentProperty(collection, "model", 0);
-        monitorAppComponentProperty(collection, "models", 1);
-        monitorAppComponentProperty(collection, "url", 0);
+        // monitorAppComponentProperty(collection, "model", 0);
+        // monitorAppComponentProperty(collection, "models", 1);
+        // monitorAppComponentProperty(collection, "url", 0);
 
         // Patcha i metodi del componente dell'app
 
