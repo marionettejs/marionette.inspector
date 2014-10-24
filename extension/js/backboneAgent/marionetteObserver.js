@@ -54,7 +54,7 @@ var regionInspector = function(app, path, shouldSerialize) {
     regions = objectPath(regions, path, {});
   }
 
-  console.log('ri: ', regions);
+  debug.log('ri: ', regions);
   return regions;
 };
 

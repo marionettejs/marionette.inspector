@@ -1,6 +1,6 @@
 define([
-  'marionette', 'client'
-], function(Marionette, client) {
+  'marionette', 'client', 'util/Logger'
+], function(Marionette, client, logger) {
 
   /**
   * The ComponentReportToRegionTreeMap will proxy
@@ -23,6 +23,7 @@ define([
     },
 
     onClientEvent: function(eventName, data) {
+      logger.log('ui', 'client event');
       var reportType = data.type;
       var reportName = data.name;
 

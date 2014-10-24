@@ -7,10 +7,9 @@ define([
   'util/ModuleRoutes',
   'client',
   'app/views/Layout',
-  'util/Logger',
 ], function(
-  Backbone, Marionette, Radio, Logge, Router, moduleRoutes,
-  client, Layout, Logger) {
+  Backbone, Marionette, Radio, logger, Router, moduleRoutes,
+  client, Layout) {
 
   return Marionette.Application.extend({
 
@@ -27,7 +26,9 @@ define([
     },
 
     onStart: function() {
-      Logger.debug('app start');
+      this.logger = logger;
+
+      logger.log('app', 'start');
 
       this.addRegions({layout: "[data-region='app-region']"});
       this.client = client;
@@ -67,7 +68,7 @@ define([
     },
 
     navigate: function(route) {
-      Logger.debug('app', 'navigate', route);
+      logger.log('app', 'navigate', route);
       this.router.navigate(route, {trigger: true});
     }
 

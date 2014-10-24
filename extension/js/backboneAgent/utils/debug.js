@@ -2,9 +2,21 @@
 // backbone agent debugging utils
 var debug = {
     active: false, // set to true in logic to activate debugging
+
     log: function() {
-        if (!this.active) return;
-        arguments[0] = 'bb: ' + arguments[0];
-        console.log.apply(console, arguments);
+        if (!this.active)
+          return;
+
+        var message = 'bb: ' + _.first(arguments);
+
+        // test the message
+        // if (!message.match(/ri/)) {
+        //   return
+        // }
+
+
+        var args = _.rest(arguments);
+        var styles = "font-weight: bold;";
+        console.log.apply(console, ["%c> %s", styles, message].concat(args));
     }
 }

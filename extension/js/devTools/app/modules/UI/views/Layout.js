@@ -3,9 +3,10 @@ define([
   'backbone',
   'text!templates/devTools/ui/layout.html',
   'util/Radio',
+  'util/Logger',
   'app/modules/UI/views/ViewList',
   'app/modules/UI/views/ViewMoreInfo'
-], function(Marionette, Backbone, tpl, Radio, ViewList, ViewMoreInfo) {
+], function(Marionette, Backbone, tpl, Radio, logger, ViewList, ViewMoreInfo) {
 
   return Marionette.LayoutView.extend({
 
@@ -29,6 +30,7 @@ define([
     },
 
     onRender: function() {
+      logger.log('ui', 'layout rendered');
       var views = new Backbone.Collection(this.model.viewList());
 
       this.getRegion('viewList').show(new ViewList({
