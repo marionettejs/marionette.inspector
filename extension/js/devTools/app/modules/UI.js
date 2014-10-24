@@ -9,7 +9,7 @@ define([
 ], function(
   Marionette,
   Radio,
-  Logger,
+  logger,
   client,
   Layout,
   UiData,
@@ -36,7 +36,6 @@ define([
     },
 
     initialize: function() {
-      console.log('Radio App Initialized');
       this.client = client;
       this.setupData();
       this.setupEvents();
@@ -58,10 +57,12 @@ define([
     },
 
     onRegionTreeUpdate: function() {
+      logger.log('ui', 'region tree event');
       this.fetchData();
     },
 
     fetchData: function() {
+      logger.log('ui', 'fetching data');
       this.uiData.fetch();
     },
 
@@ -108,7 +109,7 @@ define([
     },
 
     startModule: function() {
-      Logger.debug('UI App Started');
+      logger.log('ui', 'Started');
     },
 
     controller: {

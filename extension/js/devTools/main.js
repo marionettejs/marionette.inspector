@@ -62,10 +62,11 @@ require([
   "jquery",
   "handlebars",
   "marionette",
+  "util/Logger",
   "app",
   "app/modules/Radio",
-  "app/modules/UI"
-], function($, Handlebars, Marionette, App, RadioApp, UIApp) {
+  "app/modules/UI",
+], function($, Handlebars, Marionette, logger, App, RadioApp, UIApp) {
 
     Marionette.Renderer.render = function(template, data, view) {
       return Handlebars.compile(template)(data);
@@ -82,5 +83,5 @@ require([
         });
     });
 
-    console.log('devtools started!')
+    logger.log('devtools', 'started!')
 });

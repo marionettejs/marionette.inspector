@@ -1,5 +1,11 @@
-define(["backbone", "underscore", "panelPort", "utils"],
-  function(Backbone, _, panelPort, utils) {
+define([
+  "backbone",
+  "underscore",
+  "panelPort",
+  "utils",
+  "util/Logger"
+],
+  function(Backbone, _, panelPort, utils, logger) {
     var inspectedPageClient = new (function() {
         _.extend(this, Backbone.Events);
 
@@ -18,7 +24,7 @@ define(["backbone", "underscore", "panelPort", "utils"],
                 messages = [messages];
               }
 
-              // console.log('ipc: batch ', JSON.stringify(messages))
+              logger.log('ip', 'batch', JSON.stringify(messages))
 
               _.each(messages, function(message) {
                 if (message && message.target == "page") {
@@ -51,7 +57,7 @@ define(["backbone", "underscore", "panelPort", "utils"],
             var serializedFn = serializeFunc(func, args, context);
             chrome.devtools.inspectedWindow.eval(serializedFn, function(result, isException) {
                 if (isException) {
-                  console.log("exec failed for " + serializedFn);
+                  logger.log("ip", "exec failed for " + serializedFn);
                   reject(_.isObject(isException) ? isException.value : result)
                 } else {
                   resolve(result)
@@ -60,7 +66,7 @@ define(["backbone", "underscore", "panelPort", "utils"],
           });
 
           promise.catch(function(e) {
-            // console.log('exec failed for ' + func);
+            // logger.log("ip", 'exec failed for ' + func);
           });
 
           return promise;
@@ -104,7 +110,7 @@ define(["backbone", "underscore", "panelPort", "utils"],
          });
 
          promise.catch(function(e) {
-          //  console.log('waitFor failed to complete');
+          //  logger.log("ip", 'waitFor failed to complete');
          });
 
          return promise;
