@@ -14,7 +14,6 @@ define([
       this.getRegionTree();
     },
 
-
     viewList: function() {
       return this.buildViewList(this.get('regionTree'));
     },
@@ -27,7 +26,10 @@ define([
 
     buildViewList: function(regionTree, subPath) {
       var list = this._buildViewList(regionTree);
-      list = _.filter(list, function(item) {return _.has(item, 'path')})
+
+      // remove empty objects and regions (kinda a hack)
+      // list = _.filter(list, function(item) {return _.has(item, 'path')})
+      list.shift();
       return list;
     },
 
@@ -35,10 +37,10 @@ define([
       var viewData = {};
       regionTree = regionTree || {};
 
+      viewData.path = subPath || '';
+
       if (_.has(regionTree, '_view')) {
-        viewData = _.extend(regionTree._view, {
-          path: subPath
-        });
+        viewData = _.extend(viewData, regionTree._view);
       }
 
       subPath = subPath || null;
@@ -48,7 +50,7 @@ define([
         return this._buildViewList(subTree, path);
       }, this),1);
 
-      return subTreeData.concat(viewData);
+      return [viewData].concat(subTreeData);// .concat(viewData);
     }
   });
 });
