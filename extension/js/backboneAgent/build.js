@@ -8,6 +8,9 @@
 // @include ../lib/underscore.js
 // @include ../lib/underscore-contrib.js
 
+
+var _ = this._;
+
 /*
  * UTILS
  *

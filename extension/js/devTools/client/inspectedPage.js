@@ -12,12 +12,20 @@ define(["backbone", "underscore", "panelPort", "utils"],
 
             // Turn inspected page messages into Backbone events,
             // so that Backbone.Events methods like the useful "listenTo" can be used
-            panelPort.onMessage.addListener(_.bind(function(message) {
+            panelPort.onMessage.addListener(_.bind(function(messages) {
+
+              if (!_.isArray(messages)) {
+                messages = [messages];
+              }
+
+              console.log('ipc: batch ', messages)
+
+              _.each(messages, function(message) {
                 if (message && message.target == "page") {
                     message.data = message.data || {};
-                    // console.log('ipc: ', message.name, message.data, message);
                     this.trigger(message.name, message.data);
                 }
+              }, this);
             }, this));
         };
 

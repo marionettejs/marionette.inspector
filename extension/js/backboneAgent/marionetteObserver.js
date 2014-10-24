@@ -75,7 +75,10 @@ var _regionInspector = function (obj, shouldSerialize) {
     return subViews;
 
   } else if (obj.children) { // collection view
-    return _.map(obj.children._views, _.partial(_regionInspector, _, shouldSerialize));
+
+    return _.map(obj.children._views, function(view) {
+      return _regionInspector(view, shouldSerialize);
+    }, this, _regionInspector, shouldSerialize);
 
   } else { // simple view
     return {
@@ -169,7 +172,7 @@ var viewSerializer = function(view) {
       }
   }
 
-  console.log('serialize', data);
+  // console.log('serialize', data);
   return data;
 }
 
