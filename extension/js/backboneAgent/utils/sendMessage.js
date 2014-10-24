@@ -13,11 +13,26 @@ _.extend(QueuePostMessages.prototype, {
   push: function(message) {
     message.target = "page"; // il messaggio riguarda la pagina
 
+    // console.log('!!! ', message.name, this.queue.length, new Date().getTime());
     this.queue.push(message);
-    this.sendBatch();
+
+    if (this.queue.length >= 1000) {
+      this.sendBatchImmediate();
+    } else {
+      this.sendBatch();
+    }
   },
 
   sendBatch: function() {
+    this.send();
+  },
+
+  sendBatchImmediate: function() {
+    this.send();
+  },
+
+  send: function() {
+    // console.log('!!!! sending batch message')
     window.postMessage(this.queue, "*");
     this.queue = [];
   }
