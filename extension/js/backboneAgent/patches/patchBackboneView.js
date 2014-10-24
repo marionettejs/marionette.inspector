@@ -7,11 +7,11 @@ var patchBackboneView = bind(function(BackboneView) {
         var viewIndex = registerAppComponent("View", view);
 
         // monitora i cambiamenti alle proprietà d'interesse del componente dell'app
-        monitorAppComponentProperty(view, "model", 0);
-        monitorAppComponentProperty(view, "collection", 0);
-        monitorAppComponentProperty(view, "el.tagName", 0, {stealth: true});
-        monitorAppComponentProperty(view, "el.id", 0, {stealth: true});
-        monitorAppComponentProperty(view, "el.className", 0, {stealth: true});
+        // monitorAppComponentProperty(view, "model", 0);
+        // monitorAppComponentProperty(view, "collection", 0);
+        // monitorAppComponentProperty(view, "el.tagName", 0, {stealth: true});
+        // monitorAppComponentProperty(view, "el.id", 0, {stealth: true});
+        // monitorAppComponentProperty(view, "el.className", 0, {stealth: true});
 
         // Patcha i metodi del componente dell'app
 
