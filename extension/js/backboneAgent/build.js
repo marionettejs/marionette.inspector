@@ -98,6 +98,9 @@ var _ = this._;
 // @include marionette/serializeElement.js
 // @include marionette/viewSerializer.js
 // @include marionette/regionInspector.js
+// @include marionette/getViewList.js
+// @include marionette/search.js
+// @include marionette/stopSearch.js
 // @include marionette/appObserver.js
 
 

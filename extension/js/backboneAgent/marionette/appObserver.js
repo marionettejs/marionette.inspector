@@ -18,6 +18,14 @@ _.extend(AppObserver.prototype, {
     return regionInspector(this.getApp(), path, true);
   },
 
+  search: function() {
+    search(this, this.getApp());
+  },
+
+  stopSearch: function() {
+    stopSearch();
+  },
+
   getView: function(path) {
     var subTree = regionInspector(this.getApp(), path);
 
