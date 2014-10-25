@@ -32,9 +32,22 @@ define([
     events: {
       "click @ui.moreInfoLink": "onClickMoreInfo",
       "click @ui.inspectElementLink": 'onClickInspectElement',
-      "click @ui.logViewLink": 'onClickLogViewLink'
+      "click @ui.logViewLink": 'onClickLogViewLink',
+      "mouseover": 'onMouseOver',
+      "mouseleave": 'onMouseLeave'
     },
 
+    onMouseOver: function() {
+      Radio.command('ui', 'highlight-view', {
+        viewPath: this.model.get('path'),
+      });
+    },
+
+    onMouseLeave: function() {
+      Radio.command('ui', 'unhighlight-view', {
+        viewPath: this.model.get('path'),
+      });
+    },
 
     onClickMoreInfo: function() {
       Radio.command('ui', 'show:more-info', this.model);
