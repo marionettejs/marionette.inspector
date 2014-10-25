@@ -38,7 +38,7 @@ define([
     onRender: function() {
       logger.log('ui', 'layout rendered');
       var list = this.model.viewList();
-      var views = new Backbone.Collection(list);
+      var views = this.collection.reset(list);
 
       this.getRegion('viewList').show(new ViewList({
         collection: views

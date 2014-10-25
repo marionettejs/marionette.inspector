@@ -94,10 +94,16 @@ var _ = this._;
  *
  */
 
-// @include marionette/serializeEventsHash.js
-// @include marionette/serializeElement.js
-// @include marionette/viewSerializer.js
-// @include marionette/regionInspector.js
+// @include marionette/serialize/serializeEventsHash.js
+// @include marionette/serialize/serializeElement.js
+// @include marionette/serialize/viewSerializer.js
+// @include marionette/actions/search.js
+// @include marionette/actions/stopSearch.js
+// @include marionette/actions/highlightEl.js
+// @include marionette/actions/unhighlightEl.js
+// @include marionette/utils/viewList.js
+// @include marionette/utils/regionInspector.js
+
 // @include marionette/appObserver.js
 
 

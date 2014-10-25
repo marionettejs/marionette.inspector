@@ -18,6 +18,29 @@ _.extend(AppObserver.prototype, {
     return regionInspector(this.getApp(), path, true);
   },
 
+  startSearch: function() {
+    search(this, this.getApp());
+  },
+
+  stopSearch: function() {
+    stopSearch(this, this.getApp());
+  },
+
+  highlightView: function(data) {
+    var view = this.getView(data.viewPath);
+
+    // unhighlight all of the views
+    var $els = _.pluck(this.viewList(), '$el');
+    _.each($els, unhighlightEl);
+
+    highlightEl(view.$el)
+  },
+
+  unhighlightView: function(data) {
+    var view = this.getView(data.viewPath);
+    unhighlightEl(view.$el)
+  },
+
   getView: function(path) {
     var subTree = regionInspector(this.getApp(), path);
 
@@ -26,6 +49,11 @@ _.extend(AppObserver.prototype, {
     }
 
     return subTree._view;
+  },
+
+  viewList: function() {
+    var regionTree = regionInspector(app, '', false);
+    return viewList(regionTree);
   },
 
   // called by the inspector to get the current channel list

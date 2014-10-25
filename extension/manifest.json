@@ -23,6 +23,7 @@
     {
       "matches": ["http://*/*", "https://*/*", "file://*/*"],
       "js": ["js/marionette_contentscript.js"],
+      "css": ["css/backboneAgent.css"],
       "run_at": "document_start"
     }
   ],

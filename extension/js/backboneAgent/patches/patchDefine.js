@@ -4,7 +4,8 @@
 var patchDefine = function(callback) {
 
     // AMD
-    patchFunctionLater(window, "define", function(originalFunction) { return function() {
+    patchFunctionLater(window, "define", function(originalFunction) {
+      return function() {
         // function arguments: (id? : String, dependencies? : Array, factory : Function)
 
         // make arguments editable

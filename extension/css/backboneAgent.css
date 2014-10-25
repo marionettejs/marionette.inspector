@@ -1,0 +1,4 @@
+.marionette-inspector-highlighted-element {
+	outline: rgba(161, 202, 223, 0.67) !important;
+  background: rgba(217, 237, 247, 0.67) !important;
+}
