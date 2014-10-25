@@ -3,7 +3,7 @@ define([
     'util/Logger',
     'util/Radio'
 ],
-function(Backbone, Logger, Radio) {
+function(Backbone, logger, Radio) {
 
     var Router = Backbone.Router.extend({
 
@@ -40,7 +40,7 @@ function(Backbone, Logger, Radio) {
         },
 
         runModule: function(moduleName, moduleClass, method, routeArgs) {
-            Logger.debug('router', 'starting module', moduleName);
+            logger.log('router', 'starting module', moduleName);
 
             var module = this.app[moduleName];
 
