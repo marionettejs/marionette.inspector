@@ -37,6 +37,12 @@ define([
       "mouseleave": 'onMouseLeave'
     },
 
+    modelEvents: {
+      'search:mouseover': 'onSearchMouseOver',
+      'search:mouseleave': 'onSearchMouseLeave',
+      'search:mousedown': 'onSearchMouseDown',
+    },
+
     onMouseOver: function() {
       Radio.command('ui', 'highlight-view', {
         viewPath: this.model.get('path'),
@@ -65,6 +71,18 @@ define([
         viewPath: this.model.get('path'),
         message: 'view'
       })
+    },
+
+    onSearchMouseOver: function() {
+      this.$el.addClass('bg-info');
+    },
+
+    onSearchMouseLeave: function() {
+      this.$el.removeClass('bg-info');
+    },
+
+    onSearchMouseDown: function() {
+      this.$el.addClass('bg-info');
     },
 
     serializeData: function() {

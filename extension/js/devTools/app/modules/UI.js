@@ -1,5 +1,6 @@
 define([
   'marionette',
+  'backbone',
   'util/Radio',
   'util/Logger',
   'client',
@@ -8,6 +9,7 @@ define([
   'app/modules/UI/util/ComponentReportToRegionTreeMap'
 ], function(
   Marionette,
+  Backbone,
   Radio,
   logger,
   client,
@@ -31,6 +33,7 @@ define([
     },
 
     clientEvents: {
+      'backboneAgent:search': 'onSearch'
     },
 
     regionTreeEvents: {
@@ -48,6 +51,7 @@ define([
 
     setupData: function() {
       this.uiData = new UiData();
+      this.viewList = new Backbone.Collection();
     },
 
     setupEvents: function() {
@@ -61,6 +65,15 @@ define([
     onRegionTreeUpdate: function() {
       logger.log('ui', 'region tree event');
       this.fetchData();
+    },
+
+    onSearch: function(data) {
+      var viewModel = this.viewList.findWhere({cid: data.cid});
+      if (!viewModel) {
+        return;
+      }
+
+      viewModel.trigger('search:' + data.name);
     },
 
     fetchData: function() {
@@ -135,7 +148,8 @@ define([
 
     showModule: function() {
       var layout = new Layout({
-        model: this.uiData
+        model: this.uiData,
+        collection: this.viewList
       });
 
       Radio.command('app', 'show:tool', this.appName, layout);
