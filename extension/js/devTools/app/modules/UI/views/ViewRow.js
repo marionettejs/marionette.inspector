@@ -20,7 +20,7 @@ define([
       var parentName = parentPath ? "treegrid-parent-" + parentPath : '';
 
       //treegrid-8 treegrid-parent-7
-      return name + " " + parentName;
+      return ["view-row", name, parentName].join(" ");
     },
 
     ui: {

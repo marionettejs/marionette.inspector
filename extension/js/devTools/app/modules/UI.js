@@ -29,6 +29,8 @@ define([
       'inspect:view-function': 'inspectViewFunction',
       'highlight-view': 'highlightView',
       'unhighlight-view': 'unhighlightView',
+      'search:start': 'startSearch',
+      'search:stop': 'stopSearch',
       'log': 'log'
     },
 
@@ -121,6 +123,14 @@ define([
 
     unhighlightView: function(data) {
       this.client.appObserverCall('unhighlightView', data);
+    },
+
+    startSearch: function() {
+      this.client.appObserverCall('startSearch');
+    },
+
+    stopSearch: function() {
+      this.client.appObserverCall('stopSearch');
     },
 
     showModule: function() {

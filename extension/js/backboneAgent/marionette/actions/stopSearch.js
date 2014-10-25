@@ -3,7 +3,7 @@
  * stopSearch stops DevTools.search()
  *
  */
-var stopSearch = function(app) {
+var stopSearch = function(appObserver, app) {
     var regionTree = regionInspector(app, '', false);
     var views = viewList(regionTree);
     var $els = $(_.pluck(views, 'el'));

@@ -18,7 +18,7 @@ _.extend(AppObserver.prototype, {
     return regionInspector(this.getApp(), path, true);
   },
 
-  search: function() {
+  startSearch: function() {
     search(this, this.getApp());
   },
 
