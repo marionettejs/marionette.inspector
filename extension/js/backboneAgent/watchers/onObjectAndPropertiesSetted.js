@@ -15,7 +15,7 @@ var onObjectAndPropertiesSetted = function(parentObject, objectName, properties,
       // exists is separate than has, because not only
       // do we want the prop set, but it must be more than undefiened
       function exists(obj, prop) {
-        return !_.isUndefined(obj[prop])
+        return !_.isUndefined(obj[prop]);
       }
 
       var allPropertiesSet = _.all(properties, _.partial(exists, newVal));
@@ -24,13 +24,17 @@ var onObjectAndPropertiesSetted = function(parentObject, objectName, properties,
       }
 
       // clean up all of the defined property poop
-      _.each(properties, function(_prop, key) {//
+      _.each(properties, function(_prop, key) {
+        if (!_.has(newVal.watchers, _prop)) {
+          return;
+        }
+
         stopWatching(newVal, _prop, onPropertySet);
       });
 
       stopWatching(parentObject, objectName, onObjectSet);
 
-      callback(newVal)
+      callback(newVal);
     }
 
     _.each(properties, function(prop) {
@@ -39,4 +43,4 @@ var onObjectAndPropertiesSetted = function(parentObject, objectName, properties,
   }
 
   watch(parentObject, objectName, onObjectSet, 0);
-}
+};
