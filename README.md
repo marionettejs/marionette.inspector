@@ -2,7 +2,7 @@
 
 ## Marionette Inspector
 
-![](http://f.cl.ly/items/3A3c421s0p2Y0V0X1E1W/Image%202014-10-20%20at%207.12.22%20PM.png)
+![](http://f.cl.ly/items/0c2j1N123b3w2E2g1n3d/Image%202014-10-25%20at%2011.54.48%20AM.png)
 
 ### Download it now!
 [Chrome Web Store](https://chrome.google.com/webstore/detail/marionette-inspector/fbgfjlockdhidoaempmjcddibjklhpka?hl=en)
