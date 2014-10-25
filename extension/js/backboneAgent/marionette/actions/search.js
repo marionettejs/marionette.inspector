@@ -28,27 +28,40 @@ var search = function(appObserver, app) {
     _.each($els, function($el) {
         $el.on('mouseover.regionSearch', function(e) {
             e.stopPropagation();
+
             var $current = $(e.currentTarget);
             $currentEl = $current;
-            var view = elsViewMap[$currentEl.attr('data-view-id')];
+            var cid = $currentEl.attr('data-view-id');
+            var view = elsViewMap[cid];
 
             _.map($els, _resetOutline);
             $current.data('outline', $current.css('outline'));
             $current.css('outline', '1px solid #F48888');
 
             // showViewSummary(view);
+            sendAppComponentReport('search', {
+              name: 'mouseover',
+              cid: cid 
+            })
         });
 
         $el.on('mouseleave.regionSearch', function(e) {
             e.stopPropagation();
             var $current = $(e.currentTarget);
+            var cid = $current.attr('data-view-id');
+
 
             _resetOutline($current);
+            sendAppComponentReport('search', {
+              name: 'mouseleave',
+              cid: cid 
+            })
         });
 
         $el.on('mousedown.regionSearch', function(e) {
             e.stopPropagation();
             var $current = $(e.currentTarget);
+            var cid = $current.attr('data-view-id');
 
             $elMask = _createElMask($current);
 
@@ -56,6 +69,12 @@ var search = function(appObserver, app) {
             console.log('window.view = ', view);
             window.view = view;
             stopSearch(app);
+
+            sendAppComponentReport('search', {
+              name: 'mousedown',
+              cid: cid 
+            });
+
             return false;
         });
 
