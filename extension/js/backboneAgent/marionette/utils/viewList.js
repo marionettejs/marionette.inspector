@@ -2,14 +2,14 @@
  * Reduce a regionTree to a list of currently shown views.
  * Used in search to get a list of views to add hover/click events to
  */
-var getViewList = function(regionTree) {
+var viewList = function(regionTree) {
     if (_.isEmpty(regionTree)) {
         return [];
     }
 
     var view = regionTree._view ? [regionTree._view] : [];
     var subRegionTrees = _.chain(regionTree).omit('_view', '_region').values().reject(_pruneSubRegionTree).value();
-    var subViews = _.map(subRegionTrees, getViewList);
+    var subViews = _.map(subRegionTrees, viewList);
 
     return _.flatten(view.concat(subViews));
 }

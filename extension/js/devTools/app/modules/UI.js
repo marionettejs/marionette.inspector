@@ -116,34 +116,11 @@ define([
     },
 
     highlightView: function(data) {
-      this.client.exec(function(data) {
-        var view = this.appObserver.getView(data.viewPath);
-        var oldBackground = view.$el.css('background');
-        var oldOutline = view.$el.css('outline');
-        view.$el
-          .css('outline', '2px solid #cf2227')
-          .css('background', 'rgba(245, 159, 115, 0.18)')
-          .data('old-background', oldBackground)
-          .data('old-outline', oldOutline);
-
-          debug.log('highlight', view.el, oldBackground, oldOutline);
-
-      }, [data]);
+      this.client.appObserverCall('highlightView', data);
     },
 
     unhighlightView: function(data) {
-      this.client.exec(function(data) {
-        var view = this.appObserver.getView(data.viewPath);
-        var oldOutline = view.$el.data('old-outline');
-        var oldBackground = view.$el.data('old-background');
-        view.$el
-          .css('outline', oldOutline)
-          .css('background', oldBackground)
-          .data('old-outline','')
-          .data('old-background', '');
-
-          debug.log('unhighlight', view.el, oldBackground, oldOutline);
-      }, [data]);
+      this.client.appObserverCall('unhighlightView', data);
     },
 
     showModule: function() {

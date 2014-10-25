@@ -9,7 +9,7 @@
  */
 var search = function(appObserver, app) {
     var regionTree = regionInspector(app, '', false);
-    var views = getViewList(regionTree);
+    var views = appObserver.viewList();
 
     var $els = [];
     _.each(views, function(view) {
@@ -34,9 +34,13 @@ var search = function(appObserver, app) {
             var cid = $currentEl.attr('data-view-id');
             var view = elsViewMap[cid];
 
-            _.map($els, _resetOutline);
-            $current.data('outline', $current.css('outline'));
-            $current.css('outline', '1px solid #F48888');
+            // _.map($els, _resetOutline);
+            // $current.data('outline', $current.css('outline'));
+            // $current.css('outline', '1px solid #F48888');
+
+            _.each($els, unhighlightEl);
+            highlightEl($current);
+
 
             // showViewSummary(view);
             sendAppComponentReport('search', {
@@ -50,8 +54,8 @@ var search = function(appObserver, app) {
             var $current = $(e.currentTarget);
             var cid = $current.attr('data-view-id');
 
+            unhighlightEl($current);
 
-            _resetOutline($current);
             sendAppComponentReport('search', {
               name: 'mouseleave',
               cid: cid 

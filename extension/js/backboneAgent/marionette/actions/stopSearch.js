@@ -5,7 +5,7 @@
  */
 var stopSearch = function(app) {
     var regionTree = regionInspector(app, '', false);
-    var views = getViewList(regionTree);
+    var views = viewList(regionTree);
     var $els = $(_.pluck(views, 'el'));
 
     _.each($els, function(el) {

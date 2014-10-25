@@ -44,18 +44,21 @@ define([
     },
 
     onMouseOver: function() {
+      this.highlightRow();
       Radio.command('ui', 'highlight-view', {
         viewPath: this.model.get('path'),
       });
     },
 
     onMouseLeave: function() {
+      this.unhighlightRow();
       Radio.command('ui', 'unhighlight-view', {
         viewPath: this.model.get('path'),
       });
     },
 
     onClickMoreInfo: function() {
+      this.highlightRow();
       Radio.command('ui', 'show:more-info', this.model);
     },
 
@@ -74,15 +77,23 @@ define([
     },
 
     onSearchMouseOver: function() {
-      this.$el.addClass('bg-info');
+      this.highlightRow();
     },
 
     onSearchMouseLeave: function() {
-      this.$el.removeClass('bg-info');
+      this.unhighlightRow()
     },
 
     onSearchMouseDown: function() {
+      this.highlightRow();
+    },
+
+    highlightRow: function() {
       this.$el.addClass('bg-info');
+    },
+
+    unhighlightRow: function() {
+      this.$el.removeClass('bg-info');
     },
 
     serializeData: function() {
