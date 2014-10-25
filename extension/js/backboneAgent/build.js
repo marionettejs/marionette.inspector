@@ -25,6 +25,7 @@ var _ = this._;
 // @include utils/sendMessage.js
 // @include utils/getHiddenProperty.js
 // @include utils/setHiddenProperty.js
+// @include utils/objectPath.js
 
 
 /*
@@ -93,8 +94,11 @@ var _ = this._;
  *
  */
 
-// @include marionetteObserver.js
-//
+// @include marionette/serializeEventsHash.js
+// @include marionette/serializeElement.js
+// @include marionette/viewSerializer.js
+// @include marionette/regionInspector.js
+// @include marionette/appObserver.js
 
 
 /*
