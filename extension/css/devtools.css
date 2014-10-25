@@ -8,3 +8,28 @@
   color: #333;
   background-color: #fff;
 }
+
+
+body {
+  height: 100%;
+  padding-top: 50px;
+  overflow:hidden;
+}
+
+[data-region="app-region"], [view="app-layout"],
+.app-layout-body, [data-region="tool"], [view="ui-layout"] {
+  height: inherit;
+}
+
+[data-region="view-list"], [data-region="view-more-info"] {
+  height: inherit;
+  overflow-y: scroll;
+}
+
+[data-region="view-more-info"] {
+  padding: 0;
+}
+
+.navbar-brand {
+  padding-top: 10px;
+}

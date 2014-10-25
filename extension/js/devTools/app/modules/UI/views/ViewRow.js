@@ -10,6 +10,19 @@ define([
 
     tagName: 'tr',
 
+    className: function() {
+      var path = this.model.get('path')
+      var pathList = path.split('.');
+
+
+      var name = "treegrid-" + pathList.join('-');
+      var parentPath = _.head(pathList, pathList.length-1).join('-');
+      var parentName = parentPath ? "treegrid-parent-" + parentPath : '';
+
+      //treegrid-8 treegrid-parent-7
+      return name + " " + parentName;
+    },
+
     ui: {
       moreInfoLink: "[data-action='more-info']",
       inspectElementLink: "[data-action='inspect-element']",
@@ -44,6 +57,7 @@ define([
     serializeData: function() {
       var data = this.serializeModel(this.model);
       data.formattedElement = this.presentElement(this.model.get('element'));
+      data.viewName = _.last(data.path.split('.'));
       return data;
     },
 

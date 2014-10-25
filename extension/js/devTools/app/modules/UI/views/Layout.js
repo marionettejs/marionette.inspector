@@ -3,13 +3,20 @@ define([
   'backbone',
   'text!templates/devTools/ui/layout.html',
   'util/Radio',
+  'util/Logger',
   'app/modules/UI/views/ViewList',
   'app/modules/UI/views/ViewMoreInfo'
-], function(Marionette, Backbone, tpl, Radio, ViewList, ViewMoreInfo) {
+], function(Marionette, Backbone, tpl, Radio, logger, ViewList, ViewMoreInfo) {
 
   return Marionette.LayoutView.extend({
 
     template: tpl,
+
+    attributes: {
+      view: 'ui-layout'
+    },
+
+    className: 'row',
 
     regions: {
       viewList: '[data-region="view-list"]',
@@ -29,7 +36,9 @@ define([
     },
 
     onRender: function() {
-      var views = new Backbone.Collection(this.model.viewList());
+      logger.log('ui', 'layout rendered');
+      var list = this.model.viewList();
+      var views = new Backbone.Collection(list);
 
       this.getRegion('viewList').show(new ViewList({
         collection: views

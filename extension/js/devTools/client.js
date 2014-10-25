@@ -1,8 +1,9 @@
 define([
   'marionette',
   'client/backboneAgent',
-  'client/inspectedPage'
-], function(Marionette, backboneAgent, inspectedPage) {
+  'client/inspectedPage',
+  'util/logger'
+], function(Marionette, backboneAgent, inspectedPage, logger) {
 
 
   var DevToolClient = Marionette.Object.extend({
@@ -38,7 +39,7 @@ define([
         .then(this.waitForAppLoad)
         .then(this.exec.bind(this, _appData, [dataType]))
         .catch(function(e) {
-          console.log('fetchData failed to get data', e.message);
+          logger.log('client', 'fetchData failed to get data', e.message);
         });
     },
 
@@ -49,7 +50,7 @@ define([
       });
 
       promise.catch(function(e) {
-        console.log('waitForAppData: could not find app');
+        logger.log('client', 'waitForAppData: could not find app');
         that.trigger('app:load-failed');
       });
 
@@ -62,7 +63,7 @@ define([
       });
 
       promise.catch(function(e) {
-        console.log('waitForClientLoad: client failed to laod');
+        logger.log('client', 'waitForClientLoad: client failed to laod');
       });
 
       return promise;

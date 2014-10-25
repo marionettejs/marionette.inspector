@@ -15,7 +15,8 @@ require.config({
         handlebars_original: '../lib/handlebars',
         handlebars: '../lib/handlebars-blocks',
         setImmediate: '../lib/setImmediate',
-        bluebird: '../lib/bluebird'
+        bluebird: '../lib/bluebird',
+        'jquery.treegrid': '../lib/jquery.treegrid'
     },
     // non-amd library loaders
     shim: {
@@ -31,6 +32,10 @@ require.config({
                 // exports
                 return this.Backbone.noConflict();
             }
+        },
+        "jquery.treegrid": {
+            deps: ["jquery"],
+            exports: "jQuery.fn.treegrid",
         },
         // 'marionette': {
         //     deps: ['underscore', 'jquery'],
@@ -60,12 +65,14 @@ require.config({
 
 require([
   "jquery",
+  "jquery.treegrid",
   "handlebars",
   "marionette",
+  "util/Logger",
   "app",
   "app/modules/Radio",
-  "app/modules/UI"
-], function($, Handlebars, Marionette, App, RadioApp, UIApp) {
+  "app/modules/UI",
+], function($, treeGrid, Handlebars, Marionette, logger, App, RadioApp, UIApp) {
 
     Marionette.Renderer.render = function(template, data, view) {
       return Handlebars.compile(template)(data);
@@ -82,5 +89,5 @@ require([
         });
     });
 
-    console.log('devtools started!')
+    logger.log('devtools', 'started!')
 });
