@@ -29,15 +29,23 @@ define([
       return this.backboneAgent.exec(fnc, args);
     },
 
-    fetchAppData: function(dataType) {
+    /**
+     * appObserverCall is the best way for inspector to communicate
+     * with the appObserver.
+     *
+     * e.g. this.client.appObserverCall('getView', {viewPath: 'main.0'})
+     *
+     * @return {Promise} - promise that is resolved with the return of the appObserver method
+     */
+    appObserverCall: function(fnc) {
 
-      var _appData = function(dataType) {
-        return this.appObserver[dataType]()
+      var _appObserverCall = function(fnc, args) {
+        return this.appObserver[fnc].apply(this.appObserver, args);
       };
 
       return this.waitForClientLoad()
         .then(this.waitForAppLoad)
-        .then(this.exec.bind(this, _appData, [dataType]))
+        .then(this.exec.bind(this, _appObserverCall, [fnc, _.rest(arguments)]))
         .catch(function(e) {
           logger.log('client', 'fetchData failed to get data', e.message);
         });

@@ -20,7 +20,7 @@ define([
 
     getRegionTree: function() {
       this.client
-        .fetchAppData('regionTree')
+        .appObserverCall('regionTree')
         .then(_.bind(this.set, this, 'regionTree'));
     },
 
