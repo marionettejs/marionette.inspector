@@ -8,7 +8,15 @@ define([
   return Marionette.CompositeView.extend({
     template: tpl,
 
+    tagName: 'table',
+
+    className: 'table tree',
+
     childViewContainer: '[data-child-view-container]',
+
+    attributes: {
+      view: 'list'
+    },
 
     childView: ViewRow,
 

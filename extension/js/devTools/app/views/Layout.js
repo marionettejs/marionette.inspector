@@ -9,8 +9,18 @@ define([
 
     template: tpl,
 
+    attributes: {
+      view: 'app-layout'
+    },
+
+    className: 'container-fluid row',
+
     regions: {
       tool: '[data-region="tool"]'
+    },
+
+    ui: {
+      appHeader: '#app-header'
     },
 
     events: {
@@ -19,9 +29,6 @@ define([
 
     modelEvents: {
       'change': 'render',
-    },
-
-    onShow: function() {
     },
 
     onAppClick: function(e) {

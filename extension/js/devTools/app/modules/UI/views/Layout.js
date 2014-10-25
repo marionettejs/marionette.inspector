@@ -12,6 +12,12 @@ define([
 
     template: tpl,
 
+    attributes: {
+      view: 'ui-layout'
+    },
+
+    className: 'row',
+
     regions: {
       viewList: '[data-region="view-list"]',
       viewMoreInfo: '[data-region="view-more-info"]'
@@ -31,7 +37,8 @@ define([
 
     onRender: function() {
       logger.log('ui', 'layout rendered');
-      var views = new Backbone.Collection(this.model.viewList());
+      var list = this.model.viewList();
+      var views = new Backbone.Collection(list);
 
       this.getRegion('viewList').show(new ViewList({
         collection: views
