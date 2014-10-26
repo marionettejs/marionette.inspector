@@ -14,7 +14,7 @@ The Inspector complements the console, elements, and sources tab as a trusty com
 You can use the Inspector to see what's going on under the hood with your **ui**, **data**, **messages**, and **network**.
 
 
-Ofcourse, there's also a helpful :mag: as well.
+Of course, there's also a helpful :mag: as well.
 
 ---
 ### Developing Locally
