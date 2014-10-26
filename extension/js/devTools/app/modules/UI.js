@@ -1,5 +1,6 @@
 define([
   'marionette',
+  'backbone',
   'util/Radio',
   'util/Logger',
   'client',
@@ -8,6 +9,7 @@ define([
   'app/modules/UI/util/ComponentReportToRegionTreeMap'
 ], function(
   Marionette,
+  Backbone,
   Radio,
   logger,
   client,
@@ -25,10 +27,15 @@ define([
     uiCommands: {
       'inspect:view-element': 'inspectViewElement',
       'inspect:view-function': 'inspectViewFunction',
+      'highlight-view': 'highlightView',
+      'unhighlight-view': 'unhighlightView',
+      'search:start': 'startSearch',
+      'search:stop': 'stopSearch',
       'log': 'log'
     },
 
     clientEvents: {
+      'backboneAgent:search': 'onSearch'
     },
 
     regionTreeEvents: {
@@ -46,6 +53,7 @@ define([
 
     setupData: function() {
       this.uiData = new UiData();
+      this.viewList = new Backbone.Collection();
     },
 
     setupEvents: function() {
@@ -56,9 +64,29 @@ define([
       Marionette.bindEntityEvents(this, regionTreeEvents, this.regionTreeEvents);
     },
 
+    /*
+     * regionTree events come from the ComponentReportToRegionTreeMap
+     */
     onRegionTreeUpdate: function() {
       logger.log('ui', 'region tree event');
       this.fetchData();
+    },
+
+    /*
+     *
+     * when the `backboneAgent` sends a search event it'll be in this form
+     * ` { type: 'search', cid: 'view5, name: 'mouseover' } `
+     *
+     * The three types of events we get are `mouseover`, `mouseleave`, `mousedown`
+     *
+    */
+    onSearch: function(data) {
+      var viewModel = this.viewList.findWhere({cid: data.cid});
+      if (!viewModel) {
+        return;
+      }
+
+      viewModel.trigger('search:' + data.name);
     },
 
     fetchData: function() {
@@ -97,12 +125,29 @@ define([
         var view = this.appObserver.getView(data.viewPath);
         window.temp = view;
         console.log('MN: temp = ', view);
-      }, [data])
+      }, [data]);
+    },
+
+    highlightView: function(data) {
+      this.client.appObserverCall('highlightView', data);
+    },
+
+    unhighlightView: function(data) {
+      this.client.appObserverCall('unhighlightView', data);
+    },
+
+    startSearch: function() {
+      this.client.appObserverCall('startSearch');
+    },
+
+    stopSearch: function() {
+      this.client.appObserverCall('stopSearch');
     },
 
     showModule: function() {
       var layout = new Layout({
-        model: this.uiData
+        model: this.uiData,
+        collection: this.viewList
       });
 
       Radio.command('app', 'show:tool', this.appName, layout);

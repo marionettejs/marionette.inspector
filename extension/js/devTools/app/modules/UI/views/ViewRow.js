@@ -20,7 +20,7 @@ define([
       var parentName = parentPath ? "treegrid-parent-" + parentPath : '';
 
       //treegrid-8 treegrid-parent-7
-      return name + " " + parentName;
+      return ["view-row", name, parentName].join(" ");
     },
 
     ui: {
@@ -32,11 +32,37 @@ define([
     events: {
       "click @ui.moreInfoLink": "onClickMoreInfo",
       "click @ui.inspectElementLink": 'onClickInspectElement',
-      "click @ui.logViewLink": 'onClickLogViewLink'
+      "click @ui.logViewLink": 'onClickLogViewLink',
+      "mouseover": 'onMouseOver',
+      "mouseleave": 'onMouseLeave'
     },
 
+    /**
+     * the search:x events are triggered in the UI module
+     * when `onSearch` handles a search event coming from the appObserver.
+     */
+    modelEvents: {
+      'search:mouseover': 'onSearchMouseOver',
+      'search:mouseleave': 'onSearchMouseLeave',
+      'search:mousedown': 'onSearchMouseDown',
+    },
+
+    onMouseOver: function() {
+      this.highlightRow();
+      Radio.command('ui', 'highlight-view', {
+        viewPath: this.model.get('path'),
+      });
+    },
+
+    onMouseLeave: function() {
+      this.unhighlightRow();
+      Radio.command('ui', 'unhighlight-view', {
+        viewPath: this.model.get('path'),
+      });
+    },
 
     onClickMoreInfo: function() {
+      this.highlightRow();
       Radio.command('ui', 'show:more-info', this.model);
     },
 
@@ -52,6 +78,26 @@ define([
         viewPath: this.model.get('path'),
         message: 'view'
       })
+    },
+
+    onSearchMouseOver: function() {
+      this.highlightRow();
+    },
+
+    onSearchMouseLeave: function() {
+      this.unhighlightRow()
+    },
+
+    onSearchMouseDown: function() {
+      this.highlightRow();
+    },
+
+    highlightRow: function() {
+      this.$el.addClass('bg-info');
+    },
+
+    unhighlightRow: function() {
+      this.$el.removeClass('bg-info');
     },
 
     serializeData: function() {
