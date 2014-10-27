@@ -1,19 +1,18 @@
 
-var regionInspector = function(app, path, shouldSerialize) {
+var regionInspector = function(regionTreeRoot, path, shouldSerialize) {
   shouldSerialize = !!shouldSerialize;
 
-  var regions = _regionInspector(app, shouldSerialize)
+  var regions = _regionInspector(regionTreeRoot, shouldSerialize)
 
   if (!!path) {
     regions = objectPath(regions, path, {});
   }
 
-  debug.log('ri: ', regions);
+  debug.log('region inspector: ', regions);
   return regions;
 };
 
 var _regionInspector = function (obj, shouldSerialize) {
-
 
   if (!obj) {
     return {};

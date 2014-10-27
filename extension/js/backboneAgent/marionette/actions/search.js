@@ -8,7 +8,7 @@
  * 3. show the region path in the bottom left
  */
 var search = function(appObserver, app) {
-    var regionTree = regionInspector(app, '', false);
+    var regionTree = appObserver.regionTree();
     var views = appObserver.viewList();
 
     var $els = [];
@@ -41,7 +41,7 @@ var search = function(appObserver, app) {
             // showViewSummary(view);
             sendAppComponentReport('search', {
               name: 'mouseover',
-              cid: cid 
+              cid: cid
             })
         });
 
@@ -54,7 +54,7 @@ var search = function(appObserver, app) {
 
             sendAppComponentReport('search', {
               name: 'mouseleave',
-              cid: cid 
+              cid: cid
             })
         });
 
@@ -72,7 +72,7 @@ var search = function(appObserver, app) {
 
             sendAppComponentReport('search', {
               name: 'mousedown',
-              cid: cid 
+              cid: cid
             });
 
             return false;

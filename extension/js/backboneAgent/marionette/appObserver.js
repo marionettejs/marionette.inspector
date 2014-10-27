@@ -12,12 +12,6 @@ _.extend(AppObserver.prototype, {
   // expresion that's eval'd on the window to get the radio
   radioExpression: "app.wreqr",
 
-  // called by inspector to get the current region tree
-  regionTree: function(path) {//
-    path = path || '';
-    return regionInspector(this.getApp(), path, true);
-  },
-
   startSearch: function() {
     search(this, this.getApp());
   },
@@ -38,11 +32,26 @@ _.extend(AppObserver.prototype, {
 
   unhighlightView: function(data) {
     var view = this.getView(data.viewPath);
-    unhighlightEl(view.$el)
+    unhighlightEl(view.$el);
+    return false;
+  },
+
+  // called by inspector to get the current region tree
+  regionTree: function(path, shouldSerialize) {
+    shouldSerialize = !_.isUndefined(shouldSerialize) ? shouldSerialize : true;
+    path = path || '';
+    var app = this.getApp();
+    var tree = regionInspector(app, path, shouldSerialize);
+
+    if (_.isEmpty(tree)) {
+      tree = regionInspector(app.rootView, path, shouldSerialize);
+    }
+
+    return tree;
   },
 
   getView: function(path) {
-    var subTree = regionInspector(this.getApp(), path);
+    var subTree = this.regionTree(path, false);
 
     if (!subTree._view) {
       throw new Error('could not find view');
@@ -52,7 +61,7 @@ _.extend(AppObserver.prototype, {
   },
 
   viewList: function() {
-    var regionTree = regionInspector(app, '', false);
+    var regionTree = this.regionTree('', false);
     return viewList(regionTree);
   },
 
