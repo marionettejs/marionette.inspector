@@ -47,7 +47,7 @@ define([
         .then(this.waitForAppLoad)
         .then(this.exec.bind(this, _appObserverCall, [fnc, _.rest(arguments)]))
         .catch(function(e) {
-          logger.log('client', 'fetchData failed to get data', e.message);
+          logger.log('client', 'appObserverCall failed to make call', e.message);
         });
     },
 
