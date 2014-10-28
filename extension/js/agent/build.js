@@ -25,6 +25,7 @@ var _ = this._;
 // @include utils/sendMessage.js
 // @include utils/getHiddenProperty.js
 // @include utils/setHiddenProperty.js
+// @include utils/setProperty.js
 // @include utils/objectPath.js
 
 
