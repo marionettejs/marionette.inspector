@@ -3,7 +3,7 @@ define([
   "underscore",
   "panelPort",
   "utils",
-  "util/Logger"
+  "logger"
 ],
   function(Backbone, _, panelPort, utils, logger) {
     var inspectedPageClient = new (function() {
@@ -73,7 +73,7 @@ define([
         };
 
         var serializeFunc = function(func, args, context ) {
-          if (context === undefined) { context = "window.__backboneAgent"; }
+          if (context === undefined) { context = "window.__agent"; }
           var evalCode = "("+func.toString()+").apply("+context+", "+JSON.stringify(args)+");";
 
           return evalCode;

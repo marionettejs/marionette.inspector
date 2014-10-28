@@ -1,0 +1,10 @@
+{
+    "name": "__agent",
+
+    "dependencies": [
+    ],
+
+    "files": [
+      "build/agent.js"
+    ]
+}

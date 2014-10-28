@@ -23,14 +23,14 @@
     {
       "matches": ["http://*/*", "https://*/*", "file://*/*"],
       "js": ["js/marionette_contentscript.js"],
-      "css": ["css/backboneAgent.css"],
+      "css": ["css/agent.css"],
       "run_at": "document_start"
     }
   ],
 
   "web_accessible_resources": [
     "js/lib/*",
-    "js/backboneAgent/*"
+    "js/agent/*"
   ],
 
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",

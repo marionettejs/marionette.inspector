@@ -3,7 +3,7 @@ define([
   'backbone',
   'text!templates/devTools/ui/layout.html',
   'util/Radio',
-  'util/Logger',
+  'logger',
   'app/modules/UI/views/ViewList',
   'app/modules/UI/views/ViewMoreInfo'
 ], function(Marionette, Backbone, tpl, Radio, logger, ViewList, ViewMoreInfo) {

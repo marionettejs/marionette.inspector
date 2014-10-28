@@ -1,15 +1,15 @@
 define([
   'marionette',
-  'client/backboneAgent',
+  'client/agent',
   'client/inspectedPage',
-  'util/logger'
-], function(Marionette, backboneAgent, inspectedPage, logger) {
+  'logger'
+], function(Marionette, agent, inspectedPage, logger) {
 
 
   var DevToolClient = Marionette.Object.extend({
 
     initialize: function() {
-      this.backboneAgent = backboneAgent;
+      this.agent = agent;
       this.inspectedPage = inspectedPage;
 
       // bind deferreds
@@ -22,11 +22,11 @@ define([
     },
 
     start: function() {
-      this.backboneAgent.activate();
+      this.agent.activate();
     },
 
     exec: function(fnc, args) {
-      return this.backboneAgent.exec(fnc, args);
+      return this.agent.exec(fnc, args);
     },
 
     /**
@@ -53,7 +53,7 @@ define([
 
     waitForAppLoad: function() {
       var that = this;
-      var promise = this.backboneAgent.waitFor(function() {
+      var promise = this.agent.waitFor(function() {
         return this.appObserver.isAppLoaded();
       });
 
@@ -66,7 +66,7 @@ define([
     },
 
     waitForClientLoad: function() {
-      var promise = this.backboneAgent.waitFor(function() {
+      var promise = this.agent.waitFor(function() {
         return !_.isUndefined(this.appObserver);
       });
 
