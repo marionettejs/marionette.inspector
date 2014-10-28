@@ -2,7 +2,7 @@ define([
   'marionette'
 ], function(Marionette) {
 
-  var Logger = Marionette.Object.extend({
+  var logger = Marionette.Object.extend({
 
 
     /**
@@ -119,5 +119,5 @@ define([
     }
   });
 
-  return new Logger();
+  return new logger();
 })

@@ -2,7 +2,7 @@ define([
   'backbone',
   'marionette',
   'util/Radio',
-  'util/Logger',
+  'logger',
   'util/Router',
   'util/ModuleRoutes',
   'client',

@@ -3,7 +3,7 @@ define([
   "underscore",
   "panelPort",
   "utils",
-  "util/Logger"
+  "logger"
 ],
   function(Backbone, _, panelPort, utils, logger) {
     var inspectedPageClient = new (function() {

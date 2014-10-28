@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      files: ['extension/js/agent/**/*.js'],
+      files: ['extension/js/agent/**/*.js', 'extension/js/common/**/*.js'],
       tasks: ['agent']
     },
 

@@ -1,6 +1,6 @@
 define([
     'backbone',
-    'util/Logger',
+    'logger',
     'util/Radio'
 ],
 function(Backbone, logger, Radio) {
