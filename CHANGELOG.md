@@ -1,4 +1,8 @@
-## V4
+## V0.0.5
+#### ()
+
+
+## V0.04
 #### (247c08e) 10-25-2014
 
 ### Added
@@ -31,7 +35,7 @@
 + Fix bug where the patched amd define function was no longer checking if the module was Backbone.
 + Fixed bug where showing a view's information when the element was empty would throw an error.
 
-## V3
+## V0.0.3
 #### (0a3f0ad2) - 10-22-2014
 
 ### Added
@@ -45,7 +49,7 @@
 + Fixed the logic checking to see if the inspected script had loaded.
 + Fixed the logic for detecting `window.Backbone` so that `Backbone.View` and other classes must also be detected as well.
 
-## V2
+## V0.0.2
 #### (3924fa089c) 10-17-2014
 
 ### Fixed
@@ -53,7 +57,7 @@
 
 
 
-## V1
+## V0.0.1
 #### (ff0a30b76) (10-16-2014)
 
 ### Added
