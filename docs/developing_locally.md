@@ -22,19 +22,21 @@ grunt build
 
 ---
 
-## backboneAgent
+## agent
 
 ### Testing locally
 
-A good way to test the backboneAgent is to run it locally in the `index.html` of the app you want to inspect.
+A good way to test the agent is to run it locally in the `index.html` of the
+app you want to inspect.
 
 ```html
-<script src="http://localhost:4001/build/localBackboneAgent.js"></script>
+<script src="http://localhost:4001/build/localAgent.js"></script>
 ````
 
 ```bash
-cd extension/js/backboneAgent
+cd extension/js/agent
 python -m SimpleHTTPServer 4001
 ```
 
-Including the `localBackboneAgent` directly this way, is easier than debugging the `backboneAgent` when it's injected into the window via the extension.
+Including the `localAgent` directly this way, is easier than
+debugging the `agent` when it's injected into the window via the extension.
