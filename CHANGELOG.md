@@ -1,5 +1,24 @@
 ## V0.0.5
-#### ()
+#### 10-28-2014
+
+
+### Added
+  + Added a highlight feature, where when you mouseover a view, the inspector highlights the dom on the page where the view resides.
+  + Added a magnifying glass feature, where when you turn it on and mouseover a part of the page, we show you which view manages that region.
+  + Improved the regionTree function so that it now checks both the application and app.rootView for those using the `rootView` V3 api. cough cough @jmeas
+
+### Removed
+  + Removed both the panel folder and elementsSidebar work as that was strictly for the backbone-debugger.
+
+### Changed
+  + Renamed core Inspector components to be more inline with the venacular we've been using on the project. backboneAgent became agent, devTools became inspector.
+  + Moved Logger and Debug to the common/utils folder. In a future release debug will be deprecated in favor of Logger.
+  + Refactored marionetteObserver code into smaller chunks in the `agent/marionette` folder.
+
+### Fixed
+  + Fixed the "app not found" language to make it clear that you have to expose the app on `window.app`
+  + Fixed the commands api, so that clicking on an element or function will take you to the elements tab and sources tab
+  + Fixed a backbone observer bug where, the agent would blow up if the listeners weren't properly set. This was happening for people who were using webpack and browserify
 
 
 ## V0.04
