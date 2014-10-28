@@ -32,7 +32,7 @@ _.extend(AppObserver.prototype, {
 
   unhighlightView: function(data) {
     var view = this.getView(data.viewPath);
-    unhighlightEl(view.$el);
+    unhighlightEl(view.$el)
     return false;
   },
 
@@ -69,8 +69,7 @@ _.extend(AppObserver.prototype, {
   getChannelList: function() {},
 
   getApp: function() {
-    var app = window.eval(this.appExpression);
-    return app;
+    return window.eval(this.appExpression);
   },
 
   isAppLoaded: function() {
