@@ -35,7 +35,7 @@ define([
     },
 
     clientEvents: {
-      'backboneAgent:search': 'onSearch'
+      'agent:search': 'onSearch'
     },
 
     regionTreeEvents: {
@@ -77,7 +77,7 @@ define([
 
     /*
      *
-     * when the `backboneAgent` sends a search event it'll be in this form
+     * when the `agent` sends a search event it'll be in this form
      * ` { type: 'search', cid: 'view5, name: 'mouseover' } `
      *
      * The three types of events we get are `mouseover`, `mouseleave`, `mousedown`

@@ -4,23 +4,23 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     preprocess: {
-      backboneAgent: {
-        src: 'extension/js/backboneAgent/build.js',
-        dest: 'extension/js/backboneAgent/build/backboneAgent.js'
+      agent: {
+        src: 'extension/js/agent/build.js',
+        dest: 'extension/js/agent/build/agent.js'
       },
-      localBackboneAgent: {
-        src: 'extension/js/backboneAgent/localBuild.js',
-        dest: 'extension/js/backboneAgent/build/localBackboneAgent.js'
+      localAgent: {
+        src: 'extension/js/agent/localBuild.js',
+        dest: 'extension/js/agent/build/localAgent.js'
       },
     },
 
     watch: {
-      files: ['extension/js/backboneAgent/**/*.js'],
-      tasks: ['backboneAgent']
+      files: ['extension/js/agent/**/*.js'],
+      tasks: ['agent']
     },
 
     clean: {
-      backboneAgent: 'extension/js/backboneAgent/build'
+      agent: 'extension/js/agent/build'
     },
 
   });
@@ -30,10 +30,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
 
 
-  grunt.registerTask('backboneAgent', ['preprocess']);
+  grunt.registerTask('agent', ['preprocess']);
 
 
-  grunt.registerTask('build', ['backboneAgent']);
+  grunt.registerTask('build', ['agent']);
 
   grunt.registerTask('default', ['watch']);
 
