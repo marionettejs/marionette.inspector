@@ -41,7 +41,8 @@ define([
       var views = this.collection.reset(list);
 
       this.getRegion('viewList').show(new ViewList({
-        collection: views
+        collection: views,
+        viewModel: this.options.moduleData
       }));
     },
 

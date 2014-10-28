@@ -54,6 +54,9 @@ define([
     setupData: function() {
       this.uiData = new UiData();
       this.viewList = new Backbone.Collection();
+      this.moduleData = new Backbone.Model({
+        searchOn: false
+      });
     },
 
     setupEvents: function() {
@@ -87,6 +90,11 @@ define([
       }
 
       viewModel.trigger('search:' + data.name);
+
+      if (data.name == 'mousedown') {
+        this.moduleData.set('searchOn', false);
+      }
+
     },
 
     fetchData: function() {
@@ -147,7 +155,8 @@ define([
     showModule: function() {
       var layout = new Layout({
         model: this.uiData,
-        collection: this.viewList
+        collection: this.viewList,
+        moduleData: this.moduleData
       });
 
       Radio.command('app', 'show:tool', this.appName, layout);

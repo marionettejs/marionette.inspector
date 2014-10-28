@@ -68,7 +68,7 @@ var search = function(appObserver, app) {
             var view = elsViewMap[$currentEl.attr('data-view-id')];
             console.log('window.view = ', view);
             window.view = view;
-            stopSearch(app);
+            stopSearch(appObserver, app);
 
             sendAppComponentReport('search', {
               name: 'mousedown',

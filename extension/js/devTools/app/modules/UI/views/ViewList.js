@@ -26,12 +26,15 @@ define([
       'click @ui.searchBtn': 'onClickSearch'
     },
 
+    viewModelEvents: {
+      'change:searchOn': 'onSearchUpdate'
+    },
+
     childView: ViewRow,
 
     initialize: function() {
-      this.viewModel = new Backbone.Model({
-        searchOn: false
-      });
+      this.viewModel = this.options.viewModel;
+      this.bindEntityEvents(this.viewModel, this.viewModelEvents);
     },
 
     /*
@@ -41,7 +44,6 @@ define([
     onClickSearch: function(e) {
       var $current = $(e.currentTarget);
 
-      this.ui.searchBtn.toggleClass('toggled-on');
       this.viewModel.set('searchOn', !this.viewModel.get('searchOn'));
 
       if (this.viewModel.get('searchOn')) {
@@ -50,6 +52,10 @@ define([
         Radio.command('ui', 'search:stop');
       }
 
+    },
+
+    onSearchUpdate: function(model, state) {
+      this.ui.searchBtn.toggleClass('toggled-on', state);
     },
 
     onDomRefresh: function() {

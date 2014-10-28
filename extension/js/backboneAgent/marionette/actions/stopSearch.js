@@ -5,7 +5,7 @@
  */
 var stopSearch = function(appObserver, app) {
     var regionTree = appObserver.regionTree();
-    var views = viewList(regionTree);
+    var views = appObserver.viewList(regionTree);
     var $els = $(_.pluck(views, 'el'));
 
     _.each($els, function(el) {
@@ -14,6 +14,4 @@ var stopSearch = function(appObserver, app) {
         unhighlightEl($el);
         $el.off('.regionSearch');
     });
-
-    $('.dev-tools.view-summary').remove();
 };
