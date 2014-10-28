@@ -2,7 +2,7 @@ define([
   'marionette',
   'client/agent',
   'client/inspectedPage',
-  'util/logger'
+  'logger'
 ], function(Marionette, agent, inspectedPage, logger) {
 
 

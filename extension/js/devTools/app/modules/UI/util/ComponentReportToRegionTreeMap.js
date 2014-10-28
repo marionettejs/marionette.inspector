@@ -1,5 +1,5 @@
 define([
-  'marionette', 'client', 'util/Logger'
+  'marionette', 'client', 'logger'
 ], function(Marionette, client, logger) {
 
   /**

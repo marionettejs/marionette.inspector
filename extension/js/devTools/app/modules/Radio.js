@@ -1,7 +1,7 @@
 define([
   'marionette',
   'util/Radio',
-  'util/Logger',
+  'logger',
   'app/modules/Radio/views/Layout'
 ], function(Marionette, Radio, logger, Layout) {
   return Marionette.Module.extend({
