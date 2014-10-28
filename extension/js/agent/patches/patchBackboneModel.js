@@ -1,5 +1,5 @@
 // @private
-var patchBackboneModel = bind(function(BackboneModel) {
+this.patchBackboneModel = function(BackboneModel) {
     debug.log("Backbone.Model detected");
 
     patchBackboneComponent(BackboneModel, bind(function(model) { // on new instance
@@ -19,4 +19,4 @@ var patchBackboneModel = bind(function(BackboneModel) {
         patchAppComponentEvents(model);
         patchAppComponentSync(model);
     }, this));
-}, this);
+}

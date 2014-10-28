@@ -1,5 +1,5 @@
 // @private
-var patchBackboneCollection = bind(function(BackboneCollection) {
+this.patchBackboneCollection = function(BackboneCollection) {
     debug.log("Backbone.Collection detected");
 
     patchBackboneComponent(BackboneCollection, bind(function(collection) { // on new instance
@@ -17,4 +17,4 @@ var patchBackboneCollection = bind(function(BackboneCollection) {
         patchAppComponentEvents(collection);
         patchAppComponentSync(collection);
     }, this));
-}, this);
+}

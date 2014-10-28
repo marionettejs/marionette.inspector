@@ -4,6 +4,7 @@
 // I componenti Backbone validi sono Backbone.View, Backbone.Model, Backbone.Collection e Backbone.Router
 // N.B: suppone che il componente backbone sia stato settato solo inizialmente.
 var patchBackboneComponent = bind(function(BackboneComponent, instancePatcher) {
+
     onceDefined(BackboneComponent, "extend", function() {
         // (l'extend è l'ultimo metodo impostato, quindi ora il componente è pronto)
 
@@ -16,8 +17,7 @@ var patchBackboneComponent = bind(function(BackboneComponent, instancePatcher) {
                 // Patcha l'istanza se non è già stato fatto
                 // (se ad es. l'istanza chiama l'initialize definita nel padre, evita
                 // di patcharla due volte)
-                var isInstancePatched = getHiddenProperty(this, "isInstancePatched");
-                if (!isInstancePatched) {
+                if (!getHiddenProperty(this, "isInstancePatched")) {
                     instancePatcher(this);
                     setHiddenProperty(this, "isInstancePatched", true);
                 }
@@ -35,16 +35,12 @@ var patchBackboneComponent = bind(function(BackboneComponent, instancePatcher) {
 
         // la proprietà sarà ereditata anche dai sottotipi e finirà nelle varie istanze,
         // contiene la versione patchata della initialize
-        setHiddenProperty(BackboneComponent.prototype, "patchedInitialize",
-                          patchInitialize(BackboneComponent.prototype.initialize));
+        var patchedInitialize = patchInitialize(BackboneComponent.prototype.initialize);
+        setHiddenProperty(BackboneComponent.prototype, "patchedInitialize", patchedInitialize);
 
-        Object.defineProperty(BackboneComponent.prototype, "initialize", {
-            configurable: true,
-            enumerable: true,
-
+        setProperty(BackboneComponent.prototype, "initialize", {
             get: function() {
-                var patchedInitialize = getHiddenProperty(this, "patchedInitialize");
-                return patchedInitialize;
+                return getHiddenProperty(this, "patchedInitialize");
             },
 
             set: function(newInitialize) {
