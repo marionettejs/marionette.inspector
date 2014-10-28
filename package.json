@@ -1,9 +1,9 @@
 {
   "name": "marionette.inspector",
 
-  "version": "0.0.4",
+  "version": "0.0.5",
 
-  "description": "A proper devtool for Marionette",
+  "description": "A proper inspector for Marionette",
 
   "main": "",
 
