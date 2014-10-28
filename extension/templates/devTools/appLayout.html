@@ -28,9 +28,11 @@
   <div data-region="tool" class="col12">
     {{#hasLoadFailed}}
     <div class="panel">
-      The app could not be found.
+      <h3>Hey, we could not find your app!</h3>
+      <p>This is probably because, you did not assign your app to <code>window.app</code></p>
+      <p>If that's the case, do something like this:</p>
+      <code> window.app = window.TodoMVC = new Backbone.Marionette.Application(); </code>
+      <p>and all will be better.</p>
     </div>
     {{/hasLoadFailed}}
-  </div>
-
 </div>
