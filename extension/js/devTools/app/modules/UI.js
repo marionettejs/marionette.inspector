@@ -2,7 +2,7 @@ define([
   'marionette',
   'backbone',
   'util/Radio',
-  'util/Logger',
+  'logger',
   'client',
   'app/modules/UI/views/Layout',
   'app/modules/UI/models/UiData',

@@ -16,7 +16,8 @@ require.config({
         handlebars: '../lib/handlebars-blocks',
         setImmediate: '../lib/setImmediate',
         bluebird: '../lib/bluebird',
-        'jquery.treegrid': '../lib/jquery.treegrid'
+        'jquery.treegrid': '../lib/jquery.treegrid',
+        logger: '../common/util/logger'
     },
     // non-amd library loaders
     shim: {
@@ -68,7 +69,7 @@ require([
   "jquery.treegrid",
   "handlebars",
   "marionette",
-  "util/Logger",
+  "logger",
   "app",
   "app/modules/Radio",
   "app/modules/UI",

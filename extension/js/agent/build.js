@@ -17,7 +17,7 @@ var _ = this._;
  *
  */
 
-// @include utils/debug.js
+// @include ../common/util/debug.js
 // @include utils/bind.js
 // @include utils/isObject.js
 // @include utils/isArray.js
