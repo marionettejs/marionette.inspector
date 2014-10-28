@@ -1,5 +1,5 @@
 // @private
-var patchBackboneRouter = bind(function(BackboneRouter) {
+this.patchBackboneRouter = function(BackboneRouter) {
     debug.log("Backbone.Router detected");
 
     patchBackboneComponent(BackboneRouter, bind(function(router) { // on new instance
@@ -11,5 +11,5 @@ var patchBackboneRouter = bind(function(BackboneRouter) {
         patchAppComponentTrigger(router);
         patchAppComponentEvents(router);
     }, this));
-}, this);
+};
 

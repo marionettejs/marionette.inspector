@@ -25,6 +25,7 @@ var _ = this._;
 // @include utils/sendMessage.js
 // @include utils/getHiddenProperty.js
 // @include utils/setHiddenProperty.js
+// @include utils/setProperty.js
 // @include utils/objectPath.js
 
 
@@ -63,7 +64,6 @@ var _ = this._;
 // @include components/getAppComponentInfo.js
 // @include components/getAppComponentInfoByIndex.js
 // @include components/getAppViewInfoFromElement.js
-// @include components/patchBackboneComponent.js
 // @include components/setAppComponentInfo.js
 // @include components/registerAppComponent.js
 // @include components/monitorAppComponentProperty.js
@@ -80,6 +80,7 @@ var _ = this._;
 
 // @include patches/patchDefine.js
 // @include patches/patchBackbone.js
+// @include patches/patchBackboneComponent.js
 // @include patches/patchAppComponentTrigger.js
 // @include patches/patchAppComponentEvents.js
 // @include patches/patchAppComponentSync.js

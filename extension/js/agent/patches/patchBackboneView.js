@@ -1,5 +1,5 @@
 // @private
-var patchBackboneView = bind(function(BackboneView) {
+this.patchBackboneView = function(BackboneView) {
     debug.log("Backbone.View detected");
 
     patchBackboneComponent(BackboneView, bind(function(view) { // on new instance
@@ -92,4 +92,4 @@ var patchBackboneView = bind(function(BackboneView) {
             return result;
         }});
     }, this));
-}, this);
+}
