@@ -36,7 +36,10 @@ define([
       'router': false,
       'app': false,
       'ui': false,
-      'devtools': false
+      'devtools': false,
+      'radio': false,
+      'activity': false,
+      'data': false,
     },
 
     initialize: function() {

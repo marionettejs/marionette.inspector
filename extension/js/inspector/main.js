@@ -73,7 +73,9 @@ require([
   "app",
   "app/modules/Radio",
   "app/modules/UI",
-], function($, treeGrid, Handlebars, Marionette, logger, App, RadioApp, UIApp) {
+  "app/modules/Data",
+  "app/modules/Activity",
+], function($, treeGrid, Handlebars, Marionette, logger, App, RadioApp, UIApp, DataApp, ActivityApp) {
 
     Marionette.Renderer.render = function(template, data, view) {
       return Handlebars.compile(template)(data);
