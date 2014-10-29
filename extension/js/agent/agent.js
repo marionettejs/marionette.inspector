@@ -8,6 +8,9 @@ var onModulesDetected = function(modules) {
   debug.log("Backbone detected: ", Backbone);
   debug.log("Marionette detected: ", Marionette);
 
+  this.windowBackbone = Backbone;
+  this.windowMarionette = window.Marionette || this.Marionette;
+
   this.patchBackboneView(Backbone.View)
   this.patchBackboneModel(Backbone.Model)
   this.patchBackboneCollection(Backbone.Collection)
