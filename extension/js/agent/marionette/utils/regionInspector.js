@@ -32,9 +32,13 @@ var _regionInspector = function (obj, shouldSerialize) {
   } else if (obj.children) { // collection view
     debug.log('ri: found collection view');
 
-    return _.map(obj.children._views, function(view) {
-      return _regionInspector(view, shouldSerialize);
-    }, this, _regionInspector, shouldSerialize);
+    var subViews = {};
+    _.each(obj.children._views, function(view, index) {
+      subViews[index] = _regionInspector(view, shouldSerialize);
+    }, this, subViews, _regionInspector, shouldSerialize);
+
+    subViews._view =  shouldSerialize ? viewSerializer(obj) :  obj;
+    return subViews;
 
   } else { // simple view
     debug.log('ri: found simple view');
