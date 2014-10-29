@@ -9,6 +9,8 @@ define([
 
     template: tpl,
 
+    tools: ['ui', 'radio', 'data', 'activity'],
+
     attributes: {
       view: 'app-layout'
     },
@@ -38,8 +40,7 @@ define([
 
     serializeData: function() {
       var data = this.serializeModel(this.model);
-      data.active_tool = currentValue(['ui', 'radio'], this.model.get('tool'));
-
+      data.active_tool = currentValue(this.tools, this.model.get('tool'));
       return data;
     }
   });

@@ -18,9 +18,18 @@
 
         <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-6" style="height: 1px;">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">UI</a></li>
-            {{!-- <li><a href="#">Data</a></li> --}}
-            {{!-- <li><a href="#">Radio</a></li> --}}
+            <li class="{{#active_tool.is_ui}}active{{/active_tool.is_ui}}">
+              <a data-route="ui" href="#">UI</a>
+            </li>
+            <li class="{{#active_tool.is_data}}active{{/active_tool.is_data}}">
+              <a data-route="data" href="#">Data</a>
+            </li>
+            <li class="{{#active_tool.is_radio}}active{{/active_tool.is_radio}}">
+              <a data-route="radio" href="#">Radio</a>
+            </li>
+            <li class="{{#active_tool.is_activity}}active{{/active_tool.is_activity}}">
+              <a data-route="activity" href="#">Activity</a>
+            </li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div>
