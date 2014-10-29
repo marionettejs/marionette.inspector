@@ -19,21 +19,26 @@ var _regionInspector = function (obj, shouldSerialize) {
   }
 
   if (obj._regionManager) { // app
+    debug.log('ri: found app');
     var subViews = _subViews(obj, shouldSerialize);
     return subViews;
 
   } else if (obj.regionManager) { // layout
+    debug.log('ri: found layout');
     var subViews = _subViews(obj, shouldSerialize);
     subViews._view =  shouldSerialize ? viewSerializer(obj) :  obj;
     return subViews;
 
   } else if (obj.children) { // collection view
+    debug.log('ri: found collection view');
 
     return _.map(obj.children._views, function(view) {
       return _regionInspector(view, shouldSerialize);
     }, this, _regionInspector, shouldSerialize);
 
   } else { // simple view
+    debug.log('ri: found simple view');
+
     return {
       _view: shouldSerialize ? viewSerializer(obj) :  obj
     }
