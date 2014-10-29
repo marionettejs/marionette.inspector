@@ -32,7 +32,7 @@ define([
     */
     keys: {
       'client': false,
-      'ip': false,
+      'ip': true,
       'router': false,
       'app': false,
       'ui': false,
