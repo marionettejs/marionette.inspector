@@ -23,6 +23,10 @@ _.extend(AppObserver.prototype, {
   highlightView: function(data) {
     var view = this.getView(data.viewPath);
 
+    if (!view) {
+      return;
+    }
+
     // unhighlight all of the views
     var $els = _.pluck(this.viewList(), '$el');
     _.each($els, unhighlightEl);
@@ -32,6 +36,11 @@ _.extend(AppObserver.prototype, {
 
   unhighlightView: function(data) {
     var view = this.getView(data.viewPath);
+
+    if (!view) {
+      return;
+    }
+
     unhighlightEl(view.$el)
     return false;
   },
@@ -54,7 +63,8 @@ _.extend(AppObserver.prototype, {
     var subTree = this.regionTree(path, false);
 
     if (!subTree._view) {
-      throw new Error('could not find view');
+      debug.log('getView: could not find view at path ' + path);
+      return false;
     }
 
     return subTree._view;
