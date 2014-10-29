@@ -5,6 +5,9 @@
 // Restituisce l'indice del componente.
 var registerAppComponent = bind(function(appComponentCategory, appComponent) {
     // calcola l'indice del nuovo componente
+    if (lastAppComponentsIndex[appComponentCategory] == null) {
+      lastAppComponentsIndex[appComponentCategory] = -1;
+    }
     var appComponentIndex = ++lastAppComponentsIndex[appComponentCategory];
 
     setAppComponentInfo(appComponent, new AppComponentInfo(
