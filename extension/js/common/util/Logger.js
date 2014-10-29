@@ -97,7 +97,7 @@ define([
       }
 
       if (forcePrint || this.shouldPrintAllLogs || this.keys[key]) {
-        fnc.apply(console, ["%c> %s", styles, key].concat(args));
+        fnc.apply(console, ["%c> %s:", styles, key].concat(args));
       }
 
       if (this.shouldSaveLogs) {
