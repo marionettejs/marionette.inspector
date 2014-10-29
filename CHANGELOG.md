@@ -1,3 +1,10 @@
+## V0.0.6
+#### 10-29-2014
+
+### Fixed
+  + Fixed backbone detection so that we get region tree update events again
+  + Fixed the regionInspector so that collection and composite views get added to the region tree.
+
 ## V0.0.5
 #### 10-28-2014
 
