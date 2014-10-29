@@ -24,6 +24,10 @@ this.$ = window.$;
 // @include ../lib/backbone.radio.js
 // @include ../lib/marionette.js
 
+// define Backbone and Marionette locally in the agent closure
+var Backbone = this.Backbone;
+var Marionette = this.Marionette;
+
 
 /*
  * UTILS
@@ -40,6 +44,7 @@ this.$ = window.$;
 // @include utils/setHiddenProperty.js
 // @include utils/setProperty.js
 // @include utils/objectPath.js
+// @include utils/serializeObject.js
 
 
 /*
@@ -108,6 +113,7 @@ this.$ = window.$;
  *
  */
 
+// @include marionette/knownTypes.js
 // @include marionette/serialize/serializeEventsHash.js
 // @include marionette/serialize/serializeElement.js
 // @include marionette/serialize/viewSerializer.js
