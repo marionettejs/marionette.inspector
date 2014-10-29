@@ -2,7 +2,10 @@
 
 var hiddenPropertyPrefix = "__backboneDebugger__";
 
-var onBackboneDetected = function(Backbone) {
+var onModulesDetected = function(modules) {
+  var Backbone = modules.Backbone;
+  var Marionette = modules.Marionette;
+
   debug.log("Backbone detected: ", Backbone);
 
   // note: the Backbone object might be only partially defined.
@@ -10,6 +13,8 @@ var onBackboneDetected = function(Backbone) {
   onceDefined(Backbone, "Model", patchBackboneModel);
   onceDefined(Backbone, "Collection", patchBackboneCollection);
   onceDefined(Backbone, "Router", patchBackboneRouter);
+
+  this.patchMarionetteApplication(Marionette.Application);
 }
 
 
@@ -18,8 +23,8 @@ var onBackboneDetected = function(Backbone) {
 this.initialize = function() {
     debug.log("Backbone agent is starting...");//
 
-    patchDefine(onBackboneDetected);
-    patchBackbone(onBackboneDetected);
+    patchDefine(_.bind(onModulesDetected, this));
+    patchBackbone(_.bind(onModulesDetected, this));
 }
 
 this.initialize();

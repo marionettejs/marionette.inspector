@@ -2,6 +2,7 @@
 // Calls the callback passing to it the Backbone object every time it's detected.
 // The function uses multiple methods of detection.
 var patchDefine = function(callback) {
+    var loadedModules = {};
 
     // AMD
     patchFunctionLater(window, "define", function(originalFunction) {
@@ -24,16 +25,32 @@ var patchDefine = function(callback) {
 
                     // check if Backbone has been defined by the factory fuction
                     // (some factories set "this" to Backbone)
-                    var BackboneCandidate = module || this;//
+                    var Candidate = module || this;
 
+                    var isBackbone = isObject(Candidate) &&
+                      typeof Candidate.View == "function" &&
+                      typeof Candidate.Model == "function" &&
+                      typeof Candidate.Collection == "function" &&
+                      typeof Candidate.Router == "function";
 
-                    var isBackbone = isObject(BackboneCandidate) &&
-                                     typeof BackboneCandidate.View == "function" &&
-                                     typeof BackboneCandidate.Model == "function" &&
-                                     typeof BackboneCandidate.Collection == "function" &&
-                                     typeof BackboneCandidate.Router == "function";
                     if (isBackbone) {
-                        callback(BackboneCandidate);
+                      loadedModules.Backbone = Candidate;
+                    }
+
+                    var marionetteComponents = ['View', 'ItemView', 'CollectionView', 'CompositeView',
+                      'Region', 'RegionManager', 'Application', 'Module'];
+
+                    var isMarionette = isObject(Candidate) &&
+                      _.all(marionetteComponents, function (component) {
+                        return _.isFunction(Candidate[component]);
+                      });
+
+                    if (isMarionette)  {
+                      loadedModules.Marionette = Candidate;
+                    }
+
+                    if (loadedModules.Backbone && loadedModules.Marionette) {
+                      callback(loadedModules);
                     }
 
                     return module;
