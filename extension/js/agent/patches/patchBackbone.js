@@ -2,7 +2,7 @@ var patchBackbone = function(onModulesLoaded) {
   var backboneLoaded = new Promise(function (resolve) {
     onObjectAndPropertiesSetted(
       window,
-      'Backbone', ['View', 'Model', 'Router', 'Wreqr', 'Collection'],
+      'Backbone', ['View', 'Model', 'Router', 'Wreqr', 'Collection', '$'],
       resolve
     );
   });

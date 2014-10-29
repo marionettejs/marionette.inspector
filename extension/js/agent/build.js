@@ -4,13 +4,26 @@
   *
   */
 
-// @include ../lib/watch.js
+
 // @include ../lib/underscore.js
+var _ = this._;
+
+
+// add jQuery if it's not there
+if (_.isUndefined(window.$)) {
+  // @include ../lib/jquery.js
+}
+
+// add jQuery to window.__agent because Backbone requires it on the root
+this.$ = window.$;
+
+// @include ../lib/watch.js
 // @include ../lib/underscore-contrib.js
 
+// @include ../lib/backbone-no-amd.js
+// @include ../lib/backbone.radio.js
+// @include ../lib/marionette.js
 
-
-var _ = this._;
 
 /*
  * UTILS
