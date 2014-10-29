@@ -88,6 +88,7 @@ var _ = this._;
 // @include patches/patchBackboneModel.js
 // @include patches/patchBackboneCollection.js
 // @include patches/patchBackboneRouter.js
+ // @include patches/patchMarionetteApplication.js
 
 
 /*

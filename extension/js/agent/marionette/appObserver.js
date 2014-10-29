@@ -7,7 +7,7 @@ _.extend(AppObserver.prototype, {
   _: window._,
 
   // expression that's eval'd on the window to get the app
-  appExpression: "app",
+  appExpression: "__agent.mainMarionetteApp",
 
   // expresion that's eval'd on the window to get the radio
   radioExpression: "app.wreqr",

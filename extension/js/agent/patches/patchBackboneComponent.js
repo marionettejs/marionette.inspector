@@ -35,10 +35,13 @@ var patchBackboneComponent = bind(function(BackboneComponent, instancePatcher) {
 
         // la proprietà sarà ereditata anche dai sottotipi e finirà nelle varie istanze,
         // contiene la versione patchata della initialize
-        var patchedInitialize = patchInitialize(BackboneComponent.prototype.initialize);
+
+        var initializeFncName = _.has(BackboneComponent.prototype, 'initialize') ? 'initialize' : 'start';
+
+        var patchedInitialize = patchInitialize(BackboneComponent.prototype[initializeFncName]);
         setHiddenProperty(BackboneComponent.prototype, "patchedInitialize", patchedInitialize);
 
-        setProperty(BackboneComponent.prototype, "initialize", {
+        setProperty(BackboneComponent.prototype, initializeFncName, {
             get: function() {
                 return getHiddenProperty(this, "patchedInitialize");
             },
