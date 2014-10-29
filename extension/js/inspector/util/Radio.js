@@ -1,6 +1,6 @@
 define([
   'marionette',
-  'radio'
+  'radio',
 ], function(Marionette, Radio) {
 
   Radio.connectCommands = function(channelName, commands, context) {

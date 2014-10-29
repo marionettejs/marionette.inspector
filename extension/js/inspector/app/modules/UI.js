@@ -3,6 +3,7 @@ define([
   'backbone',
   'util/Radio',
   'logger',
+  'app/modules/Module',
   'client',
   'app/modules/UI/views/Layout',
   'app/modules/UI/models/UiData',
@@ -12,13 +13,14 @@ define([
   Backbone,
   Radio,
   logger,
+  Module,
   client,
   Layout,
   UiData,
   ComponentReportToRegionTreeMap
 ) {
 
-  return Marionette.Module.extend({
+  return Module.extend({
 
     channelName: 'ui',
 
@@ -152,14 +154,12 @@ define([
       this.client.appObserverCall('stopSearch');
     },
 
-    showModule: function() {
-      var layout = new Layout({
+    buildLayout: function() {
+      return new Layout({
         model: this.uiData,
         collection: this.viewList,
         moduleData: this.moduleData
       });
-
-      Radio.command('app', 'show:tool', this.appName, layout);
     },
 
     startModule: function() {
