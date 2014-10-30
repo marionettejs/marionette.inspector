@@ -5,15 +5,29 @@ var moduleHasComponents = function (Candidate, components) {
     });
 };
 
+var isBackbone = function(Candidate) {
+    return moduleHasComponents(Candidate, ['View', 'Model', 'Collection', 'Router']);
+}
+
+var isMarionette = function(Candidate) {
+    return moduleHasComponents(Candidate, [
+        'View', 'ItemView', 'CollectionView',
+        'CompositeView', 'Region', 'RegionManager',
+        'Application', 'Module'
+    ]);
+}
+
 // @private
 // Calls the callback passing to it the Backbone object every time it's detected.
 // The function uses multiple methods of detection.
 var patchDefine = function(callback) {
     var loadedModules = {};
+    debug.log('patch define');
 
     // AMD
     patchFunctionLater(window, "define", function(originalFunction) {
       return function() {
+        // debug.log('patched define');
         // function arguments: (id? : String, dependencies? : Array, factory : Function)
 
         // make arguments editable
@@ -28,22 +42,25 @@ var patchDefine = function(callback) {
                 // function and would call it without them (see define() in the AMD API)
                 patchFunction(argumentsArray, i, function(originalFunction) {
                   return function(require, exports, modules) {
+                    // debug.log('patched argument...');
                     var module = originalFunction.apply(this, arguments);
 
                     // check if Backbone has been defined by the factory fuction
                     // (some factories set "this" to Backbone)
                     var Candidate = module || this;
 
-                    var isBackbone = moduleHasComponents(Candidate, ['View', 'Model', 'Collection', 'Router']);
-
-                    if (isBackbone) {
+                    if (isBackbone(Candidate)) {
+                      debug.log('Backbone define detected');
                       loadedModules.Backbone = Candidate;
+
+                      if (isMarionette(Candidate.Marionette)) {
+                        debug.log('Marionette define detected');
+                        loadedModules.Marionette = Candidate.Marionette;
+                      }
                     }
 
-                    var isMarionette = moduleHasComponents(Candidate, ['View', 'ItemView', 'CollectionView',
-                      'CompositeView', 'Region', 'RegionManager', 'Application', 'Module']) ;
-
-                    if (isMarionette)  {
+                    if (isMarionette(Candidate))  {
+                      debug.log('Marionette define detected');
                       loadedModules.Marionette = Candidate;
                     }
 
