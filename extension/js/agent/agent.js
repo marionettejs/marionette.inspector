@@ -2,19 +2,16 @@
 var hiddenPropertyPrefix = "__backboneDebugger__";
 
 var onModulesDetected = function(modules) {
-  var Backbone = modules.Backbone;
-  var Marionette = modules.Marionette;
+  var Backbone = this.windowBackbone = modules.Backbone;
+  var Marionette = this.windowMarionette = modules.Marionette;
 
   debug.log("Backbone detected: ", Backbone);
   debug.log("Marionette detected: ", Marionette);
 
-  this.windowBackbone = Backbone;
-  this.windowMarionette = window.Marionette || this.Marionette;
-
   this.patchBackboneView(Backbone.View)
-  this.patchBackboneModel(Backbone.Model)
-  this.patchBackboneCollection(Backbone.Collection)
-  this.patchBackboneRouter(Backbone.Router)
+  this.patchBackboneModel(Backbone.Model);
+  this.patchBackboneCollection(Backbone.Collection);
+  this.patchBackboneRouter(Backbone.Router);
 
   this.patchMarionetteApplication(Marionette.Application);
 }
