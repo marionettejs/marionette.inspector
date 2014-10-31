@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Marionette SpecRunner</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../node_modules/mocha/mocha.css" />
+
+    <script src="../../node_modules/mocha/mocha.js"></script>
+    <script src="../../node_modules/chai/chai.js"></script>
+    <script src="../../node_modules/sinon/pkg/sinon.js"></script>
+    <script src="../../node_modules/sinon-chai/lib/sinon-chai.js"></script>
+    <script src="../../node_modules/chai-jq/chai-jq.js"></script>
+
+    <script>
+      mocha.setup('bdd');
+
+      window.expect = chai.expect;
+      window.sinon = sinon;
+
+      onload = function() {
+        mocha.checkLeaks();
+        mocha.run();
+
+        var $fixtures = $('#fixtures');
+
+        var setFixtures = function () {
+            _.each(arguments, function (content) {
+                $fixtures.append(content);
+            });
+        };
+
+        var clearFixtures = function () {
+            $fixtures.empty();
+        };
+
+        var originalHash = window.location.hash;
+
+        before(function() {
+            this.setFixtures = setFixtures;
+            this.clearFixtures = clearFixtures;
+        });
+
+        beforeEach(function () {
+            this.sinon = sinon.sandbox.create();
+        });
+
+        afterEach(function () {
+            this.sinon.restore();
+            this.clearFixtures();
+            window.location.hash = originalHash;
+            Backbone.history.stop();
+            Backbone.history.handlers.length = 0;
+        });
+      };
+    </script>
+
+    <script src="lib/jquery.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="lib/backbone.js"></script>
+    <script src="lib/backbone.radio.js"></script>
+    <script src="lib/marionette.js"></script>
+
+<!--
+    <script>
+        window.Marionette = Backbone.Marionette = {};
+        window.slice = Array.prototype.slice;
+        Marionette.Deferred = Backbone.$.Deferred;
+    </script>
+     -->
+    <script src="agent/build/src/core.js"></script>
+    <script src="test/unit/serializeObject.spec.js"></script>
+
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <div id="fixtures" hidden></div>
+  </body>
+</html>
