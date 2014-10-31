@@ -1,4 +1,10 @@
-var typeOf = function(obj) { return typeof obj} // Ember.typeOf;
+var typeOf = function(obj) {
+  return typeof obj
+}
+
+var isType = function(obj, type) {
+  return typeOf(obj) == type;
+}
 
 this.inspectValue = function(value) {
   var string;
@@ -31,6 +37,8 @@ this.inspect = function(value) {
     return 'null';
   } else if(typeOf(value) === 'date') {
     return value.toString();
+  } else if(isType(value, 'string') || isType(value, 'number') || isType(value, 'boolean')) {
+    return value;
   } else if (typeof value === 'object') {
     // `Ember.inspect` is able to handle this use case,
     // but it is very slow as it loops over all props,
