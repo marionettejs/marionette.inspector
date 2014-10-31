@@ -1,7 +1,7 @@
 
 window.__agent = new function() {
 
-  // @include build/agent.js
+  // @include src/agent.js
 
   console.log('__agent', this)
 };

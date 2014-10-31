@@ -5,12 +5,16 @@ module.exports = function(grunt) {
 
     preprocess: {
       agent: {
-        src: 'extension/js/agent/build.js',
-        dest: 'extension/js/agent/build/agent.js'
+        src: 'extension/js/agent/build/build.js',
+        dest: 'extension/js/agent/build/src/agent.js'
       },
       localAgent: {
-        src: 'extension/js/agent/localBuild.js',
-        dest: 'extension/js/agent/build/localAgent.js'
+        src: 'extension/js/agent/build/localBuild.js',
+        dest: 'extension/js/agent/build/src/localAgent.js'
+      },
+      core: {
+        src: 'extension/js/agent/build/core.js',
+        dest: 'extension/js/agent/build/src/core.js'
       },
     },
 
