@@ -42,12 +42,6 @@
 
         var originalHash = window.location.hash;
 
-        /*
-         * This is the Agent secret sauce.
-         * We'll want to be able to run this before/after each unit test...
-         * but to do that, we'll need to be able to pass in a new Backbone,Marionette
-         * which means wrapping these libs in a factory that creates a new one.
-        */
 
 
         before(function() {
@@ -58,10 +52,16 @@
         beforeEach(function () {
             this.sinon = sinon.sandbox.create();
 
+            /*
+             * This is the Agent secret sauce.
+             * We'll want to be able to run this before/after each unit test...
+             * but to do that, we'll need to be able to pass in a new Backbone,Marionette
+             * which means wrapping these libs in a factory that creates a new one.
+            */
+
             window.Backbone = window.BackboneFactory();
             window.Marionette = window.MarionetteFactory(Backbone);
             patchBackboneMarionette({Backbone: Backbone, Marionette: Marionette})
-
         });
 
         afterEach(function () {
