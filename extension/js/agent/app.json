@@ -5,6 +5,6 @@
     ],
 
     "files": [
-      "build/agent.js"
+      "build/src/agent.js"
     ]
 }

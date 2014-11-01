@@ -14,7 +14,7 @@ this.knownTypeString = function(obj) {
 };
 
 this.knownType = function (o) {
-  if (_.isUndefined(this.windowBackbone) || _.isUndefined(this.windowMarionette)) {
+  if (_.isUndefined(this.patchedBackbone) || _.isUndefined(this.patchedMarionette)) {
     return;
   }
 
@@ -29,13 +29,13 @@ this.knownTypes = function() {
 
   if (Marionette.VERSION[0] == "2") {
     knownTypes['Marionette.LayoutView'] = {
-      type: this.windowMarionette.LayoutView,
+      type: this.patchedMarionette.LayoutView,
       name: 'marionette-layout-view',
       toString: function() {return '<Marionette.LayoutView>'}
     };
   } else {
     knownTypes['Marionette.Layout'] = {
-      type: this.windowMarionette.Layout,
+      type: this.patchedMarionette.Layout,
       name: 'marionette-layout',
       toString: function() {return '<Marionette.Layout>'}
     };
@@ -43,43 +43,43 @@ this.knownTypes = function() {
 
   _.extend(knownTypes, {
     'Backbone.Model': {
-      type: this.windowBackbone.Model,
+      type: this.patchedBackbone.Model,
       name: 'backbone-model',
       toString: function() {return '<Backbone.Model>'}
     },
 
     'Backbone.Collection': {
-      type: this.windowBackbone.Collection,
+      type: this.patchedBackbone.Collection,
       name: 'backbone-collection',
       toString: function() {return '<Backbone.Collection>'}
     },
 
     'Marionette.CompositeView': {
-      type: this.windowMarionette.CompositeView,
+      type: this.patchedMarionette.CompositeView,
       name: 'marionette-composite-view',
       toString: function() {return '<Marionette.CompositeView>'}
     },
 
     'Marionette.CollectionView': {
-      type: this.windowMarionette.CollectionView,
+      type: this.patchedMarionette.CollectionView,
       name: 'marionette-collection-view',
       toString: function() {return '<Marionette.CollectionView>'}
     },
 
     'Marionette.ItemView': {
-      type: this.windowMarionette.ItemView,
+      type: this.patchedMarionette.ItemView,
       name: 'marionette-item-view',
       toString: function() {return '<Marionette.ItemView>'}
     },
 
     'Marionette.View': {
-      type: this.windowMarionette.View,
+      type: this.patchedMarionette.View,
       name: 'marionette-view',
       toString: function() {return '<Marionette.View>'}
     },
 
     'Backbone.View': {
-      type: this.windowBackbone.View,
+      type: this.patchedBackbone.View,
       name: 'backbone-view',
       toString: function() {return '<Backbone.View>'}
     }
@@ -87,10 +87,10 @@ this.knownTypes = function() {
 
 
   // Marionette Object was introduced in V2.1
-  if (this.windowMarionette.Object) {
+  if (this.patchedMarionette.Object) {
     _.extend(knownTypes, {
       'Marionette.Object': {
-        type: this.windowMarionette.Object,
+        type: this.patchedMarionette.Object,
         name: 'marionette-object',
         toString: function() {return '<Marionette.Object>'}
       }

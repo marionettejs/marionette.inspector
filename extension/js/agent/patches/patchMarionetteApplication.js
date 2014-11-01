@@ -6,7 +6,7 @@ this.patchMarionetteApplication = function(MarionetteApplication) {
 
     var appIndex = registerAppComponent("Application", app);
     if (appIndex === 0) {
-      this.mainMarionetteApp = app;
+      this.patchedApp = app;
       debug.log("Main Marionette application registered");
     }
     patchAppComponentTrigger(app, 'application');
