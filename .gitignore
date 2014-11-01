@@ -2,3 +2,4 @@
 node_modules
 extension/js/agent/build/
 extension.zip
+/test

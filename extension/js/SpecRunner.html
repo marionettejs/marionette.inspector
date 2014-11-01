@@ -12,6 +12,12 @@
     <script src="../../node_modules/sinon-chai/lib/sinon-chai.js"></script>
     <script src="../../node_modules/chai-jq/chai-jq.js"></script>
 
+    <script src="lib/jquery.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="test/libs/backbone.js"></script>
+    <script src="test/libs/marionette.js"></script>
+
+
     <script>
       mocha.setup('bdd');
 
@@ -37,13 +43,6 @@
         var originalHash = window.location.hash;
 
 
-        /*
-         * This is the Agent secret sauce.
-         * We'll want to be able to run this before/after each unit test...
-         * but to do that, we'll need to be able to pass in a new Backbone,Marionette
-         * which means wrapping these libs in a factory that creates a new one.
-        */
-        patchBackboneMarionette({Backbone: Backbone, Marionette: Marionette})
 
         before(function() {
             this.setFixtures = setFixtures;
@@ -52,6 +51,17 @@
 
         beforeEach(function () {
             this.sinon = sinon.sandbox.create();
+
+            /*
+             * This is the Agent secret sauce.
+             * We'll want to be able to run this before/after each unit test...
+             * but to do that, we'll need to be able to pass in a new Backbone,Marionette
+             * which means wrapping these libs in a factory that creates a new one.
+            */
+
+            window.Backbone = window.BackboneFactory();
+            window.Marionette = window.MarionetteFactory(Backbone);
+            patchBackboneMarionette({Backbone: Backbone, Marionette: Marionette})
         });
 
         afterEach(function () {
@@ -64,11 +74,6 @@
       };
     </script>
 
-    <script src="lib/jquery.js"></script>
-    <script src="lib/underscore.js"></script>
-    <script src="lib/backbone.js"></script>
-    <script src="lib/backbone.radio.js"></script>
-    <script src="lib/marionette.js"></script>
 
 <!--
     <script>
@@ -79,6 +84,7 @@
      -->
     <script src="agent/build/src/core.js"></script>
     <script src="test/unit/serializeObject.spec.js"></script>
+    <script src="test/unit/creating-a-model.spec.js"></script>
 
   </head>
   <body>
