@@ -33,10 +33,6 @@ module.exports = function(grunt) {
       tasks: ['agent']
     },
 
-    clean: {
-      agent: 'extension/js/agent/build'
-    },
-
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
