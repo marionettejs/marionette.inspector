@@ -18,59 +18,59 @@ this.patchBackboneView = function(BackboneView) {
         patchAppComponentTrigger(view, 'view');
         patchAppComponentEvents(view);
 
-        patchFunctionLater(view, "delegateEvents", function(originalFunction) { return function() {
-            var events = arguments[0]; // hash <selector, callback>
-            if (events === undefined) {
-                // delegateEvents usa internamente this.events se viene chiamata senza
-                // argomenti, non rendendo possibile la modifica dell'input,
-                // per cui in questo caso anticipiamo il comportamento e usiamo this.events
-                // come input.
-                // (this.events può essere anche una funzione che restituisce l'hash)
-                events = (typeof this.events == "function") ? this.events() : this.events;
-            }
+        // patchFunctionLater(view, "delegateEvents", function(originalFunction) { return function() {
+        //     var events = arguments[0]; // hash <selector, callback>
+        //     if (events === undefined) {
+        //         // delegateEvents usa internamente this.events se viene chiamata senza
+        //         // argomenti, non rendendo possibile la modifica dell'input,
+        //         // per cui in questo caso anticipiamo il comportamento e usiamo this.events
+        //         // come input.
+        //         // (this.events può essere anche una funzione che restituisce l'hash)
+        //         events = (typeof this.events == "function") ? this.events() : this.events;
+        //     }
 
-            // bisogna modificare al volo le callback in events
-            // per poter tracciare quando vengono chiamate
-            events = clone(events); // evita di modificare l'oggetto originale
-            for (var eventType in events) {
-                if (events.hasOwnProperty(eventType)) {
-                    // la callback può essere direttamente una funzione o il nome di una
-                    // funzione nella view
-                    var callback = events[eventType];
-                    if (typeof callback != "function") {
-                        callback = this[callback];
-                    }
-                    if (!callback) {
-                        // lascia la callback non valida invariata in modo che
-                        // il metodo originale possa avvisare dell'errore
-                        continue;
-                    }
+        //     // bisogna modificare al volo le callback in events
+        //     // per poter tracciare quando vengono chiamate
+        //     events = clone(events); // evita di modificare l'oggetto originale
+        //     for (var eventType in events) {
+        //         if (events.hasOwnProperty(eventType)) {
+        //             // la callback può essere direttamente una funzione o il nome di una
+        //             // funzione nella view
+        //             var callback = events[eventType];
+        //             if (typeof callback != "function") {
+        //                 callback = this[callback];
+        //             }
+        //             if (!callback) {
+        //                 // lascia la callback non valida invariata in modo che
+        //                 // il metodo originale possa avvisare dell'errore
+        //                 continue;
+        //             }
 
-                    // callback valida, la modifica al volo
-                    // (ogni funzione ha la sua closure con i dati dell'evento)
-                    events[eventType] = (function(eventType, callback) {
-                        return function(event) {
-                            // event è l'evento jquery
+        //             // callback valida, la modifica al volo
+        //             // (ogni funzione ha la sua closure con i dati dell'evento)
+        //             events[eventType] = (function(eventType, callback) {
+        //                 return function(event) {
+        //                     // event è l'evento jquery
 
-                            addAppComponentAction(view, new AppComponentAction(
-                                "dom-event", eventType, event, "jQuery Event"
-                            ));
+        //                     addAppComponentAction(view, new AppComponentAction(
+        //                         "dom-event", eventType, event, "jQuery Event"
+        //                     ));
 
-                            var result = callback.apply(this, arguments);
-                            return result;
-                        }
-                    })(eventType, callback);
-                }
-            }
+        //                     var result = callback.apply(this, arguments);
+        //                     return result;
+        //                 }
+        //             })(eventType, callback);
+        //         }
+        //     }
 
-            // modifica gli argomenti (non basta settare arguments[0] in quanto non funziona
-            // nella strict mode)
-            var argumentsArray = Array.prototype.slice.call(arguments);
-            argumentsArray[0] = events;
-            var result = originalFunction.apply(this, argumentsArray);
+        //     // modifica gli argomenti (non basta settare arguments[0] in quanto non funziona
+        //     // nella strict mode)
+        //     var argumentsArray = Array.prototype.slice.call(arguments);
+        //     argumentsArray[0] = events;
+        //     var result = originalFunction.apply(this, argumentsArray);
 
-            return result;
-        }});
+        //     return result;
+        // }});
 
         patchFunctionLater(view, "render", function(originalFunction) { return function() {
             var result = originalFunction.apply(this, arguments);
