@@ -20,7 +20,7 @@ var isMarionette = function(Candidate) {
 // @private
 // Calls the callback passing to it the Backbone object every time it's detected.
 // The function uses multiple methods of detection.
-var patchDefine = function(callback) {
+var patchDefine = function(patchBackbone, patchMarionette) {
     var loadedModules = {};
     debug.log('patch define');
 
@@ -52,20 +52,19 @@ var patchDefine = function(callback) {
                     if (isBackbone(Candidate)) {
                       debug.log('Backbone define detected');
                       loadedModules.Backbone = Candidate;
+                      patchBackbone(Candidate);
 
                       if (isMarionette(Candidate.Marionette)) {
                         debug.log('Marionette define detected');
                         loadedModules.Marionette = Candidate.Marionette;
+                        patchMarionette(loadedModules.Backbone, loadedModules.Marionette);
                       }
                     }
 
                     if (isMarionette(Candidate))  {
                       debug.log('Marionette define detected');
                       loadedModules.Marionette = Candidate;
-                    }
-
-                    if (loadedModules.Backbone && loadedModules.Marionette) {
-                      callback(loadedModules);
+                      patchMarionette(loadedModules.Backbone, loadedModules.Marionette);
                     }
 
                     return module;
