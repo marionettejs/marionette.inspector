@@ -15,6 +15,7 @@ this.patchBackboneModel = function(BackboneModel) {
 
         data.inspectedAttributes = attrs;
         data.attributes = JSON.stringify(model.attributes);
+        data.serializedAttributes = this.serializeObject(model.attributes);
         data.cid = model.cid;
 
         var modelIndex = registerAppComponent("Model", model, data);

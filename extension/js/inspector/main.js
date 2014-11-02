@@ -87,6 +87,11 @@ require([
 
         window.app = new App();
         app.start();
+
+        app.module('Data', DataApp);
+        app.module('Radio', RadioApp);
+        app.module('UI', UIApp);
+        app.module('Activity', ActivityApp);
         app.once('client:page:ready', function () {
           app.navigate('ui');
         });
