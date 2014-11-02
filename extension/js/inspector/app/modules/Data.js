@@ -4,8 +4,9 @@ define([
   'logger',
   'app/modules/Module',
   'app/modules/Data/views/Layout',
-  'client'
-], function(Marionette, Radio, logger, Module, Layout, client) {
+  'client',
+  'app/modules/Data/models/ModelCollection',
+], function(Marionette, Radio, logger, Module, Layout, client, ModelCollection) {
   return Module.extend({
 
     channelName: 'data',
@@ -19,6 +20,7 @@ define([
 
     setupData: function() {
       this.client = client;
+      this.modelCollection = new ModelCollection();
     },
 
     setupEvents: function() {
@@ -27,7 +29,10 @@ define([
 
     onNewModel: function (event) {
       logger.log('data', 'new model', event);
-      var data = event.data;
+
+      var modelData = event.data;
+      modelData.attributes = JSON.parse(modelData.attributes);
+      this.modelCollection.add(modelData);
     },
 
     startModule: function() {
@@ -36,6 +41,7 @@ define([
 
     buildLayout: function() {
       return new Layout({
+        modelCollection: this.modelCollection
       });
     },
 

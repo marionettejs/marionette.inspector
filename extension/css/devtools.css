@@ -16,12 +16,16 @@ body {
   overflow:hidden;
 }
 
-[data-region="app-region"], [view="app-layout"],
-.app-layout-body, [data-region="tool"], [view="ui-layout"] {
+[data-region="app-region"],
+[view="app-layout"],
+.app-layout-body,
+[data-region="tool"],
+[view="ui-layout"], [view="data-layout"] {
   height: inherit;
 }
 
-[data-region="view-list"], [data-region="view-more-info"] {
+[data-region="view-list"], [data-region="view-more-info"],
+[data-region="model-list"], [data-region="model-more-info"] {
   height: inherit;
   overflow-y: scroll;
 }
