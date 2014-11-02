@@ -27,7 +27,7 @@ this.knownType = function (o) {
 this.knownTypes = function() {
   var knownTypes = {};
 
-  if (Marionette.VERSION[0] == "2") {
+  if (this.patchedMarionette.VERSION && this.patchedMarionette.VERSION[0] == "2") {
     knownTypes['Marionette.LayoutView'] = {
       type: this.patchedMarionette.LayoutView,
       name: 'marionette-layout-view',
