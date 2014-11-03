@@ -70,7 +70,7 @@ function(Backbone, logger, Radio) {
     Router.startHistory = function() {
       Backbone.history.start({
           root: '',
-          pushState: Router.clientSupportsPushState()
+          pushState: true
       });
     }
 
