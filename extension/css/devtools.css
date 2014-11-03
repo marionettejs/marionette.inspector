@@ -30,7 +30,8 @@ body {
   overflow-y: scroll;
 }
 
-[data-region="view-more-info"] {
+[data-region="view-more-info"],
+[data-region="model-info"] {
   padding: 0;
 }
 

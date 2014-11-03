@@ -2,11 +2,18 @@ define([
   'marionette',
   'util/Radio',
   "text!templates/devTools/data/info.html",
-], function(Marionette, Radio, tpl) {
+  'app/behaviors/SidebarPanes'
+], function(Marionette, Radio, tpl, SidebarPanesBehavior) {
 
   return Marionette.ItemView.extend({
 
     template: tpl,
+
+    behaviors: {
+      sidebarPanes: {
+        behaviorClass: SidebarPanesBehavior,
+      }
+    },
 
     serializeData: function() {
       var data = {};
