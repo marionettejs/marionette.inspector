@@ -73,7 +73,18 @@ this.inspect = function(value) {
 }
 
 this.serializeObject = function(obj) {
-  var so = this.inspectValue(obj);
-  debug.log('serialize: object ' + so);
-  return so;
+  var data = {};
+
+  _.each(obj || {}, function(value, name) {
+    var inspectedObject = this.inspectValue(value);
+
+     data[name] = {
+      name: name,
+      type: inspectedObject.type,
+      value: inspectedObject.inspect.toString()
+    }
+  }, this);
+
+  // debug.log('serialize: object ' + so);
+  return data;
 }

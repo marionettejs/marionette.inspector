@@ -16,6 +16,7 @@
 // @include ../utils/bind.js
 // @include ../utils/isObject.js
 // @include ../utils/isArray.js
+// @include ../utils/toJson.js
 // @include ../utils/clone.js
 // @include ../utils/sendMessage.js
 // @include ../utils/getHiddenProperty.js
@@ -98,7 +99,8 @@
 // @include ../marionette/knownTypes.js
 // @include ../marionette/serialize/serializeEventsHash.js
 // @include ../marionette/serialize/serializeElement.js
-// @include ../marionette/serialize/viewSerializer.js
+// @include ../marionette/serialize/serializeView.js
+// @include ../marionette/serialize/serializeModel.js
 // @include ../marionette/actions/search.js
 // @include ../marionette/actions/stopSearch.js
 // @include ../marionette/actions/highlightEl.js
