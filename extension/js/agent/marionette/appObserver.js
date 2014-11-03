@@ -1,5 +1,6 @@
 
-var AppObserver = function() {
+var AppObserver = function(agent) {
+  this.agent = agent;
 };
 
 _.extend(AppObserver.prototype, {
@@ -50,10 +51,10 @@ _.extend(AppObserver.prototype, {
     shouldSerialize = !_.isUndefined(shouldSerialize) ? shouldSerialize : true;
     path = path || '';
     var app = this.getApp();
-    var tree = regionInspector(app, path, shouldSerialize);
+    var tree = this.agent.regionInspector(app, path, shouldSerialize);
 
     if (_.isEmpty(tree)) {
-      tree = regionInspector(app.rootView, path, shouldSerialize);
+      tree = this.agent.regionInspector(app.rootView, path, shouldSerialize);
     }
 
     return tree;
@@ -88,4 +89,4 @@ _.extend(AppObserver.prototype, {
 
 });
 
-this.appObserver = new AppObserver();
+this.appObserver = new AppObserver(this);

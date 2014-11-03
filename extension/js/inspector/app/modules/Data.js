@@ -31,7 +31,6 @@ define([
       logger.log('data', 'new model', event);
 
       var modelData = event.data;
-      modelData.attributes = JSON.parse(modelData.attributes);
       this.modelCollection.add(modelData);
     },
 

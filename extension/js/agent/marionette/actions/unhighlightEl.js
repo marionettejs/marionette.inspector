@@ -4,5 +4,5 @@ var unhighlightEl = function($el) {
   }
 
   $el.removeClass('marionette-inspector-highlighted-element');
-	debug.log('unhighlight', $el.get(0));
+	// debug.log('unhighlight', $el.get(0));
 }

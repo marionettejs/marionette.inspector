@@ -132,8 +132,8 @@ define([
         var value = _option.optValue ? _option.optValue : _option.optType;
 
         return {
-          option: _option.option,
-          value: value
+          option: _option.name,
+          value: _option.value
         }
       });
 
