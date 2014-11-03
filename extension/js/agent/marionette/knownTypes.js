@@ -23,9 +23,14 @@ this.knownType = function (o) {
   }, this);
 }
 
+this._knownTypes = {};
 
 this.knownTypes = function() {
   var knownTypes = {};
+
+  if (!_.isEmpty(this._knownTypes)) {
+    return this._knownTypes;
+  }
 
   if (this.patchedMarionette.VERSION && this.patchedMarionette.VERSION[0] == "2") {
     knownTypes['Marionette.LayoutView'] = {
@@ -96,6 +101,8 @@ this.knownTypes = function() {
       }
     });
   }
+
+  this._knownTypes = knownTypes;
 
   return knownTypes;
 }
