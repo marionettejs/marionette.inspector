@@ -29,11 +29,12 @@ this.inspectValue = function(value) {
 }
 
 this.inspect = function(value) {
+  var type = typeOf(value) ;
   if (this.isKnownType(value)) {
     return this.knownTypeString(value);
-  } else if (typeof value === 'function') {
+  } else if (type === 'function') {
     return "function() { ... }";
-  } else if (typeOf(value) === 'array') {
+  } else if (type === 'array') {
     if (value.length === 0) { return '[]'; }
     else if (value.length === 1) { return '[ ' + this.inspect(value[0]) + ' ]'; }
     else { return '[ ' + this.inspect(value[0]) + ', ... ]'; }
