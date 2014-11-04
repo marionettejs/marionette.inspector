@@ -21,14 +21,20 @@ chrome.extension.onConnect.addListener(function(port) {
 
 // Receives messages from the content scripts and redirects them to the respective panels,
 // completing the communication between the backbone agent and the panel.
-chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
-    if (sender.tab) {
-        var port = panelPorts[sender.tab.id];
-        if (port) {
-            port.postMessage(message);
+chrome.runtime.onConnect.addListener(function(port) {
+    if (port.name !== "contentscript") return;
+
+    port.onMessage.addListener(function(message, messagePort, sendResponse) {
+        var sender = messagePort.sender;
+        if (sender.tab) {
+            var port = panelPorts[sender.tab.id];
+            if (port) {
+                port.postMessage(message);
+            }
         }
-    }
+    });
 });
+
 
 // Sends a message to the panels when the respective tabs are updated (refresh, url change, etc.)
 // (tipically used by the panel to reload itself)
