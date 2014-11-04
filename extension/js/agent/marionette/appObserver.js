@@ -49,6 +49,10 @@ _.extend(AppObserver.prototype, {
   // called by inspector to get the current region tree
   regionTree: function(path, shouldSerialize) {
     shouldSerialize = !_.isUndefined(shouldSerialize) ? shouldSerialize : true;
+    if (shouldSerialize) {
+      debug.log('serialized regionTree requested')
+    }
+
     path = path || '';
     var app = this.getApp();
     var tree = this.agent.regionInspector(app, path, shouldSerialize);

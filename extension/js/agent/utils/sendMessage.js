@@ -33,6 +33,7 @@ _.extend(QueuePostMessages.prototype, {
 
   send: function() {
     // console.log('!!!! sending batch message')
+    debug.log('postMessage sent ' + this.queue.length + " messages." )
     window.postMessage(this.queue, "*");
     this.queue = [];
   }

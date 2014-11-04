@@ -32,6 +32,8 @@ this.inspect = function(value) {
   var type = typeOf(value) ;
   if (this.isKnownType(value)) {
     return this.knownTypeString(value);
+  } else if (type === 'undefined') {
+    return "undefined";
   } else if (type === 'function') {
     return "function() { ... }";
   } else if (type === 'array') {

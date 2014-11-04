@@ -24,11 +24,12 @@ define([
                 messages = [messages];
               }
 
-              logger.log('ip', 'batch', JSON.stringify(messages))
+              logger.log('ip', 'batch of ' + messages.length + " messages received." )
 
               _.each(messages, function(message) {
                 if (message && message.target == "page") {
                     message.data = message.data || {};
+
                     this.trigger(message.name, message.data);
                 }
               }, this);

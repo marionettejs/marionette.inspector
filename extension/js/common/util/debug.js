@@ -20,3 +20,5 @@ var debug = {
         console.log.apply(console, ["%c> %s", styles, message].concat(args));
     }
 }
+
+this.debug = debug;

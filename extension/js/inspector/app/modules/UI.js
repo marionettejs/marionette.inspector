@@ -73,7 +73,6 @@ define([
      * regionTree events come from the ComponentReportToRegionTreeMap
      */
     onRegionTreeUpdate: function() {
-      logger.log('ui', 'region tree event');
       this.fetchData();
     },
 

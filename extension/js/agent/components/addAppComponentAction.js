@@ -4,6 +4,11 @@
 var addAppComponentAction = bind(function(appComponent, appComponentAction) {
     var appComponentInfo = this.getAppComponentInfo(appComponent);
 
+    if (!appComponentInfo) {
+        debug.log('addAppComponentAction could not find action');
+        return;
+    }
+
     appComponentInfo.actions.push(appComponentAction);
     var actionIndex = appComponentInfo.actions.length-1;
 

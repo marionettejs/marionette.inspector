@@ -30,7 +30,7 @@ var registerAppComponent = bind(function(appComponentCategory, appComponent, com
 
     sendAppComponentReport(reportName, reportData);
 
-    // debug.log("registerAppComponent " + reportName, reportData);
+    debug.log("registerAppComponent " + reportName);
 
     return appComponentIndex;
 }, this);
