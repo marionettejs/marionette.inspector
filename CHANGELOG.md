@@ -1,3 +1,11 @@
+## V0.0.8
+#### 11-4-2014
+
+### Fixes
++ Fixed a couple small bugs that were an issue for v0.0.7
+
+
+
 ## V0.0.7
 #### 11-4-2014
 
