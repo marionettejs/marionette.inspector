@@ -1,3 +1,48 @@
+## V0.0.7
+#### 11-4-2014
+
+Release seven adds two exciting features:
+1. A [data pane](http://cl.ly/YLgM) for seeing your app's models
+2. Automatic app detection. Previously the app had to be referenced on `window.app`
+
+### Added
++ Add Data pane for viewing models created in the application
+
++ Started patching Marionette Application.
+  We now automatically detect applications when they're created.
+
++ Created empty Radio and Activity panes. They'll be filled in soon.
+
++ Added a test-harness and some initial tests for the agent core. More will
+happen here soon.
+
++ Added an Inspector Module base class that is shared between panes (ui, data, ...)
+
+### Removed
++ Stopped logging view dom events as they weren't being used in the inspector.
+
+### Changed
++ Improved serializing significantly.
+  Views and Models now share an internal `inspectValue` function that identifies
+  types and creates a summary for use in the inspector.
+
++ Dramatically improved backbone and marionette patching.
+  We were previously patching both libraries at the same time, but they're now
+  split up so we will patch backbone when we find it and Marionette later when it's detected.
+
++ Split up the build step a little bit further. We now compile an `agent.js`, `localAgent.js` and `core.js`
+  Core is the agent.js minus library dependencies and library patching.
+  It's useful for the test harness because we want to re-load libraries that will be patched before each test.
+
++ `agent/logic.js` was changed to `agent/agent.js` to be more consistent.
+
++ Updated the `updated.html` to refer to the Marionette Inspector.
+
+
+### Fixed
++ Fixed inspector router issue when navigating between two panes
+
+
 ## V0.0.6
 #### 10-29-2014
 
