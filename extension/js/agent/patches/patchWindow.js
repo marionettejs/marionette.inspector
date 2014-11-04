@@ -1,4 +1,4 @@
-waitForMarionetteLoad = function(object, callback) {
+var waitForMarionetteLoad = function(object, callback) {
   onObjectAndPropertiesSetted(
     object,
     'Marionette', ['Application'],

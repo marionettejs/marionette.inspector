@@ -61,7 +61,9 @@
 
             window.Backbone = window.BackboneFactory();
             window.Marionette = window.MarionetteFactory(Backbone);
-            patchBackboneMarionette({Backbone: Backbone, Marionette: Marionette})
+            window.patchBackbone(Backbone);
+            window.patchMarionette(Backbone, Marionette);
+
         });
 
         afterEach(function () {
