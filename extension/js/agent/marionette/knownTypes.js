@@ -83,6 +83,24 @@ this.knownTypes = function() {
       toString: function() {return '<Marionette.View>'}
     },
 
+    'Marionette.Application': {
+      type: this.patchedMarionette.Application,
+      name: 'marionette-application',
+      toString: function() {return '<Marionette.Application>'}
+    },
+
+    'Marionette.Module': {
+      type: this.patchedMarionette.Module,
+      name: 'marionette-view',
+      toString: function() {return '<Marionette.Module>'}
+    },
+
+    'Marionette.Controller': {
+      type: this.patchedMarionette.Controller,
+      name: 'marionette-controller',
+      toString: function() {return '<Marionette.Controller>'}
+    },
+
     'Backbone.View': {
       type: this.patchedBackbone.View,
       name: 'backbone-view',

@@ -50,4 +50,10 @@ var onObjectAndPropertiesSetted = function(parentObject, objectName, properties,
   }
 
   watch(parentObject, objectName, onObjectSet, 0);
+
+  var object = parentObject[objectName];
+  if (object && allPropertiesSet(object, properties)) {
+    callback(object);
+  }
+
 };
