@@ -24,7 +24,7 @@ var addAppComponentAction = bind(function(appComponent, appComponentAction) {
     };
 
     sendAppComponentReport(reportName, reportData);
-    debug.log("action: ", reportName);
+    // debug.log("action: ", reportName);
 
     return actionIndex;
 }, this);
