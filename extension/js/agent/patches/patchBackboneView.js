@@ -1,10 +1,24 @@
+var patchViewRemove = function(originalFunction) {
+  return function() {
+    var appComponent = this;
+    var result = originalFunction.apply(appComponent, arguments);
+
+    addAppComponentAction(appComponent, new AppComponentAction(
+      "remove", ""
+    ));
+
+    return result;
+  }
+}
+
 // @private
 this.patchBackboneView = function(BackboneView) {
     debug.log("Backbone.View detected");
 
     patchBackboneComponent(BackboneView, bind(function(view) { // on new instance
         // registra il nuovo componente dell'app
-        var viewIndex = registerAppComponent("View", view);
+        var data = this.serializeView(view);
+        var viewIndex = registerAppComponent("View", view, data);
 
         // monitora i cambiamenti alle proprietà d'interesse del componente dell'app
         // monitorAppComponentProperty(view, "model", 0);
@@ -82,14 +96,6 @@ this.patchBackboneView = function(BackboneView) {
             return result;
         }});
 
-        patchFunctionLater(view, "remove", function(originalFunction) { return function() {
-            var result = originalFunction.apply(this, arguments);
-
-            addAppComponentAction(this, new AppComponentAction(
-                "operation", "remove"
-            ));
-
-            return result;
-        }});
+        patchFunctionLater(view, "remove", patchViewRemove);
     }, this));
 }

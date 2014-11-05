@@ -13,14 +13,18 @@ var addAppComponentAction = bind(function(appComponent, appComponentAction) {
     var actionIndex = appComponentInfo.actions.length-1;
 
     // invia un report riguardante la nuova azione
-    var reportName = appComponentInfo.category+":"+appComponentInfo.index+":action";
-    sendAppComponentReport(reportName, {
+    var reportName = appComponentInfo.category+":"+appComponentAction.type;
+    var reportData = {
         componentActionIndex: actionIndex,
         type: appComponentAction.type,
-        name: appComponentAction.name
+        name: appComponentAction.name,
+        data: {
+            cid: appComponent.cid // might not exist
+        }
+    };
 
-    });
-    //debug.log("New action: ", appComponentAction);
+    sendAppComponentReport(reportName, reportData);
+    debug.log("action: ", reportName);
 
     return actionIndex;
 }, this);
