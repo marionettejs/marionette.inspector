@@ -20,7 +20,7 @@ var patchWindow = function(patchBackbone, patchMarionette) {
   var loadedBackbone;
 
   var onBackboneLoaded = function() {
-    debug.log('backbone loaded');
+    debug.log('Backbone loaded');
 
     loadedBackbone = window.Backbone;
     patchBackbone(loadedBackbone);

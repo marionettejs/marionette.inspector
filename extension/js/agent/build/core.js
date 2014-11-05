@@ -44,6 +44,7 @@
 // @include ../watchers/stopStealthOnSetted.js
 // @include ../watchers/onDefined.js
 // @include ../watchers/onceDefined.js
+// @include ../watchers/onChange.js
 
 
 /*
@@ -89,7 +90,7 @@
 // @include ../patches/patchWindow.js
 // @include ../patches/patchBackbone.js
 // @include ../patches/patchMarionette.js
-
+// @include ../patches/patchBackboneWreqr.js
 
 /*
  * MARIONETTE
@@ -101,6 +102,7 @@
 // @include ../marionette/serialize/serializeElement.js
 // @include ../marionette/serialize/serializeView.js
 // @include ../marionette/serialize/serializeModel.js
+// @include ../marionette/serialize/serializeChannel.js
 // @include ../marionette/actions/search.js
 // @include ../marionette/actions/stopSearch.js
 // @include ../marionette/actions/highlightEl.js
