@@ -1,3 +1,13 @@
+var allPropertiesSet = function(newVal, properties) {
+  // exists is separate than has, because not only
+  // do we want the prop set, but it must be more than undefiened
+  function exists(obj, prop) {
+    return !_.isUndefined(obj[prop]);
+  }
+
+  return _.all(properties, _.partial(exists, newVal));
+};
+
 /**
   * Monitors for an object and its properties being defined.*
   *
@@ -12,14 +22,7 @@ var onObjectAndPropertiesSetted = function(parentObject, objectName, properties,
   function onObjectSet(prop, action, newVal, oldVal) {
     function onPropertySet(prop2, action2, newVal2, oldVal2) {//
 
-      // exists is separate than has, because not only
-      // do we want the prop set, but it must be more than undefiened
-      function exists(obj, prop) {
-        return !_.isUndefined(obj[prop]);
-      }
-
-      var allPropertiesSet = _.all(properties, _.partial(exists, newVal));
-      if (!allPropertiesSet) {
+      if (!allPropertiesSet(newVal, properties)) {
         return;
       }
 
@@ -40,6 +43,10 @@ var onObjectAndPropertiesSetted = function(parentObject, objectName, properties,
     _.each(properties, function(prop) {
       watch(newVal, prop, onPropertySet, 0);
     }, this, parentObject, objectName, properties, newVal, callback);
+
+    if (allPropertiesSet(newVal, properties)) {
+      callback(newVal);
+    }
   }
 
   watch(parentObject, objectName, onObjectSet, 0);
