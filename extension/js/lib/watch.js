@@ -106,19 +106,34 @@
 
     var defineGetAndSet = function (obj, propName, getter, setter) {
         try {
-                Object.defineProperty(obj, propName, {
-                        get: getter,
-                        set: setter,
-                        enumerable: true,
-                        configurable: true
+
+
+            Object.observe(obj, function(changes) {
+                changes.forEach(function(change) {
+                    if (change.name === propName) {
+                        setter(change.object[change.name]);
+                    }
                 });
-        } catch(e2) {
-            try{
-                Object.prototype.__defineGetter__.call(obj, propName, getter);
-                Object.prototype.__defineSetter__.call(obj, propName, setter);
-            } catch(e3){
-                throw new Error("watchJS error: browser not supported :/")
+            });
+
+        } catch(e) {
+
+            try {
+                    Object.defineProperty(obj, propName, {
+                            get: getter,
+                            set: setter,
+                            enumerable: true,
+                            configurable: true
+                    });
+            } catch(e2) {
+                try{
+                    Object.prototype.__defineGetter__.call(obj, propName, getter);
+                    Object.prototype.__defineSetter__.call(obj, propName, setter);
+                } catch(e3) {
+                    throw new Error("watchJS error: browser not supported :/")
+                }
             }
+
         }
     };
 
@@ -163,7 +178,11 @@
             }
         } else {
             for (var prop2 in obj) { //for each attribute if obj is an object
-                if (obj.hasOwnProperty(prop2)) {
+                if (prop2 == "$val") {
+                    continue;
+                }
+
+                if (Object.prototype.hasOwnProperty.call(obj, prop2)) {
                     props.push(prop2); //put in the props
                 }
             }
@@ -191,7 +210,6 @@
     };
 
     var watchOne = function (obj, prop, watcher, level, addNRemove) {
-
         if ((typeof obj == "string") || (!(obj instanceof Object) && !isArray(obj))) { //accepts only objects and array (not string)
             return;
         }
@@ -199,7 +217,6 @@
         if(isFunction(obj[prop])) { //dont watch if it is a function
             return;
         }
-
         if(obj[prop] != null && (level === undefined || level > 0)){
             watchAll(obj[prop], watcher, level!==undefined? level-1 : level); //recursively watch all attributes of this
         }
@@ -230,22 +247,28 @@
             return;
         }
 
-        var props = [];
-
-
         if (isArray(obj)) {
+            var props = [];
             for (var prop = 0; prop < obj.length; prop++) { //for each item if obj is an array
                 props.push(prop); //put in the props
             }
+            unwatchMany(obj, props, watcher); //watch all itens of the props
         } else {
-            for (var prop2 in obj) { //for each attribute if obj is an object
-                if (obj.hasOwnProperty(prop2)) {
-                    props.push(prop2); //put in the props
+            var unwatchPropsInObject = function (obj2) {
+                var props = [];
+                for (var prop2 in obj2) { //for each attribute if obj is an object
+                    if (obj2.hasOwnProperty(prop2)) {
+                        if (obj2[prop2] instanceof Object) {
+                            unwatchPropsInObject(obj2[prop2]); //recurs into object props
+                        } else {
+                            props.push(prop2); //put in the props
+                        }
+                    }
                 }
-            }
+                unwatchMany(obj2, props, watcher); //unwatch all of the props
+            };
+            unwatchPropsInObject(obj);
         }
-
-        unwatchMany(obj, props, watcher); //watch all itens of the props
     };
 
 
@@ -326,7 +349,7 @@
     };
 
     // @todo code related to "watchFunctions" is certainly buggy
-    var methodNames = ['pop', 'push', 'reverse', 'shift', 'sort', 'slice', 'unshift'];
+    var methodNames = ['pop', 'push', 'reverse', 'shift', 'sort', 'slice', 'unshift', 'splice'];
     var defineArrayMethodWatcher = function (obj, prop, original, methodName) {
         defineProp(obj[prop], methodName, function () {
             var response = original.apply(obj[prop], arguments);
@@ -386,7 +409,7 @@
             } else {
 
                 var difference = getObjDiff(subj.obj[subj.prop], subj.actual);
-            
+
                 if(difference.added.length || difference.removed.length){
                     if(difference.added.length){
                         for (var j=0; j<subj.obj.watchers[subj.prop].length; j++) {
@@ -400,12 +423,13 @@
                 subj.actual = clone(subj.obj[subj.prop]);
 
             }
+
         }
 
     };
 
     var pushToLengthSubjects = function(obj, prop, watcher, level){
-        
+
         var actual;
 
         if (prop === "$$watchlengthsubjectroot") {
