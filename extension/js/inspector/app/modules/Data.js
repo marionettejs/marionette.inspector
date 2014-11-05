@@ -12,7 +12,8 @@ define([
     channelName: 'data',
 
     clientEvents: {
-      'agent:Model:new': 'onNewModel'
+      'agent:Model:new': 'onModelNew',
+      'agent:Model:destroy': 'onModelDestroy'
     },
 
     initialize: function() {
@@ -27,11 +28,24 @@ define([
       Marionette.bindEntityEvents(this, this.client, this.clientEvents);
     },
 
-    onNewModel: function (event) {
-      logger.log('data', 'new model', event);
+    onModelNew: function (event) {
+      logger.log('data', 'model:new', event.data.cid);
 
       var modelData = event.data;
       this.modelCollection.add(modelData);
+    },
+
+    onModelDestroy: function (event) {
+      var cid = event.data.cid;
+      logger.log('data', 'model:destroy', cid);
+
+      var model = this.modelCollection.findWhere({cid: cid});
+      if (!model) {
+        logger.log('data', 'model:destroy could not find model');
+        return;
+      }
+
+      model.set('isDestroyed', true)
     },
 
     startModule: function() {

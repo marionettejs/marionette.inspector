@@ -1,3 +1,17 @@
+var patchModelDestroy = function(originalFunction) {
+  return function() {
+    var appComponent = this;
+    var result = originalFunction.apply(this, arguments);
+
+    addAppComponentAction(this, new AppComponentAction(
+      "destroy", ""
+    ));
+
+    return result;
+  }
+}
+
+
 // @private
 this.patchBackboneModel = function(BackboneModel) {
     debug.log("Backbone.Model detected");
@@ -21,5 +35,7 @@ this.patchBackboneModel = function(BackboneModel) {
         patchAppComponentTrigger(model);
         patchAppComponentEvents(model);
         patchAppComponentSync(model);
+        patchFunctionLater(model, "destroy", patchModelDestroy);
+
     }, this));
 }
