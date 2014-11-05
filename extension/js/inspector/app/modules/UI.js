@@ -7,6 +7,7 @@ define([
   'client',
   'app/modules/UI/views/Layout',
   'app/modules/UI/models/UiData',
+  'app/modules/UI/models/ViewCollection',
   'app/modules/UI/util/ComponentReportToRegionTreeMap'
 ], function(
   Marionette,
@@ -17,6 +18,7 @@ define([
   client,
   Layout,
   UiData,
+  ViewCollection,
   ComponentReportToRegionTreeMap
 ) {
 
@@ -37,7 +39,9 @@ define([
     },
 
     clientEvents: {
-      'agent:search': 'onSearch'
+      'agent:search': 'onSearch',
+      'agent:View:new': 'onViewNew',
+      'agent:View:remove': 'onViewRemove'
     },
 
     regionTreeEvents: {
@@ -56,6 +60,7 @@ define([
     setupData: function() {
       this.uiData = new UiData();
       this.viewList = new Backbone.Collection();
+      this.viewCollection = new ViewCollection();
       this.moduleData = new Backbone.Model({
         searchOn: false
       });
@@ -68,6 +73,29 @@ define([
       var regionTreeEvents = new ComponentReportToRegionTreeMap();
       Marionette.bindEntityEvents(this, regionTreeEvents, this.regionTreeEvents);
     },
+
+
+    onViewNew: function (event) {
+      logger.log('ui', 'new view', event);
+
+      var viewData = event.data;
+      this.viewCollection.add(viewData);
+    },
+
+
+    onViewRemove: function (event) {
+      var cid = event.data.cid;
+      logger.log('ui', 'onViewRemove', cid);
+
+      var view = this.viewCollection.findWhere({cid: cid});
+      if (!view) {
+        logger.log('ui', 'onViewRemove could not find view');
+        return;
+      }
+
+      view.set('isRemoved', true)
+    },
+
 
     /*
      * regionTree events come from the ComponentReportToRegionTreeMap
