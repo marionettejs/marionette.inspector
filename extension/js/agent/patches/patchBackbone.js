@@ -1,5 +1,11 @@
 
 this.patchBackbone = function(Backbone) {
+
+  if (this.patchedBackbone) {
+    debug.log('Backbone was detected again');
+    return;
+  }
+
   var Backbone = this.patchedBackbone = Backbone;
 
   debug.log("Backbone detected: ", Backbone);
