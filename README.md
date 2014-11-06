@@ -17,6 +17,19 @@ You can use the Inspector to see what's going on under the hood with your **ui**
 Of course, there's also a helpful :mag: as well.
 
 ---
+### Getting Started
+
+The inspector should work out of the box with most setups.
+
+##### Using webpack
+If you're using webpack or are not setting Backbone and Marionette on the window or using `define`, you'll need to start the inspector manually.
+
+Add this line before your Marionette Application is instantiated.
+```js
+__agent.start(Backbone, Marionette);
+```
+
+---
 ### Developing Locally
 [Install Guide](docs/developing_locally.md)
 

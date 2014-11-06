@@ -38,10 +38,16 @@
     {{#hasLoadFailed}}
     <div class="panel">
       <h3>Hey, we could not find your app!</h3>
-      <p>This is probably because, you did not assign your app to <code>window.app</code></p>
-      <p>If that's the case, do something like this:</p>
-      <code> window.app = window.TodoMVC = new Backbone.Marionette.Application(); </code>
-      <p>and all will be better.</p>
+
+      <p>When the page loads, we look for Backbone and Marionette on the window and inside of define calls</p>
+
+      <p>If you're doing neither of those things, then you'll need to start the inspector manually at the top of the program</p>
+
+      <code>
+        __agent.start(Backbone, Marionette)
+      </code>
+
+      <p>If that doesn't work, come stop by https://gitter.im/MarionetteLabs/marionette.inspector and let us know.</p>
     </div>
     {{/hasLoadFailed}}
 </div>
