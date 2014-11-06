@@ -1,3 +1,15 @@
+## V0.1.0
+#### 11-6-2014
+
+### Added
++ Added a manual inspector start method `__agent.start` for when the app is not discoverable.
++ Added the Radio pane. Now all of the Radio channels are browsable.
++ Started logging view and model create and destroy events individually.
+
+### Fixed
++ Fixed a bug where Backbone was being set on the window and was not being detected.
+
+
 ## V0.0.8
 #### 11-4-2014
 
