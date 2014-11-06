@@ -59,6 +59,8 @@
              * which means wrapping these libs in a factory that creates a new one.
             */
 
+            delete window.patchedBackbone;
+            delete window.patchedMarionette;
             window.Backbone = window.BackboneFactory();
             window.Marionette = window.MarionetteFactory(Backbone);
             window.patchBackbone(Backbone);
