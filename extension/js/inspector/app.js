@@ -69,7 +69,7 @@ define([
 
     navigate: function(route) {
       logger.log('app', 'navigate', route);
-      this.router.navigate(route, {trigger: true});
+      this.router.navigate(route, {trigger: true, replace: true});
     }
 
   });

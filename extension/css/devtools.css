@@ -20,18 +20,20 @@ body {
 [view="app-layout"],
 .app-layout-body,
 [data-region="tool"],
-[view="ui-layout"], [view="data-layout"] {
+[view="ui-layout"], [view="data-layout"], [view="radio-layout"] {
   height: inherit;
 }
 
 [data-region="view-list"], [data-region="view-more-info"],
-[data-region="model-list"], [data-region="model-more-info"] {
+[data-region="model-list"], [data-region="model-more-info"],
+[data-region="channel-list"], [data-region="channel-more-info"] {
   height: inherit;
   overflow-y: scroll;
 }
 
 [data-region="view-more-info"],
-[data-region="model-info"] {
+[data-region="model-info"],
+[data-region="channel-info"] {
   padding: 0;
 }
 
