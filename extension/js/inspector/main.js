@@ -93,7 +93,7 @@ require([
         app.module('UI', UIApp);
         app.module('Activity', ActivityApp);
         app.once('client:page:ready', function () {
-          app.navigate('ui');
+          app.navigate('ui', {trigger: true, replace: true});
         });
     });
 

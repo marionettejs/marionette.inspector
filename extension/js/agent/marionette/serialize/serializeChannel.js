@@ -8,6 +8,7 @@ this.serializeChannel = function(channel) {
   data.commands = {};
   data.events = {};
   data.requests = {};
+  data.channelName = channel.channelName;
 
   _.each(getCommands(channel), function(command, commandName) {
     data.commands[commandName] = {
@@ -30,7 +31,7 @@ this.serializeChannel = function(channel) {
 
    _.each(eventHandlers, function(eventHandler) {
     eventHandlerList.push({
-      eventName: eventName,
+      name: eventName,
       context: this.contextData(eventHandler.context),
       callback: this.inspectValue(eventHandler.callback)
     });

@@ -38,43 +38,35 @@ this.onNewChannel = function(channel, channelName) {
 }
 
 this.onRequestChange = function(channel, newValue, prop, action, difference, oldvalue) {
-  var data = {
+  sendAppComponentReport('Channel:change', {
     channelName: channel.channelName,
-    channel: this.serializeChannel(channel)
-  };
-
-  sendAppComponentReport('Channel:Change', data);
-  debug.log('channel request change', data);
+    data: this.serializeChannel(channel)
+  });
+  debug.log('channel request change', channel.channelName);
 };
 
 this.onCommandChange = function(channel, newValue, prop, action, difference, oldvalue) {
-  var data = {
+  sendAppComponentReport('Channel:change', {
     channelName: channel.channelName,
-    channel: this.serializeChannel(channel)
-  };
-
-  sendAppComponentReport('Channel:Change', data);
-  debug.log('channel command change', data);
+    data: this.serializeChannel(channel)
+  });
+  debug.log('channel command change', channel.channelName);
 };
 
 this.onEventChange = function(channel, newValue, prop, action, difference, oldvalue) {
-  var data = {
+  sendAppComponentReport('Channel:change', {
     channelName: channel.channelName,
-    channel: this.serializeChannel(channel)
-  };
-
-  sendAppComponentReport('Channel:Change', data);
-  debug.log('channel event change', data);
+    data: this.serializeChannel(channel)
+  });
+  debug.log('channel event change', channel.channelName);
 };
 
 this.reportNewChannel = function(channel, channelName) {
-  var data = {
+  sendAppComponentReport('Channel:new', {
     channelName: channel.channelName,
-    channel: this.serializeChannel(channel)
-  };
-
-  sendAppComponentReport('Channel:New', data);
-  debug.log('new channel', data);
+    data: this.serializeChannel(channel)
+  });
+  debug.log('new channel', channel.channelName);
 };
 
 
