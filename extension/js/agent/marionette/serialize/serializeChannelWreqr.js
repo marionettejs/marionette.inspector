@@ -10,7 +10,7 @@ this.serializeWreqrChannel = function(channel) {
   data.requests = {};
   data.channelName = channel.channelName;
 
-  _.each(getCommands(channel), function(command, commandName) {
+  _.each(getWreqrCommands(channel), function(command, commandName) {
     data.commands[commandName] = {
       name: commandName,
       context: this.contextData(command.context),
@@ -18,7 +18,7 @@ this.serializeWreqrChannel = function(channel) {
     }
   }, this, data);
 
-  _.each(getRequests(channel), function(request, requestName) {
+  _.each(getWreqrRequests(channel), function(request, requestName) {
     data.requests[requestName] = {
       name: requestName,
       context: this.contextData(request.context),
@@ -26,7 +26,7 @@ this.serializeWreqrChannel = function(channel) {
     }
   }, this, data);
 
-  _.each(getEvents(channel), function(eventHandlers, eventName) {
+  _.each(getWreqrEvents(channel), function(eventHandlers, eventName) {
    var eventHandlerList = data.events[eventName] = [];
 
    _.each(eventHandlers, function(eventHandler) {
@@ -54,14 +54,14 @@ this.contextData = function(context) {
   };
 }
 
-var getRequests = function(channel) {
+var getWreqrRequests = function(channel) {
   return channel.reqres._wreqrHandlers;
 };
 
-var getCommands = function(channel) {
+var getWreqrCommands = function(channel) {
   return channel.commands._wreqrHandlers;
 };
 
-var getEvents = function(channel) {
+var getWreqrEvents = function(channel) {
   return channel.vent._events
 };
