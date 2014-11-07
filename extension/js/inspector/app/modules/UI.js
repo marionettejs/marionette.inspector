@@ -76,7 +76,7 @@ define([
 
 
     onViewNew: function (event) {
-      logger.log('ui', 'new view', event);
+      logger.log('ui', 'new view', event.data.cid);
 
       var viewData = event.data;
       this.viewCollection.add(viewData);

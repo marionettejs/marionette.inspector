@@ -10,7 +10,7 @@ this.serializeChannelRadio = function(channel) {
   data.requests = {};
   data.channelName = channel.channelName;
 
-  _.each(getCommands(channel), function(command, commandName) {
+  _.each(getRadioCommands(channel), function(command, commandName) {
     data.commands[commandName] = {
       name: commandName,
       context: this.contextData(command.context),
@@ -18,7 +18,7 @@ this.serializeChannelRadio = function(channel) {
     }
   }, this, data);
 
-  _.each(getRequests(channel), function(request, requestName) {
+  _.each(getRadioRequests(channel), function(request, requestName) {
     data.requests[requestName] = {
       name: requestName,
       context: this.contextData(request.context),
@@ -26,7 +26,7 @@ this.serializeChannelRadio = function(channel) {
     }
   }, this, data);
 
-  _.each(getEvents(channel), function(eventHandlers, eventName) {
+  _.each(getRadioEvents(channel), function(eventHandlers, eventName) {
    var eventHandlerList = data.events[eventName] = [];
 
    _.each(eventHandlers, function(eventHandler) {
@@ -54,14 +54,14 @@ this.contextData = function(context) {
   };
 }
 
-var getRequests = function(channel) {
+var getRadioRequests = function(channel) {
   return channel._requests;
 };
 
-var getCommands = function(channel) {
+var getRadioCommands = function(channel) {
   return channel._commands;
 };
 
-var getEvents = function(channel) {
+var getRadioEvents = function(channel) {
   return channel._events;
 };
