@@ -58,7 +58,7 @@ _.extend(AppObserver.prototype, {
     var tree = this.agent.regionInspector(app, path, shouldSerialize);
 
     if (_.isEmpty(tree)) {
-      tree = this.agent.regionInspector(app.rootView, path, shouldSerialize);
+      tree = this.agent.regionInspector(app.rootView || app.layout, path, shouldSerialize);
     }
 
     return tree;
@@ -84,7 +84,7 @@ _.extend(AppObserver.prototype, {
   getChannelList: function() {},
 
   getApp: function() {
-    return window.eval(this.appExpression);
+    return this.agent.patchedApp || window.app;
   },
 
   isAppLoaded: function() {

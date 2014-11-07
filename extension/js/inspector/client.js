@@ -67,11 +67,11 @@ define([
 
     waitForClientLoad: function() {
       var promise = this.agent.waitFor(function() {
-        return !_.isUndefined(this.appObserver);
+        return this.appObserver != undefined;
       });
 
       promise.catch(function(e) {
-        logger.log('client', 'waitForClientLoad: client failed to laod');
+        logger.log('client', 'waitForClientLoad: client failed to load');
       });
 
       return promise;
