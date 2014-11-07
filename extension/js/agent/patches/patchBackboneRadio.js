@@ -1,21 +1,18 @@
-this.patchBackboneWreqr = function(Wreqr) {
+this.patchBackboneRadio = function(Radio) {
 
-  var Wreqr = this.patchedBackboneWreqr = Wreqr;
-  debug.log("Wreqr detected: ", Wreqr);
+  var Radio = this.patchedBackboneRadio = Radio;
+  debug.log("Radio detected: ", Radio);
 
   // listen for new channels
-  this.onChange(Wreqr.radio._channels, onChannelChange);
-  _.each(Wreqr.radio._channels, function(channel, channelName) {
-    this.onNewChannel(channel, channelName);
-  }, this);
-}
+  this.onChange(Radio._channels, onChannelChange);
+};
 
 var onChannelChange = function(newValue, prop, action, difference, oldValue) {
   _.each(difference.added, function(channelName) {
       var channel = newValue[channelName];
       this.onNewChannel(channel, channelName);
   }, this, newValue);
-}
+};
 
 this.onNewChannel = function(channel, channelName) {
   var requests = getRequests(channel);
@@ -38,12 +35,12 @@ this.onNewChannel = function(channel, channelName) {
   var handler = _.bind(this.onEventChange, this, channel);
   onChange(events, handler);
   invokeStorageUpdater(events, handler);
-}
+};
 
 this.onRequestChange = function(channel, newValue, prop, action, difference, oldvalue) {
   sendAppComponentReport('Channel:change', {
     channelName: channel.channelName,
-    data: this.serializeChannelWreqr(channel)
+    data: this.serializeChannelRadio(channel)
   });
   debug.log('channel request change', channel.channelName);
 };
@@ -51,7 +48,7 @@ this.onRequestChange = function(channel, newValue, prop, action, difference, old
 this.onCommandChange = function(channel, newValue, prop, action, difference, oldvalue) {
   sendAppComponentReport('Channel:change', {
     channelName: channel.channelName,
-    data: this.serializeChannelWreqr(channel)
+    data: this.serializeChannelRadio(channel)
   });
   debug.log('channel command change', channel.channelName);
 };
@@ -59,7 +56,7 @@ this.onCommandChange = function(channel, newValue, prop, action, difference, old
 this.onEventChange = function(channel, newValue, prop, action, difference, oldvalue) {
   sendAppComponentReport('Channel:change', {
     channelName: channel.channelName,
-    data: this.serializeChannelWreqr(channel)
+    data: this.serializeChannelRadio(channel)
   });
   debug.log('channel event change', channel.channelName);
 };
@@ -67,22 +64,22 @@ this.onEventChange = function(channel, newValue, prop, action, difference, oldva
 this.reportNewChannel = function(channel, channelName) {
   sendAppComponentReport('Channel:new', {
     channelName: channel.channelName,
-    data: this.serializeChannelWreqr(channel)
+    data: this.serializeChannelRadio(channel)
   });
   debug.log('new channel', channel.channelName);
 };
 
 
 var getRequests = function(channel) {
-  return channel.reqres._wreqrHandlers;
+  return channel._requests;
 };
 
 var getCommands = function(channel) {
-  return channel.commands._wreqrHandlers;
+  return channel._commands;
 };
 
 var getEvents = function(channel) {
-  return channel.vent._events
+  return channel._events;
 };
 
 // we call the storage updater when we discover a new channel because
@@ -103,4 +100,4 @@ var invokeStorageUpdater = function(storage, handler) {
   }
 
   handler(storage, 'root', 'differentattr', difference, {});
-}
+};
