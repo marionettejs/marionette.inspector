@@ -29,11 +29,13 @@ define([
     },
 
     onChannelChange: function (event) {
+      logger.log('radio', 'channel change', event.channelName);
       var channel = this.channelCollection.findChannel(event.channelName);
       channel.set(event.data);
     },
 
     onChannelNew: function(event) {
+      logger.log('radio', 'channel new', event.channelName);
       var channel = this.channelCollection.findChannel(event.channelName);
       if (channel) {
         channel.set(event.data);

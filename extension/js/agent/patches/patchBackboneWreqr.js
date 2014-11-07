@@ -4,84 +4,84 @@ this.patchBackboneWreqr = function(Wreqr) {
   debug.log("Wreqr detected: ", Wreqr);
 
   // listen for new channels
-  this.onChange(Wreqr.radio._channels, onChannelChange);
+  this.onChange(Wreqr.radio._channels, onWreqrChannelChange);
   _.each(Wreqr.radio._channels, function(channel, channelName) {
-    this.onNewChannel(channel, channelName);
+    this.onNewWreqrChannel(channel, channelName);
   }, this);
 }
 
-var onChannelChange = function(newValue, prop, action, difference, oldValue) {
+var onWreqrChannelChange = function(newValue, prop, action, difference, oldValue) {
   _.each(difference.added, function(channelName) {
       var channel = newValue[channelName];
-      this.onNewChannel(channel, channelName);
+      this.onNewWreqrChannel(channel, channelName);
   }, this, newValue);
 }
 
-this.onNewChannel = function(channel, channelName) {
-  var requests = getRequests(channel);
-  var commands = getCommands(channel);
-  var events = getEvents(channel);
+this.onNewWreqrChannel = function(channel, channelName) {
+  var requests = getWreqrRequests(channel);
+  var commands = getWreqrCommands(channel);
+  var events = getWreqrEvents(channel);
 
-  this.reportNewChannel(channel, channelName);
+  this.reportNewWreqrChannel(channel, channelName);
 
   // listen to newly registered or removed requests
-  var handler = _.bind(this.onRequestChange, this, channel);
+  var handler = _.bind(this.onWreqrRequestChange, this, channel);
   onChange(requests, handler);
   invokeStorageUpdater(requests, handler);
 
   // listen for newly registered or removed commands
-  var handler = _.bind(this.onCommandChange, this, channel);
+  var handler = _.bind(this.onWreqrCommandChange, this, channel);
   onChange(commands, handler);
   invokeStorageUpdater(commands, handler);
 
   // listen for newly registered or removed events
-  var handler = _.bind(this.onEventChange, this, channel);
+  var handler = _.bind(this.onWreqrEventChange, this, channel);
   onChange(events, handler);
   invokeStorageUpdater(events, handler);
 }
 
-this.onRequestChange = function(channel, newValue, prop, action, difference, oldvalue) {
+this.onWreqrRequestChange = function(channel, newValue, prop, action, difference, oldvalue) {
   sendAppComponentReport('Channel:change', {
     channelName: channel.channelName,
-    data: this.serializeChannelWreqr(channel)
+    data: this.serializeWreqrChannel(channel)
   });
   debug.log('channel request change', channel.channelName);
 };
 
-this.onCommandChange = function(channel, newValue, prop, action, difference, oldvalue) {
+this.onWreqrCommandChange = function(channel, newValue, prop, action, difference, oldvalue) {
   sendAppComponentReport('Channel:change', {
     channelName: channel.channelName,
-    data: this.serializeChannelWreqr(channel)
+    data: this.serializeWreqrChannel(channel)
   });
   debug.log('channel command change', channel.channelName);
 };
 
-this.onEventChange = function(channel, newValue, prop, action, difference, oldvalue) {
+this.onWreqrEventChange = function(channel, newValue, prop, action, difference, oldvalue) {
   sendAppComponentReport('Channel:change', {
     channelName: channel.channelName,
-    data: this.serializeChannelWreqr(channel)
+    data: this.serializeWreqrChannel(channel)
   });
   debug.log('channel event change', channel.channelName);
 };
 
-this.reportNewChannel = function(channel, channelName) {
+this.reportNewWreqrChannel = function(channel, channelName) {
   sendAppComponentReport('Channel:new', {
     channelName: channel.channelName,
-    data: this.serializeChannelWreqr(channel)
+    data: this.serializeWreqrChannel(channel)
   });
   debug.log('new channel', channel.channelName);
 };
 
 
-var getRequests = function(channel) {
+var getWreqrRequests = function(channel) {
   return channel.reqres._wreqrHandlers;
 };
 
-var getCommands = function(channel) {
+var getWreqrCommands = function(channel) {
   return channel.commands._wreqrHandlers;
 };
 
-var getEvents = function(channel) {
+var getWreqrEvents = function(channel) {
   return channel.vent._events
 };
 
