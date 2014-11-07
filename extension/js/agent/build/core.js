@@ -91,6 +91,7 @@
 // @include ../patches/patchBackbone.js
 // @include ../patches/patchMarionette.js
 // @include ../patches/patchBackboneWreqr.js
+// @include ../patches/patchBackboneRadio.js
 
 /*
  * MARIONETTE
@@ -102,7 +103,8 @@
 // @include ../marionette/serialize/serializeElement.js
 // @include ../marionette/serialize/serializeView.js
 // @include ../marionette/serialize/serializeModel.js
-// @include ../marionette/serialize/serializeChannel.js
+// @include ../marionette/serialize/serializeChannelWreqr.js
+// @include ../marionette/serialize/serializeChannelRadio.js
 // @include ../marionette/actions/search.js
 // @include ../marionette/actions/stopSearch.js
 // @include ../marionette/actions/highlightEl.js

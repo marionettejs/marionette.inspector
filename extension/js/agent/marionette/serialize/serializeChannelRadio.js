@@ -1,7 +1,7 @@
-this.serializeChannel = function(channel) {
+this.serializeChannelRadio = function(channel) {
   var data = {};
 
-  if (!(channel instanceof this.patchedBackboneWreqr.Channel)) {
+  if (!(channel instanceof this.patchedBackboneRadio.Channel)) {
     return {};
   }
 
@@ -55,13 +55,13 @@ this.contextData = function(context) {
 }
 
 var getRequests = function(channel) {
-  return channel.reqres._wreqrHandlers;
+  return channel._requests;
 };
 
 var getCommands = function(channel) {
-  return channel.commands._wreqrHandlers;
+  return channel._commands;
 };
 
 var getEvents = function(channel) {
-  return channel.vent._events
+  return channel._events;
 };

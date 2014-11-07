@@ -15,13 +15,23 @@ this.patchBackbone = function(Backbone) {
   this.patchBackboneCollection(Backbone.Collection);
   this.patchBackboneRouter(Backbone.Router);
   _patchBackboneWreqr(Backbone, _.bind(this.patchBackboneWreqr, this));
+  _patchBackboneRadio(Backbone, _.bind(this.patchBackboneRadio, this));
 }
 
-var _patchBackboneWreqr= function(Backbone, onWreqrDetected) {
+var _patchBackboneWreqr = function(Backbone, onWreqrDetected) {
   onObjectAndPropertiesSetted(
     Backbone,
     'Wreqr',
-    ['Channel', 'EventAggregator', 'CommandStorage', 'Handlers', 'RequestResponse','radio'],
+    ['Channel', 'EventAggregator', 'CommandStorage', 'Handlers', 'RequestResponse', 'radio'],
     onWreqrDetected
+  );
+}
+
+var _patchBackboneRadio = function(Backbone, onRadioDetected) {
+  onObjectAndPropertiesSetted(
+    Backbone,
+    'Radio',
+    ['Channel'],
+    onRadioDetected
   );
 }
