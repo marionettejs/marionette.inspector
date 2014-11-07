@@ -5,6 +5,9 @@ this.patchBackboneRadio = function(Radio) {
 
   // listen for new channels
   this.onChange(Radio._channels, onRadioChannelChange);
+  _.each(Radio._channels, function(channel, channelName) {
+    this.onNewRadioChannel(channel, channelName);
+  }, this);
 };
 
 var onRadioChannelChange = function(newValue, prop, action, difference, oldValue) {
