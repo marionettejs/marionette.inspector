@@ -5,6 +5,9 @@ this.patchBackboneWreqr = function(Wreqr) {
 
   // listen for new channels
   this.onChange(Wreqr.radio._channels, onChannelChange);
+  _.each(Wreqr.radio._channels, function(channel, channelName) {
+    this.onNewChannel(channel, channelName);
+  }, this);
 }
 
 var onChannelChange = function(newValue, prop, action, difference, oldValue) {
