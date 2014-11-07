@@ -20,20 +20,22 @@ body {
 [view="app-layout"],
 .app-layout-body,
 [data-region="tool"],
-[view="ui-layout"], [view="data-layout"], [view="radio-layout"] {
+[view="ui-layout"], [view="data-layout"], [view="radio-layout"], [view="activity-layout"]  {
   height: inherit;
 }
 
 [data-region="view-list"], [data-region="view-more-info"],
 [data-region="model-list"], [data-region="model-more-info"],
-[data-region="channel-list"], [data-region="channel-more-info"] {
+[data-region="channel-list"], [data-region="channel-more-info"],
+[data-region="activity-list"], [data-region="activity-more-info"] {
   height: inherit;
   overflow-y: scroll;
 }
 
 [data-region="view-more-info"],
 [data-region="model-info"],
-[data-region="channel-info"] {
+[data-region="channel-info"],
+[data-region="activity-info"] {
   padding: 0;
 }
 
@@ -45,3 +47,12 @@ body {
 .view-row:hover {
   cursor: pointer;
 }
+
+.activity-row td.depth-0 {padding-left:0px;}
+.activity-row td.depth-1 {padding-left:10px;}
+.activity-row td.depth-2 {padding-left:20px;}
+.activity-row td.depth-3 {padding-left:30px;}
+.activity-row td.depth-4 {padding-left:40px;}
+.activity-row td.depth-5 {padding-left:50px;}
+.activity-row td.depth-6 {padding-left:60px;}
+.activity-row td.depth-7 {padding-left:70px;}

@@ -18,9 +18,9 @@ var addAppComponentAction = bind(function(appComponent, appComponentAction) {
         componentActionIndex: actionIndex,
         type: appComponentAction.type,
         name: appComponentAction.name,
-        data: {
-            cid: appComponent.cid // might not exist
-        }
+        data: _.extend(appComponentAction.data || {}, {
+            cid: appComponent.cid, // might not exist
+        })
     };
 
     sendAppComponentReport(reportName, reportData);
