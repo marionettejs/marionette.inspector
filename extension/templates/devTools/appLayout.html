@@ -1,7 +1,66 @@
 
 <div class="app-layout-body col-xs-12">
+{{^isAgentActive}}
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <!-- We use the fluid option here to avoid overriding the fixed width of a normal container within the narrow content columns. -->
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          <img src="img/logo.png"></img>
+        </a>
+      </div>
+    </div>
+  </nav>
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+  <div class="col12">
+    <div class="row" style="margin-top:20px;">
+      <div class="col-md-4 col-sm-4">
+        <img src="img/puppeteer.png" alt="...">
+      </div>
+      <div class="col-md-8 col-sm-8">
+        {{#isWaiting}}
+          <h3>Waiting for the inspected page to load</h3>
+        {{/isWaiting}}
+        {{^hasStarted}}{{^isWaiting}}
+          <h3>Start the inspector!</h3>
+
+          <p>Restart the app in debug mode.</p>
+          <button data-action="start" type="button" class="btn btn-primary">Start</button>
+        {{/isWaiting}}{{/hasStarted}}
+      </div>
+    </div>
+  </div>
+{{/isAgentActive}}
+{{#isAgentActive}}
+  {{#hasLoadFailed}}
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <!-- We use the fluid option here to avoid overriding the fixed width of a normal container within the narrow content columns. -->
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <img src="img/logo.png"></img>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div data-region="tool" class="col12">
+        <h3>Hey, we could not find your app!</h3>
+
+        <p>When the page loads, we look for Backbone and Marionette on the window and inside of define calls</p>
+
+        <p>If you're doing neither of those things, then you'll need to start the inspector manually at the top of the program</p>
+
+        <code>
+          window.__agent &amp;&amp; window.__agent.start(Backbone, Marionette)
+        </code>
+
+        <p>If that doesn't work, come stop by https://gitter.im/MarionetteLabs/marionette.inspector and let us know.</p>
+      </div>
+    </div>
+  {{/hasLoadFailed}}
+  {{^hasLoadFailed}}
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <!-- We use the fluid option here to avoid overriding the fixed width of a normal container within the narrow content columns. -->
       <div class="container-fluid">
         <div class="navbar-header">
@@ -36,20 +95,8 @@
         </div><!-- /.navbar-collapse -->
       </div>
     </nav>
-  <div data-region="tool" class="col12">
-    {{#hasLoadFailed}}
-    <div class="panel">
-      <h3>Hey, we could not find your app!</h3>
-
-      <p>When the page loads, we look for Backbone and Marionette on the window and inside of define calls</p>
-
-      <p>If you're doing neither of those things, then you'll need to start the inspector manually at the top of the program</p>
-
-      <code>
-        window.__agent &amp;&amp; window.__agent.start(Backbone, Marionette)
-      </code>
-
-      <p>If that doesn't work, come stop by https://gitter.im/MarionetteLabs/marionette.inspector and let us know.</p>
+    <div data-region="tool" class="col12">
     </div>
-    {{/hasLoadFailed}}
+  {{/hasLoadFailed}}
+{{/isAgentActive}}
 </div>

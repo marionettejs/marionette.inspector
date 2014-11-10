@@ -129,6 +129,7 @@ define([
     fetchData: function() {
       logger.log('ui', 'fetching data');
       this.uiData.fetch();
+      this.uiData.trigger('change');
     },
 
     inspectViewElement: function(data) {

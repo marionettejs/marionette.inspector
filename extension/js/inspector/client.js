@@ -22,6 +22,7 @@ define([
     },
 
     start: function() {
+      logger.log('app', 'starting client');
       this.agent.activate();
     },
 
