@@ -41,6 +41,7 @@ define([
     serializeData: function() {
       var data = this.serializeModel(this.model);
       data.active_tool = currentValue(this.tools, this.model.get('tool'));
+      data.hasNotStarted = true;
       return data;
     }
   });
