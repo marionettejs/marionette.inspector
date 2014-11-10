@@ -19,6 +19,18 @@ grunt build
 3. click the "Load unpacked extension" and select the extension folder in the repo
 ```
 
+---
+
+## Logging
+
+Local logging can be turned on easily by enabling the two logger classes (`debug`, `logger`
+
+https://github.com/MarionetteLabs/marionette.inspector/blob/master/extension/js/common/util/Logger.js#L14
+https://github.com/MarionetteLabs/marionette.inspector/blob/master/extension/js/common/util/debug.js#L4
+
+**debug** is the window `agent` logger
+**logger** is the inspector logger
+
 
 ---
 
