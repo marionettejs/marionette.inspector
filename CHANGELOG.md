@@ -1,3 +1,17 @@
+## V0.1.1
+#### 11-10-2014
+
+### Added
++ Added the activity feed behind a flag. It's hidden for now while performance and UI is improved.
++ Added a "start inspector" button so that the inspector doesn't force a refresh
++ Added reloading logic so that the inspector stays uptodate
++ Added support for Backbone.Radio in the radio tab
++ Added support for fetching the regionTree from app.layout
+
+### Fixed
++ fixed agent.js script name, so that it's given the name of the script for debugging purposes.
+
+
 ## V0.1.0
 #### 11-6-2014
 
