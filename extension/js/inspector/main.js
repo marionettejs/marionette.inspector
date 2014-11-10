@@ -92,9 +92,6 @@ require([
         app.module('Radio', RadioApp);
         app.module('UI', UIApp);
         // app.module('Activity', ActivityApp);
-        app.once('client:page:ready', function () {
-          app.navigate('ui', {trigger: true, replace: true});
-        });
     });
 
     logger.log('devtools', 'started!')

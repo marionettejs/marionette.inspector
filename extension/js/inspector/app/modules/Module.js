@@ -1,7 +1,8 @@
 define([
   'marionette',
   'util/Radio',
-], function(Marionette, Radio) {
+  'logger'
+], function(Marionette, Radio, logger) {
 
   return Marionette.Module.extend({
 
@@ -24,6 +25,7 @@ define([
 
     showModule: function() {
       var layout = this.buildLayout();
+      logger.log(this.channelName, 'showing ' + this.channelName);
       Radio.command('app', 'show:tool', this.channelName, layout);
     },
 
