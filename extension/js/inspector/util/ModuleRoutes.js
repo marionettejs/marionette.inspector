@@ -4,6 +4,6 @@ define([], function() {
     ['ui(/)',         ['UI', 'index']],
     ['data(/)',       ['Data', 'index']],
     ['activity(/)',   ['Activity', 'index']],
-    ['',              ['UI', 'index']]
+    // ['',              ['UI', 'index']]
   ];
 })

@@ -21,3 +21,6 @@ this.start = function(Backbone, Marionette) {
   this.patchBackbone(Backbone);
   this.patchMarionette(Backbone, Marionette);
 };
+
+
+sendAppComponentReport('start');
