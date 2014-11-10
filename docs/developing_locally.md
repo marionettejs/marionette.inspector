@@ -23,7 +23,7 @@ grunt build
 
 ## Logging
 
-Local logging can be turned on easily by enabling the two logger classes (`debug`, `logger`
+Local logging can be turned on easily by enabling the two logger classes (`debug`, `logger`)
 
 https://github.com/MarionetteLabs/marionette.inspector/blob/master/extension/js/common/util/Logger.js#L14
 https://github.com/MarionetteLabs/marionette.inspector/blob/master/extension/js/common/util/debug.js#L4
