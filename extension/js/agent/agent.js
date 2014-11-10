@@ -23,4 +23,5 @@ this.start = function(Backbone, Marionette) {
 };
 
 
+console.log('marionette inspector', this);
 sendAppComponentReport('start');
