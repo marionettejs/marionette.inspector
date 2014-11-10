@@ -1,13 +1,15 @@
 // @private
 // Patcha il metodo trigger del componente dell'app.
+
+this.depth = 0;
+
 var patchAppComponentTrigger = bind(function(appComponent, eventType) {//
 
     var agent = this;
-    var depth = 0;
     patchFunctionLater(appComponent, "trigger", function(originalFunction) {
       return function(eventName, component) {
 
-        depth++;
+        agent.depth++;
         var result = originalFunction.apply(this, arguments);
 
         // function signature: trigger(eventName, arg1, arg2, ...)
@@ -20,7 +22,7 @@ var patchAppComponentTrigger = bind(function(appComponent, eventType) {//
         var data = {
             eventName: eventName,
             args: _.map(args, agent.inspectValue, agent),
-            depth: depth,
+            depth: agent.depth,
             cid: this.cid,
             context: agent.inspectValue(context)
         };
@@ -30,7 +32,7 @@ var patchAppComponentTrigger = bind(function(appComponent, eventType) {//
             "trigger", eventName, data, dataKind
         ));
 
-        depth--;
+        agent.depth--;
 
         return result;
     };
