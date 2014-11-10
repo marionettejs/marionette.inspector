@@ -163,7 +163,7 @@ define([
                         _.each(scripts[scriptsType], function(scriptRelativeURL, index) {
                             var scriptURL = appBasePath+"/"+scriptRelativeURL;
                             utils.httpRequest("get", scriptURL, function(data) {
-                                scripts[scriptsType][index] = data; // replace script relative url with its content
+                                scripts[scriptsType][index] = "//@ sourceURL=" +scriptURL + "\n\n" + data; // replace script relative url with its content
                                 scriptsLoaded++;
 
                                 if (scriptsLoaded === scriptsLength) {
