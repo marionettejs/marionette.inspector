@@ -24,16 +24,24 @@ The inspector should work out of the box with most setups.
 ##### Using webpack
 If you're using [webpack](http://webpack.github.io/) you have to expose the modules Backbone and Marionette to the global context (so they are available in `window`):
 
+1. Install [expose loader for webpack](https://github.com/webpack/expose-loader)
+
 ```sh
 npm install expose-loader
 ```
 
-and change your `require` calls to 
+2. Change your `require` calls to 
 
 ```js
 'expose?Backbone!backbone'
+```
+
+and
+
+```js
 'expose?Marionette!marionette'
 ```
+
 
 
 ##### Misc
