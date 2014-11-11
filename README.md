@@ -30,16 +30,16 @@ If you're using [webpack](http://webpack.github.io/) you have to expose the modu
 npm install expose-loader
 ```
 
-2. Change your `require` calls to 
+2. Change your `require` calls to
 
 ```js
-'expose?Backbone!backbone'
+require('expose?Backbone!backbone');
 ```
 
 and
 
 ```js
-'expose?Marionette!marionette'
+require('expose?Marionette!marionette');
 ```
 
 
