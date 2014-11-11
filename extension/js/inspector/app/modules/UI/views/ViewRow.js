@@ -64,7 +64,7 @@ define([
     onClickMoreInfo: function() {
       this.highlightRow();
       if (this.model.has('cid')) {
-        Radio.command('ui', 'show:more-info', this.model);
+        Radio.command('ui', 'show:more-info', this.model.get('cid'));
       }
     },
 

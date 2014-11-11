@@ -46,7 +46,8 @@ define([
       }));
     },
 
-    showMoreInfo: function(viewModel) {
+    showMoreInfo: function(cid) {
+      var viewModel = this.options.viewCollection.findView(cid)
       this.getRegion('viewMoreInfo').show(new ViewMoreInfo({
         model: viewModel
       }));

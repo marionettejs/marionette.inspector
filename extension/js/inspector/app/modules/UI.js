@@ -59,7 +59,6 @@ define([
 
     setupData: function() {
       this.uiData = new UiData();
-      this.viewList = new Backbone.Collection();
       this.viewCollection = new ViewCollection();
       this.moduleData = new Backbone.Model({
         searchOn: false
@@ -113,7 +112,6 @@ define([
      *
     */
     onSearch: function(data) {
-      var viewModel = this.viewList.findWhere({cid: data.cid});
       if (!viewModel) {
         return;
       }
@@ -185,8 +183,9 @@ define([
     buildLayout: function() {
       return new Layout({
         model: this.uiData,
-        collection: this.viewList,
-        moduleData: this.moduleData
+        moduleData: this.moduleData,
+        viewCollection: this.viewCollection,
+        collection: new Backbone.Collection()
       });
     },
 
