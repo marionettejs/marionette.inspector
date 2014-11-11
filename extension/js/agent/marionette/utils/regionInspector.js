@@ -15,7 +15,7 @@ this.regionInspector = (function(agent) {
     } else if (obj.regionManager) { // layout
       //debug.log('ri: found layout');
       var subViews = _subViews(obj, shouldSerialize);
-      subViews._view =  shouldSerialize ? agent.serializeView(obj) :  obj;
+      subViews._view =  shouldSerialize ? serializeView(obj) :  obj;
       return subViews;
 
     } else if (obj.children) { // collection view
@@ -26,14 +26,14 @@ this.regionInspector = (function(agent) {
         subViews[index] = _regionInspector(view, shouldSerialize);
       }, this, subViews, shouldSerialize);
 
-      subViews._view =  shouldSerialize ? agent.serializeView(obj) :  obj;
+      subViews._view =  shouldSerialize ? serializeView(obj) :  obj;
       return subViews;
 
     } else { // simple view
       //debug.log('ri: found simple view');
 
       return {
-        _view: shouldSerialize ? agent.serializeView(obj) :  obj
+        _view: shouldSerialize ? serializeView(obj) :  obj
       }
     }
   };
@@ -49,6 +49,17 @@ this.regionInspector = (function(agent) {
     return subViews;
   };
 
+  var serializeView = function(view) {
+    var data = {};
+    // debug.log('serializeView', view)
+
+    if (!_.isObject(view)) {
+      return {};
+    }
+
+    data.cid = view.cid;
+    return data;
+  }
 
   /*
   * regionInspector
