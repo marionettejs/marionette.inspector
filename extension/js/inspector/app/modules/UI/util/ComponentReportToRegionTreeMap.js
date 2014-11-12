@@ -12,7 +12,7 @@ define([
   return Marionette.Object.extend({
 
     reportMap: {
-      'trigger': ['show'],
+      'trigger': ['show', 'close', 'swap', 'remove', 'destroy'],
       'operation': ['remove']
     },
 

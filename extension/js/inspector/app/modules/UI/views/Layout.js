@@ -4,12 +4,11 @@ define([
   'text!templates/devTools/ui/layout.html',
   'util/Radio',
   'logger',
-  'app/modules/UI/views/ViewList',
   'app/modules/UI/views/ViewMoreInfo',
-  'app/components/tree/models/Node',
-  'app/components/tree/views/Tree',
+  'app/modules/UI/models/TreeNode',
+  'app/modules/UI/views/ViewTree',
 ], function(Marionette, Backbone, tpl, Radio, logger,
-  ViewList, ViewMoreInfo, TreeNode, TreeView) {
+  ViewMoreInfo, TreeNode, ViewTree) {
 
   return Marionette.LayoutView.extend({
 
@@ -27,7 +26,7 @@ define([
     },
 
     modelEvents: {
-      'change': 'render'
+      'change:regionTree': 'onRegionTreeUpdate'
     },
 
     uiCommands: {
@@ -35,34 +34,41 @@ define([
     },
 
     initialize: function(options) {
-
       Radio.connectCommands('ui', this.uiCommands, this);
     },
 
     onRender: function() {
       logger.log('ui', 'layout rendered');
-      // var list = this.model.viewList();
-      // var views = this.collection.reset(list);
-
-      var ViewNode = TreeNode.extend({
-        idAttribute: 'cid'
-      });
-
-
-      this.getRegion('viewList').show(new TreeView({
-        model: new ViewNode(this.model.viewTree())
-      }));
-
-      // this.getRegion('viewList').show(new ViewList({
-      //   collection: views,
-      //   viewModel: this.options.moduleData
-      // }));
+      this.onRegionTreeUpdate();
     },
 
-    showMoreInfo: function(cid) {
-      var viewModel = this.options.viewCollection.findView(cid)
+    onRegionTreeUpdate: function() {
+      var tree = this.model.viewTree();
+
+      // if the tree is empty and we now have data replace
+      // the tree with a new tree
+      if (!this.viewTree || !this.viewTree.nodes) {
+        this.viewTree = new TreeNode(tree);
+
+        this.getRegion('viewList').show(new ViewTree({
+          model: this.viewTree,
+          viewCollection: this.options.viewCollection
+        }));
+      } else {
+        this.viewTree.updateNodes(tree.nodes);
+      }
+    },
+
+    showMoreInfo: function(data) {
+      var viewModel = this.options.viewCollection.findView(data.cid)
+
+      if (!viewModel) {
+        return;
+      }
+
       this.getRegion('viewMoreInfo').show(new ViewMoreInfo({
-        model: viewModel
+        model: viewModel,
+        path: data.path
       }));
     }
   });

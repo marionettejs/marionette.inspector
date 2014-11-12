@@ -4,7 +4,7 @@ define([
   'text!templates/devtools/components/tree/tree.html',
 ], function(Backbone, Marionette, tpl) {
 
-  return Backbone.Marionette.CompositeView.extend({
+  var Tree = Backbone.Marionette.CompositeView.extend({
     tagName: 'ul',
 
     className: function() {
@@ -22,13 +22,20 @@ define([
 
     template: tpl,
 
+    constructor: function(options) {
+      this.collection = options.model.nodes;
+      this.ui = _.extend(Tree.prototype.ui, this.ui);
+      this.events = _.extend(Tree.prototype.events, this.events);
+      Backbone.Marionette.CompositeView.prototype.constructor.apply(this, arguments);
+    },
+
     initialize: function() {
-      this.collection = this.model.nodes;
     },
 
     onClickToggle: function() {
       this.model.isCollapsed = !this.model.isCollapsed;
       this.render();
+      return false;
     },
 
     onRender: function() {
@@ -37,13 +44,14 @@ define([
 
     serializeData: function() {
       var data = Backbone.Marionette.CompositeView.prototype.serializeData.apply(this, this.model);
-      debugger;
-
       data.level = "level-"+this.model.level;
       data.collapseClass = this.model.isCollapsed ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'
       data.hasNodes = this.model.hasNodes();
+      data.leafClass = this.model.hasNodes() ? 'is-parent' : 'is-leaf';
 
       return data;
     }
   });
+
+  return Tree;
 })
