@@ -9,16 +9,23 @@ define([
       this.level = options.level || 1;
       this.isCollapsed = false;
       if (nodes) {
-        this.nodes = new NodeCollection(nodes, {level: this.level});
+        this.nodes = new this.Collection(nodes, {level: this.level});
         this.unset('nodes');
       }
     },
+
+    Collection: NodeCollection,
 
     hasNodes: function() {
       return _.has(this, 'nodes') && this.nodes.length > 0;
     },
 
     updateNodes: function(newNodes) {
+      if (!this.nodes) {
+        this.nodes = new this.Collection(newNodes, {level: this.level});
+        return;
+      }
+
       var currentNodeIds = this.nodes.pluck(this.idAttribute);
       var newNodeIds = _.pluck(newNodes, this.idAttribute);
 
@@ -66,6 +73,8 @@ define([
       this.level = ++options.level;
     }
   });
+
+  Node.Collection = NodeCollection;
 
   return Node;
 });

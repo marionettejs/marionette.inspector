@@ -1,0 +1,15 @@
+<li data-view class="tree-group-item {{ level }} {{ leafClass }} ">
+
+  {{#if hasNodes}}
+      <span data-action="toggle" class="glyphicon {{ collapseClass }}"></span>
+  {{else}}
+    <span style="width:19px; display: inline-block;"></span>
+  {{/if}}
+
+  <a data-action='more-info' href="#"> {{ name }}</a>
+
+  <span
+   data-action='log-view'
+   alt='see view in the console'
+   class="glyphicon glyphicon-download-alt"></span>
+</li>
