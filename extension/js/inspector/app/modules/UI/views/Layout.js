@@ -5,8 +5,11 @@ define([
   'util/Radio',
   'logger',
   'app/modules/UI/views/ViewList',
-  'app/modules/UI/views/ViewMoreInfo'
-], function(Marionette, Backbone, tpl, Radio, logger, ViewList, ViewMoreInfo) {
+  'app/modules/UI/views/ViewMoreInfo',
+  'app/components/tree/models/Node',
+  'app/components/tree/views/Tree',
+], function(Marionette, Backbone, tpl, Radio, logger,
+  ViewList, ViewMoreInfo, TreeNode, TreeView) {
 
   return Marionette.LayoutView.extend({
 
@@ -32,18 +35,28 @@ define([
     },
 
     initialize: function(options) {
+
       Radio.connectCommands('ui', this.uiCommands, this);
     },
 
     onRender: function() {
       logger.log('ui', 'layout rendered');
-      var list = this.model.viewList();
-      var views = this.collection.reset(list);
+      // var list = this.model.viewList();
+      // var views = this.collection.reset(list);
 
-      this.getRegion('viewList').show(new ViewList({
-        collection: views,
-        viewModel: this.options.moduleData
+      var ViewNode = TreeNode.extend({
+        idAttribute: 'cid'
+      });
+
+
+      this.getRegion('viewList').show(new TreeView({
+        model: new ViewNode(this.model.viewTree())
       }));
+
+      // this.getRegion('viewList').show(new ViewList({
+      //   collection: views,
+      //   viewModel: this.options.moduleData
+      // }));
     },
 
     showMoreInfo: function(cid) {
