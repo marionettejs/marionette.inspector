@@ -56,3 +56,53 @@ body {
 .activity-row td.depth-5 {padding-left:50px;}
 .activity-row td.depth-6 {padding-left:60px;}
 .activity-row td.depth-7 {padding-left:70px;}
+
+
+
+
+
+
+
+
+
+/* tree  */
+
+ ul.tree-group {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  ul.is-collapsed > ul.tree-group {
+    display: none;
+  }
+
+  .example {
+    width: 250px;
+    height: 200px;
+    overflow-y:scroll;
+  }
+
+  li.tree-group-item {
+    list-style: none;
+    line-height: 35px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  li.tree-group-item .glyphicon {
+    color: #888;
+    padding-right: 5px;
+  }
+
+  li.tree-group-item:hover {
+    background: #F8F8F8;
+    cursor: pointer;
+  }
+
+  .level-1 { padding-left: 10px;}
+  .level-2 { padding-left: 20px;}
+  .level-3 { padding-left: 30px;}
+  .level-4 { padding-left: 40px;}
+  .level-5 { padding-left: 50px;}
+  .level-6 { padding-left: 60px;}
+
