@@ -127,7 +127,7 @@ define([
     fetchData: function() {
       logger.log('ui', 'fetching data');
       this.uiData.fetch();
-      this.uiData.trigger('change');
+      this.uiData.trigger('change:regionTree');
     },
 
     inspectViewElement: function(data) {

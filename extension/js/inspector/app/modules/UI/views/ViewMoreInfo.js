@@ -36,7 +36,7 @@ define([
       var uiElement = $target.data('ui-elem');
 
       Radio.command('ui', 'inspect:view-element', {
-        viewPath: this.model.get('path'),
+        viewPath: this.options.path,
         viewPropPath: ['ui'].concat(uiElement).join('.')
       })
     },
@@ -46,7 +46,7 @@ define([
       var eventHandler = $target.data('event');
 
       Radio.command('ui', 'inspect:view-function', {
-        viewPath: this.model.get('path'),
+        viewPath: this.options.path,
         viewPropPath: eventHandler
       })
     },

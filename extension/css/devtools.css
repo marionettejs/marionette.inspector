@@ -89,9 +89,18 @@ body {
     border-bottom: 1px solid #ddd;
   }
 
+  li.is-parent {
+    /*padding-left: 0;*/
+  }
+
+  li.is-leaf {
+    margin-left: 0;
+  }
+
   li.tree-group-item .glyphicon {
     color: #888;
     padding-right: 5px;
+    padding-left: 24px;
   }
 
   li.tree-group-item:hover {
@@ -99,10 +108,13 @@ body {
     cursor: pointer;
   }
 
-  .level-1 { padding-left: 10px;}
-  .level-2 { padding-left: 20px;}
-  .level-3 { padding-left: 30px;}
-  .level-4 { padding-left: 40px;}
-  .level-5 { padding-left: 50px;}
-  .level-6 { padding-left: 60px;}
+  .level-1 { margin-left: -24px; }
+  .level-2 { margin-left: -24px;  padding-left: 24px; }
+  .level-3 { margin-left: -24px;  padding-left: 48px; }
+  .level-4 { margin-left: -24px;  padding-left: 72px; }
+  .level-5 { margin-left: -24px;  padding-left: 96px; }
+  .level-6 { margin-left: -24px; padding-left: 120px;}
+  .level-7 { margin-left: -24px; padding-left: 144px;}
+  .level-8 { margin-left: -24px; padding-left: 168px;}
+  .level-9 { margin-left: -24px; padding-left: 192px;}
 
