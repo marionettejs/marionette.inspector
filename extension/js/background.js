@@ -47,7 +47,8 @@ chrome.tabs.onUpdated.addListener(function(updatedTabId, changeInfo) {
                 target: 'page',
                 name: 'updated',
                 data: {
-                    urlChanged: changeInfo.url !== undefined
+                    urlChanged: changeInfo.url !== undefined,
+                    changeInfo: changeInfo
                 }
             });
         }
