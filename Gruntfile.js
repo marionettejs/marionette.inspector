@@ -28,9 +28,25 @@ module.exports = function(grunt) {
       },
     },
 
+    sass: {
+      dist: {
+        options: {
+          style: 'expanded'
+        },
+        files: {
+          'extension/css/marionette_inspector.css': 'extension/css/inspector/main.scss',
+        }
+      }
+    },
+
     watch: {
-      files: ['extension/js/agent/**/*.js', 'extension/js/common/**/*.js'],
-      tasks: ['agent']
+      files: [
+        'extension/js/agent/**/*.js',
+        'extension/js/common/**/*.js',
+        '!extension/js/agent/build/src/*.js',
+        'extension/css/inspector'
+        ],
+      tasks: ['build']
     },
 
   });
@@ -39,12 +55,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-preprocess');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-mocha');
+  grunt.loadNpmTasks('grunt-contrib-sass');
 
 
   grunt.registerTask('agent', ['preprocess']);
 
 
-  grunt.registerTask('build', ['agent']);
+  grunt.registerTask('build', ['agent', 'sass']);
 
   grunt.registerTask('test', ['mocha']);
 
