@@ -50,9 +50,6 @@ define([
 
     initialize: function() {
       this.client = client;
-      this.setupData();
-      this.setupEvents();
-
       _.bindAll(this, 'fetchData');
       this.fetchData = _.debounce(this.fetchData, 30);
     },
@@ -112,14 +109,17 @@ define([
      *
     */
     onSearch: function(data) {
+      var viewModel = this.viewCollection.findView(data.cid);
       if (!viewModel) {
         return;
       }
 
+      logger.log('ui', 'search event ', data.name);
       viewModel.trigger('search:' + data.name);
 
       if (data.name == 'mousedown') {
-        this.moduleData.set('searchOn', false);
+        Radio.command('app', 'search:stop');
+        Radio.command('ui', 'highlightRow', data)
       }
 
     },

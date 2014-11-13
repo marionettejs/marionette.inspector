@@ -24,7 +24,7 @@ body {
   height: inherit;
 }
 
-[data-region="view-list"], [data-region="view-more-info"],
+[data-region="view-tree"], [data-region="view-more-info"],
 [data-region="model-list"], [data-region="model-more-info"],
 [data-region="channel-list"], [data-region="channel-more-info"],
 [data-region="activity-list"], [data-region="activity-more-info"] {
@@ -106,8 +106,17 @@ body {
     padding-left: 24px;
   }
 
+
   li.tree-group-item:hover {
-    background: #F3f3f3;
+    background: #f2f2f2;
+  }
+
+  li.tree-group-item.is-highlighted {
+    background: #D9EDF7;
+  }
+
+  li.tree-group-item.is-highlighted:hover {
+    background: #D9EDF7;
   }
 
   li.tree-group-item span.glyphicon:hover {

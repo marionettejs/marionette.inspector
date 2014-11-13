@@ -26,16 +26,19 @@ define([
     ui: {
       appHeader: '#app-header',
       startButton: '[data-action="start"]',
-      tools: '[data-tool]'
+      tools: '[data-tool]',
+      searchBtn: '[data-action="search"]'
     },
 
     events: {
       'click .nav a': 'onToolClick',
-      'click @ui.startButton': 'onStartClick'
+      'click @ui.startButton': 'onStartClick',
+      'click @ui.searchBtn': 'onClickSearch'
     },
 
     modelEvents: {
-      'change:tool': 'onToolChange'
+      'change:tool': 'onToolChange',
+      'change:searchOn': 'onSearchUpdate'
     },
 
     initialize: function() {
@@ -50,7 +53,7 @@ define([
       logger.log('app', 'agent start button clicked');
 
       if (this.model.get('isWaiting') || this.model.get('isInjecting')) {
-        logger.log('app', 'start clicked multiple times')
+        logger.log('app', 'start clicked multiple times', this.model.attributes)
         return;
       }
 
@@ -74,6 +77,33 @@ define([
       }
 
       Radio.command('app', 'navigate', $currentTarget.data('route'));
+    },
+
+
+    /*
+     * clicking on the search button will turn search on and off
+     * in the browser. We keep the `searchOn` field
+     */
+    onClickSearch: function(e) {
+      var $current = $(e.currentTarget);
+
+      if (!this.model.get('isAgentActive')) {
+        logger.log('app', 'cannot select tool when the agent is not active', e);
+        return;
+      }
+
+      this.model.set('searchOn', !this.model.get('searchOn'));
+
+      if (this.model.get('searchOn')) {
+        Radio.command('ui', 'search:start');
+      } else {
+        Radio.command('ui', 'search:stop');
+      }
+
+    },
+
+    onSearchUpdate: function(model, state) {
+      this.ui.searchBtn.toggleClass('toggled-on', state);
     },
 
     serializeData: function() {
