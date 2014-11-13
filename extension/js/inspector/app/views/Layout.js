@@ -25,16 +25,17 @@ define([
 
     ui: {
       appHeader: '#app-header',
-      startButton: '[data-action="start"]'
+      startButton: '[data-action="start"]',
+      tools: '[data-tool]'
     },
 
     events: {
-      'click .nav a': 'onAppClick',
+      'click .nav a': 'onToolClick',
       'click @ui.startButton': 'onStartClick'
     },
 
     modelEvents: {
-      'change': 'render',
+      'change:tool': 'onToolChange'
     },
 
     initialize: function() {
@@ -47,13 +48,31 @@ define([
 
     onStartClick: function() {
       logger.log('app', 'agent start button clicked');
+
+      if (this.model.get('isWaiting') || this.model.get('isInjecting')) {
+        logger.log('app', 'start clicked multiple times')
+        return;
+      }
+
       this.model.set('hasStarted', true);
       this.client.start();
       this.model.set('isInjecting', true);
     },
 
-    onAppClick: function(e) {
+    onToolChange: function(model, tool) {
+      this.ui.tools.removeClass('active');
+      var tool = this.$el.find('[data-tool="'+tool+'"]');
+      tool.addClass('active');
+    },
+
+    onToolClick: function(e) {
       var $currentTarget = $(e.currentTarget);
+
+      if (!this.model.get('isAgentActive')) {
+        logger.log('app', 'cannot select tool when the agent is not active', e);
+        return;
+      }
+
       Radio.command('app', 'navigate', $currentTarget.data('route'));
     },
 
