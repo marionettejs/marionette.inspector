@@ -16,6 +16,8 @@ define([
 
     Collection: NodeCollection,
 
+    idAttribute: 'name',
+
     hasNodes: function() {
       return _.has(this, 'nodes') && this.nodes.length > 0;
     },
@@ -63,7 +65,55 @@ define([
       }, this);
     },
 
-    idAttribute: 'name'
+    expandPath: function(path) {
+      this.trigger('expand');
+
+      if (!_.isArray(path) || path.length == 0) {
+        return;
+      }
+
+      var node = this.nodes.get(_.first(path));
+      if (!node) {
+        return;
+      }
+
+      node.expandPath(_.rest(path));
+    },
+
+    collapsePath: function() {
+      this.trigger('collapse');
+
+      if (!_.isArray(path) || path.length == 0) {
+        return;
+      }
+
+      var node = this.nodes.get(_.first(path));
+      if (!node) {
+        return;
+      }
+
+      node.collapsePath(_.rest(path));
+
+    },
+
+    expand: function() {
+      this.trigger('expand');
+
+      if (!this.nodes) {
+        return
+      }
+
+      this.nodes.invoke('expand');
+    },
+
+    collapse: function() {
+      this.trigger('collapse')
+      if (!this.nodes) {
+        return
+      }
+
+      this.nodes.invoke('collapse');
+    }
   });
 
   var NodeCollection = Backbone.Collection.extend({

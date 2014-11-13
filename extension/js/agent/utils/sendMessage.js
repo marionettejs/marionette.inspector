@@ -10,13 +10,13 @@ _.extend(QueuePostMessages.prototype, {
 
   _debounceTime: 100,
 
-  push: function(message) {
+  push: function(message, options) {
     message.target = "page"; // il messaggio riguarda la pagina
 
     // console.log('!!! ', message.name, this.queue.length, new Date().getTime());
     this.queue.push(message);
 
-    if (this.queue.length >= 1000) {
+    if (this.queue.length >= 1000 || options.immediate) {
       this.sendBatchImmediate();
     } else {
       this.sendBatch();
@@ -44,6 +44,7 @@ _.extend(QueuePostMessages.prototype, {
 var queuePostMessages = new QueuePostMessages();
 
 // @private
-var sendMessage = function(message) {
-  queuePostMessages.push(message)
+var sendMessage = function(message, options) {
+  options = options || {};
+  queuePostMessages.push(message, options);
 };

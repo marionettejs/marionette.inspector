@@ -27,6 +27,14 @@ define([
       'search:mouseover': 'onSearchMouseOver',
       'search:mouseleave': 'onSearchMouseLeave',
       'search:mousedown': 'onSearchMouseDown',
+      'highlight': 'highlightRow'
+    },
+
+    attributes: function() {
+      var data = {};
+      data['data-view'] = 'tree-view';
+      data['data-cid'] = this.model.get('cid');
+      return data;
     },
 
     template: tpl,
@@ -35,6 +43,9 @@ define([
       this.viewModel = options.viewCollection.findView(this.model.get('cid'));
       if (this.viewModel) {
         this.bindEntityEvents(this.viewModel, this.viewModelEvents);
+        this.viewModel.treeProperties = _.clone(this.model.attributes);
+        this.viewModel.treeProperties.isAttached = true
+
       }
     },
 
@@ -45,61 +56,77 @@ define([
     },
 
     onClickMoreInfo: function() {
-      if (this.model.has('cid')) {
-        Radio.command('ui', 'show:more-info', {
-          cid: this.model.get('cid'),
-          path: this.model.get('path')
-        });
+      if (!this.model.has('cid')) {
+        return;
       }
+
+      this.showMoreInfo();
+      this.highlightRow();
 
       return false;
     },
 
     onMouseOver: function() {
-      Radio.command('ui', 'highlight-view', {
-        viewPath: this.model.get('path'),
-      });
-
-
+      this.highlightViewOnPage();
       return false;
     },
 
     onMouseLeave: function() {
-      Radio.command('ui', 'unhighlight-view', {
-        viewPath: this.model.get('path'),
-      });
-
+      this.unhighlightViewOnPage();
       return false;
     },
 
     onClickLogViewLink: function() {
+      this.logView();
+      return false;
+    },
+
+    onSearchMouseOver: function() {},
+
+    onSearchMouseLeave: function() {},
+
+    onSearchMouseDown: function() {
+      this.highlightRow();
+      this.logView();
+      this.showMoreInfo();
+    },
+
+    // commands
+
+    highlightRow: function() {
+      this.unhighlightRow();
+      this.ui.view.addClass('is-highlighted');
+    },
+
+    unhighlightRow: function() {
+      Radio.command('ui', 'unhighlightRows');
+    },
+
+    logView: function() {
       Radio.command('ui', 'log', {
         viewPath: this.model.get('path'),
         message: 'view'
       });
-
-      return false;
     },
 
-    onSearchMouseOver: function() {
-      this.highlightRow();
+    showMoreInfo: function() {
+      Radio.command('ui', 'show:more-info', {
+        cid: this.model.get('cid'),
+        path: this.model.get('path')
+      });
     },
 
-    onSearchMouseLeave: function() {
-      this.unhighlightRow()
+    unhighlightViewOnPage: function() {
+      Radio.command('ui', 'unhighlight-view', {
+        viewPath: this.model.get('path'),
+      });
     },
 
-    onSearchMouseDown: function() {
-      this.highlightRow();
-    },
-
-    highlightRow: function() {
-      this.$el.addClass('bg-info');
-    },
-
-    unhighlightRow: function() {
-      this.$el.removeClass('bg-info');
-    },
+    highlightViewOnPage: function() {
+      Radio.command('ui', 'highlight-view', {
+        viewPath: this.model.get('path'),
+      });
+    }
 
   });
 })

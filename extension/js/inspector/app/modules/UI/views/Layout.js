@@ -21,7 +21,7 @@ define([
     className: 'row',
 
     regions: {
-      viewList: '[data-region="view-list"]',
+      viewTree: '[data-region="view-tree"]',
       viewMoreInfo: '[data-region="view-more-info"]'
     },
 
@@ -30,11 +30,14 @@ define([
     },
 
     uiCommands: {
-      'show:more-info': 'showMoreInfo'
+      'show:more-info': 'showMoreInfo',
+      'unhighlightRows': 'unhighlightRows',
+      'highlightRow': 'highlightRow'
     },
 
     initialize: function(options) {
       Radio.connectCommands('ui', this.uiCommands, this);
+      this.viewCollection = options.viewCollection;
     },
 
     onRender: function() {
@@ -47,15 +50,15 @@ define([
 
       // if the tree is empty and we now have data replace
       // the tree with a new tree
-      if (!this.viewTree || !this.viewTree.nodes) {
-        this.viewTree = new TreeNode(tree);
+      if (!this.viewTreeModel || !this.viewTreeModel.nodes) {
+        this.viewTreeModel = new TreeNode(tree);
 
-        this.getRegion('viewList').show(new ViewTree({
-          model: this.viewTree,
+        this.getRegion('viewTree').show(new ViewTree({
+          model: this.viewTreeModel,
           viewCollection: this.options.viewCollection
         }));
       } else {
-        this.viewTree.updateNodes(tree.nodes);
+        this.viewTreeModel.updateNodes(tree.nodes);
       }
     },
 
@@ -70,6 +73,39 @@ define([
         model: viewModel,
         path: data.path
       }));
+    },
+
+    unhighlightRows: function() {
+      this.getRegion('viewTree')
+        .$el
+        .find('.is-highlighted')
+        .removeClass('is-highlighted');
+    },
+
+    highlightRow: function(data) {
+      var viewModel = this.viewCollection.findView(data.cid);
+      if (!viewModel || !viewModel.treeProperties.path) {
+        return;
+      }
+
+      this.viewTreeModel.expandPath(viewModel.treeProperties.idPath);
+      viewModel.trigger('highlight');
+      this.scrollToRow(data.cid);
+    },
+
+    scrollToRow: function(cid) {
+      $row = this.$el.find("[data-cid='" + cid + "']");
+      $list = this.getRegion('viewTree').$el;
+
+      isOffScreen =
+        $row.offset().top < $list.offset().top ||
+        $row.offset().top > $list.offset().top + $list.height();
+
+      if (isOffScreen) {
+        $list.animate({
+            scrollTop: $list.scrollTop() + $row.offset().top - 2*$row.height()
+        }, 100);
+      }
     }
   });
 });

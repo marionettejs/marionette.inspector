@@ -16,7 +16,8 @@ define([
     commands: function() {
         return {
           'show:tool': this.showTool,
-          'navigate': this.navigate
+          'navigate': this.navigate,
+          'search:stop': this.stopSearch
         }
     },
 
@@ -51,7 +52,8 @@ define([
         isAgentActive: false, // the inspector agent is injected into the inspected page
         isWaiting: false, // the inpector is waiting on the inspected page to load (document.readyState)
         hasStarted: false, // the inspector was started by user
-        isInjecting: false // the inspector is currently injecting the agent
+        isInjecting: false, // the inspector is currently injecting the agent
+        searchOn: false  // inspector search
       });
     },
 
@@ -80,11 +82,31 @@ define([
       }
     },
 
-    onPageUpdated: function() {
+    onPageUpdated: function(data) {
+
+      if (data.urlChanged) {
+        logger.log('app', 'inspected page had a url change');
+        return;
+      }
+
       logger.log('app', 'inspected page was updated (refreshed)');
       this.navigate('');
       this.appData.set('isWaiting', true);
       this.appData.set('isAgentActive', false);
+
+
+      // For some reason we'll think that the page refrehsed when it really
+      // just got touched in some way...
+      // In that case we should check to see if the agent is still around.
+      // If it is we're okay. if not a page reload will really happen and
+      // we'll re-inject the agent.
+      logger.log('app', 'checking to see if the inspected page is active');
+      this.client.agent.isActive(function() {
+        logger.log('app', 'inspected page is still active');
+        this.navigate('');
+        this.appData.set('isWaiting', false);
+        this.appData.set('isAgentActive', true);
+      }.bind(this))
     },
 
     onAgentStart: function() {
@@ -102,6 +124,10 @@ define([
     onAppLoadFail: function() {
       logger.log('app', 'could not find inspected application');
       this.appData.set('hasLoadFailed', true);
+    },
+
+    stopSearch: function() {
+      this.appData.set('searchOn', false);
     },
 
     navigate: function(route, options) {

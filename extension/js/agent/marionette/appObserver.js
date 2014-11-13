@@ -14,11 +14,11 @@ _.extend(AppObserver.prototype, {
   radioExpression: "app.wreqr",
 
   startSearch: function() {
-    search(this, this.getApp());
+    this.agent.search(this, this.getApp());
   },
 
   stopSearch: function() {
-    stopSearch(this, this.getApp());
+    this.agent.stopSearch(this, this.getApp());
   },
 
   highlightView: function(data) {
@@ -30,9 +30,9 @@ _.extend(AppObserver.prototype, {
 
     // unhighlight all of the views
     var $els = _.pluck(this.viewList(), '$el');
-    _.each($els, unhighlightEl);
+    // _.each($els, unhighlightEl);
 
-    highlightEl(view.$el)
+    this.agent.highlightEl(view.$el)
   },
 
   unhighlightView: function(data) {
@@ -42,7 +42,7 @@ _.extend(AppObserver.prototype, {
       return;
     }
 
-    unhighlightEl(view.$el)
+    this.agent.unhighlightEl(view.$el)
     return false;
   },
 
