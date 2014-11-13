@@ -16,7 +16,7 @@ require.config({
         setImmediate: '../lib/setImmediate',
         bluebird: '../lib/bluebird',
         'jquery.treegrid': '../lib/jquery.treegrid',
-        logger: '../common/util/logger'
+        logger: '../common/util/Logger'
     },
     // non-amd library loaders
     shim: {
