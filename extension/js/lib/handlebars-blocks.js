@@ -1,3 +1,5 @@
+
+
 Handlebars.registerHelper('unlessNull', function(conditionals, options) {
     if (conditionals !== null) {
         return options.fn(this);
@@ -17,7 +19,7 @@ Handlebars.registerHelper('unlessIsObject', function(conditionals, options) {
 // {{#compare unicorns ponies operator="<"}}
 //  I knew it, unicorns are just low-quality ponies!
 // {{/compare}}
-// 
+//
 // (defaults to == if operator omitted)
 //
 // {{#compare unicorns ponies }}
