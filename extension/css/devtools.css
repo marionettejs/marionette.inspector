@@ -56,3 +56,65 @@ body {
 .activity-row td.depth-5 {padding-left:50px;}
 .activity-row td.depth-6 {padding-left:60px;}
 .activity-row td.depth-7 {padding-left:70px;}
+
+
+
+
+
+
+
+
+
+/* tree  */
+
+ ul.tree-group {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  ul.is-collapsed > ul.tree-group {
+    display: none;
+  }
+
+  .example {
+    width: 250px;
+    height: 200px;
+    overflow-y:scroll;
+  }
+
+  li.tree-group-item {
+    list-style: none;
+    line-height: 35px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  li.is-parent {
+    /*padding-left: 0;*/
+  }
+
+  li.is-leaf {
+    margin-left: 0;
+  }
+
+  li.tree-group-item .glyphicon {
+    color: #888;
+    padding-right: 5px;
+    padding-left: 24px;
+  }
+
+  li.tree-group-item:hover {
+    background: #F8F8F8;
+    cursor: pointer;
+  }
+
+  .level-1 { margin-left: -24px; }
+  .level-2 { margin-left: -24px;  padding-left: 24px; }
+  .level-3 { margin-left: -24px;  padding-left: 48px; }
+  .level-4 { margin-left: -24px;  padding-left: 72px; }
+  .level-5 { margin-left: -24px;  padding-left: 96px; }
+  .level-6 { margin-left: -24px; padding-left: 120px;}
+  .level-7 { margin-left: -24px; padding-left: 144px;}
+  .level-8 { margin-left: -24px; padding-left: 168px;}
+  .level-9 { margin-left: -24px; padding-left: 192px;}
+
