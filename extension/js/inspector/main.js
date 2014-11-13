@@ -12,8 +12,7 @@ require.config({
         marionette: '../lib/marionette',
         text: '../lib/text',
         bootstrap: '../lib/bootstrap.min',
-        handlebars_original: '../lib/handlebars',
-        handlebars: '../lib/handlebars-blocks',
+        handlebars: '../lib/handlebars',
         setImmediate: '../lib/setImmediate',
         bluebird: '../lib/bluebird',
         'jquery.treegrid': '../lib/jquery.treegrid',
@@ -50,12 +49,7 @@ require.config({
         'bootstrap': {
             deps: ['jquery']
         },
-        'handlebars_original': {
-            deps: ['bootstrap'], // automatically require bootstrap when requiring an handlebars template
-            exports: 'Handlebars'
-        },
-        'handlebars': { // handlebars with custom block helpers
-            deps: ['handlebars_original'],
+        'handlebars': {
             exports: 'Handlebars'
         },
         'setImmediate': {
