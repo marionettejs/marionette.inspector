@@ -20,12 +20,18 @@ define([
       'click @ui.toggleBtn': 'onClickToggle'
     },
 
+    modelEvents: {
+      'expand': 'expandNode',
+      'collapse': 'collapseNode'
+    },
+
     template: tpl,
 
     constructor: function(options) {
       this.collection = options.model.nodes;
-      this.ui = _.extend(Tree.prototype.ui, this.ui);
-      this.events = _.extend(Tree.prototype.events, this.events);
+      this.ui = _.extend(Tree.prototype.ui, this.ui || {});
+      this.events = _.extend(Tree.prototype.events, this.events || {});
+      this.modelEvents = _.extend(Tree.prototype.modelEvents, this.modelEvents || {});
       Backbone.Marionette.CompositeView.prototype.constructor.apply(this, arguments);
     },
 
@@ -36,6 +42,16 @@ define([
       this.model.isCollapsed = !this.model.isCollapsed;
       this.render();
       return false;
+    },
+
+    expandNode: function() {
+      this.model.isCollapsed = false;
+      this.render();
+    },
+
+    collapseNode: function() {
+      this.model.isCollapsed = true;
+      this.render();
     },
 
     onRender: function() {

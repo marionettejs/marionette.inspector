@@ -1,8 +1,7 @@
-var unhighlightEl = function($el) {
-	if (!$el) {
-    return;
-  }
+this.unhighlightEl = function() {
 
-  $el.removeClass('marionette-inspector-highlighted-element');
-	// debug.log('unhighlight', $el.get(0));
+  var $highlightMask = $(window.highlightMask);
+  $highlightMask.offset({top:-100, left:-100});
+  $highlightMask.height(1);
+  $highlightMask.width(1);
 }

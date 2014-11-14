@@ -17,6 +17,17 @@
 
     <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-6" style="height: 1px;">
       <ul class="nav navbar-nav">
+
+        <li style="padding-top:15px;">
+          <button
+              data-action="search"
+              class="node-search-status-bar-item status-bar-item"
+              title="Select an element in the page to inspect it.">
+              <div class="glyph"></div>
+              <div class="glyph shadow"></div>
+          </button>
+        </li>
+
         <li data-tool='ui' class="{{#active_tool.is_ui}}active{{/active_tool.is_ui}}">
           <a data-route="ui" href="#">UI</a>
         </li>
