@@ -22,7 +22,30 @@ Of course, there's also a helpful :mag: as well.
 The inspector should work out of the box with most setups.
 
 ##### Using webpack
-If you're using webpack or are not setting Backbone and Marionette on the window or using `define`, you'll need to start the inspector manually.
+If you're using [webpack](http://webpack.github.io/) you have to expose the modules Backbone and Marionette to the global context (so they are available in `window`):
+
+1. Install [expose loader for webpack](https://github.com/webpack/expose-loader)
+
+```sh
+npm install expose-loader
+```
+
+2. Change your `require` calls to
+
+```js
+require('expose?Backbone!backbone');
+```
+
+and
+
+```js
+require('expose?Marionette!marionette');
+```
+
+
+
+##### Misc
+If you're not setting Backbone and Marionette on the window or using `define`, you'll need to start the inspector manually.
 
 Add this line before your Marionette Application is instantiated.
 ```js
