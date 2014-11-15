@@ -16,4 +16,4 @@ var sendAppComponentReport = function(name, report, options) {
 };
 
 
-
+this.sendAppComponentReport = sendAppComponentReport;
