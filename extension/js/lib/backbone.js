@@ -601,6 +601,7 @@
     if (options.comparator !== void 0) this.comparator = options.comparator;
     this._reset();
     this.initialize.apply(this, arguments);
+    this.cid = _.uniqueId('c');
     if (models) this.reset(models, _.extend({silent: true}, options));
   };
 

@@ -1,22 +1,34 @@
 define([
+  'backbone',
   'marionette',
   "text!templates/devTools/data/layout.html",
   "util/Radio",
   'app/modules/Data/views/ModelList',
   'app/modules/Data/views/ModelInfo',
-], function(Marionette, tpl, Radio, ModelList, ModelInfo) {
+  'app/modules/Data/views/CollectionInfo',
+  'app/modules/Data/views/CollectionList',
+  'util/presenters/currentValue'
+], function(Backbone, Marionette, tpl, Radio, ModelList, ModelInfo, CollectionInfo, CollectionList, currentValue) {
 
   return Marionette.LayoutView.extend({
 
     template: tpl,
 
     regions: {
-      modelList: '[data-region="model-list"]',
-      modelInfo: '[data-region="model-info"]',
+      list: '[data-region="list"]',
+      info: '[data-region="info"]',
     },
 
     attributes: {
       view: 'data-layout'
+    },
+
+    ui: {
+      nav: '[data-nav]'
+    },
+
+    events: {
+      'click @ui.nav': 'onNavClick'
     },
 
     className: "row",
@@ -25,20 +37,60 @@ define([
       'show:info': 'showInfo'
     },
 
+    viewModelEvents: {
+      'change:active': 'render'
+    },
+
     initialize: function(options) {
+      this.viewModel = new Backbone.Model({
+        active: 'model'
+      });
+
       Radio.connectCommands('data', this.dataCommands, this);
+      this.bindEntityEvents(this.viewModel, this.viewModelEvents);
+    },
+
+    onNavClick: function(e) {
+      var $current = $(e.currentTarget);
+      this.viewModel.set('active', $current.data('nav'));
+      return false
     },
 
     onRender: function() {
-      this.getRegion('modelList').show(new ModelList({
-        collection: this.options.modelCollection
-      }))
+      var list;
+
+      if (this.viewModel.get('active') === 'model') {
+        list = new ModelList({
+          collection: this.options.modelCollection
+        })
+      } else {
+        list = new CollectionList({
+          collection: this.options.collectionCollection
+        })
+      }
+
+      this.getRegion('list').show(list);
     },
 
-    showInfo: function(modelModel) {
-      this.getRegion('modelInfo').show(new ModelInfo({
-        model: modelModel
-      }));
+    showInfo: function(data) {
+      if (data.type == 'model') {
+        this.getRegion('info').show(new ModelInfo({
+          model: data.instance
+        }));
+      } else {
+        this.getRegion('info').show(new CollectionInfo({
+          model: data.instance
+        }));
+      }
+    },
+
+    serializeData: function() {
+      var data = {};
+      data.active_nav = currentValue(
+        ['model', 'collection'],
+        this.viewModel.get('active')
+      )
+      return data;
     }
 
   });

@@ -1,2 +1,15 @@
-<div data-region="model-list" class="col-xs-5"></div>
-<div data-region="model-info" class="col-xs-7"></div>
+
+<div class="col-xs-5">
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="{{#if active_nav.is_model}}active{{/if}}">
+      <a data-nav="model" href="#">Models</a>
+    </li>
+    <li role="presentation" class="{{#if active_nav.is_collection}}active{{/if}}">
+      <a data-nav="collection" href="#">Collections</a>
+    </li>
+  </ul>
+  <div data-region="list"></div>
+</div>
+
+
+<div data-region="info" class="col-xs-7"></div>

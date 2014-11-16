@@ -1,10 +1,12 @@
+@import "partials/data-panel";
+
 #app-header {
   margin-bottom: 10px;
   border-bottom: 1px solid #ccc;
   padding: 10px 0px;
 }
 
-#app-header ul.nav-pills > li.active a{
+#app-header ul.nav-pills > li.active a {
   color: #333;
   background-color: #fff;
 }
