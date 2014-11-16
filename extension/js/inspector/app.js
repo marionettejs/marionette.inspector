@@ -72,13 +72,16 @@ define([
       logger.log('app', 'inspected page finished loading.');
       this.appData.set('isWaiting', false);
 
-      if (this.appData.get('hasStarted')
-        && !this.appData.get('isAgentActive')
-        && !this.appData.get('isInjecting')) {
-
-        logger.log('app', 'starting the client', this.appData.toJSON());
-        this.appData.set('isInjecting', true);
-        this.client.start();
+      if (this.appData.get('hasStarted') && !this.appData.get('isInjecting')) {
+        logger.log('app', 'checking to see if the inspected page is active');
+        this.client.agent.isActive(function(isActive) {
+          if (!isActive) {
+            logger.log('app', 'starting the client', this.appData.toJSON());
+            this.appData.set('isInjecting', true);
+            this.client.start();
+          }
+          logger.log('app', 'inspected page is active');
+        }.bind(this))
       }
     },
 
@@ -101,11 +104,13 @@ define([
       // If it is we're okay. if not a page reload will really happen and
       // we'll re-inject the agent.
       logger.log('app', 'checking to see if the inspected page is active');
-      this.client.agent.isActive(function() {
-        logger.log('app', 'inspected page is still active');
-        this.navigate('');
-        this.appData.set('isWaiting', false);
-        this.appData.set('isAgentActive', true);
+      this.client.agent.isActive(function(isActive) {
+        if (isActive) {
+          logger.log('app', 'inspected page is still active');
+          this.navigate('');
+          this.appData.set('isWaiting', false);
+          this.appData.set('isAgentActive', true);
+        }
       }.bind(this))
     },
 
