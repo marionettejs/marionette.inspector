@@ -19,7 +19,7 @@ var monitorAppComponentProperty = bind(function(appComponent, property, recursio
         // invia un report riguardante il cambiamento della proprietà
         var appComponentInfo = this.getAppComponentInfo(appComponent);
 
-        var reportName = appComponentInfo.category+":"+appComponentInfo.index+":change";
+        var reportName = appComponentInfo.category + ":property:change";
         sendAppComponentReport(reportName, {
             componentProperty: property,
             type: 'change'
