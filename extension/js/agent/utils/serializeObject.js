@@ -1,7 +1,14 @@
 var typeOf = function(obj) {
+  if (obj instanceof Array) {
+    return 'array'
+  }
+
   return typeof obj
 }
 
+var instanceOf = function(obj, Type) {
+  return obj instanceof Type
+}
 var isType = function(obj, type) {
   return typeOf(obj) == type;
 }
