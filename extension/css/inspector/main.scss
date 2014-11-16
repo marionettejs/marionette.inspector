@@ -22,14 +22,15 @@ body {
 [view="app-layout"],
 .app-layout-body,
 [data-region="tool"],
-[view="ui-layout"], [view="data-layout"], [view="radio-layout"], [view="activity-layout"]  {
+[view="ui-layout"], [view="data-layout"], [view="radio-layout"], [view="activity-layout"],
+ {
   height: inherit;
 }
 
 [data-region="view-tree"], [data-region="view-more-info"],
-[data-region="model-list"], [data-region="model-more-info"],
+.data-list, [data-region="info"],
 [data-region="channel-list"], [data-region="channel-info"],
-[data-region="activity-list"], [data-region="model-info"] {
+[data-region="activity-list"] {
   height: inherit;
   overflow-y: scroll;
 }

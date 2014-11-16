@@ -4,7 +4,12 @@ define([
 ], function(Backbone, ModelModel) {
 
   return Backbone.Collection.extend({
-    model: ModelModel
+    model: ModelModel,
+
+    findModel: function(cid) {
+      return this.findWhere({cid: cid});
+    }
+
   });
 
 })

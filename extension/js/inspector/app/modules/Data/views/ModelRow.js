@@ -18,6 +18,10 @@ define([
       "click @ui.moreInfoLink": "onClickInfo"
     },
 
+    modelEvents: {
+      'change': 'render'
+    },
+
     onClickInfo: function() {
       this.highlightRow();
 

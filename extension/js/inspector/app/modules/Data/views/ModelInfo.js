@@ -15,6 +15,10 @@ define([
       }
     },
 
+    modelEvents: {
+      'change': 'render'
+    },
+
     serializeData: function() {
       var data = {};
       _.extend(data, this.serializeModel(this.model));

@@ -11,6 +11,17 @@ var patchModelDestroy = function(originalFunction) {
   }
 }
 
+this.patchModelAttributesChange = function(model, prop, action, difference, oldvalue) {
+  this.sendAppComponentReport("model:attributes:change", {
+    cid: model.cid,
+    data: {
+      serializedAttributes: this.serializeObject(model.attributes),
+      attributes: toJSON(model.attributes),
+      inspectedAttributes: this.inspectValue(model.attributes)
+    }
+  })
+}
+
 
 // @private
 this.patchBackboneModel = function(BackboneModel) {
@@ -29,6 +40,8 @@ this.patchBackboneModel = function(BackboneModel) {
         // monitorAppComponentProperty(model, "cid", 0);
         // monitorAppComponentProperty(model, "urlRoot", 0); // usato dal metodo url() (insieme a collection)
         // monitorAppComponentProperty(model, "collection", 0);
+
+        onChange(model.attributes, _.bind(this.patchModelAttributesChange, this, model))
 
         // Patcha i metodi del componente dell'app
         patchAppComponentTrigger(model);

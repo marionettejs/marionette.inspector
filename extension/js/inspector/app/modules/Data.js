@@ -16,6 +16,7 @@ define([
       'agent:Model:new': 'onModelNew',
       'agent:Model:destroy': 'onModelDestroy',
       'agent:Collection:new': 'onCollectionNew',
+      'agent:model:attributes:change': 'onModelAttributesChange'
     },
 
     initialize: function() {
@@ -25,6 +26,9 @@ define([
       this.client = client;
       this.modelCollection = new ModelCollection();
       this.collectionCollection = new CollectionCollection();
+
+      this.modelGraveyard = new ModelCollection();
+      this.collectionGraveyard = new CollectionCollection();
     },
 
     setupEvents: function() {
@@ -57,7 +61,18 @@ define([
         return;
       }
 
-      model.set('isDestroyed', true)
+      model.set('isDestroyed', true);
+      this.modelCollection.remove(model);
+      this.modelGraveyard.add(model);
+    },
+
+    onModelAttributesChange: function(event) {
+      var model = this.modelCollection.findModel(event.cid);
+      if (!model) {
+        return;
+      }
+
+      model.set(event.data);
     },
 
     startModule: function() {
