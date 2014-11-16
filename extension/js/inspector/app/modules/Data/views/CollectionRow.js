@@ -1,6 +1,6 @@
 define([
   'marionette',
-  'text!templates/devTools/data/row.html',
+  'text!templates/devTools/data/collection-row.html',
   'util/Radio',
 ], function(Marionette, tpl, Radio) {
   return Marionette.ItemView.extend({
@@ -8,7 +8,7 @@ define([
 
     tagName: 'tr',
 
-    className: 'model-row',
+    className: 'collection-row',
 
     ui: {
       moreInfoLink: "[data-action='info']",
@@ -26,7 +26,7 @@ define([
       }
 
       Radio.command('data', 'show:info', {
-        type: 'model',
+        type: 'collection',
         instance: this.model
       });
     },

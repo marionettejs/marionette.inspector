@@ -61,6 +61,10 @@ this.inspect = function(value) {
     // so summarize to just first 2 props
     var ret = [], v, count = 0, broken = false;
     for (var key in value) {
+      if (key == "length") {
+        continue;
+      }
+
       if (value.hasOwnProperty(key)) {
         if (count++ > 1) {
           broken = true;
@@ -123,9 +127,12 @@ this.serializeObject = function(obj) {
 this.serializeObjectProperties = function(obj) {
   return this.serializeObject(
     _.pick(obj,
-      _.difference(
-        _.keys(obj),
-        _.keys(obj.constructor.prototype)
+      _.without(
+        _.difference(
+          _.keys(obj),
+          _.keys(obj.constructor.prototype)
+        ),
+        'length'
       )
     )
   );

@@ -103,6 +103,7 @@
 // @include ../marionette/serialize/serializeElement.js
 // @include ../marionette/serialize/serializeView.js
 // @include ../marionette/serialize/serializeModel.js
+// @include ../marionette/serialize/serializeCollection.js
 // @include ../marionette/serialize/serializeChannelWreqr.js
 // @include ../marionette/serialize/serializeChannelRadio.js
 // @include ../marionette/actions/search.js
