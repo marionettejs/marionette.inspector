@@ -19,6 +19,8 @@ define([
       view: 'radio-layout'
     },
 
+    className: "row",
+
     radioCommands: {
       'show:info': 'showInfo'
     },

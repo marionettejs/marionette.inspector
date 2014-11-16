@@ -15,9 +15,7 @@ define([
     },
 
     events: {
-      "click @ui.moreInfoLink": "onClickInfo",
-      "mouseover": 'onMouseOver',
-      "mouseleave": 'onMouseLeave'
+      "click @ui.moreInfoLink": "onClickInfo"
     },
 
     onClickInfo: function() {
@@ -30,15 +28,8 @@ define([
       Radio.command('data', 'show:info', this.model);
     },
 
-    onMouseOver: function() {
-      this.highlightRow();
-    },
-
-    onMouseLeave: function() {
-      this.unhighlightRow();
-    },
-
     highlightRow: function() {
+      Radio.command('data', 'unhighlight-rows');
       this.$el.addClass('bg-info');
     },
 

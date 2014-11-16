@@ -30,6 +30,9 @@ body {
 [data-region="activity-list"], [data-region="activity-more-info"] {
   height: inherit;
   overflow-y: scroll;
+}
+
+[data-region="view-tree"], [data-region="view-more-info"] {
   padding-left: 0;
   padding-right: 0;
 }
@@ -106,11 +109,6 @@ body {
     padding-left: 24px;
   }
 
-
-  li.tree-group-item:hover {
-    background: #f2f2f2;
-  }
-
   li.tree-group-item.is-highlighted {
     background: #D9EDF7;
   }
@@ -149,3 +147,8 @@ li.tree-group-item span[data-action='log-view']:hover {
   cursor: pointer;
 }
 
+
+
+li.tree-group-item:hover, .channel-row:hover, .model-row:hover {
+  background: #f2f2f2;
+}
