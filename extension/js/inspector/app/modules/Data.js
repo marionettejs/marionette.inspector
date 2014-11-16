@@ -6,14 +6,16 @@ define([
   'app/modules/Data/views/Layout',
   'client',
   'app/modules/Data/models/ModelCollection',
-], function(Marionette, Radio, logger, Module, Layout, client, ModelCollection) {
+  'app/modules/Data/models/CollectionCollection'
+], function(Marionette, Radio, logger, Module, Layout, client, ModelCollection, CollectionCollection) {
   return Module.extend({
 
     channelName: 'data',
 
     clientEvents: {
       'agent:Model:new': 'onModelNew',
-      'agent:Model:destroy': 'onModelDestroy'
+      'agent:Model:destroy': 'onModelDestroy',
+      'agent:Collection:new': 'onCollectionNew',
     },
 
     initialize: function() {
@@ -22,6 +24,7 @@ define([
     setupData: function() {
       this.client = client;
       this.modelCollection = new ModelCollection();
+      this.collectionCollection = new CollectionCollection();
     },
 
     setupEvents: function() {
@@ -34,6 +37,15 @@ define([
       var modelData = event.data;
       this.modelCollection.add(modelData);
     },
+
+
+    onCollectionNew: function (event) {
+      logger.log('data', 'collection:new', event.data.cid);
+
+      var collectionData = event.data;
+      this.collectionCollection.add(collectionData);
+    },
+
 
     onModelDestroy: function (event) {
       var cid = event.data.cid;
@@ -54,7 +66,8 @@ define([
 
     buildLayout: function() {
       return new Layout({
-        modelCollection: this.modelCollection
+        modelCollection: this.modelCollection,
+        collectionCollection: this.collectionCollection
       });
     },
 
