@@ -19,6 +19,8 @@ define([
       view: 'data-layout'
     },
 
+    className: "row",
+
     dataCommands: {
       'show:info': 'showInfo'
     },
