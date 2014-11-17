@@ -1,3 +1,25 @@
+## V0.2
+#### 11-17-2014
+
+Version 0.2 sports a brand new UI tree with significantly improved performance and magnifying glass.
+
+### Added
++ Added a highlight mask when using the magnifying glass. Previously the element got a background color, which would be hidden by other elements.
++ Added a new backbone based tree component for use in the UI tree.
++ Added an inspector view collection for keeping track of view instances created in the inspected app.
++ Added a new ui architecture for updating the UI tree on changes. Previously the full serialized ui tree was sent with every change, now a trimmed down UI tree with just cids is sent. This results in a 30% performance improvement.
++ Added a scriptUrl for the injected script (agent.js)
++ Addeed sass compilation
+
+### Fixed
++ Fix page refresh logic so that the inspector stays uptodate after router.navigate calls
++ Fix select and hover state for Radio and Data ui panes
++ Fix agent toJSON function so that catches circular exceptions when parsing
++ Fixed inconsistency with logger file name.
+
+### Upgraded
++ Upgraded Handlebars to 2.0
+
 ## V0.1.1
 #### 11-10-2014
 
