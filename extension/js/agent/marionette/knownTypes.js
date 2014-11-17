@@ -36,13 +36,15 @@ this.knownTypes = function() {
     knownTypes['Marionette.LayoutView'] = {
       type: this.patchedMarionette.LayoutView,
       name: 'marionette-layout-view',
-      toString: function() {return '<Marionette.LayoutView>'}
+      cid: function(obj) { return obj.cid },
+      toString: function(obj) {return '<Marionette.LayoutView '+obj.cid+'>'}
     };
   } else {
     knownTypes['Marionette.Layout'] = {
       type: this.patchedMarionette.Layout,
       name: 'marionette-layout',
-      toString: function() {return '<Marionette.Layout>'}
+      cid: function(obj) { return obj.cid },
+      toString: function(obj) {return '<Marionette.Layout '+obj.cid+'>'}
     };
   }
 
@@ -50,61 +52,71 @@ this.knownTypes = function() {
     'Backbone.Model': {
       type: this.patchedBackbone.Model,
       name: 'backbone-model',
-      toString: function() {return '<Backbone.Model>'}
+      cid: function(obj) { return obj.cid },
+      toString: function(obj) {return '<Backbone.Model '+obj.cid+'>'}
     },
 
     'Backbone.Collection': {
       type: this.patchedBackbone.Collection,
       name: 'backbone-collection',
-      toString: function() {return '<Backbone.Collection>'}
+      cid: function(obj) { return obj.cid },
+      toString: function(obj) {return '<Backbone.Collection '+obj.cid+'>'}
     },
 
     'Marionette.CompositeView': {
       type: this.patchedMarionette.CompositeView,
       name: 'marionette-composite-view',
-      toString: function() {return '<Marionette.CompositeView>'}
+      cid: function(obj) { return obj.cid },
+      toString: function(obj) {return '<Marionette.CompositeView '+obj.cid+'>'}
     },
 
     'Marionette.CollectionView': {
       type: this.patchedMarionette.CollectionView,
       name: 'marionette-collection-view',
-      toString: function() {return '<Marionette.CollectionView>'}
+      cid: function(obj) { return obj.cid },
+      toString: function(obj) {return '<Marionette.CollectionView '+obj.cid+'>'}
     },
 
     'Marionette.ItemView': {
       type: this.patchedMarionette.ItemView,
       name: 'marionette-item-view',
-      toString: function() {return '<Marionette.ItemView>'}
+      cid: function(obj) { return obj.cid },
+      toString: function(obj) {return '<Marionette.ItemView '+obj.cid+'>'}
     },
 
     'Marionette.View': {
       type: this.patchedMarionette.View,
       name: 'marionette-view',
-      toString: function() {return '<Marionette.View>'}
+      cid: function(obj) { return obj.cid },
+      toString: function(obj) {return '<Marionette.View '+obj.cid+'>'}
     },
 
     'Marionette.Application': {
       type: this.patchedMarionette.Application,
       name: 'marionette-application',
-      toString: function() {return '<Marionette.Application>'}
+      cid: function(obj) { return obj.cid },
+      toString: function(obj) {return '<Marionette.Application '+obj.cid+'>'}
     },
 
     'Marionette.Module': {
       type: this.patchedMarionette.Module,
-      name: 'marionette-view',
+      name: 'marionette-module',
+      cid: function(obj) { return obj.cid },
       toString: function() {return '<Marionette.Module>'}
     },
 
     'Marionette.Controller': {
       type: this.patchedMarionette.Controller,
       name: 'marionette-controller',
-      toString: function() {return '<Marionette.Controller>'}
+      cid: function(obj) { return undefined },
+      toString: function(obj) {return '<Marionette.Controller>'}
     },
 
     'Backbone.View': {
       type: this.patchedBackbone.View,
       name: 'backbone-view',
-      toString: function() {return '<Backbone.View>'}
+      cid: function(obj) { return obj.cid },
+      toString: function(obj) {return '<Backbone.View>'}
     }
   });
 
@@ -115,7 +127,8 @@ this.knownTypes = function() {
       'Marionette.Object': {
         type: this.patchedMarionette.Object,
         name: 'marionette-object',
-        toString: function() {return '<Marionette.Object>'}
+        cid: function(obj) { return undefined },
+        toString: function(obj) {return '<Marionette.Object>'}
       }
     });
   }

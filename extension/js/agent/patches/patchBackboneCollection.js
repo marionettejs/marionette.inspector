@@ -5,7 +5,14 @@ this.patchBackboneCollection = function(BackboneCollection) {
     patchBackboneComponent(BackboneCollection, bind(function(collection) { // on new instance
 
 
-        collection.cid = _.uniqueId('c'); // collections dont have cids
+
+        // collections dont have cids
+        Object.defineProperty(collection, '__marionette_inspector__cid', {
+          enumerable: false,
+          writable: false,
+          value: _.uniqueId('c')
+        });
+
 
         // registra il nuovo componente dell'app
         var data = this.serializeCollection(collection);

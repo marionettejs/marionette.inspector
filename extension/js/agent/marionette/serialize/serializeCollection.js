@@ -6,7 +6,7 @@ this.serializeCollection = function(collection) {
   }
 
   data.serializedProperties = this.serializeObjectProperties(collection);
-  data.cid = collection.cid;
+  data.cid = collection.__marionette_inspector__cid;
 
   return data;
 }
