@@ -25,9 +25,9 @@ body {
 }
 
 [data-region="view-tree"], [data-region="view-more-info"],
-[data-region="model-list"], [data-region="model-more-info"],
-[data-region="channel-list"], [data-region="channel-more-info"],
-[data-region="activity-list"], [data-region="activity-more-info"] {
+[data-region="model-list"], [data-region="model-info"],
+[data-region="channel-list"], [data-region="channel-info"],
+[data-region="activity-list"], [data-region="activity-info"] {
   height: inherit;
   overflow-y: scroll;
 }
