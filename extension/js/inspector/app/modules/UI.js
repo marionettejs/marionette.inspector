@@ -41,7 +41,8 @@ define([
     clientEvents: {
       'agent:search': 'onSearch',
       'agent:View:new': 'onViewNew',
-      'agent:View:remove': 'onViewRemove'
+      'agent:View:remove': 'onViewRemove',
+      'agent:view:ui:change': 'onViewUIChange'
     },
 
     regionTreeEvents: {
@@ -81,7 +82,7 @@ define([
 
     onViewRemove: function (event) {
       var cid = event.data.cid;
-      logger.log('ui', 'onViewRemove', cid);
+      logger.log('ui', 'could not find view');
 
       var view = this.viewCollection.findWhere({cid: cid});
       if (!view) {
@@ -90,6 +91,19 @@ define([
       }
 
       view.set('isRemoved', true)
+    },
+
+    onViewUIChange: function(event) {
+      var cid = event.cid;
+      logger.log('ui', 'onViewUIChange', cid);
+
+      var view = this.viewCollection.findWhere({ cid: cid });
+      if (!view) {
+        logger.log('ui', 'could not find view');
+        return;
+      }
+
+      view.set('ui', event.data.ui);
     },
 
 

@@ -28,3 +28,5 @@ var serializeUI = function(ui) {
     }
   });
 }
+
+this.serializeUI = serializeUI;
