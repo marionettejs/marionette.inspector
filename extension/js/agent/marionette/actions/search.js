@@ -20,53 +20,44 @@ this.search = (function(agent) {
       this.appObserver = appObserver;
       this.app = app;
       var views = appObserver.viewList();
-      var $els = _.pluck(views, '$el');
 
       this.addViewCidAttributes(views);
-      this.viewCidMap = this.createViewCidMap($els, views);
-      this.$clickMask = this.buildClickMask()
-      this.$currentEl = undefined;
+      this.$clickMask = this.buildClickMask();
 
       $(document).mouseleave(function() {
         agent.unhighlightEl();
-      }.bind(this))
-      this.bindElEvents($els);
+      }.bind(this));
+
+      this.bindElEvents(views);
 
       console.log('start search', this);
     };
 
   _.extend(Search.prototype, {
-    /* The viewCidMap is used to look up a view by it's cid.
-     * This is useful because we add a view-cid attribute to each view's element
-     * And we use that to find the view when the element is hovered or clicked on.
-     */
-    createViewCidMap: function(views) {
-      return _.object(_.pluck(views, 'cid'), views);
-    },
 
-    bindElEvents: function($els) {
-      _.each($els, function($el) {
-        $el.on('mouseover.regionSearch', _.bind(this.onMouseOver, this));
-        $el.on('mouseleave.regionSearch', _.bind(this.onMouseLeave, this));
-        $el.on('mousedown.regionSearch', _.bind(this.onMouseDown, this));
-      }, this);
+    bindElEvents: function(views) {
+      var mouse_events = {
+        'mouseover.regionSearch' : _.bind(this.onMouseOver, this),
+        'mouseleave.regionSearch': _.bind(this.onMouseLeave, this),
+        'mousedown.regionSearch' : _.bind(this.onMouseDown, this)
+      };
+
+      _.each(views, function(view){
+        view.$el.on(mouse_events);
+      });
     },
 
     onMouseOver: function(e) {
       e.stopPropagation();
-
       var $current = $(e.currentTarget);
-      this.$currentEl = $current;
-
-      var cid = this.$currentEl.attr('data-view-id');
-      var view = this.viewCidMap[cid];
+      var cid = $current.attr('data-view-id');
 
       agent.highlightEl($current);
 
       agent.sendAppComponentReport('search', {
         name: 'mouseover',
         cid: cid
-      })
+      });
     },
 
     onMouseLeave: function(e) {
@@ -77,7 +68,7 @@ this.search = (function(agent) {
       agent.sendAppComponentReport('search', {
         name: 'mouseleave',
         cid: cid
-      })
+      });
     },
 
     onMouseDown: function(e) {
@@ -87,7 +78,6 @@ this.search = (function(agent) {
 
       this.placeClickElMask($current);
 
-      var view = this.viewCidMap[cid];
       agent.stopSearch(this.appObserver, this.app);
 
       agent.sendAppComponentReport('search', {
@@ -119,13 +109,7 @@ this.search = (function(agent) {
       $clickMask.height($el.outerHeight());
       $clickMask.width($el.outerWidth());
 
-      $clickMask.on('click', function() {
-        $clickMask.remove();
-      });
-      $clickMask.on('mouseup', function() {
-        $clickMask.remove();
-      });
-      $clickMask.on('mouseout', function() {
+      $clickMask.on('click mouseup mouseout', function() {
         $clickMask.remove();
       });
     },
