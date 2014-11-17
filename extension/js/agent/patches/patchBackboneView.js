@@ -1,3 +1,12 @@
+this.patchViewUIChanges = function(view, prop, action, difference, oldValue) {
+  this.sendAppComponentReport("view:ui:change", {
+    cid: view.cid,
+    data: {
+      ui: this.serializeUI(view.ui)
+    }
+  })
+}
+
 var patchViewRemove = function(originalFunction) {
   return function() {
     var appComponent = this;
@@ -30,6 +39,14 @@ this.patchBackboneView = function(BackboneView) {
         // Patcha i metodi del componente dell'app
 
         patchAppComponentTrigger(view, 'view');
+
+        onDefined(view, 'ui', _.bind(function() {
+          // Call `patchViewUIChanges` when ui attributes change
+          onChange(view.ui, _.bind(this.patchViewUIChanges, this, view));
+          // Send a report about the UI change
+          this.patchViewUIChanges(view);
+        }, this));
+
         patchAppComponentEvents(view);
 
         // patchFunctionLater(view, "delegateEvents", function(originalFunction) { return function() {
