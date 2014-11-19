@@ -30,29 +30,29 @@ describe('inspectValue', function() {
   describe('arrays', function() {
     it('[]', function() {
       expect(window.inspectValue([])).to.deep.equal({
-        type: "type-object",
-        inspect: "{  }"
+        type: "type-array",
+        inspect: "[]"
       });
     });
 
     it('[2]', function() {
       expect(window.inspectValue([2])).to.deep.equal({
-        type: "type-object",
-        inspect: "{ 0: 2 }"
+        type: "type-array",
+        inspect: "[ 2 ]"
       });
     });
 
     it('[2, 3]', function() {
       expect(window.inspectValue([2,3])).to.deep.equal({
-        type: "type-object",
-        inspect: "{ 0: 2, 1: 3 }"
+        type: "type-array",
+        inspect: "[ 2, ... ]"
       });
     });
 
     it('[2, 3, 4]', function() {
       expect(window.inspectValue([2,3,4])).to.deep.equal({
-        type: "type-object",
-        inspect: "{ 0: 2, 1: 3 ...}"
+        type: "type-array",
+        inspect: "[ 2, ... ]"
       });
     });
   });
