@@ -60,6 +60,7 @@
 
             delete window.patchedBackbone;
             delete window.patchedMarionette;
+            delete window._knownTypes;
             window.Backbone = window.BackboneFactory();
             window.Marionette = window.MarionetteFactory(Backbone);
             window.patchBackbone(Backbone);
@@ -88,6 +89,7 @@
     <script src="../../agent/build/src/core.js"></script>
     <script src="agent/marionette/app-observer.spec.js"></script>
     <script src="agent/marionette/serialize/serializeView.spec.js"></script>
+    <script src="agent/marionette/serialize/serializeModel.spec.js"></script>
     <script src="agent/utils/serializeObject.spec.js"></script>
     <script src="agent/creating-a-model.spec.js"></script>
 
