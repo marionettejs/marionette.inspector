@@ -126,7 +126,7 @@ this.knownTypes = function() {
       type: this.patchedBackbone.View,
       name: 'backbone-view',
       cid: function(obj) { return obj.cid },
-      toString: function(obj) {return '<Backbone.View>'}
+      toString: function(obj) {return '<Backbone.View '+obj.cid+'>'}
     }
   });
 
