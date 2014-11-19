@@ -1,6 +1,6 @@
 describe('serializeView', function() {
-
   beforeEach(function() {
+    this.setFixtures($("<div class='header'></div><div class='body'></div>"));
     this.app = new Marionette.Application();
     this.app.addRegions({
       header: '.header',
