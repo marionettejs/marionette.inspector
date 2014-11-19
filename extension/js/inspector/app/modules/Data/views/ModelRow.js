@@ -19,7 +19,9 @@ define([
     },
 
     modelEvents: {
-      'change': 'render'
+      'change': 'render',
+      'highlight': 'highlightRow',
+      'unhighlight': 'unhighlightRow'
     },
 
     onClickInfo: function() {
