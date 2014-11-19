@@ -18,9 +18,19 @@ this.knownType = function (o) {
     return;
   }
 
-  return _.find(this.knownTypes(), function(knownType) {
+  var type = _.find(this.knownTypes(), function(knownType) {
     return (o instanceof knownType.type)
   }, this);
+
+  if (!type) {
+    return;
+  }
+
+  var type = _.clone(type);
+  type.str = type.toString(o);
+  type.cid = type.cid(o);
+
+  return type;
 }
 
 this._knownTypes = {};
