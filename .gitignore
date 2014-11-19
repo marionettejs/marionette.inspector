@@ -3,6 +3,7 @@ node_modules
 extension/js/agent/build/src
 extension.zip
 /test
+npm-debug.log
 
 .sass-cache/*
 extension/css/marionette_inspector.css
