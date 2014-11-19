@@ -21,7 +21,7 @@ module.exports = function(grunt) {
     mocha: {
       test: {
         options: {
-          reporter: 'Nyan'
+          reporter: grunt.option('mocha-reporter') || 'Nyan'
         },
         src: ['extension/js/SpecRunner.html'],
         dest: './test/output/xunit.out',
@@ -59,7 +59,6 @@ module.exports = function(grunt) {
 
 
   grunt.registerTask('agent', ['preprocess']);
-
 
   grunt.registerTask('build', ['agent', 'sass']);
 
