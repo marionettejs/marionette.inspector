@@ -17,7 +17,7 @@ describe('serializeModel', function() {
 
   it('serializes events', function() {
     this.serialize = window.serializeModel(this.model);
-    expect(this.serialize._events).to.deep.equal({});
+    expect(this.serialize._events).to.eql([]);
   });
 
   describe('model with listeners', function() {
@@ -30,11 +30,8 @@ describe('serializeModel', function() {
 
     it('has events', function() {
       this.serialize = window.serializeModel(this.model);
-      expect(_.keys(this.serialize._events)).to.deep.equal(['all', 'change']);
-      expect(this.serialize._events.all[0].context).to.deep.equal({
-        type: "type-backbone-view",
-        inspect: "<Backbone.View>"
-      })
+      expect(_.pluck(this.serialize._events, 'eventName'))
+        .to.eql(['all', 'change']);
     });
   });
 });
