@@ -13,8 +13,6 @@ require.config({
         text: '../lib/text',
         bootstrap: '../lib/bootstrap.min',
         handlebars: '../lib/handlebars',
-        setImmediate: '../lib/setImmediate',
-        bluebird: '../lib/bluebird',
         'jquery.treegrid': '../lib/jquery.treegrid',
         logger: '../common/util/Logger'
     },
@@ -51,9 +49,6 @@ require.config({
         },
         'handlebars': {
             exports: 'Handlebars'
-        },
-        'setImmediate': {
-            exports: 'setImmediate'
         }
     }
 });
