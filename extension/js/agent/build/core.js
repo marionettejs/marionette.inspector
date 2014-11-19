@@ -23,7 +23,9 @@
 // @include ../utils/setHiddenProperty.js
 // @include ../utils/setProperty.js
 // @include ../utils/objectPath.js
+// @include ../utils/inspectValue.js
 // @include ../utils/serializeObject.js
+
 
 
 /*
