@@ -1,6 +1,7 @@
 describe('Creating a Model', function() {
 
   beforeEach(function() {
+
     this.sinon.spy(window, 'registerAppComponent')
 
     this.myModel = new Backbone.Model({
