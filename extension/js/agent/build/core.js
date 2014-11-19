@@ -1,16 +1,16 @@
-
  /*
   * LIBRARIES
   *
   */
 
+// @include ../../lib/function-bind-polyfill.js
 // @include ../../lib/watch.js
-
 
 /*
  * UTILS
  *
  */
+
 
 // @include ../../common/util/debug.js
 // @include ../utils/bind.js
