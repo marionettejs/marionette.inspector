@@ -90,7 +90,17 @@ define([
       index: function() {
         this.startModule();
         this.showModule();
-      }
+      },
+
+      showModel: function(cid) {
+        this.showModule();
+
+        var model = this.modelCollection.findModel(cid);
+        Radio.command('data', 'show:info', {
+          type: 'model',
+          instance: model
+        });
+      },
     }
   });
 })

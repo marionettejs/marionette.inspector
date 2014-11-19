@@ -18,6 +18,7 @@ describe('Creating a Model', function() {
     expect(callData.attributes).to.deep.equal({foo: "bar"});
     expect(callData.serializedAttributes).to.deep.equal({
       foo: {
+        cid: undefined,
         name: "foo",
         value: "bar",
         type: "type-string"

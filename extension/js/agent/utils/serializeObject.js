@@ -20,17 +20,19 @@ var isType = function(obj, type) {
  */
 
 this.inspectValue = function(value) {
-  var string;
   if (this.isKnownType(value)) {
     var type = this.knownType(value);
+
     return {
       type: "type-"+type.name,
-      inspect: type.toString()
+      inspect: type.str,
+      cid: type.cid
     };
   } else {
     return {
       type: "type-" + typeOf(value),
-      inspect: this.inspect(value)
+      inspect: this.inspect(value),
+      cid: undefined
     };
   }
 }
@@ -110,7 +112,8 @@ this.serializeObject = function(obj) {
      data[name] = {
       name: name,
       type: inspectedObject.type,
-      value: inspectedObject.inspect.toString()
+      value: inspectedObject.inspect,
+      cid: inspectedObject.cid
     }
   }, this);
 

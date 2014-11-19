@@ -11,17 +11,39 @@ define([
 
     events: {
       'click @ui.uiElement': 'onClickUIElement',
-      'click @ui.eventHandler': 'onClickEventHandler'
+      'click @ui.eventHandler': 'onClickEventHandler',
+      'click @ui.property': 'onClickProperty'
     },
 
     ui: {
       uiElement: '[data-ui-elem]',
-      eventHandler: '[data-event]'
+      eventHandler: '[data-event]',
+      property: '[data-property-name]'
     },
 
     behaviors: {
       sidebarPanes: {
         behaviorClass: SidebarPanesBehavior,
+      }
+    },
+
+    onClickProperty: function(e) {
+      e.stopPropagation();
+
+      var $target = $(e.currentTarget);
+      var propertyKey = $target.data('property-key');
+      var propertyName = $target.data('property-name');
+
+      var property = this.model.get(propertyKey);
+      if (!property) {
+        return
+      }
+
+      var object = property[propertyName]
+      if (object.type && object.cid) {
+        Radio.command('app', 'navigate:knownObject', {
+          object: object
+        })
       }
     },
 

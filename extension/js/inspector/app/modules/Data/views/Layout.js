@@ -43,7 +43,7 @@ define([
 
     initialize: function(options) {
       this.viewModel = new Backbone.Model({
-        active: 'model'
+        active: 'model' // @TODO: change active key to "mode" because mode better implies 'model' or 'collection'.
       });
 
       Radio.connectCommands('data', this.dataCommands, this);
@@ -73,6 +73,8 @@ define([
     },
 
     showInfo: function(data) {
+
+      data.instance.trigger('highlight');
       if (data.type == 'model') {
         this.getRegion('info').show(new ModelInfo({
           model: data.instance
