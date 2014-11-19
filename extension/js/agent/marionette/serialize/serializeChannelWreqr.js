@@ -46,7 +46,7 @@ this.contextData = function(context) {
     return {type: '', cid: null};
   }
 
-  var type = this.isKnownType(context) ? this.knownType(context).toString(context) : '';
+  var type = this.isKnownType(context) ? this.knownType(context).str : '';
 
   return {
     type: type,

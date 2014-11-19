@@ -20,13 +20,13 @@ var isType = function(obj, type) {
  */
 
 this.inspectValue = function(value) {
-  var string;
   if (this.isKnownType(value)) {
     var type = this.knownType(value);
+
     return {
       type: "type-"+type.name,
-      inspect: type.toString(value),
-      cid: type.cid(value)
+      inspect: type.str,
+      cid: type.cid
     };
   } else {
     return {
