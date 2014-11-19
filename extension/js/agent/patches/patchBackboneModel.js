@@ -1,36 +1,47 @@
-var patchModelDestroy = function(originalFunction) {
-  return function() {
-    var appComponent = this;
-    var result = originalFunction.apply(this, arguments);
 
-    addAppComponentAction(this, new AppComponentAction(
-      "destroy", ""
-    ));
+this.patchBackboneModel = (function(agent) {
 
-    return result;
+  var patchModelEventsChanges = function(view, prop, action, difference, oldValue) {
+    agent.sendAppComponentReport("view:ui:change", {
+      cid: view.cid,
+      data: {
+        ui: agent.serializeUI(view.ui)
+      }
+    })
   }
-}
 
-this.patchModelAttributesChange = function(model, prop, action, difference, oldvalue) {
-  this.sendAppComponentReport("model:attributes:change", {
-    cid: model.cid,
-    data: {
-      serializedAttributes: this.serializeObject(model.attributes),
-      attributes: toJSON(model.attributes),
-      inspectedAttributes: this.inspectValue(model.attributes)
+
+  var patchModelDestroy = function(originalFunction) {
+    return function() {
+      var appComponent = this;
+      var result = originalFunction.apply(this, arguments);
+
+      addAppComponentAction(this, new AppComponentAction(
+        "destroy", ""
+      ));
+
+      return result;
     }
-  })
-}
+  }
 
+  var patchModelAttributesChange = function(model, prop, action, difference, oldvalue) {
+    agent.sendAppComponentReport("model:attributes:change", {
+      cid: model.cid,
+      data: {
+        serializedAttributes: agent.serializeObject(model.attributes),
+        attributes: toJSON(model.attributes),
+        inspectedAttributes: agent.inspectValue(model.attributes)
+      }
+    })
+  }
 
-// @private
-this.patchBackboneModel = function(BackboneModel) {
+  return function(BackboneModel) {
     debug.log("Backbone.Model detected");
 
-    patchBackboneComponent(BackboneModel, bind(function(model) { // on new instance
+    patchBackboneComponent(BackboneModel, function(model) { // on new instance
 
         // registra il nuovo componente dell'app
-        var data = this.serializeModel(model);
+        var data = agent.serializeModel(model);
         var modelIndex = registerAppComponent("Model", model, data);
 
 
@@ -41,13 +52,18 @@ this.patchBackboneModel = function(BackboneModel) {
         // monitorAppComponentProperty(model, "urlRoot", 0); // usato dal metodo url() (insieme a collection)
         // monitorAppComponentProperty(model, "collection", 0);
 
-        onChange(model.attributes, _.bind(this.patchModelAttributesChange, this, model))
+        onChange(model.attributes, _.partial(patchModelAttributesChange, model))
+
+        onDefined(model, '_events', function() {
+          onChange(model._events, _.partial(patchModelEventsChanges, model));
+          patchModelEventsChanges(model);
+        });
 
         // Patcha i metodi del componente dell'app
         patchAppComponentTrigger(model);
         patchAppComponentEvents(model);
         patchAppComponentSync(model);
         patchFunctionLater(model, "destroy", patchModelDestroy);
-
-    }, this));
-}
+    });
+  }
+}(this));
