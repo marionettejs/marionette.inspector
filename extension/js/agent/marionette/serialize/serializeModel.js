@@ -1,15 +1,39 @@
-this.serializeModel = function(model) {
-  var data = {};
+this.serializeModel = (function(agent) {
 
-  if (!(model instanceof this.patchedBackbone.Model)) {
-    return {};
+  var serializeEvents = function(events) {
+
+    if (_.isUndefined(events)) {
+      return [];
+    }
+
+    var listeners = [];
+    _.each(events, function(handlers, eventName) {
+       _.each(handlers, function(handler) {
+        listeners.push({
+          eventName: eventName,
+          context: agent.inspectValue(handler.context),
+          callback: agent.inspectValue(handler.callback)
+        })
+      });
+    });
+
+    return listeners;
   }
 
-  data.inspectedAttributes = this.inspectValue(model.attributes);
-  data.serializedAttributes = this.serializeObject(model.attributes);
-  data.serializedProperties = this.serializeObjectProperties(model);
-  data.attributes = toJSON(model.attributes);
-  data.cid = model.cid;
+  return function(model) {
+    var data = {};
 
-  return data;
-}
+    if (!(model instanceof this.patchedBackbone.Model)) {
+      return {};
+    }
+
+    data.inspectedAttributes = this.inspectValue(model.attributes);
+    data.serializedAttributes = this.serializeObject(model.attributes);
+    data.serializedProperties = this.serializeObjectProperties(model);
+    data.attributes = toJSON(model.attributes);
+    data._events = serializeEvents(model._events);
+    data.cid = model.cid;
+
+    return data;
+  }
+}(this));

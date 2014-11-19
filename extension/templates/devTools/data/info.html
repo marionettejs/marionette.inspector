@@ -19,6 +19,24 @@
   </div>
 
   <div class="sidebar-pane-title expanded" tabindex="0">
+    Listeners
+  </div>
+  <div class="sidebar-pane visible">
+    <div class="body">
+      <div class="section expanded">
+        <ol class="properties properties-tree monospace">
+          {{#each _events}}
+          <li title="" style="">
+            <span class="name">{{eventName}}</span><span class="separator">: </span>
+            <span class="value console-formatted-undefined" title="undefined"> {{context.str}} {{callback.str}} </span>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-pane-title expanded" tabindex="0">
     properties
   </div>
   <div class="sidebar-pane visible">

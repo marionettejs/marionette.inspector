@@ -23,8 +23,8 @@ this.inspectValue = (function(agent) {
 
   var inspect = function(value) {
     var type = typeOf(value) ;
-    if (this.isKnownType(value)) {
-      return this.knownTypeString(value);
+    if (agent.isKnownType(value)) {
+      return agent.knownTypeString(value);
     } else if (type === 'undefined') {
       return "undefined";
     } else if (type === 'function') {
@@ -57,7 +57,7 @@ this.inspectValue = (function(agent) {
             break;
           }
           v = value[key];
-          if (this.isKnownType(v)) {v = this.knownTypeString(v); }
+          if (agent.isKnownType(v)) {v = agent.knownTypeString(v); }
           else if (v === 'toString') { continue; } // ignore useless items
           else if (typeOf(v) === 'function') { v = "function() { ... }"; }
           else if (typeOf(v) === 'array') { v = '[Array : ' + v.length + ']'; }
@@ -81,16 +81,18 @@ this.inspectValue = (function(agent) {
 
   return function(value) {
     var string;
-    if (this.isKnownType(value)) {
-      var type = this.knownType(value);
+    if (agent.isKnownType(value)) {
+      var type = agent.knownType(value);
       return {
         type: "type-"+type.name,
-        inspect: type.toString()
+        inspect: type.str,
+        cid: type.cid
       };
     } else {
       return {
         type: "type-" + typeOf(value),
-        inspect: inspect(value)
+        inspect: inspect(value),
+        cid: undefined
       };
     }
   }
