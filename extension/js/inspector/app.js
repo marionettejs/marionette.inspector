@@ -17,7 +17,8 @@ define([
         return {
           'show:tool': this.showTool,
           'navigate': this.navigate,
-          'search:stop': this.stopSearch
+          'search:stop': this.stopSearch,
+          'navigate:knownObject': this.navigateToKnowonObject
         }
     },
 
@@ -143,6 +144,19 @@ define([
 
       var shouldReplace = _.isUndefined(options.replace) ? true : options.replace;
       this.router.navigate(route, {trigger: true});
+    },
+
+    navigateToKnowonObject: function(data) {
+      var object = data.object;
+      if (!object) {
+        return;
+      }
+
+      if (object.name == "model") {
+        var url = 'data/models/'+object.cid;
+        this.navigate(url);
+      }
+
     },
 
   });
