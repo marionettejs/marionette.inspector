@@ -19,6 +19,10 @@ define([
       'agent:model:attributes:change': 'onModelAttributesChange'
     },
 
+    appEvents: {
+      'agent:start': 'onAgentStart'
+    },
+
     initialize: function() {
     },
 
@@ -33,6 +37,14 @@ define([
 
     setupEvents: function() {
       Marionette.bindEntityEvents(this, this.client, this.clientEvents);
+      Radio.connectEvents('app', this.appEvents, this);
+    },
+
+    onAgentStart: function() {
+      this.collectionCollection.reset();
+      this.modelCollection.reset();
+      this.modelGraveyard.reset();
+      this.collectionGraveyard.reset();
     },
 
     onModelNew: function (event) {
@@ -41,7 +53,6 @@ define([
       var modelData = event.data;
       this.modelCollection.add(modelData);
     },
-
 
     onCollectionNew: function (event) {
       logger.log('data', 'collection:new', event.data.cid);

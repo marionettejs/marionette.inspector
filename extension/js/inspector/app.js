@@ -110,6 +110,7 @@ define([
           this.navigate('');
           this.appData.set('isWaiting', false);
           this.appData.set('isAgentActive', true);
+          Radio.trigger('app', 'agent:start');
         }
       }.bind(this))
     },
@@ -118,6 +119,7 @@ define([
       logger.log('app', 'agent was injected');
       this.appData.set('isAgentActive', true);
       this.appData.set('isInjecting', false);
+      Radio.trigger('app', 'agent:start');
       this.navigate('ui');
     },
 
