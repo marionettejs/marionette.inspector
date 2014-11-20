@@ -16,7 +16,8 @@ define([
       'agent:Model:new': 'onModelNew',
       'agent:Model:destroy': 'onModelDestroy',
       'agent:Collection:new': 'onCollectionNew',
-      'agent:model:attributes:change': 'onModelAttributesChange'
+      'agent:model:attributes:change': 'onModelAttributesChange',
+      'agent:model:events:change': 'onModelEventsChange'
     },
 
     appEvents: {
@@ -78,6 +79,15 @@ define([
     },
 
     onModelAttributesChange: function(event) {
+      var model = this.modelCollection.findModel(event.cid);
+      if (!model) {
+        return;
+      }
+
+      model.set(event.data);
+    },
+
+    onModelEventsChange: function(event) {
       var model = this.modelCollection.findModel(event.cid);
       if (!model) {
         return;

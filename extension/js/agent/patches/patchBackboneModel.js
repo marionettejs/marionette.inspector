@@ -1,11 +1,11 @@
 
 this.patchBackboneModel = (function(agent) {
 
-  var patchModelEventsChanges = function(view, prop, action, difference, oldValue) {
-    agent.sendAppComponentReport("view:ui:change", {
-      cid: view.cid,
+  var patchModelEventsChanges = function(model, prop, action, difference, oldValue) {
+    agent.sendAppComponentReport("model:events:change", {
+      cid: model.cid,
       data: {
-        ui: agent.serializeUI(view.ui)
+        _events: agent.serializeModelEvents(model._events)
       }
     })
   }

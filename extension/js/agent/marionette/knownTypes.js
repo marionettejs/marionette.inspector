@@ -69,8 +69,8 @@ this.knownTypes = function() {
     'Backbone.Collection': {
       type: this.patchedBackbone.Collection,
       name: 'backbone-collection',
-      cid: function(obj) { return obj.cid },
-      toString: function(obj) {return '<Backbone.Collection '+obj.cid+'>'}
+      cid: function(obj) { return obj.__marionette_inspector__cid },
+      toString: function(obj) {return '<Backbone.Collection '+obj.__marionette_inspector__cid+'>'}
     },
 
     'Marionette.CompositeView': {
