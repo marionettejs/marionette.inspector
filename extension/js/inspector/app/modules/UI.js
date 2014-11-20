@@ -45,6 +45,10 @@ define([
       'agent:view:ui:change': 'onViewUIChange'
     },
 
+    appEvents: {
+      'agent:start': 'onAgentStart'
+    },
+
     regionTreeEvents: {
       'regionTree:update': 'onRegionTreeUpdate'
     },
@@ -65,12 +69,17 @@ define([
 
     setupEvents: function() {
       Radio.connectCommands('ui', this.uiCommands, this);
+      Radio.connectEvents('app', this.appEvents, this);
+
       Marionette.bindEntityEvents(this, this.client, this.clientEvents);
 
       var regionTreeEvents = new ComponentReportToRegionTreeMap();
       Marionette.bindEntityEvents(this, regionTreeEvents, this.regionTreeEvents);
     },
 
+    onAgentStart: function() {
+      this.viewCollection.reset();
+    },
 
     onViewNew: function (event) {
       logger.log('ui', 'new view', event.data.cid);
