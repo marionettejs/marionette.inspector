@@ -1,3 +1,25 @@
+## V0.2.1
+#### 11-20-2014
+
+This version introduces realtime syncing for some properties (view ui, model attribues) and hyperlinking for some objects (models in view options). Future versions will add a lot more property syncing and object links.
+
+We also fixed a pretty bad bug, where when the page refreshes the inspector would have multiple views in the cache with the same cid.
+
+### Added
++ The <Backbone.Model> links in View options now link to the model in the data pane
++ The view UI attributes are now updated when they change
++ The Model Attribues are now updated when they change
++ Added Collections to the data pane
++ Added the array type to the inspectValue function so that arrays are serialized properly
+
+
+### Fixed
++ Fixed a bug where the inspector would not clear it's cache of views and models when the page was refreshed. This resulted in multiple views in the cache having the same cid.
++ Fixed phantomjs Function.prototype.bind bug
++ Removed unused libraries
++ Fixed Readme puppet org references
+
+
 ## V0.2
 #### 11-17-2014
 
