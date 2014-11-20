@@ -1,39 +1,36 @@
-this.serializeModel = (function(agent) {
+this.serializeModel = function(model) {
+  var data = {};
 
-  var serializeEvents = function(events) {
-
-    if (_.isUndefined(events)) {
-      return [];
-    }
-
-    var listeners = [];
-    _.each(events, function(handlers, eventName) {
-       _.each(handlers, function(handler) {
-        listeners.push({
-          eventName: eventName,
-          context: agent.inspectValue(handler.context),
-          callback: agent.inspectValue(handler.callback)
-        })
-      });
-    });
-
-    return listeners;
+  if (!(model instanceof this.patchedBackbone.Model)) {
+    return {};
   }
 
-  return function(model) {
-    var data = {};
+  data.inspectedAttributes = this.inspectValue(model.attributes);
+  data.serializedAttributes = this.serializeObject(model.attributes);
+  data.serializedProperties = this.serializeObjectProperties(model);
+  data.attributes = toJSON(model.attributes);
+  data._events = this.serializeModelEvents(model._events);
+  data.cid = model.cid;
 
-    if (!(model instanceof this.patchedBackbone.Model)) {
-      return {};
-    }
+  return data;
+}
 
-    data.inspectedAttributes = this.inspectValue(model.attributes);
-    data.serializedAttributes = this.serializeObject(model.attributes);
-    data.serializedProperties = this.serializeObjectProperties(model);
-    data.attributes = toJSON(model.attributes);
-    data._events = serializeEvents(model._events);
-    data.cid = model.cid;
+this.serializeModelEvents = function(events) {
 
-    return data;
+  if (_.isUndefined(events)) {
+    return [];
   }
-}(this));
+
+  var listeners = [];
+  _.each(events, function(handlers, eventName) {
+     _.each(handlers, function(handler) {
+      listeners.push({
+        eventName: eventName,
+        context: this.inspectValue(handler.context),
+        callback: this.inspectValue(handler.callback)
+      })
+    }, this);
+  }, this);
+
+  return listeners;
+}
