@@ -12,10 +12,10 @@ this.serializeObject = function(obj) {
   var data = {};
 
   _.each(obj || {}, function(value, name) {
-    var inspectedObject = this.inspectValue(value);
+    var inspectedObject = this.inspectValue(value, name);
 
      data[name] = {
-      name: name,
+      name: name, //@TODO replace name with key
       type: inspectedObject.type,
       value: inspectedObject.inspect,
       cid: inspectedObject.cid
