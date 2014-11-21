@@ -152,3 +152,25 @@ li.tree-group-item span[data-action='log-view']:hover {
 li.tree-group-item:hover, .channel-row:hover, .model-row:hover {
   background: #f2f2f2;
 }
+
+
+//
+//  Override the Bootstrap responsive nav
+// --------------------------------------------
+.navbar-header {
+  float: left;
+}
+
+.navbar-nav {
+  float: left;
+  margin: 0;
+
+  > li {
+    float: left;
+  }
+
+  > li > a {
+    padding-bottom: 15px;
+    padding-top: 15px;
+  }
+}
