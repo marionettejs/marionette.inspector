@@ -62,7 +62,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['agent', 'sass']);
 
-  grunt.registerTask('test', ['mocha']);
+  grunt.registerTask('test', ['agent', 'mocha']);
 
   grunt.registerTask('default', ['watch']);
 
