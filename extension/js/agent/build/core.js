@@ -79,6 +79,7 @@
 // @include ../patches/util/patchFunction.js
 // @include ../patches/util/patchFunctionLater.js
 
+// @include ../patches/patchDefineCallback.js
 // @include ../patches/patchDefine.js
 // @include ../patches/patchBackbone.js
 // @include ../patches/patchBackboneComponent.js
