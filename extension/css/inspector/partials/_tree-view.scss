@@ -1,0 +1,74 @@
+/*
+ * The tree view is used in the UI pane to
+ * show the region tree. It hopefully will also be used
+ * in other places and could be open-sourced as a marionette tree view some day.
+ *
+*/
+
+ul.tree-group {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.is-collapsed > ul.tree-group {
+  display: none;
+}
+
+.example {
+  width: 250px;
+  height: 200px;
+  overflow-y:scroll;
+}
+
+li.is-parent {
+}
+
+li.is-leaf {
+  margin-left: 0;
+}
+
+li.tree-group-item {
+
+  list-style: none;
+  line-height: 35px;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+
+  &:hover {
+    color: #428BCA;
+    cursor: pointer;
+    background: #f2f2f2;
+  }
+
+  .glyphicon {
+    color: #888;
+    padding-right: 5px;
+    padding-left: 24px;
+    &:hover {
+      color: #428BCA;
+      cursor: pointer;
+    }
+  }
+
+  &.is-highlighted {
+    background: #D9EDF7;
+    &:hover {
+      background: #D9EDF7;
+    }
+  }
+}
+
+
+
+
+.level-1 { margin-left: -24px; }
+.level-2 { margin-left: -24px;  padding-left: 24px; }
+.level-3 { margin-left: -24px;  padding-left: 48px; }
+.level-4 { margin-left: -24px;  padding-left: 72px; }
+.level-5 { margin-left: -24px;  padding-left: 96px; }
+.level-6 { margin-left: -24px; padding-left: 120px;}
+.level-7 { margin-left: -24px; padding-left: 144px;}
+.level-8 { margin-left: -24px; padding-left: 168px;}
+.level-9 { margin-left: -24px; padding-left: 192px;}
+

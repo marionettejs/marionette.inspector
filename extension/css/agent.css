@@ -1,3 +1,8 @@
+/*
+ * Injected into the inspected window by the agent
+ * these styles will be added to the page.
+*/
+
 .marionette-inspector-highlighted-element {
   position: absolute;
   outline: 1px solid rgba(48, 142, 176, 0.9);
