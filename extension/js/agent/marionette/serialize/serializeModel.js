@@ -27,7 +27,7 @@ this.serializeModelEvents = function(events) {
       listeners.push({
         eventName: eventName,
         context: this.inspectValue(handler.context),
-        callback: this.inspectValue(handler.callback)
+        callback: this.inspectValue(handler.callback, handler.context)
       })
     }, this);
   }, this);
