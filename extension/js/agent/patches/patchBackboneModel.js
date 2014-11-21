@@ -28,9 +28,7 @@ this.patchBackboneModel = (function(agent) {
     agent.sendAppComponentReport("model:attributes:change", {
       cid: model.cid,
       data: {
-        serializedAttributes: agent.serializeObject(model.attributes),
-        attributes: toJSON(model.attributes),
-        inspectedAttributes: agent.inspectValue(model.attributes)
+        attributes: agent.inspectObject(model.attributes)
       }
     })
   }

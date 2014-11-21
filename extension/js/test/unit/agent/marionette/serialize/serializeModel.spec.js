@@ -6,18 +6,18 @@ describe('serializeModel', function() {
   });
 
   it('serializes attributes', function() {
-    this.serialize = window.serializeModel(this.model);
-    expect(this.serialize.attributes).to.deep.equal(this.model.attributes);
+    var serialize = window.serializeModel(this.model);
+    expect(serialize.attributes.value).to.deep.equal(this.model.attributes);
   });
 
   it('serializes cid', function() {
-    this.serialize = window.serializeModel(this.model);
-    expect(this.serialize.cid).to.equal(this.model.cid);
+    var serialize = window.serializeModel(this.model);
+    expect(serialize.cid).to.equal(this.model.cid);
   });
 
   it('serializes events', function() {
-    this.serialize = window.serializeModel(this.model);
-    expect(this.serialize._events).to.eql([]);
+    var serialize = window.serializeModel(this.model);
+    expect(serialize._events).to.eql([]);
   });
 
   describe('model with listeners', function() {
@@ -29,8 +29,8 @@ describe('serializeModel', function() {
     })
 
     it('has events', function() {
-      this.serialize = window.serializeModel(this.model);
-      expect(_.pluck(this.serialize._events, 'eventName'))
+      var serialize = window.serializeModel(this.model);
+      expect(_.pluck(serialize._events, 'eventName'))
         .to.eql(['all', 'change']);
     });
   });
