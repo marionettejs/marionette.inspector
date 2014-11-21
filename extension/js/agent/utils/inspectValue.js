@@ -101,9 +101,11 @@ this.inspectValue = (function(agent) {
 
 
 this.inspectObject = function(object) {
-  var data = {};
-  data.value = toJSON(object);
-  data.inspect = this.inspectValue(object);
-  data.serialized = this.serializeObject(object);
-  return data;
+  var value = toJSON(object);
+  return {
+    value: value,
+    inspect: this.inspectValue(object),
+    serialized: this.serializeObject(object),
+    isEmpty: _.isEmpty(value),
+  }
 }
