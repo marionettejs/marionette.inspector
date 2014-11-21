@@ -4,41 +4,41 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <!-- We use the fluid option here to avoid overriding the fixed width of a normal container within the narrow content columns. -->
   <div class="container-fluid">
+
     <div class="navbar-header">
       <a class="navbar-brand" href="#">
         <img src="img/logo.png"></img>
       </a>
     </div>
 
-    <div>
-      <ul class="nav navbar-nav">
-        <li style="padding-top:15px;">
-          <button
-              data-action="search"
-              class="node-search-status-bar-item status-bar-item"
-              title="Select an element in the page to inspect it.">
-              <div class="glyph"></div>
-              <div class="glyph shadow"></div>
-          </button>
-        </li>
+    <ul class="nav navbar-nav">
+      <li style="padding-top:15px;">
+        <button
+            data-action="search"
+            class="node-search-status-bar-item status-bar-item"
+            title="Select an element in the page to inspect it.">
+            <div class="glyph"></div>
+            <div class="glyph shadow"></div>
+        </button>
+      </li>
 
-        <li data-tool='ui' class="{{#active_tool.is_ui}}active{{/active_tool.is_ui}}">
-          <a data-route="ui" href="#">UI</a>
-        </li>
-        <li data-tool='data' class="{{#active_tool.is_data}}active{{/active_tool.is_data}}">
-          <a data-route="data" href="#">Data</a>
-        </li>
-        <li data-tool='radio' class="{{#active_tool.is_radio}}active{{/active_tool.is_radio}}">
-          <a data-route="radio" href="#">Radio</a>
-        </li>
-        <!--
-        <li data-tool='activity' class="{{#active_tool.is_activity}}active{{/active_tool.is_activity}}">
-          <a data-route="activity" href="#">Activity</a>
-        </li>
-        -->
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div>
+      <li data-tool='ui' class="{{#active_tool.is_ui}}active{{/active_tool.is_ui}}">
+        <a data-route="ui" href="#">UI</a>
+      </li>
+      <li data-tool='data' class="{{#active_tool.is_data}}active{{/active_tool.is_data}}">
+        <a data-route="data" href="#">Data</a>
+      </li>
+      <li data-tool='radio' class="{{#active_tool.is_radio}}active{{/active_tool.is_radio}}">
+        <a data-route="radio" href="#">Radio</a>
+      </li>
+      <!--
+      <li data-tool='activity' class="{{#active_tool.is_activity}}active{{/active_tool.is_activity}}">
+        <a data-route="activity" href="#">Activity</a>
+      </li>
+      -->
+    </ul>
+
+  </div><!-- /.container-fluid -->
 </nav>
 
 {{^isAgentActive}}
