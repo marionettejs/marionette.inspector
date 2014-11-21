@@ -1,13 +1,13 @@
 <div class="sidebar-pane-stack flex-auto visible">
 
   <div class="sidebar-pane-title expanded" tabindex="0">
-    Attributes
+    Model
   </div>
   <div class="sidebar-pane visible">
     <div class="body">
       <div class="section expanded">
         <ol class="properties properties-tree monospace">
-          {{#each attributes.serialized}}
+          {{#each info}}
           <li title="" style="">
             <span class="name">{{name}}</span><span class="separator">: </span>
             <span class="value console-formatted-undefined" title="undefined"> {{value}} </span>
@@ -18,6 +18,7 @@
     </div>
   </div>
 
+  {{#if _events}}
   <div class="sidebar-pane-title expanded" tabindex="0">
     Listeners
   </div>
@@ -35,9 +36,69 @@
       </div>
     </div>
   </div>
+  {{/if}}
 
   <div class="sidebar-pane-title expanded" tabindex="0">
-    properties
+    Attributes
+  </div>
+  <div class="sidebar-pane visible">
+    <div class="body">
+      <div class="section expanded">
+        <ol class="properties properties-tree monospace">
+          {{#each attributes.serialized}}
+          <li title="" style="">
+            <span class="name">{{name}}</span><span class="separator">: </span>
+            <span class="value console-formatted-undefined" title="undefined"> {{value}} </span>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </div>
+
+ {{#unless changed.isEmpty}}
+  <div class="sidebar-pane-title expanded" tabindex="0">
+    Changed
+  </div>
+  <div class="sidebar-pane visible">
+    <div class="body">
+      <div class="section expanded">
+        <ol class="properties properties-tree monospace">
+          {{#each changed.serialized}}
+          <li title="" style="">
+            <span class="name">{{name}}</span><span class="separator">: </span>
+            <span class="value console-formatted-undefined" title="undefined"> {{value}} </span>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </div>
+  {{/unless}}
+
+ {{#unless _previousAttributes.isEmpty}}
+  <div class="sidebar-pane-title expanded" tabindex="0">
+    Previous Attributes
+  </div>
+  <div class="sidebar-pane visible">
+    <div class="body">
+      <div class="section expanded">
+        <ol class="properties properties-tree monospace">
+          {{#each _previousAttributes.serialized}}
+          <li title="" style="">
+            <span class="name">{{name}}</span><span class="separator">: </span>
+            <span class="value console-formatted-undefined" title="undefined"> {{value}} </span>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </div>
+  {{/unless}}
+
+
+  <div class="sidebar-pane-title expanded" tabindex="0">
+    Properties
   </div>
   <div class="sidebar-pane visible">
     <div class="body">
