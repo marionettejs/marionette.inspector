@@ -105,5 +105,6 @@ this.inspectObject = function(object) {
   data.value = toJSON(object);
   data.inspect = this.inspectValue(object);
   data.serialized = this.serializeObject(object);
+  data.isEmpty = _.isEmpty(data.value);
   return data;
 }

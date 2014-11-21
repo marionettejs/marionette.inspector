@@ -8,6 +8,8 @@ this.serializeModel = function(model) {
   data.attributes = this.inspectObject(model.attributes);
   data.properties = this.serializeObjectProperties(model);
   data._events = this.serializeModelEvents(model._events);
+  data._previousAttributes = this.inspectObject(model._previousAttributes);
+  data.changed = this.inspectObject(model.changed);
   data.cid = model.cid;
 
   return data;

@@ -4,12 +4,9 @@ this.patchBackboneModel = (function(agent) {
   var patchModelEventsChanges = function(model, prop, action, difference, oldValue) {
     agent.sendAppComponentReport("model:events:change", {
       cid: model.cid,
-      data: {
-        _events: agent.serializeModelEvents(model._events)
-      }
+      data: agent.serializeModel(model)
     })
   }
-
 
   var patchModelDestroy = function(originalFunction) {
     return function() {
@@ -27,9 +24,7 @@ this.patchBackboneModel = (function(agent) {
   var patchModelAttributesChange = function(model, prop, action, difference, oldvalue) {
     agent.sendAppComponentReport("model:attributes:change", {
       cid: model.cid,
-      data: {
-        attributes: agent.inspectObject(model.attributes)
-      }
+      data: agent.serializeModel(model)
     })
   }
 
