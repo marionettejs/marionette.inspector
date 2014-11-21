@@ -17,7 +17,7 @@ describe('Creating a Model', function() {
     var callData = window.registerAppComponent.getCall(0).args[2];
 
     expect(callData.attributes).to.deep.equal({foo: "bar"});
-    expect(callData.serializedAttributes).to.deep.equal({
+    expect(callData.attributes.serialized).to.deep.equal({
       foo: {
         cid: undefined,
         name: "foo",
