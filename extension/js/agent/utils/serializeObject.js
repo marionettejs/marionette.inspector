@@ -17,8 +17,9 @@ this.serializeObject = function(obj) {
      data[name] = {
       name: name,
       type: inspectedObject.type,
-      value: inspectedObject.inspect,
-      cid: inspectedObject.cid
+      value: inspectedObject.inspect, //@TODO change inspectValue return value from inspect to value
+      cid: inspectedObject.cid,
+      key: inspectedObject.key
     }
   }, this);
 

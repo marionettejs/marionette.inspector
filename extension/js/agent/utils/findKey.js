@@ -5,12 +5,12 @@
 
 function findKey (obj, value) {
 
-  if (!obj) {
-    return '';
-  }
-
   if (typeof obj == "string") {
     return obj;
+  }
+
+  if (!_.isObject(obj)) {
+    return '';
   }
 
   var theKey = undefined;
