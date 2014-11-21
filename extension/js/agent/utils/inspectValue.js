@@ -98,3 +98,12 @@ this.inspectValue = (function(agent) {
   }
 
 }(this));
+
+
+this.inspectObject = function(object) {
+  var data = {};
+  data.value = toJSON(object);
+  data.inspect = this.inspectValue(object);
+  data.serialized = this.serializeObject(object);
+  return data;
+}
