@@ -35,7 +35,7 @@ define([
 
       logger.log('app', 'start');
 
-      this.addRegions({layout: "[data-region='app-region']"});
+      this.addRegions({layout: ".app"});
       this.client = client;
       this.router = new Router(this, moduleRoutes);
       this.router.begin();

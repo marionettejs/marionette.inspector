@@ -1,0 +1,35 @@
+#app-header {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0px;
+}
+
+#app-header ul.nav-pills > li.active a {
+  color: #333;
+  background-color: #fff;
+}
+
+//
+//  Override the Bootstrap responsive nav
+// --------------------------------------------
+.navbar-header {
+  float: left;
+}
+
+.navbar-nav {
+  float: left;
+  margin: 0;
+
+  > li {
+    float: left;
+  }
+
+  > li > a {
+    padding-bottom: 15px;
+    padding-top: 15px;
+  }
+}
+
+.navbar-brand {
+  padding-top: 10px;
+}
