@@ -1,0 +1,13 @@
+li.tree-group-item span.right-button {
+  display:inline-block;
+  position: absolute;
+  right: 5px;
+  top: 6px;
+  color: #CCC;
+  padding: 3px;
+
+  &:hover {
+    color: #428BCA;
+    cursor: pointer;
+  }
+}

@@ -19,7 +19,7 @@ define([
       view: 'radio-layout'
     },
 
-    className: "row",
+    className: "row app-tool",
 
     radioCommands: {
       'show:info': 'showInfo'

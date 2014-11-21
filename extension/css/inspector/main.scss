@@ -1,16 +1,24 @@
+// utils
+@import "partials/tree-view";
+
+// panels
 @import "partials/data-panel";
+@import "partials/activity-panel";
+@import "partials/ui-panel";
 
-#app-header {
-  margin-bottom: 10px;
-  border-bottom: 1px solid #ccc;
-  padding: 10px 0px;
+// shared components
+@import "partials/header";
+@import "partials/panel-list";
+
+// inspector files
+@import "partials/inspector/_inspector";
+@import "partials/inspector/_inspector-panel";
+@import "partials/inspector/_inspector-sidebar";
+
+html {
+  height: 100%;
+  padding-left: 20px;
 }
-
-#app-header ul.nav-pills > li.active a {
-  color: #333;
-  background-color: #fff;
-}
-
 
 body {
   height: 100%;
@@ -18,162 +26,18 @@ body {
   overflow:hidden;
 }
 
-[data-region="app-region"],
-[view="app-layout"],
-.app-layout-body,
-[data-region="tool"],
-[view="ui-layout"], [view="data-layout"], [view="radio-layout"], [view="activity-layout"],
- {
+// setup panel scrolling
+.app, .app-layout, .app-layout-body, .app-tool-region, .app-tool {
   height: inherit;
 }
 
-[data-region="view-tree"], [data-region="view-more-info"],
-.data-list, [data-region="info"],
-[data-region="channel-list"], [data-region="channel-info"],
-[data-region="activity-list"] {
+.tool-panel {
   height: inherit;
   overflow-y: scroll;
-}
-
-[data-region="view-tree"], [data-region="view-more-info"] {
   padding-left: 0;
   padding-right: 0;
 }
 
-[data-region="view-more-info"],
-[data-region="model-info"],
-[data-region="channel-info"],
-[data-region="activity-info"] {
-  padding: 0;
-}
-
-.navbar-brand {
-  padding-top: 10px;
-}
-
-
-.view-row:hover {
-  cursor: pointer;
-}
-
-.activity-row td.depth-0 {padding-left:0px;}
-.activity-row td.depth-1 {padding-left:10px;}
-.activity-row td.depth-2 {padding-left:20px;}
-.activity-row td.depth-3 {padding-left:30px;}
-.activity-row td.depth-4 {padding-left:40px;}
-.activity-row td.depth-5 {padding-left:50px;}
-.activity-row td.depth-6 {padding-left:60px;}
-.activity-row td.depth-7 {padding-left:70px;}
 
 
 
-
-
-
-
-
-
-/* tree  */
-
- ul.tree-group {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  ul.is-collapsed > ul.tree-group {
-    display: none;
-  }
-
-  .example {
-    width: 250px;
-    height: 200px;
-    overflow-y:scroll;
-  }
-
-  li.tree-group-item {
-    list-style: none;
-    line-height: 35px;
-    border-bottom: 1px solid #ddd;
-    position: relative;
-  }
-
-  li.is-parent {
-    /*padding-left: 0;*/
-  }
-
-  li.is-leaf {
-    margin-left: 0;
-  }
-
-  li.tree-group-item .glyphicon {
-    color: #888;
-    padding-right: 5px;
-    padding-left: 24px;
-  }
-
-  li.tree-group-item.is-highlighted {
-    background: #D9EDF7;
-  }
-
-  li.tree-group-item.is-highlighted:hover {
-    background: #D9EDF7;
-  }
-
-  li.tree-group-item span.glyphicon:hover {
-    color: #428BCA;
-    cursor: pointer;
-  }
-
-  .level-1 { margin-left: -24px; }
-  .level-2 { margin-left: -24px;  padding-left: 24px; }
-  .level-3 { margin-left: -24px;  padding-left: 48px; }
-  .level-4 { margin-left: -24px;  padding-left: 72px; }
-  .level-5 { margin-left: -24px;  padding-left: 96px; }
-  .level-6 { margin-left: -24px; padding-left: 120px;}
-  .level-7 { margin-left: -24px; padding-left: 144px;}
-  .level-8 { margin-left: -24px; padding-left: 168px;}
-  .level-9 { margin-left: -24px; padding-left: 192px;}
-
-
-li.tree-group-item span[data-action='log-view'] {
-  display:inline-block;
-  position: absolute;
-  right: 5px;
-  top: 6px;
-  color: #CCC;
-  padding: 3px;
-}
-
-li.tree-group-item span[data-action='log-view']:hover {
-  color: #428BCA;
-  cursor: pointer;
-}
-
-
-
-li.tree-group-item:hover, .channel-row:hover, .model-row:hover {
-  background: #f2f2f2;
-}
-
-
-//
-//  Override the Bootstrap responsive nav
-// --------------------------------------------
-.navbar-header {
-  float: left;
-}
-
-.navbar-nav {
-  float: left;
-  margin: 0;
-
-  > li {
-    float: left;
-  }
-
-  > li > a {
-    padding-bottom: 15px;
-    padding-top: 15px;
-  }
-}

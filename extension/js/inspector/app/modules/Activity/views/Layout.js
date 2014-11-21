@@ -23,6 +23,8 @@ define([
       'show:info': 'showInfo'
     },
 
+    className: 'app-tool',
+
     initialize: function(options) {
       Radio.connectCommands('activity', this.activityCommands, this);
     },

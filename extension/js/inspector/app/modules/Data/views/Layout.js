@@ -31,7 +31,7 @@ define([
       'click @ui.nav': 'onNavClick'
     },
 
-    className: "row",
+    className: "row app-tool",
 
     dataCommands: {
       'show:info': 'showInfo'
