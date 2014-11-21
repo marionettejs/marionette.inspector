@@ -25,6 +25,7 @@
 // @include ../utils/objectPath.js
 // @include ../utils/inspectValue.js
 // @include ../utils/serializeObject.js
+// @include ../utils/findKey.js
 
 
 
