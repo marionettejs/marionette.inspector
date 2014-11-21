@@ -79,20 +79,24 @@ this.inspectValue = (function(agent) {
   }
 
 
-  return function(value) {
+  return function(value, object) {
     var string;
+    var key = findKey(object, value);
+
     if (agent.isKnownType(value)) {
       var type = agent.knownType(value);
       return {
         type: "type-"+type.name,
         inspect: type.str,
-        cid: type.cid
+        cid: type.cid,
+        key: key
       };
     } else {
       return {
         type: "type-" + typeOf(value),
         inspect: inspect(value),
-        cid: undefined
+        cid: undefined,
+        key: key
       };
     }
   }
