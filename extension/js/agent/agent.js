@@ -3,7 +3,7 @@
 
 debug.log("Backbone agent is starting...");
 
-patchDefine(
+this.patchDefine(
   _.bind(this.patchBackbone, this),
   _.bind(this.patchMarionette, this)
 );
