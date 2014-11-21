@@ -49,6 +49,7 @@ define([
     serializeData: function() {
       var data = {};
       _.extend(data, this.serializeModel(this.model));
+      data.title_summary = _.keys(data.attributes.value).slice(0,2).join(", ") + " ..."
       return data;
     }
   });

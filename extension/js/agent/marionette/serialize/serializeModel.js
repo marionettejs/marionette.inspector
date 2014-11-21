@@ -5,11 +5,11 @@ this.serializeModel = function(model) {
     return {};
   }
 
-  data.inspectedAttributes = this.inspectValue(model.attributes);
-  data.serializedAttributes = this.serializeObject(model.attributes);
-  data.serializedProperties = this.serializeObjectProperties(model);
-  data.attributes = toJSON(model.attributes);
+  data.attributes = this.inspectObject(model.attributes);
+  data.properties = this.serializeObjectProperties(model);
   data._events = this.serializeModelEvents(model._events);
+  data._previousAttributes = this.inspectObject(model._previousAttributes);
+  data.changed = this.inspectObject(model.changed);
   data.cid = model.cid;
 
   return data;
