@@ -104,8 +104,8 @@ this.knownTypes = function() {
     'Marionette.Application': {
       type: this.patchedMarionette.Application,
       name: 'marionette-application',
-      cid: function(obj) { return obj.cid },
-      toString: function(obj) {return '<Marionette.Application '+obj.cid+'>'}
+      cid: function(obj) { return undefined },
+      toString: function(obj) {return '<Marionette.Application>'}
     },
 
     'Marionette.Module': {
@@ -120,6 +120,13 @@ this.knownTypes = function() {
       name: 'marionette-controller',
       cid: function(obj) { return undefined },
       toString: function(obj) {return '<Marionette.Controller>'}
+    },
+
+    'Marionette.Region': {
+      type: this.patchedMarionette.Region,
+      name: 'marionette-region',
+      cid: function(obj) { return undefined },
+      toString: function(obj) {return '<Marionette.Region>'}
     },
 
     'Backbone.View': {

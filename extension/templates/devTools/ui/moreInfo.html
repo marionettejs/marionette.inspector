@@ -33,12 +33,9 @@
   <div class="sidebar-pane visible">
     <div class="body">
       <div class="section expanded">
-        <ol class="properties properties-tree monospace">
+        <ol data-property-key="options" class="properties properties-tree monospace">
           {{#each options}}
-          <li data-property-key="options" data-property-name="{{name}}" title="" style="">
-            <span class="name">{{name}}</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined"> {{value}} </span>
-          </li>
+            {{> templates/devTools/partials/_property.html this}}
           {{/each}}
         </ol>
       </div>
@@ -113,12 +110,9 @@
   <div class="sidebar-pane visible">
     <div class="body">
       <div class="section expanded">
-        <ol class="properties properties-tree monospace">
+        <ol data-property-key="" class="properties properties-tree monospace">
           {{#each properties}}
-          <li title="">
-            <span class="name">{{name}}</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined">{{value}}</span>
-          </li>
+            {{> templates/devTools/partials/_property.html this}}
           {{/each}}
         </ol>
       </div>

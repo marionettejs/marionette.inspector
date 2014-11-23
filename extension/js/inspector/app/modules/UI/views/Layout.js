@@ -69,6 +69,7 @@ define([
         return;
       }
 
+      this.highlightRow(data);
       this.getRegion('viewMoreInfo').show(new ViewMoreInfo({
         model: viewModel,
         path: data.path
