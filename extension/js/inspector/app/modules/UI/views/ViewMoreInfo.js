@@ -118,7 +118,6 @@ define([
           handler = _event.eventHandler;
         }
 
-
         var eventName = (!!this.objName) ? (this.objName + " " + _event.eventName) : _event.eventName;
 
         return {
@@ -130,10 +129,35 @@ define([
       return data;
     },
 
-
-
     serializeData: function() {
-      var data = this.serializeModel(this.model);
+      var infoItems = ['cid', 'model', 'collection', 'parentClass'];
+      var data = {};
+      _.extend(data, this.serializeModel(this.model));
+
+      data.info = _.pick(data.properties, infoItems);
+      if (data._requirePath) {
+        data.info._requirePath = {
+          name: 'path',
+          value: data._requirePath
+        }
+
+        data.info._className = {
+          name: 'class',
+          value: data._className
+        }
+      }
+
+      if (data.parentClass) {
+        data.info.parentClass = {
+          name: 'parentClass',
+          value: data.parentClass
+        };
+      }
+
+      data.properties = _.omit(data.properties, infoItems,
+        'options', '_events', 'events', 'ui', 'modelEvents', 'collectionEvents', 'el', '$el');
+
+      data.element = formatEL(data.element);
       data.events = this.presentEvents(this.model);
       data.ui = this.presentUI(this.model.get('ui'));
       return data;
