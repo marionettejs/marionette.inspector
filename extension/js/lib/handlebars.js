@@ -593,7 +593,9 @@ var __module6__ = (function(__dependency1__, __dependency2__, __dependency3__) {
     return prog;
   }
 
-  __exports__.program = program;function invokePartial(partial, name, context, helpers, partials, data, depths) {
+  __exports__.program = program;
+
+  function invokePartial(partial, name, context, helpers, partials, data, depths) {
     var options = { partial: true, helpers: helpers, partials: partials, data: data, depths: depths };
 
     if(partial === undefined) {

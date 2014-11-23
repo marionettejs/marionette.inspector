@@ -2,8 +2,9 @@ define([
   'marionette',
   'util/Radio',
   "text!templates/devTools/data/info.html",
-  'app/behaviors/SidebarPanes'
-], function(Marionette, Radio, tpl, SidebarPanesBehavior) {
+  'app/behaviors/SidebarPanes',
+  'app/behaviors/ClickableProperties'
+], function(Marionette, Radio, tpl, SidebarPanesBehavior, ClickableProperties) {
 
   return Marionette.ItemView.extend({
 
@@ -12,6 +13,9 @@ define([
     behaviors: {
       sidebarPanes: {
         behaviorClass: SidebarPanesBehavior,
+      },
+      clickableProperties: {
+        behaviorClass: ClickableProperties
       }
     },
 
