@@ -3,8 +3,9 @@ define([
   'util/Radio',
   "text!templates/devTools/ui/moreInfo.html",
   'app/behaviors/SidebarPanes',
-  'util/presenters/formatEL'
-], function(Marionette, Radio, tpl, SidebarPanesBehavior, formatEL) {
+  'util/presenters/formatEL',
+  'app/behaviors/ClickableProperties'
+], function(Marionette, Radio, tpl, SidebarPanesBehavior, formatEL, ClickableProperties) {
 
   return Marionette.ItemView.extend({
     template: tpl,
@@ -12,38 +13,20 @@ define([
     events: {
       'click @ui.uiElement': 'onClickUIElement',
       'click @ui.eventHandler': 'onClickEventHandler',
-      'click @ui.property': 'onClickProperty'
     },
 
     ui: {
       uiElement: '[data-ui-elem]',
       eventHandler: '[data-event]',
-      property: '[data-property-name]'
     },
 
     behaviors: {
       sidebarPanes: {
         behaviorClass: SidebarPanesBehavior,
-      }
-    },
+      },
 
-    onClickProperty: function(e) {
-      e.stopPropagation();
-
-      var $target = $(e.currentTarget);
-      var propertyKey = $target.data('property-key');
-      var propertyName = $target.data('property-name');
-
-      var property = this.model.get(propertyKey);
-      if (!property) {
-        return
-      }
-
-      var object = property[propertyName]
-      if (object.type && object.cid) {
-        Radio.command('app', 'navigate:knownObject', {
-          object: object
-        })
+      clickableProperties: {
+        behaviorClass: ClickableProperties
       }
     },
 
@@ -160,6 +143,7 @@ define([
       data.element = formatEL(data.element);
       data.events = this.presentEvents(this.model);
       data.ui = this.presentUI(this.model.get('ui'));
+      data.option_key = "options";
       return data;
     }
   });
