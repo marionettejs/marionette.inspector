@@ -16,6 +16,9 @@ this.serializeView = function(view) {
   data.modelEvents = serializeEventsHash(view.modelEvents);
   data.collectionEvents = serializeEventsHash(view.collectionEvents);
   data.properties = this.serializeObjectProperties(view);
+  data._requirePath = view._requirePath;
+  data._className = view._className;
+  data.parentClass = this.isKnownType(view) ? this.knownType(view).name : '';
 
   return data;
 }

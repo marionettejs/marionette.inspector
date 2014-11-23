@@ -126,6 +126,15 @@ define([
       Radio.command('ui', 'highlight-view', {
         viewPath: this.model.get('path'),
       });
+    },
+
+    serializeData: function() {
+      var data = Tree.prototype.serializeData.apply(this, arguments);
+
+      data.summary = (this.viewModel && this.viewModel.get('_className')) ||
+       this.model.get('name');
+
+      return data;
     }
 
   });

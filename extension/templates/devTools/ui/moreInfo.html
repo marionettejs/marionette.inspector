@@ -1,6 +1,33 @@
 <div class="sidebar-pane-stack flex-auto visible">
 
   <div class="sidebar-pane-title expanded" tabindex="0">
+    View
+  </div>
+  <div class="sidebar-pane visible">
+    <div class="body">
+      <div class="section expanded">
+        <ol class="properties properties-tree monospace">
+          {{#each info}}
+          <li data-property-key="options" data-property-name="{{name}}" title="" style="">
+            <span class="name">{{name}}</span><span class="separator">: </span>
+            <span class="value console-formatted-undefined" title="undefined"> {{value}} </span>
+          </li>
+          {{/each}}
+          <li title="" style="">
+            <span class="name">$el</span><span class="separator">: </span>
+            <span class="value console-formatted-undefined" title="undefined"> [{{{element}}}] </span>
+          </li>
+          <li title="" style="">
+            <span class="name">el</span><span class="separator">: </span>
+            <span class="value console-formatted-undefined" title="undefined"> {{{element}}} </span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="sidebar-pane-title expanded" tabindex="0">
     Options
   </div>
   <div class="sidebar-pane visible">
