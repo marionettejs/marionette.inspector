@@ -7,9 +7,10 @@ define([
   'util/ModuleRoutes',
   'client',
   'app/views/Layout',
+  'util/isViewType'
 ], function(
   Backbone, Marionette, Radio, logger, Router, moduleRoutes,
-  client, Layout) {
+  client, Layout, isViewType) {
 
   return Marionette.Application.extend({
 
@@ -152,8 +153,11 @@ define([
         return;
       }
 
-      if (object.name == "model") {
+      if (object.type == "type-backbone-model") {
         var url = 'data/models/'+object.cid;
+        this.navigate(url);
+      } else if (isViewType(object)) {
+        var url = 'data/views/'+object.cid;
         this.navigate(url);
       }
 

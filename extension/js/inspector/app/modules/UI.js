@@ -221,6 +221,15 @@ define([
         this.startModule();
         this.showModule();
         this.fetchData();
+      },
+      showView: function(cid) {
+        this.showModule();
+        var view = this.viewCollection.findView(cid);
+        Radio.command('ui', 'show:more-info', {
+          cid: cid,
+          path: view.treeProperties.path
+        });
+
       }
     }
   });
