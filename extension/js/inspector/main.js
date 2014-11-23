@@ -64,7 +64,11 @@ require([
   "app/modules/UI",
   "app/modules/Data",
   "app/modules/Activity",
-], function($, treeGrid, Handlebars, Marionette, logger, App, RadioApp, UIApp, DataApp, ActivityApp) {
+  "text!templates/devTools/partials/_property.html"
+], function(
+    $, treeGrid, Handlebars, Marionette,
+    logger, App, RadioApp, UIApp, DataApp, ActivityApp,
+    _property) {
 
     Marionette.Renderer.render = function(template, data, view) {
       return Handlebars.compile(template)(data);
@@ -73,6 +77,8 @@ require([
     $(document).ready(function() {
         // var router = new Router();
         // Backbone.history.start();
+
+        Handlebars.registerPartial('templates/devTools/partials/_property.html', _property);
 
         window.app = new App();
         app.start();

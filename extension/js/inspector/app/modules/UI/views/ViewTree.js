@@ -61,7 +61,6 @@ define([
       }
 
       this.showMoreInfo();
-      this.highlightRow();
 
       return false;
     },
@@ -95,7 +94,7 @@ define([
 
     highlightRow: function() {
       this.unhighlightRow();
-      this.ui.view.addClass('is-highlighted');
+      this.ui.view.addClass && this.ui.view.addClass('is-highlighted');
     },
 
     unhighlightRow: function() {
