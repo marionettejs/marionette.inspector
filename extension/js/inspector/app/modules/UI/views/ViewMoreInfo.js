@@ -36,26 +36,6 @@ define([
       $target.next().toggleClass('visible');
     },
 
-    onClickUIElement: function(e) {
-      var $target = $(e.currentTarget);
-      var uiElement = $target.data('ui-elem');
-
-      Radio.command('ui', 'inspect:view-element', {
-        viewPath: this.options.path,
-        viewPropPath: ['ui'].concat(uiElement).join('.')
-      })
-    },
-
-    onClickEventHandler: function(e) {
-      var $target = $(e.currentTarget);
-      var eventHandler = $target.data('event');
-
-      Radio.command('ui', 'inspect:view-function', {
-        viewPath: this.options.path,
-        viewPropPath: eventHandler
-      })
-    },
-
     presentUI: function(ui) {
       var data = _.clone(ui);
 
@@ -65,8 +45,8 @@ define([
 
       data = _.map(data, function(_ui, i) {
         return {
-          ui: _ui.ui,
-          element: formatEL(_ui.element)
+          name: _ui.name,
+          value: formatEL(_ui.value)
         }
       })
 
@@ -112,35 +92,62 @@ define([
       return data;
     },
 
-    serializeData: function() {
-      var infoItems = ['cid', 'model', 'collection', 'parentClass'];
-      var data = {};
-      _.extend(data, this.serializeModel(this.model));
+    presentInfo: function(data, infoItems) {
+      var info = _.pick(data.properties, infoItems);
 
-      data.info = _.pick(data.properties, infoItems);
       if (data._requirePath) {
-        data.info._requirePath = {
+        info._requirePath = {
           name: 'path',
           value: data._requirePath
         }
 
-        data.info._className = {
+        info._className = {
           name: 'class',
           value: data._className
         }
       }
 
       if (data.parentClass) {
-        data.info.parentClass = {
+        info.parentClass = {
           name: 'parentClass',
           value: data.parentClass
         };
       }
 
+      return info;
+    },
+
+    presentAncestors: function(data, infoItems) {
+      var properties = _.omit(data.properties, infoItems,
+              'options', '_events', 'events', 'ui', 'modelEvents', 'collectionEvents', 'el', '$el');
+      var ancestorInfo = data.ancestorInfo;
+
+      var ancestors = [];
+      _.each(ancestorInfo, function(info) {
+        var props = _.pick(properties, info.keys);
+        ancestors.push({
+          properties: props,
+          name: info.name || 'Class Properties'
+        });
+      });
+
+      ancestors[0].name = "Properties";
+
+      return ancestors;
+    },
+
+    serializeData: function() {
+      var infoItems = ['cid', 'model', 'collection', 'parentClass', 'tagName', 'template'];
+      var data = {};
+      _.extend(data, this.serializeModel(this.model));
+
+      data.info = this.presentInfo(data, infoItems);
+
+      // data.ancestors = this.presentAncestors(data, infoItems);
       data.properties = _.omit(data.properties, infoItems,
         'options', '_events', 'events', 'ui', 'modelEvents', 'collectionEvents', 'el', '$el');
 
-      data.element = formatEL(data.element);
+      data.el = formatEL(data.el.value);
       data.events = this.presentEvents(this.model);
       data.ui = this.presentUI(this.model.get('ui'));
       data.option_key = "options";
