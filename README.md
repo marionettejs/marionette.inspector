@@ -49,7 +49,7 @@ If you're not setting Backbone and Marionette on the window or using `define`, y
 
 Add this line before your Marionette Application is instantiated.
 ```js
-__agent &&  __agent.start(Backbone, Marionette);
+window.__agent &&  window.__agent.start(Backbone, Marionette);
 ```
 
 ---
