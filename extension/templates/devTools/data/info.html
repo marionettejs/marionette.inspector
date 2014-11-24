@@ -6,12 +6,9 @@
   <div class="sidebar-pane visible">
     <div class="body">
       <div class="section expanded">
-        <ol class="properties properties-tree monospace">
+        <ol data-property-key="" class="properties properties-tree monospace">
           {{#each info}}
-          <li title="" style="">
-            <span class="name">{{name}}</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined"> {{value}} </span>
-          </li>
+            {{> templates/devTools/partials/_property.html this}}
           {{/each}}
         </ol>
       </div>
@@ -25,14 +22,22 @@
   <div class="sidebar-pane visible">
     <div class="body">
       <div class="section expanded">
-        <ol class="properties properties-tree monospace">
+        <ol data-property-key="_events" class="properties properties-tree monospace">
           {{#each _events}}
-          <li title="" style="">
+          <li data-property-index="{{@index}}">
             <span class="name">{{eventName}}</span><span class="separator">: </span>
             <span class="value console-formatted-undefined" title="undefined">
 
-            {{context.inspect}} {{#if callback.key}} {{callback.key}} {{else}} {{callback.inspect}} {{/if}}
+              <span data-property-value-context>
+              {{context.inspect}}</span>
 
+              <span data-property-value-callback>
+                {{#if callback.key}}
+                  {{callback.key}}
+                {{else}}
+                  {{callback.inspect}}
+                {{/if}}
+              </span>
             </span>
           </li>
           {{/each}}
@@ -109,10 +114,7 @@
       <div class="section expanded">
         <ol class="properties properties-tree monospace">
           {{#each properties}}
-          <li title="" style="">
-            <span class="name">{{name}}</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined"> {{value}} </span>
-          </li>
+            {{> templates/devTools/partials/_property.html this}}
           {{/each}}
         </ol>
       </div>
