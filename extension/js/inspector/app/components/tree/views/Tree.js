@@ -1,7 +1,7 @@
 define([
   'backbone',
   'marionette',
-  'text!templates/devtools/components/tree/tree.html',
+  'text!templates/devTools/components/tree/tree.html',
 ], function(Backbone, Marionette, tpl) {
 
   var Tree = Backbone.Marionette.CompositeView.extend({

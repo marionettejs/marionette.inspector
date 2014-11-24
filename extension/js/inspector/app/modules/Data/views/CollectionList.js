@@ -1,6 +1,6 @@
 define([
   'marionette',
-  'util/radio',
+  'util/Radio',
   'text!templates/devTools/data/collection-list.html',
   'app/modules/Data/views/CollectionRow',
 ], function(Marionette, Radio, tpl, CollectionRow) {
