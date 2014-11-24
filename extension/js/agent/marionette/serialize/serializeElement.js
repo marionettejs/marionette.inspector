@@ -1,5 +1,5 @@
 
-var serializeElement = function (element, recurse) {
+this.serializeElement = function (element, uiName, recurse) {
     var $el = $(element);
 
     var obj = {};
@@ -18,10 +18,15 @@ var serializeElement = function (element, recurse) {
     });
 
     if (recurse) {
-        obj.children = _.map($el.children(), function(child){
-            return serializeElement(child, true);
+        obj.children = _.map($el.children(), function(child, childName){
+            var uiName = ''; // the element does not have a name because it's a child
+            return this.serializeElement(child, uiName, true);
         }, this);
     }
 
-    return  obj;
+    return {
+      name: uiName,
+      value: obj,
+      type: 'type-element'
+    }
 }

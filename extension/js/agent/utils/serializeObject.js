@@ -27,6 +27,38 @@ this.serializeObject = function(obj) {
   return data;
 };
 
+this.ancestorInfo = function(obj) {
+  var info = [{
+    keys: _.keys(obj.constructor.prototype),
+    name: this.serializeClassName(obj)
+  }];
+
+  var parent = obj;
+  while (parent = parent.constructor.__super__) {
+    info.push({
+      keys: _.keys(parent),
+      name: this.serializeClassName(parent)
+    });
+  }
+
+  return info;
+}
+
+// we only return the class name if it's different than the parents
+this.serializeClassName = function(obj) {
+
+  if (!obj.constructor.__super__) {
+    return obj._className || '';
+  }
+
+  if (obj._className != obj.constructor.__super__._className ) {
+    return obj._className;
+  }
+
+  return ''
+}
+
+
 /*
  * picks out the properties that are unique to the object
  * and then calls serializeObject on them.
@@ -34,15 +66,10 @@ this.serializeObject = function(obj) {
  */
 
 this.serializeObjectProperties = function(obj) {
-  return this.serializeObject(
-    _.pick(obj,
-      _.without(
-        _.difference(
-          _.keys(obj),
-          _.keys(obj.constructor.prototype)
-        ),
-        'length'
-      )
-    )
-  );
+  // var ancestorKeys = _.pluck(this.ancestorInfo(obj), 'keys');
+  // keys = _.keys(obj).concat(_.flatten(ancestorKeys, 1));
+
+  var keys = _.union(_.keys(obj), _.keys(obj.constructor.prototype));
+  keys = _.without(keys, 'length');
+  return this.serializeObject(_.pick(obj, keys));
 };

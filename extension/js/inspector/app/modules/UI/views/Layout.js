@@ -85,7 +85,7 @@ define([
 
     highlightRow: function(data) {
       var viewModel = this.viewCollection.findView(data.cid);
-      if (!viewModel || !viewModel.treeProperties.path) {
+      if (!viewModel || !viewModel.treeProperties || !viewModel.treeProperties.path) {
         return;
       }
 
