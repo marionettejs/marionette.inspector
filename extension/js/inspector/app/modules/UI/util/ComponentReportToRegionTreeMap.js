@@ -22,6 +22,10 @@ define([
     },
 
     onClientEvent: function(eventName, data) {
+      if (!data) {
+        return;
+      }
+
       var reportType = data.type;
       var reportName = data.name;
 

@@ -1,28 +1,58 @@
 describe('serializeView', function() {
   beforeEach(function() {
     this.setFixtures($("<div class='header'></div><div class='body'></div>"));
-    this.app = new Marionette.Application();
-    this.app.addRegions({
-      header: '.header',
-      body: '.body'
+
+    this.model = new window.patchedBackbone.Model({
+      a: 2
     });
+
+    this.ViewClass = window.patchedMarionette.ItemView.extend({
+      ui: {
+        body: '.body'
+      },
+
+      events: {
+        'click @ui.body': 'onClickBody'
+      },
+
+      onClickBody: function() {}
+    })
+
+    this.view = new this.ViewClass({
+      model: this.model,
+      el: $('.header'),
+
+    });
+
+    this.data = window.serializeView(this.view);
   });
 
-  describe('showing a view', function() {
+  it('serializes cid', function() {
+    expect(this.data.cid).to.equal(this.view.cid);
+  });
 
-    beforeEach(function() {
-      this.view = new Backbone.View();
-      this.app.header.show(this.view);
-    });
+  it('serializes options', function() {
+    expect(this.data.options.model.type).to.equal('type-backbone-model');
+  });
 
-    it('the view is in the region tree', function() {
-      var regionTree = window.regionInspector(this.app);
-      expect(regionTree.header._view).to.deep.equal(this.view);
-    });
+  it('serializes ui', function() {
+    expect(this.data.ui.body.type).to.equal('type-element');
+  });
 
-    it('the view can be serialized in the tree', function() {
-      var regionTree = window.regionInspector(this.app,'', true);
-      expect(regionTree.header._view.cid).to.deep.equal(this.view.cid);
-    });
-  })
+  it('serializes element', function() {
+    expect(this.data.el.type).to.equal('type-element');
+  });
+
+  it('serializes events', function() {
+    expect(this.data.events[0].eventName).to.equal('click .body');
+  });
+
+  it('serializes properties', function() {
+    expect(_.keys(this.data.properties)).to.deep.equal([
+      "render", "options", "events", "cid", "model", "el",
+      "$el", "trigger", "ui", "remove", "_listeningTo", "_listenId",
+      "_events", "constructor", "onClickBody"
+    ]);
+  });
+
 })
