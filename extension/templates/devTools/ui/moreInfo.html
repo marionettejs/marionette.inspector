@@ -6,20 +6,20 @@
   <div class="sidebar-pane visible">
     <div class="body">
       <div class="section expanded">
-        <ol class="properties properties-tree monospace">
+        <ol data-property-key="" class="properties properties-tree monospace">
           {{#each info}}
-          <li data-property-key="options" data-property-name="{{name}}" title="" style="">
+          <li data-property-name="{{name}}">
             <span class="name">{{name}}</span><span class="separator">: </span>
             <span class="value console-formatted-undefined" title="undefined"> {{value}} </span>
           </li>
           {{/each}}
-          <li title="" style="">
+          <li data-property-name="el">
             <span class="name">$el</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined"> [{{{element}}}] </span>
+            <span class="value console-formatted-undefined" title="undefined"> [{{{el}}}] </span>
           </li>
-          <li title="" style="">
+          <li data-property-name="el">
             <span class="name">el</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined"> {{{element}}} </span>
+            <span class="value console-formatted-undefined" title="undefined"> {{{el}}} </span>
           </li>
         </ol>
       </div>
@@ -49,12 +49,12 @@
   <div class="sidebar-pane visible">
     <div class="body">
       <div class="section expanded">
-        <ol class="properties properties-tree monospace">
+        <ol data-property-key="ui" class="properties properties-tree monospace">
           {{#each ui}}
-          <li data-ui-elem="{{ui}}">
-            <span class="name">{{ui}}</span><span class="separator">: </span>
+          <li data-property-name="{{name}}">
+            <span class="name">{{name}}</span><span class="separator">: </span>
             <span class="value console-formatted-undefined" title="undefined">
-              {{{element}}}
+              {{{value}}}
             </span>
           </li>
           {{/each}}
@@ -70,15 +70,14 @@
   <div class="sidebar-pane visible">
     <div class="body">
       <div class="section expanded">
-        <ol class="properties properties-tree monospace">
+        <ol data-property-key="" class="properties properties-tree monospace">
           {{#each events}}
           <li data-event="{{handler}}">
             <span class="name">{{event}}</span>
             <span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined">{{handler}}</span>
+            <span data-property-name={{handler}} class="value console-formatted-undefined" title="undefined">{{handler}}</span>
           </li>
           {{/each}}
-
         </ol>
       </div>
     </div>
@@ -104,12 +103,12 @@
     </div>
   </div>
 
-  <div class="sidebar-pane-title expanded" tabindex="3">
+  <div class="sidebar-pane-title" tabindex="3">
     Properties
   </div>
-  <div class="sidebar-pane visible">
+  <div class="sidebar-pane">
     <div class="body">
-      <div class="section expanded">
+      <div class="section">
         <ol data-property-key="" class="properties properties-tree monospace">
           {{#each properties}}
             {{> templates/devTools/partials/_property.html this}}
@@ -119,4 +118,20 @@
     </div>
   </div>
 
+ <!--  {{#each ancestors}}
+  <div class="sidebar-pane-title" tabindex="3">
+    {{name}}
+  </div>
+  <div class="sidebar-pane">
+    <div class="body">
+      <div class="section">
+        <ol data-property-key="" class="properties properties-tree monospace">
+          {{#each properties}}
+            {{> templates/devTools/partials/_property.html this}}
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </div>
+  {{/each }} -->
 </div>
