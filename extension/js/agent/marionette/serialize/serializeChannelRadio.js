@@ -14,7 +14,7 @@ this.serializeChannelRadio = function(channel) {
     data.commands[commandName] = {
       name: commandName,
       context: this.contextData(command.context),
-      callback: this.inspectValue(command.callback)
+      callback: this.inspectValue(command.callback, command.context)
     }
   }, this, data);
 
@@ -22,7 +22,7 @@ this.serializeChannelRadio = function(channel) {
     data.requests[requestName] = {
       name: requestName,
       context: this.contextData(request.context),
-      callback: this.inspectValue(request.callback)
+      callback: this.inspectValue(request.callback, request.context)
     }
   }, this, data);
 
@@ -33,7 +33,7 @@ this.serializeChannelRadio = function(channel) {
     eventHandlerList.push({
       name: eventName,
       context: this.contextData(eventHandler.context),
-      callback: this.inspectValue(eventHandler.callback)
+      callback: this.inspectValue(eventHandler.callback, eventHandler.context)
     });
    }, this, eventName, eventHandlerList)
  }, this, data);
@@ -43,13 +43,13 @@ this.serializeChannelRadio = function(channel) {
 
 this.contextData = function(context) {
   if (_.isUndefined(context)) {
-    return {type: '', cid: null};
+    return {inspect: '', cid: null};
   }
 
-  var type = this.isKnownType(context) ? this.knownType(context).str : '';
+  var inspect = this.isKnownType(context) ? this.knownType(context).str : '';
 
   return {
-    type: type,
+    inspect: inspect,
     cid: context.cid
   };
 }
