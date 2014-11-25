@@ -10,7 +10,19 @@
           {{#each events}}{{#each this}}
           <li title="" style="">
             <span class="name">{{name}}</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined"> {{callback.inspect}} </span>
+            <span class="value console-formatted-undefined" title="undefined">
+              <span data-property-value-context>
+                {{context.inspect}}
+              </span>
+
+              <span data-property-value-callback>
+                {{#if callback.key}}
+                  {{callback.key}}
+                {{else}}
+                  {{callback.inspect}}
+                {{/if}}
+              </span>
+            </span>
           </li>
           {{/each}}{{/each}}
         </ol>
@@ -28,7 +40,19 @@
           {{#each commands}}
           <li title="" style="">
             <span class="name">{{name}}</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined"> {{context.type}} {{callback.inspect}} </span>
+            <span class="value console-formatted-undefined" title="undefined">
+              <span data-property-value-context>
+                {{context.inspect}}
+              </span>
+
+              <span data-property-value-callback>
+                {{#if callback.key}}
+                  {{callback.key}}
+                {{else}}
+                  {{callback.inspect}}
+                {{/if}}
+              </span>
+            </span>
           </li>
           {{/each}}
         </ol>
@@ -46,7 +70,19 @@
           {{#each requests}}
           <li title="" style="">
             <span class="name">{{name}}</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined">{{context.type}} {{callback.inspect}} </span>
+            <span class="value console-formatted-undefined" title="undefined">
+              <span data-property-value-context>
+                {{context.inspect}}
+              </span>
+
+              <span data-property-value-callback>
+                {{#if callback.key}}
+                  {{callback.key}}
+                {{else}}
+                  {{callback.inspect}}
+                {{/if}}
+              </span>
+            </span>
           </li>
           {{/each}}
         </ol>

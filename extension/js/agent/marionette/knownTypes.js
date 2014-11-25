@@ -150,6 +150,17 @@ this.knownTypes = function() {
     });
   }
 
+  if (this.patchedMarionette.Behavior) {
+    _.extend(knownTypes, {
+      'Marionette.Behavior': {
+        type: this.patchedMarionette.Behavior,
+        name: 'marionette-behavior',
+        cid: function(obj) { return undefined },
+        toString: function(obj) {return '<Marionette.Behavior>'}
+      }
+    });
+  }
+
   this._knownTypes = knownTypes;
 
   return knownTypes;
