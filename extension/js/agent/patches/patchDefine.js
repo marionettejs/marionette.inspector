@@ -53,7 +53,9 @@ this.patchDefine = function(patchBackbone, patchMarionette) {
                 debug.log('Backbone define detected');
                 loadedModules.Backbone = Candidate;
                 patchBackbone(Candidate);
+              }
 
+              if (!loadedModules.Marionette && isBackbone(Candidate)) {
                 if (isMarionette(Candidate.Marionette)) {
                   debug.log('Marionette define detected');
                   loadedModules.Marionette = Candidate.Marionette;
