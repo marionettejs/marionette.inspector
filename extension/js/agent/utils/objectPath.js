@@ -4,7 +4,12 @@ var objectPath = function (obj, path, defaultValue) {
   if (path.length === 0) return obj;
   if (obj === null) return defaultValue;
 
-  return objectPath(obj[_.first(path)], _.rest(path), defaultValue);
+  var part = _.first(path);
+  if (part == "") {
+    return obj;
+  }
+
+  return objectPath(obj[part], _.rest(path), defaultValue);
 };
 
 this.objectPath = objectPath;
