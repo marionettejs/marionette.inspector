@@ -131,8 +131,6 @@ define([
         });
       });
 
-      ancestors[0].name = "Properties";
-
       return ancestors;
     },
 
@@ -143,7 +141,7 @@ define([
 
       data.info = this.presentInfo(data, infoItems);
 
-      // data.ancestors = this.presentAncestors(data, infoItems);
+      data.ancestors = this.presentAncestors(data, infoItems);
       data.properties = _.omit(data.properties, infoItems,
         'options', '_events', 'events', 'ui', 'modelEvents', 'collectionEvents', 'el', '$el');
 
