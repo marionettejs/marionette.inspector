@@ -42,7 +42,7 @@
     </div>
   </div>
 
-
+  {{#if ui}}
   <div class="sidebar-pane-title expanded" tabindex="1">
     UI
   </div>
@@ -62,8 +62,9 @@
       </div>
     </div>
   </div>
+  {{/if}}
 
-
+  {{#if events}}
   <div class="sidebar-pane-title expanded" tabindex="2">
     Events
   </div>
@@ -82,26 +83,27 @@
       </div>
     </div>
   </div>
+  {{/if }}
 
-  <div class="sidebar-pane-title expanded" tabindex="3">
+  {{#if model}}
+  <div class="sidebar-pane-title" tabindex="3">
     Model
   </div>
-  <div class="sidebar-pane visible">
+  <div class="sidebar-pane">
     <div class="body">
-      <div class="section expanded">
+      <div class="section">
         <ol class="properties properties-tree monospace">
-          {{#model}}
-          {{#each attributes.serialized}}
+          {{#each model}}
           <li title="">
             <span class="name">{{name}}</span><span class="separator">: </span>
             <span class="value console-formatted-undefined" title="undefined">{{value}}</span>
           </li>
           {{/each}}
-          {{/model}}
         </ol>
       </div>
     </div>
   </div>
+  {{/if }}
 
  {{#each ancestors}}
   <div class="sidebar-pane-title" tabindex="3">
