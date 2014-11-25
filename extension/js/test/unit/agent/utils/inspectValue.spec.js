@@ -95,7 +95,7 @@ describe('inspectValue', function() {
     it('anonymous fnc', function() {
       expect(window.inspectValue(function() {2+2})).to.deep.equal({
         type: "type-function",
-        inspect: "function() { ... }",
+        inspect: "function() {",
         cid: undefined,
         key: ""
       });
@@ -106,7 +106,7 @@ describe('inspectValue', function() {
 
       expect(window.inspectValue(model.trigger, model)).to.deep.equal({
         type: "type-function",
-        inspect: "function() { ... }",
+        inspect: "function() {",
         cid: undefined,
         key: 'trigger'
       });

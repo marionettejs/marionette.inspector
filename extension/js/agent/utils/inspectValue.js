@@ -28,7 +28,7 @@ this.inspectValue = (function(agent) {
     } else if (type === 'undefined') {
       return "undefined";
     } else if (type === 'function') {
-      return "function() { ... }";
+      return "function() {";
     } else if (type === 'array') {
       if (value.length === 0) { return '[]'; }
       else if (value.length === 1) { return '[ ' + inspect(value[0]) + ' ]'; }
@@ -59,7 +59,7 @@ this.inspectValue = (function(agent) {
           v = value[key];
           if (agent.isKnownType(v)) {v = agent.knownTypeString(v); }
           else if (v === 'toString') { continue; } // ignore useless items
-          else if (typeOf(v) === 'function') { v = "function() { ... }"; }
+          else if (typeOf(v) === 'function') { v = "function() {}"; }
           else if (typeOf(v) === 'array') { v = '[Array : ' + v.length + ']'; }
           else if (typeOf(v) === 'object') { v = '[Object]'; }
           ret.push(key + ": " + v);

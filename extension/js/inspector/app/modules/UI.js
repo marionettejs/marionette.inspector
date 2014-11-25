@@ -29,8 +29,6 @@ define([
     appName: 'ui',
 
     uiCommands: {
-      'inspect:view-element': 'inspectViewElement',
-      'inspect:view-function': 'inspectViewFunction',
       'highlight-view': 'highlightView',
       'unhighlight-view': 'unhighlightView',
       'search:start': 'startSearch',
@@ -87,7 +85,6 @@ define([
       var viewData = event.data;
       this.viewCollection.add(viewData);
     },
-
 
     onViewRemove: function (event) {
       var cid = event.data.cid;
@@ -151,32 +148,6 @@ define([
       logger.log('ui', 'fetching data');
       this.uiData.fetch();
       this.uiData.trigger('change:regionTree');
-    },
-
-    inspectViewElement: function(data) {
-      this.client.exec(function(data) {
-        var view = this.appObserver.getView(data.viewPath);
-        var element = this.objectPath(view, data.viewPropPath);
-
-        // if it's a jQuery element, get the dom element
-        element = element.length ? element[0] : element;
-
-        inspect(element);
-      }, [data])
-    },
-
-    inspectViewFunction: function(data) {
-      this.client.exec(function(data) {
-        var view = this.appObserver.getView(data.viewPath);
-        var fnc = this.objectPath(view, data.viewPropPath);
-
-        if (fnc.toString().match(/native code/)) {
-          console.log('Mn: ', fnc);
-          return;
-        }
-
-        inspect(fnc);
-      }, [data])
     },
 
     log: function(data) {
