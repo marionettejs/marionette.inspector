@@ -14,7 +14,8 @@ function findKey (obj, value) {
   }
 
   var theKey = undefined;
-  _.each(_.keys(obj), function(key) {
+  var keys = _.union(_.keys(obj), _.keys(obj.constructor.prototype));
+  _.each(keys, function(key) {
     if (obj[key] == value) {
        theKey = key
     }
