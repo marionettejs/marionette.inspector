@@ -28,18 +28,24 @@ this.serializeObject = function(obj) {
 };
 
 this.ancestorInfo = function(obj) {
-  var info = [{
-    keys: _.keys(obj.constructor.prototype),
-    name: this.serializeClassName(obj)
-  }];
-
+  var info = [];
+  var path = 'constructor.prototype';
   var parent = obj;
-  while (parent = parent.constructor.__super__) {
+
+  while (true) {
+    parent = objectPath(parent, path);
+    if (!parent) {
+      return info;
+    }
+
     info.push({
-      keys: _.keys(parent),
-      name: this.serializeClassName(parent)
+      keys: _.without(_.keys(parent), 'length'),
+      name: this.serializeClassName(parent),
+      path: path
     });
-  }
+
+    path += ".constructor.__super__";
+  };
 
   return info;
 }
@@ -59,17 +65,47 @@ this.serializeClassName = function(obj) {
 }
 
 
+this.classPropertyCache = {};
+
+this.serializeClass = function(object, info, shouldMemoize) {
+
+  var serializeObject = objectPath(object, info.path);
+
+  if (this.classPropertyCache[info.name]) {
+    return this.classPropertyCache[info.name];
+  }
+
+  var props = this.serializeObject(_.pick(serializeObject, info.keys));
+
+  if (shouldMemoize && info.name) {
+    this.classPropertyCache[info.name] = props;
+  }
+
+  return props;
+}
+
 /*
  * picks out the properties that are unique to the object
  * and then calls serializeObject on them.
  *
  */
 
-this.serializeObjectProperties = function(obj) {
-  // var ancestorKeys = _.pluck(this.ancestorInfo(obj), 'keys');
-  // keys = _.keys(obj).concat(_.flatten(ancestorKeys, 1));
+this.serializeObjectProperties = function(object) {
+  var properties = [];
 
-  var keys = _.union(_.keys(obj), _.keys(obj.constructor.prototype));
-  keys = _.without(keys, 'length');
-  return this.serializeObject(_.pick(obj, keys));
+  var instanceProperties = this.serializeClass(object, {
+    keys: _.without(_.keys(object), 'length'),
+    name: '',
+    path: '',
+  }, false);
+
+  properties.push(instanceProperties);
+
+  // debugger;
+  var ancestorInfo = this.ancestorInfo(object);
+  _.each(ancestorInfo, function(info) {
+    properties.push(this.serializeClass(object, info, true));
+  }, this)
+
+  return _.extend.apply(_, properties);
 };
