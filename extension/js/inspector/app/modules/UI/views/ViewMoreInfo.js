@@ -143,6 +143,11 @@ define([
 
       data.info = this.presentInfo(data, infoItems);
 
+      var model = this.model.viewModel();
+      if (model) {
+        data.model = model.get('attributes').serialized;
+      }
+
       // data.ancestors = this.presentAncestors(data, infoItems);
       data.properties = _.omit(data.properties, infoItems,
         'options', '_events', 'events', 'ui', 'modelEvents', 'collectionEvents', 'el', '$el');

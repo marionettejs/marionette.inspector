@@ -1,7 +1,8 @@
 define([
   'backbone',
-  'util/clientInspect'
-], function(Backbone, clientInspect) {
+  'util/clientInspect',
+  'util/Radio',
+], function(Backbone, clientInspect, Radio) {
   return Backbone.Model.extend({
     clientInspect: function(path) {
       clientInspect({
@@ -10,5 +11,13 @@ define([
         path: path
        });
     },
+
+    viewModel: function() {
+      if (!this.get('model')) {
+        return
+      }
+
+      return Radio.request('data', 'model', this.get('model').cid)
+    }
   });
 })

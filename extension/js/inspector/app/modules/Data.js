@@ -24,6 +24,10 @@ define([
       'agent:start': 'onAgentStart'
     },
 
+    dataRequests: {
+      'model': 'requestModel'
+    },
+
     initialize: function() {
     },
 
@@ -39,6 +43,11 @@ define([
     setupEvents: function() {
       Marionette.bindEntityEvents(this, this.client, this.clientEvents);
       Radio.connectEvents('app', this.appEvents, this);
+      Radio.connectRequests('data', this.dataRequests, this);
+    },
+
+    requestModel: function(cid) {
+      return this.modelCollection.findModel(cid)
     },
 
     onAgentStart: function() {
