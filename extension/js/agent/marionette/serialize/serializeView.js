@@ -11,7 +11,6 @@ this.serializeView = function(view) {
   data.options = this.serializeObject(view.options);
   data.ui = this.serializeUI(view.ui);
   data.el = this.serializeElement(view.el, 'el', false);
-  data.model = this.serializeModel(view.model);
   data.events = serializeEventsHash(view.events);
   data.modelEvents = serializeEventsHash(view.modelEvents);
   data.collectionEvents = serializeEventsHash(view.collectionEvents);
@@ -20,6 +19,12 @@ this.serializeView = function(view) {
   data._requirePath = view._requirePath;
   data._className = this.serializeClassName(view);
   data.parentClass = this.isKnownType(view) ? this.knownType(view).name : '';
+
+  if (view.model) {
+    data.model = {
+      cid: view.model.cid
+    };
+  }
 
   return data;
 }
