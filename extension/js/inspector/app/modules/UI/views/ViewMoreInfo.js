@@ -144,6 +144,12 @@ define([
 
       data.info = this.presentInfo(data, infoItems);
       data.ancestors = this.presentAncestors(data, infoItems);
+
+      var model = this.model.viewModel();
+      if (model) {
+        data.model = model.get('attributes').serialized;
+      }
+
       data.el = formatEL(data.el.value);
       data.events = this.presentEvents(this.model);
       data.ui = this.presentUI(this.model.get('ui'));
