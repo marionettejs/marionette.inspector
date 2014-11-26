@@ -5,9 +5,9 @@
 
 (function(root, factory) {
 
-  root.BackboneFactory = root._.partial(factory, root, {}, root._, root.jQuery || root.$);
+  root.BackboneFactory = root._.partial(factory, root, {}, window._, root.jQuery || root.$);
 
-}(this, function(root, Backbone, _, $) {
+}(window, function(root, Backbone, _, $) {
 
   // Initial Setup
   // -------------
