@@ -6,9 +6,12 @@
 */
 
 ul.tree-group {
+  background-color: #fff;
   list-style: none;
   margin: 0;
   padding: 0;
+  // a very unscientific min-width until we fix some alignment/overlap issues
+  min-width: 200px;
 }
 
 ul.is-collapsed > ul.tree-group {
