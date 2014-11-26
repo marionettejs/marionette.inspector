@@ -47,12 +47,4 @@ describe('serializeView', function() {
     expect(this.data.events[0].eventName).to.equal('click .body');
   });
 
-  it('serializes properties', function() {
-    expect(_.keys(this.data.properties)).to.deep.equal([
-      "render", "options", "events", "cid", "model", "el",
-      "$el", "trigger", "ui", "remove", "_listeningTo", "_listenId",
-      "_events", "constructor", "onClickBody"
-    ]);
-  });
-
 })
