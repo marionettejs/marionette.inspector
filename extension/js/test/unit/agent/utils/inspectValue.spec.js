@@ -1,7 +1,6 @@
 describe('inspectValue', function() {
 
   beforeEach(function() {
-    window._knownTypes = {};
   })
 
   describe('primitives', function() {
@@ -115,11 +114,11 @@ describe('inspectValue', function() {
 
   describe('known types', function() {
     beforeEach(function() {
-      sinon.stub(_, 'uniqueId', function() {return 'c1'})
+      sinon.stub(window._, 'uniqueId', function() {return 'c1'})
     });
 
     afterEach(function() {
-      _.uniqueId.restore();
+      window._.uniqueId.restore();
     })
 
     it('Backbone.Model', function() {
