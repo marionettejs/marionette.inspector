@@ -1,3 +1,7 @@
 .data-list .nav-tabs {
   margin-top: 14px;
+
+  > li:first-child {
+    margin-left: 8px;
+  }
 }
