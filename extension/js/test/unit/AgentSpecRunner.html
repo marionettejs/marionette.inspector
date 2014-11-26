@@ -16,6 +16,7 @@
     <script src="../../lib/underscore.js"></script>
     <script src="../../test/libs/backbone.js"></script>
     <script src="../../test/libs/marionette.js"></script>
+    <script src="../../agent/build/src/core.js"></script>
 
 
     <script>
@@ -66,6 +67,8 @@
             window.patchBackbone(Backbone);
             window.patchMarionette(Backbone, Marionette);
 
+            window.knownTypes();
+
         });
 
         afterEach(function () {
@@ -86,7 +89,6 @@
         Marionette.Deferred = Backbone.$.Deferred;
     </script>
      -->
-    <script src="../../agent/build/src/core.js"></script>
     <script src="agent/marionette/app-observer.spec.js"></script>
     <script src="agent/marionette/serialize/serializeView.spec.js"></script>
     <script src="agent/marionette/serialize/serializeModel.spec.js"></script>
