@@ -109,7 +109,7 @@ define([
 
       if (data.parentClass) {
         info.parentClass = {
-          name: 'parentClass',
+          name: 'parent class',
           value: data.parentClass
         };
       }
@@ -127,9 +127,12 @@ define([
         var props = _.pick(properties, info.keys);
         ancestors.push({
           properties: props,
-          name: info.name || 'Class Properties'
+          name: info.name || 'Class Properties',
+          path: info.path
         });
       });
+
+      ancestors[0].name = 'Properties';
 
       return ancestors;
     },
@@ -140,11 +143,7 @@ define([
       _.extend(data, this.serializeModel(this.model));
 
       data.info = this.presentInfo(data, infoItems);
-
       data.ancestors = this.presentAncestors(data, infoItems);
-      data.properties = _.omit(data.properties, infoItems,
-        'options', '_events', 'events', 'ui', 'modelEvents', 'collectionEvents', 'el', '$el');
-
       data.el = formatEL(data.el.value);
       data.events = this.presentEvents(this.model);
       data.ui = this.presentUI(this.model.get('ui'));
