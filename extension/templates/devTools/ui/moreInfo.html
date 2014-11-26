@@ -103,21 +103,6 @@
     </div>
   </div>
 
-  <div class="sidebar-pane-title" tabindex="3">
-    Properties
-  </div>
-  <div class="sidebar-pane">
-    <div class="body">
-      <div class="section">
-        <ol data-property-key="" class="properties properties-tree monospace">
-          {{#each properties}}
-            {{> templates/devTools/partials/_property.html this}}
-          {{/each}}
-        </ol>
-      </div>
-    </div>
-  </div>
-
  {{#each ancestors}}
   <div class="sidebar-pane-title" tabindex="3">
     {{name}}
@@ -125,7 +110,7 @@
   <div class="sidebar-pane">
     <div class="body">
       <div class="section">
-        <ol data-property-key="" class="properties properties-tree monospace">
+        <ol data-property-key="{{path}}" class="properties properties-tree monospace">
           {{#each properties}}
             {{> templates/devTools/partials/_property.html this}}
           {{/each}}

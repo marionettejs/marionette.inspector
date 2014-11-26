@@ -27,24 +27,36 @@ this.serializeObject = function(obj) {
   return data;
 };
 
+
+/*
+  ancestorInfo is responsible for traversing the backbone class
+  path and getting the class name, object path, and keys at each point.
+  it will also get information about the instance properties.
+
+  A typical example of this would be
+  [properties, CustomView, ItemView, Marionette View, Backbone View]
+
+  Note: this is super crazy stuff. Budget time for wrapping your mind around it.
+
+  @param obj - object that will be explored. (Usually a backbone view instance)
+*/
 this.ancestorInfo = function(obj) {
   var info = [];
-  var path = 'constructor.prototype';
+  var path = '';
   var parent = obj;
 
   while (true) {
-    parent = objectPath(parent, path);
-    if (!parent) {
-      return info;
-    }
-
     info.push({
       keys: _.without(_.keys(parent), 'length'),
       name: this.serializeClassName(parent),
       path: path
     });
 
-    path += ".constructor.__super__";
+    path = !!path ? path + ".constructor.__super__" : "constructor.prototype";
+    parent = objectPath(obj, path);
+    if (!parent) {
+      return info;
+    }
   };
 
   return info;
@@ -57,7 +69,10 @@ this.serializeClassName = function(obj) {
     return obj._className || '';
   }
 
-  if (obj._className != obj.constructor.__super__._className ) {
+  // @TODO - we do not differenciate between an instance and its class
+  // so if we pass a view instance in, we get back it's class name when
+  // we should just return an empty string.
+  if (obj._className != obj.constructor.__super__._className) {
     return obj._className;
   }
 
@@ -101,7 +116,6 @@ this.serializeObjectProperties = function(object) {
 
   properties.push(instanceProperties);
 
-  // debugger;
   var ancestorInfo = this.ancestorInfo(object);
   _.each(ancestorInfo, function(info) {
     properties.push(this.serializeClass(object, info, true));

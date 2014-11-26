@@ -49,6 +49,19 @@ define([
        });
     },
 
+    /*
+     * onClickProperty tries to find the property you clicked on and
+     * either navigate to it if it's a known object, function, or element or print
+     * it to the console.
+     *
+     * Works with several different types:
+     * 1. view el  (property-name '', property-key 'el')
+     * 2. view options model  (property-name 'options', property-key 'model')
+     * 3. view ancestor functions like trigger (property-key 'constructor.prototype.constructor.__super__', property-name 'trigger')
+     *
+     * @param property-key - the place to find the property
+     * @param property-name - the name of the property we're looking for
+     */
     onClickProperty: function(e) {
       e.stopPropagation();
 
@@ -56,7 +69,10 @@ define([
       var propertyKey = $target.data('property-key') || $target.closest('ol').data('property-key');
       var propertyName = $target.data('property-name');
 
-      if (propertyKey) {
+      if (propertyKey && !propertyKey.match(/\./)) {
+
+        // the property key is probably 'options' or 'attributes'
+        // and we know that we've already serialized that in the model (viewModel or modelModel)
         var property = this.view.model.get(propertyKey);
         if (!property) {
           return
@@ -64,6 +80,15 @@ define([
 
         var object = property[propertyName]
       } else {
+
+        // If we don't have a property key then we're
+        // looking for an object that is in the model's properties
+
+        // If the property key has a period, then we're assuming
+        // we're looking for an property that's in a parent class (constructor.prototype).
+
+        // We do not support getting objects that are nested in one of the properties like (options.foo).
+        // This need might come up at somepoint and we can deal with that then :)
 
         // this is the case where we're looking directly on the instance
         // in the properties.
