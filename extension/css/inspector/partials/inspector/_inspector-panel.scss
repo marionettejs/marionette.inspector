@@ -2,7 +2,7 @@ html, body {
     height: 100%;
 }
 
-.fill { 
+.fill {
     height: 100%;
     overflow: hidden;
 }
@@ -15,10 +15,6 @@ body {
 }
 
 .btn-link {
-    padding: 0;
-}
-
-.container-fluid {
     padding: 0;
 }
 
@@ -107,7 +103,7 @@ body {
 }
 
 @-webkit-keyframes highlight {
-    0%  { background-color: #57A0FF; 
+    0%  { background-color: #57A0FF;
           color: black; }
 }
 .highlight {

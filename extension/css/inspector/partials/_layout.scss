@@ -1,0 +1,37 @@
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+// setup panel scrolling
+.app, .app-layout, .app-layout-body, .app-tool-region, .app-tool, .tool-panel {
+  height: inherit;
+}
+
+
+// acount for the fixed nav bar
+.app-layout {
+    padding-top: 50px;
+}
+
+
+// shared between both panels
+.tool-panel {
+    float: left;
+    overflow: auto;
+}
+
+// panel on the left, with list of info
+.list-panel {
+    width: 40%;
+}
+
+// panel on the right, with details on info
+.info-panel {
+    width: 60%;
+}
