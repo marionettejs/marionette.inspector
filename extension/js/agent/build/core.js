@@ -1,12 +1,12 @@
 
-if (_.isUndefined(window._)) {
+if (typeof window._ == "undefined") {
   // @include ../../lib/underscore.js
 }
 var _ = this._;
 
 
 // add jQuery if it's not there
-if (_.isUndefined(window.$)) {
+if (typeof window.$ == "undefined") {
   // @include ../../lib/jquery.js
 }
 
