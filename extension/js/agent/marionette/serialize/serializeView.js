@@ -1,3 +1,25 @@
+this.serializeEmptyView = function(view) {
+  var data = {};
+
+  data.cid = view.cid;
+  data.isLoading = true;
+  data.options = {};
+  data.ui = {};
+  data.el = {};
+  data.events = {};
+  data._events = {};
+  data.modelEvents = {};
+  data.collectionEvents = {};
+  data.triggers = {};
+  data.properties = {};
+  data.ancestorInfo = {};
+  data._requirePath = '';
+  data._className = '';
+  data.parentClass = '';
+
+  return data;
+};
+
 this.serializeView = function(view) {
   var data = {};
   // debug.log('serializeView', view)
@@ -8,6 +30,7 @@ this.serializeView = function(view) {
 
 
   data.cid = view.cid;
+  data.isLoading = false; // set when a view is registered, but not serialized
 
   data.options = this.serializeObject(view.options);
   data.ui = this.serializeUI(view.ui);

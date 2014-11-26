@@ -1,20 +1,18 @@
 describe('Creating a Model', function() {
 
-  beforeEach(function() {
+  beforeEach(function(done) {
 
     this.sinon.spy(window, 'registerAppComponent')
 
     this.myModel = new Backbone.Model({
       foo: 'bar'
     });
+    setTimeout(done, 500);
   })
 
-  it('calls registerAppComponent', function() {
-    expect(window.registerAppComponent).to.be.called.calledOnce;
-  });
-
   it('callls registerAppComponent with data', function() {
-    var callData = window.registerAppComponent.getCall(0).args[2];
+    var callCount = window.registerAppComponent.callCount;
+    var callData = window.registerAppComponent.getCall(callCount-1).args[2];
 
     expect(callData.attributes.value).to.deep.equal({foo: "bar"});
     expect(callData.attributes.serialized).to.deep.equal({

@@ -38,20 +38,23 @@
        * which means wrapping these libs in a factory that creates a new one.
       */
 
-      delete window.patchedBackbone;
-      delete window.patchedMarionette;
-      delete window._knownTypes;
+
       window.Backbone = window.BackboneFactory();
       window.Marionette = window.MarionetteFactory(Backbone);
       window.patchBackbone(Backbone);
       window.patchMarionette(Backbone, Marionette);
       window.knownTypes();
+      window.lazyWorker = new window.LazyWorker();
 
   });
 
   afterEach(function () {
       this.sinon.restore();
       this.clearFixtures();
+      delete window.patchedBackbone;
+      delete window.patchedMarionette;
+      delete window._knownTypes;
+      delete window.lazyWorker;
       window.location.hash = originalHash;
       Backbone.history.stop();
       Backbone.history.handlers.length = 0;

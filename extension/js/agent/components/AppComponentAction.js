@@ -18,3 +18,5 @@ var AppComponentAction = function(type, name, data, dataKind) {
     this.printDetailsInConsole = function() {
     };
 };
+
+this.AppComponentAction = AppComponentAction;

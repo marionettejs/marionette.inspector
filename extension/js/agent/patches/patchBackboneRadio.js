@@ -41,34 +41,62 @@ this.onNewRadioChannel = function(channel, channelName) {
 };
 
 this.onRadioRequestChange = function(channel, newValue, prop, action, difference, oldvalue) {
-  sendAppComponentReport('Channel:change', {
-    channelName: channel.channelName,
-    data: this.serializeChannelRadio(channel)
+  this.lazyWorker.push({
+    context: this,
+    args: [channel],
+    callback: function() {
+      this.sendAppComponentReport('Channel:change', {
+        channelName: channel.channelName,
+        data: this.serializeChannelRadio(channel)
+      });
+    }
   });
+
   debug.log('channel request change', channel.channelName);
 };
 
 this.onRadioCommandChange = function(channel, newValue, prop, action, difference, oldvalue) {
-  sendAppComponentReport('Channel:change', {
-    channelName: channel.channelName,
-    data: this.serializeChannelRadio(channel)
+  this.lazyWorker.push({
+    context: this,
+    args: [channel],
+    callback: function() {
+      this.sendAppComponentReport('Channel:change', {
+        channelName: channel.channelName,
+        data: this.serializeChannelRadio(channel)
+      });
+    }
   });
+
   debug.log('channel command change', channel.channelName);
 };
 
 this.onRadioEventChange = function(channel, newValue, prop, action, difference, oldvalue) {
-  sendAppComponentReport('Channel:change', {
-    channelName: channel.channelName,
-    data: this.serializeChannelRadio(channel)
+  this.lazyWorker.push({
+    context: this,
+    args: [channel],
+    callback: function() {
+      this.sendAppComponentReport('Channel:change', {
+        channelName: channel.channelName,
+        data: this.serializeChannelRadio(channel)
+      });
+    }
   });
+
   debug.log('channel event change', channel.channelName);
 };
 
 this.reportNewRadioChannel = function(channel, channelName) {
-  sendAppComponentReport('Channel:new', {
-    channelName: channel.channelName,
-    data: this.serializeChannelRadio(channel)
+  this.lazyWorker.push({
+    context: this,
+    args: [channel],
+    callback: function() {
+      this.sendAppComponentReport('Channel:new', {
+        channelName: channel.channelName,
+        data: this.serializeChannelRadio(channel)
+      });
+    }
   });
+
   debug.log('new channel', channel.channelName);
 };
 

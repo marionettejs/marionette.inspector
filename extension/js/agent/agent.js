@@ -22,13 +22,13 @@ this.start = function(Backbone, Marionette) {
   this.patchMarionette(Backbone, Marionette);
 };
 
+this.lazyWorker = new this.LazyWorker();
 
 console.log('Marionette Inspector: window.__agent = ', this);
 sendAppComponentReport('start');
 
 
 window.setTimeout(function() {
-
   if(window.__agent && window.__agent.patchedBackbone) {
     return;
   }
