@@ -459,7 +459,18 @@
 
     };
 
-    setInterval(loop, 50);
+    setInterval(function() {
+        if(!__agent) return
+
+        __agent.lazyWorker.push({
+          context: this,
+          args: [],
+          callback: loop
+        })
+
+    }, 500);
+
+    // setInterval(loop, 50);
 
     WatchJS.watch = watch;
     WatchJS.unwatch = unwatch;

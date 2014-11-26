@@ -59,8 +59,8 @@ define([
           viewCollection: this.options.viewCollection
         }));
 
-        this.viewTreeModel.collapse();
-        this.viewTreeModel.expandPath('app');
+        // this.viewTreeModel.collapse();
+        // this.viewTreeModel.expandPath('app');
       } else {
         this.viewTreeModel.updateNodes(tree.nodes);
       }
@@ -70,6 +70,7 @@ define([
       var viewModel = this.options.viewCollection.findView(data.cid)
 
       if (!viewModel) {
+        console.log('couldnt find the view', data.cid);
         return;
       }
 
