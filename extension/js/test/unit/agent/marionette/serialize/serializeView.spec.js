@@ -48,3 +48,4 @@ describe('serializeView', function() {
   });
 
 })
+
