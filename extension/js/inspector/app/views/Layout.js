@@ -17,7 +17,7 @@ define([
       view: 'app-layout'
     },
 
-    className: 'container-fluid row app-layout',
+    className: 'app-layout',
 
     regions: {
       tool: '[data-region="tool"]'

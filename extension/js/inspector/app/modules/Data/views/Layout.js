@@ -23,6 +23,8 @@ define([
       view: 'data-layout'
     },
 
+    className: 'app-tool',
+
     ui: {
       nav: '[data-nav]'
     },
@@ -30,8 +32,6 @@ define([
     events: {
       'click @ui.nav': 'onNavClick'
     },
-
-    className: "row app-tool",
 
     dataCommands: {
       'show:info': 'showInfo'
