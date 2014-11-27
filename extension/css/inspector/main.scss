@@ -1,3 +1,9 @@
+// utilities
+@import "partials/utility";
+
+// layout
+@import "partials/layout";
+
 // utils
 @import "partials/tree-view";
 
@@ -14,30 +20,3 @@
 @import "partials/inspector/_inspector";
 @import "partials/inspector/_inspector-panel";
 @import "partials/inspector/_inspector-sidebar";
-
-html {
-  height: 100%;
-  padding-left: 20px;
-}
-
-body {
-  height: 100%;
-  padding-top: 50px;
-  overflow:hidden;
-}
-
-// setup panel scrolling
-.app, .app-layout, .app-layout-body, .app-tool-region, .app-tool {
-  height: inherit;
-}
-
-.tool-panel {
-  height: inherit;
-  overflow-y: scroll;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-
-
-

@@ -1,63 +1,58 @@
 
-<div class="app-layout-body col-xs-12">
+<div class="app-layout-body">
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <!-- We use the fluid option here to avoid overriding the fixed width of a normal container within the narrow content columns. -->
-  <div class="container-fluid">
 
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">
-        <img src="img/logo.png"></img>
-      </a>
-    </div>
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#">
+      <img src="img/logo.png"></img>
+    </a>
+  </div>
 
-    <ul class="nav navbar-nav">
-      <li style="padding-top:15px;">
-        <button
-            data-action="search"
-            class="node-search-status-bar-item status-bar-item"
-            title="Select an element in the page to inspect it.">
-            <div class="glyph"></div>
-            <div class="glyph shadow"></div>
-        </button>
-      </li>
+  <ul class="nav navbar-nav">
+    <li style="padding-top:15px;">
+      <button
+          data-action="search"
+          class="node-search-status-bar-item status-bar-item"
+          title="Select an element in the page to inspect it.">
+          <div class="glyph"></div>
+          <div class="glyph shadow"></div>
+      </button>
+    </li>
 
-      <li data-tool='ui' class="{{#active_tool.is_ui}}active{{/active_tool.is_ui}}">
-        <a data-route="ui" href="#">UI</a>
-      </li>
-      <li data-tool='data' class="{{#active_tool.is_data}}active{{/active_tool.is_data}}">
-        <a data-route="data" href="#">Data</a>
-      </li>
-      <li data-tool='radio' class="{{#active_tool.is_radio}}active{{/active_tool.is_radio}}">
-        <a data-route="radio" href="#">Radio</a>
-      </li>
-      <!--
-      <li data-tool='activity' class="{{#active_tool.is_activity}}active{{/active_tool.is_activity}}">
-        <a data-route="activity" href="#">Activity</a>
-      </li>
-      -->
-    </ul>
+    <li data-tool='ui' class="{{#active_tool.is_ui}}active{{/active_tool.is_ui}}">
+      <a data-route="ui" href="#">UI</a>
+    </li>
+    <li data-tool='data' class="{{#active_tool.is_data}}active{{/active_tool.is_data}}">
+      <a data-route="data" href="#">Data</a>
+    </li>
+    <li data-tool='radio' class="{{#active_tool.is_radio}}active{{/active_tool.is_radio}}">
+      <a data-route="radio" href="#">Radio</a>
+    </li>
+    <!--
+    <li data-tool='activity' class="{{#active_tool.is_activity}}active{{/active_tool.is_activity}}">
+      <a data-route="activity" href="#">Activity</a>
+    </li>
+    -->
+  </ul>
 
-  </div><!-- /.container-fluid -->
 </nav>
 
 {{^isAgentActive}}
-  <div data-region="tool" class="app-tool-region col12">
-    <div class="row" style="margin-top:20px;">
-      <div class="col-12">
-        {{#isWaiting}}
-          <h3>Loading...</h3>
-        {{/isWaiting}}
-        {{^hasStarted}}{{^isWaiting}}
-          <button style="margin:0 auto; display: block;" data-action="start" type="button" class="btn btn-primary">Start the Inspector!</button>
-        {{/isWaiting}}{{/hasStarted}}
-      </div>
+  <div data-region="tool" class="app-tool-region">
+    <div style="margin-top:20px;">
+      {{#isWaiting}}
+        <h3>Loading...</h3>
+      {{/isWaiting}}
+      {{^hasStarted}}{{^isWaiting}}
+        <button style="margin:0 auto; display: block;" data-action="start" type="button" class="btn btn-primary">Start the Inspector!</button>
+      {{/isWaiting}}{{/hasStarted}}
     </div>
   </div>
 {{/isAgentActive}}
 {{#isAgentActive}}
   {{#hasLoadFailed}}
-    <div data-region="tool" class="col12">
+    <div data-region="tool">
         <h3>Hey, we could not find your app!</h3>
 
         <p>When the page loads, we look for Backbone and Marionette on the window and inside of define calls</p>
@@ -73,7 +68,7 @@
     </div>
   {{/hasLoadFailed}}
   {{^hasLoadFailed}}
-    <div data-region="tool" class="col12"></div>
+    <div data-region="tool"></div>
   {{/hasLoadFailed}}
 {{/isAgentActive}}
 </div>

@@ -1,0 +1,7 @@
+// Utilities are low-level. They have a very narrow scope and may end up being
+// used frequently, due to their separation from the semantics of the document
+// and the theming of a component.
+
+.u-text--nowrap {
+    white-space: nowrap;
+}
