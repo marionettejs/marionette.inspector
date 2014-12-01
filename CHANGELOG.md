@@ -1,3 +1,39 @@
+## V0.3
+#### 12-1-2014
+
+0.3 Adds tons of features for surfacing view and model properties and making them clickable.
+
++ Views now show their parent class properties
++ Models show the objects that are listening to their events
++ Models have an info pane for cid, collection, _pending, and _changing flags
++ Views have an info pane for cid, element, model, and many other fields.
++ Almost everything in the model and view pane is clickable, which will jump to an element, function, or print a value to the console.
++ The Radio pane now gives the context and function name for events, request, and commands.
+
+There are many more small features bundled in aswell.
+
+### Added
++ Added support for seeing Radio pane handler callback and context for events, requests and commands
++ Added a view info pane for showing the view's cid, element, model, ...
++ Added ancestor class panes for views. A typical view will now have a pane for (Marionette.ItemView, Marionette.View, and Backbone.View properties)
++ Added support for clicking on View and Model Properties
++ Added support for clicking on Backbone Models and Backbone Views
++ Added support for looking up an ononymous function's name based on the object it was defined in.
++ Added an inspectValue keys field for when a value is defined in an object.
++ Improved the Model info pane to show the cid, id, _pending, _changing, _listenerId, and collection field
++ Added support for showing a model's listeners, which lists the objects listening to the model.
+
+### Fixed
++ Fixed the tests to better handle global __agent methods
++ Fixed a bug where Marionette is defined on Backbone and in its own module
++ Fixed a bug where `define` did not work with 3rd party libraries
++ Fixed the bootstrap responsive nav - so that it stops showing the nav button on small widths.
++ Fixed "file not found" errors w/ requirejs
+
+### Changed
++ Re-organized the inspector's styles. They're now decently well factored in partials.
++ Cleaned up the serializing naming conventions to be more consistent. (Added inspectObject)
+
 ## V0.2.1
 #### 11-20-2014
 
