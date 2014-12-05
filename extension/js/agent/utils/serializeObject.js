@@ -86,7 +86,8 @@ this.serializeClass = function(object, info, shouldMemoize) {
 
   var serializeObject = objectPath(object, info.path);
 
-  if (this.classPropertyCache[info.name]) {
+  if (this.classPropertyCache[info.name]
+      && info.keys == _.keys(this.classPropertyCache[info.name])) {
     return this.classPropertyCache[info.name];
   }
 
