@@ -23,11 +23,11 @@ define([
   return function(data) {
     client.exec(function(data) {
 
-      // console.log('!!! inside inspect Function', data.type)
+      // console.log('!!! inside inspect Function', data);
       var typeRegistry = this.appComponentsInfo[data.type];
 
       // console.log('!!! just got the type registry', typeRegistry)
-      var appComponentInfo = _.find(typeRegistry, function(appComponentInfo) {
+      var appComponentInfo = this._.find(typeRegistry, function(appComponentInfo) {
         return appComponentInfo.component.cid == data.cid;
       });
 
@@ -49,12 +49,12 @@ define([
         prop = prop[0];
       }
 
-
       // console.log('found prop', prop);
       // inspect a function
-      if (_.isFunction(prop)) {
+      if (this._.isFunction(prop)) {
         if (prop.toString().match(/native code/)) {
-          console.log('Mn: ', prop);
+          window.temp = prop;
+          console.log('Mn: temp = ', prop);
         } else {
           inspect(prop);
         }
