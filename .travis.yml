@@ -8,3 +8,6 @@ before_install:
 
 before_script:
   - grunt agent
+
+after_success:
+  - grunt coverage --mocha-reporter=dot
