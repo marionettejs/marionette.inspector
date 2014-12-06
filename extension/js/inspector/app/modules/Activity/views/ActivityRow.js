@@ -51,7 +51,8 @@ define([
       _.extend(data, this.serializeModel(this.model));
       data.depth_class = "depth-" + this.model.get('data').depth;
       data.index = this.model.collection.indexOf(this.model);
+      data.elapsed = this.model.get('data').end - this.model.get('data').start;
       return data;
     }
   });
-})
+});
