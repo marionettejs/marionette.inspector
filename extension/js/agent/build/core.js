@@ -131,6 +131,7 @@ var Marionette = this.Marionette;
  */
 
 // @include ../marionette/knownTypes.js
+// @include ../marionette/serialize/serializeEvent.js
 // @include ../marionette/serialize/serializeEventsHash.js
 // @include ../marionette/serialize/serializeElement.js
 // @include ../marionette/serialize/serializeView.js
