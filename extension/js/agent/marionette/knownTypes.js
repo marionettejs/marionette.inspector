@@ -155,8 +155,8 @@ this.knownTypes = function() {
       'Marionette.Behavior': {
         type: this.patchedMarionette.Behavior,
         name: 'marionette-behavior',
-        cid: function(obj) { return undefined },
-        toString: function(obj) {return '<Marionette.Behavior>'}
+        cid: function(obj) { return obj.__marionette_inspector__cid },
+        toString: function(obj) {return '<Marionette.Behavior ' + obj.__marionette_inspector__cid + '>'}
       }
     });
   }
