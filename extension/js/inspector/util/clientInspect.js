@@ -23,25 +23,10 @@ define([
   return function(data) {
     client.exec(function(data) {
 
-      // console.log('!!! inside inspect Function', data);
-      var typeRegistry = this.appComponentsInfo[data.type];
-
-      // console.log('!!! just got the type registry', typeRegistry)
-      var appComponentInfo = this._.find(typeRegistry, function(appComponentInfo) {
-        return appComponentInfo.component.cid == data.cid;
-      });
-
-      // console.log('!!! just found an ACI', appComponentInfo, data.cid)
-
-      // if we find an app component info object, we'll grab the component
-      // that it holds and use that!
-      if (appComponentInfo) {
-        object = appComponentInfo.component;
-      } else {
-        return;
-      }
+      var object = this.getAppComponentByTypeAndCid(data.type, data.cid);
 
       var prop = this.objectPath(object, data.path);
+
       // console.log('!!! found prop', prop)
 
       // if it's a jquery object, get the first element
