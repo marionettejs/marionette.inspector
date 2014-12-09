@@ -30,6 +30,7 @@ this.patchMarionette = (function(agent) {
 
     assignClassNames(Backbone, Marionette);
     this.patchMarionetteApplication(Marionette.Application);
+    this.patchMarionetteBehavior(Marionette.Behavior);
   }
 
 }(this));

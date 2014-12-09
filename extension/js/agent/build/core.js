@@ -119,6 +119,7 @@ var Marionette = this.Marionette;
 // @include ../patches/patchBackboneCollection.js
 // @include ../patches/patchBackboneRouter.js
 // @include ../patches/patchMarionetteApplication.js
+// @include ../patches/patchMarionetteBehavior.js
 // @include ../patches/patchWindow.js
 // @include ../patches/patchBackbone.js
 // @include ../patches/patchMarionette.js
