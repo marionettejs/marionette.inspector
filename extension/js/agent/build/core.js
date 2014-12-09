@@ -92,6 +92,7 @@ var Marionette = this.Marionette;
 // @include ../components/getAppComponentsIndexes.js
 // @include ../components/getAppComponentInfo.js
 // @include ../components/getAppComponentInfoByIndex.js
+// @include ../components/getAppComponentByTypeAndCid.js
 // @include ../components/getAppViewInfoFromElement.js
 // @include ../components/setAppComponentInfo.js
 // @include ../components/registerAppComponent.js
