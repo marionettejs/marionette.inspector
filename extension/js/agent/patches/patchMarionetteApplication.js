@@ -4,6 +4,14 @@ this.patchMarionetteApplication = function(MarionetteApplication) {
   patchBackboneComponent(MarionetteApplication, _.bind(function(app) {
     debug.log("Marionette.Application detected");
 
+    Object.defineProperty(app, '__marionette_inspector__cid', {
+      enumerable: false,
+      writable: false,
+      value: _.uniqueId('c')
+    });
+
+    var data = {};
+    var applicationIndex = registerAppComponent("Application", app, data);
     sendAppComponentReport('app:found');
 
     var appIndex = registerAppComponent("Application", app);
