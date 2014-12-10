@@ -15,11 +15,11 @@
           {{/each}}
           <li data-property-name="el">
             <span class="name">$el</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined"> [{{{el}}}] </span>
+            <span class="value console-formatted-undefined clickable-property" title="undefined"> [{{{el}}}] </span>
           </li>
           <li data-property-name="el">
             <span class="name">el</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined"> {{{el}}} </span>
+            <span class="value console-formatted-undefined clickable-property" title="undefined"> {{{el}}} </span>
           </li>
         </ol>
       </div>
@@ -53,7 +53,7 @@
           {{#each ui}}
           <li data-property-name="{{name}}">
             <span class="name">{{name}}</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined">
+            <span class="value console-formatted-undefined clickable-property" title="undefined">
               {{{value}}}
             </span>
           </li>
@@ -76,7 +76,7 @@
           <li data-event="{{handler}}">
             <span class="name">{{event}}</span>
             <span class="separator">: </span>
-            <span data-property-name={{handler}} class="value console-formatted-undefined" title="undefined">{{handler}}</span>
+            <span data-property-name={{handler}} class="value console-formatted-undefined clickable-property" title="undefined">{{handler}}</span>
           </li>
           {{/each}}
         </ol>
