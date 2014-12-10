@@ -57,8 +57,8 @@ define([
         model: this.activityRoot
       }));
 
-      this.activityRoot.collapse();
-      this.activityRoot.expandPath('root');
+      // this.activityRoot.collapse();
+      // this.activityRoot.expandPath('root');
     },
 
     showInfo: function(activityModel) {
