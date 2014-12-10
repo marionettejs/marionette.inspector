@@ -35,6 +35,5 @@ var patchWindow = function(patchBackbone, patchMarionette) {
   }
 
   waitForBackboneLoad(onBackboneLoaded);
-  waitForMarionetteLoad(window, onMarionetteLoaded);
 };
 
