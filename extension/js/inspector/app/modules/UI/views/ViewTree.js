@@ -116,14 +116,13 @@ define([
     },
 
     unhighlightViewOnPage: function() {
-      Radio.command('ui', 'unhighlight-view', {
-        viewPath: this.model.get('path'),
-      });
+      Radio.command('ui', 'unhighlight-element');
     },
 
     highlightViewOnPage: function() {
-      Radio.command('ui', 'highlight-view', {
-        viewPath: this.model.get('path'),
+      Radio.command('ui', 'highlight-element', {
+        cid: this.model.get('cid'),
+        path: '$el'
       });
     },
 
