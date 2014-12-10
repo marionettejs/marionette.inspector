@@ -31,9 +31,12 @@ var patchWindow = function(patchBackbone, patchMarionette) {
     debug.log('marionette loaded');
 
     var Marionette = window.Marionette || loadedBackbone.Marionette;
-    patchMarionette(loadedBackbone, Marionette);
+    if (loadedBackbone) {
+      patchMarionette(loadedBackbone, Marionette);
+    }
   }
 
   waitForBackboneLoad(onBackboneLoaded);
+  waitForMarionetteLoad(window, onMarionetteLoaded);
 };
 
