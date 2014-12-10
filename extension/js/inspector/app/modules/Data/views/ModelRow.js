@@ -12,10 +12,12 @@ define([
 
     ui: {
       moreInfoLink: "[data-action='info']",
+      log: "[data-action='log']",
     },
 
     events: {
-      "click @ui.moreInfoLink": "onClickInfo"
+      "click @ui.moreInfoLink": "onClickInfo",
+      "click @ui.log": 'onClickLog'
     },
 
     modelEvents: {
@@ -34,6 +36,12 @@ define([
       Radio.command('data', 'show:info', {
         type: 'model',
         instance: this.model
+      });
+    },
+
+    onClickLog: function() {
+      Radio.command('data', 'log', {
+        cid: this.model.get('cid')
       });
     },
 
