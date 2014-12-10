@@ -1,7 +1,7 @@
 ;(function(agent) {
 
   agent.getAppComponentByTypeAndCid = function(type, cid) {
-    console.log('!!! inside inspect Function', type, cid);
+    // console.log('!!! inside inspect Function', type, cid);
     var typeRegistry = agent.appComponentsInfo[type];
     // console.log('!!! just got the type registry', typeRegistry)
 

@@ -1,7 +1,24 @@
-.data-list .nav-tabs {
-  margin-top: 14px;
+.data-list {
+  .nav-tabs {
+    margin-top: 14px;
 
-  > li:first-child {
-    margin-left: 8px;
+    > li:first-child {
+      margin-left: 8px;
+    }
   }
+
+  .model-row {
+    position: relative;
+
+    .right-button {
+      position: relative;
+    }
+
+    &:hover {
+      .right-button {
+        display: block;
+      }
+    }
+  }
+
 }
