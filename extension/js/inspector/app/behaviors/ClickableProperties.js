@@ -4,8 +4,9 @@ define([
   'client',
   'util/isViewType',
   'util/clientInspect',
-  'util/isKnownType'
-], function(Marionette, Radio, client, isViewType, clientInspect, isKnownType) {
+  'util/isKnownType',
+  'util/isTypeNavigable',
+], function(Marionette, Radio, client, isViewType, clientInspect, isKnownType, isTypeNavigable) {
 
   return Marionette.Behavior.extend({
     ui: {
@@ -39,7 +40,7 @@ define([
       var type = $property.data('property-context-type');
       var cid = $property.data('property-context-cid');
 
-      if(isKnownType(type)) {
+      if(isTypeNavigable(type)) {
         this.navigateTo({
           type: type,
           cid: cid
@@ -127,7 +128,7 @@ define([
         path = propertyName;
       }
 
-      if (isKnownType(object)) {
+      if (isTypeNavigable(object)) {
         this.navigateTo(object);
       } else {
         this.view.model.clientInspect(path);
