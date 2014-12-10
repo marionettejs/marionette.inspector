@@ -8,7 +8,10 @@
       <div class="section expanded">
         <ol class="properties properties-tree monospace">
           {{#each events}}{{#each this}}
-          <li data-property-context-type="{{context.type}}" data-property-context-cid="{{context.cid}}" data-property-callback-key="{{callback.key}}">
+          <li
+            data-property-context-type="{{context.type}}"
+            data-property-context-cid="{{context.cid}}"
+            data-property-callback-key="{{callback.key}}">
             <span class="name">{{name}}</span><span class="separator">: </span>
             <span class="value console-formatted-undefined" title="undefined">
               <span data-property-value-context>
@@ -38,7 +41,10 @@
       <div class="section expanded">
         <ol class="properties properties-tree monospace">
           {{#each commands}}
-          <li data-property-context-type="{{context.type}}" data-property-context-cid="{{context.cid}}" data-property-callback-key="{{callback.key}}">
+          <li
+            data-property-context-type="{{context.type}}"
+            data-property-context-cid="{{context.cid}}"
+            data-property-callback-key="{{callback.key}}">
             <span class="name">{{name}}</span><span class="separator">: </span>
             <span class="value console-formatted-undefined" title="undefined">
               <span data-property-value-context>
@@ -68,9 +74,13 @@
       <div class="section expanded">
         <ol class="properties properties-tree monospace">
           {{#each requests}}
-          <li title="" style="">
+          <li
+            data-property-context-type="{{context.type}}"
+            data-property-context-cid="{{context.cid}}"
+            data-property-callback-key="{{callback.key}}">
+
             <span class="name">{{name}}</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined">
+            <span class="value console-formatted-undefined">
               <span data-property-value-context>
                 {{context.inspect}}
               </span>
