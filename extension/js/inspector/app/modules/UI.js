@@ -29,8 +29,8 @@ define([
     appName: 'ui',
 
     uiCommands: {
-      'highlight-view': 'highlightView',
-      'unhighlight-view': 'unhighlightView',
+      'highlight-element': 'highlightElement',
+      'unhighlight-element': 'unhighlightElement',
       'search:start': 'startSearch',
       'search:stop': 'stopSearch',
       'log': 'log'
@@ -153,17 +153,22 @@ define([
     log: function(data) {
       this.client.exec(function(data) {
         var view = this.appObserver.getView(data.viewPath);
-        window.temp = view;
-        console.log('MN: temp = ', view);
+        this.printProperty(view);
       }, [data]);
     },
 
-    highlightView: function(data) {
-      this.client.appObserverCall('highlightView', data);
+    highlightElement: function(data) {
+      this.client.exec(function(data) {
+        var view = this.getAppComponentByTypeAndCid('View', data.cid);
+        var element = this.objectPath(view, data.path);
+        this.highlightEl(element);
+      }, [data]);
     },
 
-    unhighlightView: function(data) {
-      this.client.appObserverCall('unhighlightView', data);
+    unhighlightElement: function(data) {
+      this.client.exec(function(data) {
+        this.unhighlightEl();
+      }, [data]);
     },
 
     startSearch: function() {

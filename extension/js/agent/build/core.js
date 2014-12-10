@@ -54,6 +54,8 @@ var Marionette = this.Marionette;
 // @include ../utils/inspectValue.js
 // @include ../utils/serializeObject.js
 // @include ../utils/findKey.js
+// @include ../utils/printProperty.js
+
 
 
 
@@ -92,6 +94,7 @@ var Marionette = this.Marionette;
 // @include ../components/getAppComponentsIndexes.js
 // @include ../components/getAppComponentInfo.js
 // @include ../components/getAppComponentInfoByIndex.js
+// @include ../components/getAppComponentByTypeAndCid.js
 // @include ../components/getAppViewInfoFromElement.js
 // @include ../components/setAppComponentInfo.js
 // @include ../components/registerAppComponent.js
@@ -119,6 +122,10 @@ var Marionette = this.Marionette;
 // @include ../patches/patchBackboneCollection.js
 // @include ../patches/patchBackboneRouter.js
 // @include ../patches/patchMarionetteApplication.js
+// @include ../patches/patchMarionetteBehavior.js
+// @include ../patches/patchMarionetteModule.js
+// @include ../patches/patchMarionetteController.js
+// @include ../patches/patchMarionetteObject.js
 // @include ../patches/patchWindow.js
 // @include ../patches/patchBackbone.js
 // @include ../patches/patchMarionette.js
@@ -131,6 +138,7 @@ var Marionette = this.Marionette;
  */
 
 // @include ../marionette/knownTypes.js
+// @include ../marionette/serialize/serializeEvent.js
 // @include ../marionette/serialize/serializeEventsHash.js
 // @include ../marionette/serialize/serializeElement.js
 // @include ../marionette/serialize/serializeView.js

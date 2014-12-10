@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="294px" height="364px" viewBox="0 0 294 364" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Vector">
+            <g id="Crossbars" transform="translate(46.000000, 0.000000)">
+                <path d="M28,85 L28,70 L69,52 L89,60 L30,85 L28,85 Z" id="Bottom-Right" fill="#A7A9AC"></path>
+                <path d="M114,85 L114,70 L155,52 L175,60 L116,85 L114,85 Z" id="Bottom-Left" fill="#BCBDC0" transform="translate(144.500000, 68.500000) scale(-1, 1) translate(-144.500000, -68.500000) "></path>
+                <path d="M12,20 L101,55 L101,65.0498756 L39,89 L28,85 L88,60 L0,27 L12,20 Z M190,20 L101,55 L101,65.0498756 L163,89 L174,85 L114,60 L202,27 L190,20 Z" fill="#818285"></path>
+                <g id="Top-Left" fill="#BCBDC0">
+                    <path d="M0,27 L2,7 L13,0 L12,20 L0,27 Z" id="Path-11"></path>
+                    <path d="M13,0 L101,38 L101,55.0312195 L12,20 L13,0 Z" id="Path-13"></path>
+                </g>
+                <g id="Top-Right" transform="translate(151.500000, 28.000000) scale(-1, 1) translate(-151.500000, -28.000000) translate(101.000000, 0.000000)">
+                    <path d="M0,27 L2,7 L13,0 L12,20 L0,27 Z" id="Path-11" fill="#BCBDC0"></path>
+                    <path d="M13,0 L101,38 L101,55.0312195 L12,20 L13,0 Z" id="Path-13" fill="#A7A9AC"></path>
+                </g>
+            </g>
+            <g id="Strings" transform="translate(47.000000, 27.000000)" stroke="#939598" stroke-width="4" stroke-linecap="round">
+                <path d="M11,0 L0,109" id="Path-18"></path>
+                <path d="M200,0 L189,109" id="Path-18" transform="translate(194.500000, 54.500000) scale(-1, 1) translate(-194.500000, -54.500000) "></path>
+                <path d="M39,58 L70,132 L39,58 Z" id="Path-20" stroke-linejoin="round"></path>
+                <path d="M129,58 L160,132 L129,58 Z" id="Path-21" stroke-linejoin="round" transform="translate(144.500000, 95.000000) scale(-1, 1) translate(-144.500000, -95.000000) "></path>
+            </g>
+            <g id="M" transform="translate(0.000000, 123.000000)">
+                <path d="M92,0 C92,6.99440506e-15 147,66 147,66 L147,164 C147,164 106,138 82,104 C74,92 73,4 92,0 Z" id="Path-3" fill="#A81E2C"></path>
+                <path d="M161.299461,0 C161.299461,6.99440506e-15 217.299461,66 217.299461,66 L217.299461,164 C217.299461,164 176.299461,138 152.299461,104 C144.299461,92 142.299461,4 161.299461,0 Z" id="Path-3" fill="#931A2B" transform="translate(181.899731, 82.000000) scale(-1, 1) translate(-181.899731, -82.000000) "></path>
+                <circle id="Oval-5" fill="#FFFFFF" cx="146.5" cy="114.5" r="4.5"></circle>
+                <path d="M147,115 L83,56" id="Path-7" stroke="#989A9D" stroke-width="4" stroke-linecap="round"></path>
+                <path d="M211,115 L147,56" id="Path-7" stroke="#989A9D" stroke-width="4" stroke-linecap="round" transform="translate(179.000000, 85.500000) scale(-1, 1) translate(-179.000000, -85.500000) "></path>
+                <path d="M9,14 C9,14 -10.9999995,139 10.0000005,232 C10.0000005,233 92.9999995,241 92.9999995,241 C92.9999995,241 72,102 91.9999995,-1.42108547e-14 L9,14 Z" id="left-m-front" fill="#CF2227"></path>
+                <path d="M210,14 C210,14 190,139 211,232 C211,233 294,241 294,241 C294,241 273,102 293,-1.42108547e-14 L210,14 Z" id="right-m-front" fill="#CF2227" transform="translate(247.700081, 120.500000) scale(-1, 1) translate(-247.700081, -120.500000) "></path>
+                <g id="String-Left" transform="translate(39.000000, 33.000000)">
+                    <circle id="Oval-1" fill="#860709" cx="6" cy="4" r="4"></circle>
+                    <circle id="Oval-1" fill="#FFFFFF" cx="6" cy="170" r="4"></circle>
+                    <path d="M6,5 C6,6 -6.00000011,87 6,170" id="Path-5" stroke="#939598" stroke-width="4" stroke-linecap="round"></path>
+                </g>
+                <g id="String-Right" transform="translate(249.500000, 120.000000) scale(-1, 1) translate(-249.500000, -120.000000) translate(244.500000, 33.000000)">
+                    <circle id="Oval-1" fill="#860709" cx="6" cy="4" r="4"></circle>
+                    <circle id="Oval-1" fill="#FFFFFF" cx="6" cy="170" r="4"></circle>
+                    <path d="M6,5 C6,6 -6.00000011,87 6,170" id="Path-5" stroke="#939598" stroke-width="4" stroke-linecap="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

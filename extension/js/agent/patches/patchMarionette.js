@@ -30,6 +30,13 @@ this.patchMarionette = (function(agent) {
 
     assignClassNames(Backbone, Marionette);
     this.patchMarionetteApplication(Marionette.Application);
+    this.patchMarionetteBehavior(Marionette.Behavior);
+    this.patchMarionetteModule(Marionette.Module);
+    this.patchMarionetteController(Marionette.Controller);
+
+    if (Marionette.Object) {
+      this.patchMarionetteObject(Marionette.Object);
+    }
   }
 
 }(this));

@@ -49,9 +49,10 @@ define([
     serializeData: function() {
       var data = {};
       _.extend(data, this.serializeModel(this.model));
-      data.depth_class = "depth-" + this.model.get('data').depth;
+      data.depth_class = "depth-" + this.model.get('depth');
       data.index = this.model.collection.indexOf(this.model);
+      data.elapsed = this.model.get('end') - this.model.get('start');
       return data;
     }
   });
-})
+});
