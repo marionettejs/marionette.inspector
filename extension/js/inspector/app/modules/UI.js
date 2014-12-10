@@ -153,8 +153,7 @@ define([
     log: function(data) {
       this.client.exec(function(data) {
         var view = this.appObserver.getView(data.viewPath);
-        window.temp = view;
-        console.log('MN: temp = ', view);
+        this.printProperty(view);
       }, [data]);
     },
 
