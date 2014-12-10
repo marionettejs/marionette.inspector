@@ -54,6 +54,8 @@ var Marionette = this.Marionette;
 // @include ../utils/inspectValue.js
 // @include ../utils/serializeObject.js
 // @include ../utils/findKey.js
+// @include ../utils/printProperty.js
+
 
 
 

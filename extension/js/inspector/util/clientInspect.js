@@ -53,7 +53,7 @@ define([
 
       // print any old property that's clicked
       else {
-        console.log('Mn: ', prop);
+        this.printProperty(prop);
       }
     }, [data])
   }
