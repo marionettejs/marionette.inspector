@@ -14,11 +14,11 @@
             data-property-callback-key="{{callback.key}}">
             <span class="name">{{name}}</span><span class="separator">: </span>
             <span class="value console-formatted-undefined" title="undefined">
-              <span data-property-value-context>
+              <span data-property-value-context  class="clickable-property">
                 {{context.inspect}}
               </span>
 
-              <span data-property-value-callback>
+              <span data-property-value-callback class="clickable-property">
                 {{#if callback.key}}
                   {{callback.key}}
                 {{else}}
@@ -47,11 +47,11 @@
             data-property-callback-key="{{callback.key}}">
             <span class="name">{{name}}</span><span class="separator">: </span>
             <span class="value console-formatted-undefined" title="undefined">
-              <span data-property-value-context>
+              <span data-property-value-context class="clickable-property">
                 {{context.inspect}}
               </span>
 
-              <span data-property-value-callback>
+              <span data-property-value-callback class="clickable-property">
                 {{#if callback.key}}
                   {{callback.key}}
                 {{else}}
@@ -81,11 +81,11 @@
 
             <span class="name">{{name}}</span><span class="separator">: </span>
             <span class="value console-formatted-undefined">
-              <span data-property-value-context>
+              <span data-property-value-context class="clickable-property">
                 {{context.inspect}}
               </span>
 
-              <span data-property-value-callback>
+              <span data-property-value-callback class="clickable-property">
                 {{#if callback.key}}
                   {{callback.key}}
                 {{else}}
