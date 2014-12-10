@@ -11,10 +11,9 @@ this.patchMarionetteApplication = function(MarionetteApplication) {
     });
 
     var data = {};
-    var applicationIndex = registerAppComponent("Application", app, data);
     sendAppComponentReport('app:found');
+    var appIndex = registerAppComponent("Application", app, data);
 
-    var appIndex = registerAppComponent("Application", app);
     if (appIndex === 0) {
       this.patchedApp = app;
       debug.log("Main Marionette application registered");

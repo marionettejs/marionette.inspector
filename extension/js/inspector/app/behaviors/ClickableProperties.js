@@ -33,20 +33,40 @@ define([
      */
     onClickContext: function(e) {
       e.stopPropagation();
-      var property = this._indexedProperty($(e.currentTarget));
-      var object = property.context;
-      this.navigateTo(object);
+      var $target = $(e.currentTarget);
+      var $property = $target.closest('li');
+
+      var type = $property.data('property-context-type');
+      var cid = $property.data('property-context-cid');
+
+      if(isKnownType(type)) {
+        this.navigateTo({
+          type: type,
+          cid: cid
+        });
+      } else {
+        clientInspect({
+          type: this.toRegistryType(type),
+          cid: cid,
+          path: ''
+        });
+      }
     },
 
     onClickCallback: function(e) {
       e.stopPropagation();
-      var property = this._indexedProperty($(e.currentTarget));
+      var $target = $(e.currentTarget);
+      var $property = $target.closest('li');
+
+      var type = $property.data('property-context-type');
+      var cid = $property.data('property-context-cid');
+      var key = $property.data('property-callback-key');
 
       clientInspect({
-        type: isViewType(property.context) ? 'View' : 'Model', // view
-        cid: property.context.cid, // view27
-        path: property.callback.key // render
-       });
+        type: this.toRegistryType(type),
+        cid: cid,
+        path: key
+      });
     },
 
     /*
@@ -112,6 +132,24 @@ define([
       } else {
         this.view.model.clientInspect(path);
       }
+    },
+
+    /**
+     converts a inspectValue type to a registry type
+     in practice it looks like type-marionette-view => View
+    */
+    toRegistryType: function(type) {
+      function upperCase(str) {
+        return str.charAt(0).toUpperCase() + str.substring(1)
+      }
+
+      if (isViewType(type)) {
+        type = "View";
+      } else {
+        type = upperCase(_.last(type.split('-')));
+      }
+
+      return type;
     },
 
     navigateTo: function(object) {
