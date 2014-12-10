@@ -24,10 +24,10 @@ define([
     client.exec(function(data) {
 
       var object = this.getAppComponentByTypeAndCid(data.type, data.cid);
-
       var prop = this.objectPath(object, data.path);
 
-      // console.log('!!! found prop', prop)
+      // console.log('!!! data', data);
+      // console.log('!!! found prop', data.path, prop)
 
       // if it's a jquery object, get the first element
       if (prop instanceof jQuery) {
@@ -35,6 +35,7 @@ define([
       }
 
       // console.log('found prop', prop);
+
       // inspect a function
       if (this._.isFunction(prop)) {
         if (prop.toString().match(/native code/)) {
