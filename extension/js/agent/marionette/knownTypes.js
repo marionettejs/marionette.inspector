@@ -129,7 +129,7 @@
         type: agent.patchedMarionette.Module,
         name: 'marionette-module',
         className: 'Marionette.Module',
-        cid: function(obj) { return obj.cid },
+        cid: function(obj) { return obj.__marionette_inspector__cid },
         toString: function() {return '<Marionette.Module>'}
       },
 
@@ -137,7 +137,7 @@
         type: agent.patchedMarionette.Controller,
         name: 'marionette-controller',
         className: 'Marionette.Controller',
-        cid: function(obj) { return '' },
+        cid: function(obj) { return obj.__marionette_inspector__cid },
         toString: toString
       },
 
@@ -166,7 +166,7 @@
           type: agent.patchedMarionette.Object,
           name: 'marionette-object',
           className: 'Marionette.Object',
-          cid: function(obj) { return '' },
+          cid: function(obj) { return obj.__marionette_inspector__cid },
           toString: toString
         }
       });
