@@ -8,14 +8,7 @@ this.patchMarionetteController = function(MarionetteController) {
     }
 
     patchBackboneComponent(MarionetteController, bind(function(controller) { // on new instance
-
-        // controller dont have cids
-        Object.defineProperty(controller, '__marionette_inspector__cid', {
-          enumerable: false,
-          writable: false,
-          value: _.uniqueId('c')
-        });
-
+        this.addCidToComponent(controller);
         var data = {};
         var controllerIndex = registerAppComponent("Controller", controller, data);
     }, this));

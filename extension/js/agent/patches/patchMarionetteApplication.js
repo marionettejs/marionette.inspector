@@ -3,12 +3,7 @@ this.patchMarionetteApplication = function(MarionetteApplication) {
 
   patchBackboneComponent(MarionetteApplication, _.bind(function(app) {
     debug.log("Marionette.Application detected");
-
-    Object.defineProperty(app, '__marionette_inspector__cid', {
-      enumerable: false,
-      writable: false,
-      value: _.uniqueId('c')
-    });
+    this.addCidToComponent(app);
 
     var data = {};
     sendAppComponentReport('app:found');
