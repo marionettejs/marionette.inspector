@@ -162,7 +162,7 @@ define([
                         _.each(scripts[scriptsType], function(scriptRelativeURL, index) {
                             var scriptURL = appBasePath+"/"+scriptRelativeURL;
                             utils.httpRequest("get", scriptURL, function(data) {
-                                scripts[scriptsType][index] = "//@ sourceURL=" +scriptURL + "\n\n" + data; // replace script relative url with its content
+                                scripts[scriptsType][index] = data; // replace script relative url with its content
                                 scriptsLoaded++;
 
                                 if (scriptsLoaded === scriptsLength) {
@@ -182,7 +182,10 @@ define([
                                         + scripts.files.join('\n\n') + '\n\n'
                                 + '})('+JSON.stringify(injectionData)+');' + '\n'; // last "\n" prevents eventual EOF error
 
-                    var toInject = dependenciesCode + appCode;
+
+                    var sourceURL =  "//@ sourceURL="+appBasePath+"/agent.js\n\n";
+                    var toInject = sourceURL + dependenciesCode + appCode;
+
 
                     // Reload the inspected page with the code to inject at the beginning of it
                     me.isInjecting = true;
