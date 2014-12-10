@@ -13,11 +13,11 @@ describe('serializeObject', function() {
     it('serializes properties', function() {
       var classData = this.data[0];
       expect(classData.name).to.equal('Class');
-      expect(classData.keys).to.deep.equal([
+      expect(classData.keys).to.contain(
         "render", "options", "events", "cid",
-        "$el", "el", "trigger", "ui", "remove",
+        "$el", "el", "trigger", "remove",
         "_listeningTo", "_listenId", "_events"
-      ]);
+      );
     });
 
     it('serializes Class', function() {
@@ -33,12 +33,12 @@ describe('serializeObject', function() {
 
     it('serializes Marionette View', function() {
       var classData = this.data[3];
-      expect(classData.name).to.equal('Marionette View');
+      expect(classData.name).to.equal('Marionette.View');
     });
 
     it('serializes Backbone View', function() {
       var classData = this.data[4];
-      expect(classData.name).to.equal('Backbone View');
+      expect(classData.name).to.equal('Backbone.View');
     });
   })
 })
