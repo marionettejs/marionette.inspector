@@ -1,35 +1,52 @@
-#app-header {
-  margin-bottom: 10px;
-  border-bottom: 1px solid #ccc;
-  padding: 10px 0px;
-}
+.app-header {
 
-#app-header ul.nav-pills > li.active a {
-  color: #333;
-  background-color: #fff;
-}
 
-//
-//  Override the Bootstrap responsive nav
-// --------------------------------------------
-.navbar-header {
-  float: left;
-}
+  //
+  //  Override the Bootstrap responsive nav
+  // --------------------------------------------
+  &.navbar {
+    height:30px;
+    min-height: 30px;
+    margin-bottom: 0px;
+  }
 
-.navbar-nav {
-  float: left;
-  margin: 0;
-
-  > li {
+  .navbar-header {
     float: left;
   }
 
-  > li > a {
-    padding-bottom: 15px;
-    padding-top: 15px;
-  }
-}
+  .navbar-nav {
+    float: left;
+    margin: 0;
 
-.navbar-brand {
-  padding-top: 10px;
+    > li {
+      float: left;
+    }
+
+    > li > a {
+      padding-bottom: 5px;
+      padding-top: 5px;
+      font-size: 13px;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    .mag {
+      padding-top:4px;
+      width:25px;
+    }
+  }
+
+  .navbar-brand {
+    height:30px;
+    padding-top: 2px;
+    margin-right: 5px;
+    padding-right: 0px;
+
+    img {
+      height: 15px;
+      width: 12px;
+    }
+  }
+
+
 }
