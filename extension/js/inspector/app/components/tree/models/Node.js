@@ -22,16 +22,19 @@ define([
     Collection: undefined,
 
     initialize: function(attributes, options) {
-      this.level = (options || {}).level || 1;
+      options = options || {};
+      this.level = options.level || 1;
+      this.createNodes();
     },
 
-    parse: function (data, options) {
-      if (data.nodes) {
-        if (!this.nodes) this.nodes = new this.Collection(null, { level: this.level });
-        this.nodes.reset(data.nodes);
-        data.nodes = undefined; // soft delete
+    createNodes: function() {
+      if (this.get('nodes')) {
+        this.nodes = new this.Collection(this.get('nodes'), {
+          level: this.level
+        });
+
+        this.unset('nodes');
       }
-      return data;
     },
 
     hasNodes: function() {
