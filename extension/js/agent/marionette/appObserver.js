@@ -28,10 +28,6 @@ _.extend(AppObserver.prototype, {
       return;
     }
 
-    // unhighlight all of the views
-    var $els = _.pluck(this.viewList(), '$el');
-    // _.each($els, unhighlightEl);
-
     this.agent.highlightEl(view.$el)
   },
 

@@ -13,10 +13,16 @@ define([
     events: {
       'click @ui.uiElement': 'onClickUIElement',
       'click @ui.eventHandler': 'onClickEventHandler',
+      'mouseover @ui.domElement': 'onMouseEnterDomElement',
+      'mouseleave @ui.domElement': 'onMouseLeaveDomElement'
+    },
+
+    modelEvents: {
+      'change': 'render'
     },
 
     ui: {
-      uiElement: '[data-ui-elem]',
+      domElement: '[data-dom-element]',
       eventHandler: '[data-event]',
     },
 
@@ -30,10 +36,25 @@ define([
       }
     },
 
-    onClickPanelHeader: function(e) {
+    onMouseEnterDomElement: function(e) {
       var $target = $(e.currentTarget);
-      $target.toggleClass('expanded');
-      $target.next().toggleClass('visible');
+      var propertyName = $target.data('property-name')
+      var propertyKey = $target.data('property-key') || $target.closest('ol').data('property-key');
+
+      if (propertyKey) {
+        path = propertyKey + '.' + propertyName;
+      } else {
+        path = propertyName;
+      }
+
+      Radio.command('ui', 'highlight-element', {
+        cid: this.model.get('cid'),
+        path: path
+      })
+    },
+
+    onMouseLeaveDomElement: function(e) {
+      Radio.command('ui', 'unhighlight-element')
     },
 
     presentUI: function(ui) {

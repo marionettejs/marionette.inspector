@@ -86,7 +86,8 @@ this.serializeClass = function(object, info, shouldMemoize) {
 
   var serializeObject = objectPath(object, info.path);
 
-  if (this.classPropertyCache[info.name]) {
+  if (this.classPropertyCache[info.name]
+      && info.keys == _.keys(this.classPropertyCache[info.name])) {
     return this.classPropertyCache[info.name];
   }
 
@@ -121,5 +122,8 @@ this.serializeObjectProperties = function(object) {
     properties.push(this.serializeClass(object, info, true));
   }, this)
 
-  return _.extend.apply(_, properties);
+  // reverse the list of properties so that the
+  // topmost ancestor properties come first and the instance properties
+  // come last.
+  return _.extend.apply(_, [{}].concat(properties.reverse()));
 };

@@ -16,6 +16,10 @@ this.highlightEl = function($el) {
     return;
   }
 
+  if (!($el instanceof jQuery)) {
+    $el = $($el);
+  }
+
   var isPresent = $highlightMask.offset() == $el.offset();
   if (isPresent && $highlightMask.is(":visible")) {
     return;

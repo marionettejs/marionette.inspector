@@ -24,14 +24,18 @@
       <div class="section expanded">
         <ol data-property-key="_events" class="properties properties-tree monospace">
           {{#each _events}}
-          <li data-property-index="{{@index}}">
+          <li
+            data-property-index="{{@index}}"
+            data-property-context-type="{{context.type}}"
+            data-property-context-cid="{{context.cid}}"
+            data-property-callback-key="{{callback.key}}">
             <span class="name">{{eventName}}</span><span class="separator">: </span>
             <span class="value console-formatted-undefined" title="undefined">
 
-              <span data-property-value-context>
+              <span data-property-value-context class="clickable-property">
               {{context.inspect}}</span>
 
-              <span data-property-value-callback>
+              <span data-property-value-callback class="clickable-property">
                 {{#if callback.key}}
                   {{callback.key}}
                 {{else}}

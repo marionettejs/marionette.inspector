@@ -13,7 +13,6 @@ patchWindow(
   _.bind(this.patchMarionette, this)
 );
 
-
 /* start is a manual way to start the agent if
  * Backbone and Marionette are not set on the window or
  * you're not using `define` to package your modules.

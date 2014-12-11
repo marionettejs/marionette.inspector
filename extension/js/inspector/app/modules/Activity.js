@@ -5,8 +5,9 @@ define([
   'client',
   'app/modules/Module',
   'app/modules/Activity/views/Layout',
+  'app/modules/Activity/models/ActivityModel',
   'app/modules/Activity/models/ActivityCollection',
-], function(Marionette, Radio, logger, client, Module, Layout, ActivityCollection) {
+], function(Marionette, Radio, logger, client, Module, Layout, ActivityModel, ActivityCollection) {
 
   return Module.extend({
 
@@ -18,13 +19,10 @@ define([
 
     initialize: function() {
       this.client = client;
-      // this.listenTo(this.client, 'all', function(event) {
-      //   console.log(event, arguments);
-      // })
     },
 
     setupData: function() {
-      this.activityCollection = new ActivityCollection();
+      this.filteredActivities = new ActivityCollection();
     },
 
     setupEvents: function() {
@@ -33,10 +31,12 @@ define([
 
     onViewTrigger: function(event) {
       logger.log('activity', 'new event', event.name);
-      this.activityCollection.add([{
-        name: event.name,
-        data: event.data
-      }]);
+      var activity = new ActivityModel(event.data);
+
+      // Add only trigger events with listeners to primary collection
+      if (activity.get('listeners').length) {
+        this.filteredActivities.add(activity);
+      }
     },
 
     startModule: function() {
@@ -45,7 +45,7 @@ define([
 
     buildLayout: function() {
       return new Layout({
-        activityCollection: this.activityCollection
+        activities: this.filteredActivities
       });
     },
 
@@ -56,4 +56,4 @@ define([
       }
     }
   });
-})
+});
