@@ -18,7 +18,7 @@ define([
       view: 'ui-layout'
     },
 
-    className: 'app-tool',
+    className: 'app-tool ui-tool',
 
     regions: {
       viewTree: '[data-region="view-tree"]',

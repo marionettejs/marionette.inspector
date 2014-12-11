@@ -28,6 +28,10 @@ define([
       'model': 'requestModel'
     },
 
+    dataCommands: {
+      'log': 'log'
+    },
+
     initialize: function() {
     },
 
@@ -44,6 +48,7 @@ define([
       Marionette.bindEntityEvents(this, this.client, this.clientEvents);
       Radio.connectEvents('app', this.appEvents, this);
       Radio.connectRequests('data', this.dataRequests, this);
+      Radio.connectCommands('data', this.dataCommands, this);
     },
 
     requestModel: function(cid) {
@@ -103,6 +108,13 @@ define([
       }
 
       model.set(event.data);
+    },
+
+    log: function(data) {
+      this.client.exec(function(data) {
+        var model = this.getAppComponentByTypeAndCid('Model', data.cid);
+        this.printProperty(model);
+      }, [data]);
     },
 
     startModule: function() {

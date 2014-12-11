@@ -4,10 +4,10 @@ this.patchMarionette = (function(agent) {
     Marionette.ItemView.prototype._className = 'ItemView';
     Marionette.CollectionView.prototype._className = 'CollectionView';
     Marionette.CompositeView.prototype._className = 'CompositeView';
-    Marionette.View.prototype._className = 'Marionette View';
-    Backbone.View.prototype._className = 'Backbone View';
-    Backbone.Model.prototype._className = 'Backbone Model';
-    Backbone.Collection.prototype._className = 'Backbone Collection';
+    Marionette.View.prototype._className = 'Marionette.View';
+    Backbone.View.prototype._className = 'Backbone.View';
+    Backbone.Model.prototype._className = 'Backbone.Model';
+    Backbone.Collection.prototype._className = 'Backbone.Collection';
 
 
     if (Marionette.LayoutView) {
@@ -30,6 +30,13 @@ this.patchMarionette = (function(agent) {
 
     assignClassNames(Backbone, Marionette);
     this.patchMarionetteApplication(Marionette.Application);
+    this.patchMarionetteBehavior(Marionette.Behavior);
+    this.patchMarionetteModule(Marionette.Module);
+    this.patchMarionetteController(Marionette.Controller);
+
+    if (Marionette.Object) {
+      this.patchMarionetteObject(Marionette.Object);
+    }
   }
 
 }(this));
