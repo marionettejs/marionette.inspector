@@ -1,47 +1,25 @@
 define([
-  'backbone'
+  'backbone',
 ], function(Backbone) {
 
-  // Note: Always instantiate with { parse: true } to handle nested Collection.
   var Node = Backbone.Model.extend({
+    initialize: function(attributes, options) {
+      var nodes = this.get('nodes');
+      options = options || {};
+      this.level = options.level || 1;
+      this.isCollapsed = false;
+      if (nodes) {
+        this.nodes = new this.Collection(nodes, {level: this.level});
+        this.unset('nodes');
+      }
+    },
+
+    Collection: NodeCollection,
 
     idAttribute: 'name',
 
-    defaults: {
-      cid: undefined,
-      name: undefined,
-      path: undefined,
-      idPath: undefined
-    },
-
-    level: undefined,   // Level of nesting, beginning with 0
-    nodes: undefined,   // My child nodes
-    isCollapsed: false, // Whether my children are hidden
-
-    // Overridable/extendable child collection class; see end of this module
-    Collection: undefined,
-
-    initialize: function(attributes, options) {
-      this.level = (options || {}).level || 1;
-    },
-
-    parse: function (data, options) {
-      if (data.nodes) {
-        if (!this.nodes) this.nodes = new this.Collection(null, { level: this.level });
-        this.nodes.reset(data.nodes);
-        data.nodes = undefined; // soft delete
-      }
-      return data;
-    },
-
     hasNodes: function() {
       return _.has(this, 'nodes') && this.nodes.length > 0;
-    },
-
-    addNodes: function(newNodes) {
-      if (!_.isEmpty(nodesToAdd)) {
-        this.nodes.add(nodesToAdd, {level: this.level+1});
-      }
     },
 
     updateNodes: function(newNodes) {
@@ -122,7 +100,7 @@ define([
       this.trigger('expand');
 
       if (!this.nodes) {
-        return;
+        return
       }
 
       this.nodes.invoke('expand');
@@ -131,21 +109,22 @@ define([
     collapse: function() {
       this.trigger('collapse')
       if (!this.nodes) {
-        return;
+        return
       }
 
       this.nodes.invoke('collapse');
     }
   });
 
-  Node.Collection = Node.prototype.Collection = Backbone.Collection.extend({
+  var NodeCollection = Backbone.Collection.extend({
     model: Node,
-    level: undefined,
     initialize: function(models, options) {
       options = options || {};
       this.level = ++options.level;
     }
   });
+
+  Node.Collection = NodeCollection;
 
   return Node;
 });

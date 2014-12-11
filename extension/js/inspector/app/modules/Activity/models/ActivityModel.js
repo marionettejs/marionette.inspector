@@ -2,13 +2,12 @@ define([
   'backbone'
 ], function(Backbone) {
 
-  // Note: See patchAppComponentTrigger
   return Backbone.Model.extend({
 
     defaults: {
-      actionId:  undefined, // user/app action this event belongs to
-      startTime: undefined, // execution start time, ms
-      endTime:   undefined, // execution end time, ms
+      actionId:  undefined, // top-level segment this event belongs to
+      start:     undefined, // execution start time, ms
+      end:       undefined, // execution end time, ms
       eventName: undefined, // event name
       args:      undefined, // event arguments
       depth:     undefined, // depth within trigger tree
