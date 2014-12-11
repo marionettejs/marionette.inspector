@@ -4,12 +4,16 @@
 _.extend(this, {
 
     depth: 0,
-
     actionId: 0,
+    eventId: 0,
 
     getActionId: function () {
         this._incActionId();
-        return this.actionId;
+        return 'a-' + this.actionId;
+    },
+
+    getEventId: function () {
+        return 'e-' + (++this.eventId);
     },
 
     _incActionId: _.debounce(function () {
@@ -43,13 +47,13 @@ var patchAppComponentTrigger = bind(function(appComponent, eventType) {//
 
         // save data only if there is
         var data = {
+            eventId: agent.getEventId(),
             actionId: agent.getActionId(),
-            start: start,
-            end: end,
+            startTime: start,
+            endTime: end,
             eventName: eventName,
             args: _.map(args, agent.inspectValue, agent),
             depth: agent.depth,
-            cid: this.cid,
             context: agent.inspectValue(context),
             listeners: listeners
         };
