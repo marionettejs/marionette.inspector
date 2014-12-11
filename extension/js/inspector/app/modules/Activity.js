@@ -19,14 +19,10 @@ define([
 
     initialize: function() {
       this.client = client;
-      // this.listenTo(this.client, 'all', function(event) {
-      //   console.log(event, arguments);
-      // })
     },
 
     setupData: function() {
-      this.activityCollection = new ActivityCollection();
-      this.allActivityCollection = new ActivityCollection();
+      this.filteredActivities = new ActivityCollection();
     },
 
     setupEvents: function() {
@@ -35,14 +31,11 @@ define([
 
     onViewTrigger: function(event) {
       logger.log('activity', 'new event', event.name);
-      var activityModel = new ActivityModel(event.data);
-
-      // Add all trigger events to "all" collection
-      this.allActivityCollection.add(activityModel);
+      var activity = new ActivityModel(event.data);
 
       // Add only trigger events with listeners to primary collection
-      if (activityModel.get('listeners').length) {
-        this.activityCollection.add(activityModel);
+      if (activity.get('listeners').length) {
+        this.filteredActivities.add(activity);
       }
     },
 
@@ -52,7 +45,7 @@ define([
 
     buildLayout: function() {
       return new Layout({
-        activityCollection: this.activityCollection
+        activities: this.filteredActivities
       });
     },
 
