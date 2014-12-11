@@ -1,16 +1,30 @@
 describe('serializeObject', function() {
+  beforeEach(function() {
+    this.Class = window.patchedMarionette.ItemView.extend({
+      _className: 'Class',
+      fooFunc: function() {},
+      tagName: 'li'
+    })
+
+    this.view = new this.Class();
+  });
+
+  describe('serializeObjectProperties', function() {
+    beforeEach(function() {
+      this.data = window.serializeObjectProperties(this.view);
+    });
+
+    it('properly serializes overriden properties', function() {
+      expect(this.data.tagName.value).to.equal('li');
+    });
+  });
+
   describe('ancestorInfo', function() {
     beforeEach(function() {
-      this.Class = window.patchedMarionette.ItemView.extend({
-        _className: 'Class',
-        fooFunc: function() {}
-      })
-
-      this.view = new this.Class();
       this.data = window.ancestorInfo(this.view);
     })
 
-    it('serializes properties', function() {
+    it('serializes property keys', function() {
       var classData = this.data[0];
       expect(classData.name).to.equal('Class');
       expect(classData.keys).to.contain(
@@ -23,7 +37,9 @@ describe('serializeObject', function() {
     it('serializes Class', function() {
       var classData = this.data[1];
       expect(classData.name).to.equal('Class');
-      expect(classData.keys).to.deep.equal(["constructor", "_className", "fooFunc"]);
+      expect(classData.keys).to.contain(
+        "constructor", "_className", "fooFunc", "li"
+      );
     });
 
     it('serializes ItemView', function() {
