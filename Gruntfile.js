@@ -23,7 +23,10 @@ module.exports = function(grunt) {
         options: {
           reporter: grunt.option('mocha-reporter') || 'Nyan'
         },
-        src: ['extension/js/test/unit/AgentSpecRunner.html'],
+        src: [
+        'extension/js/test/unit/AgentSpecRunner.html',
+        'extension/js/test/unit/InspectorSpecRunner.html'
+        ],
         dest: './test/output/xunit.out',
       },
     },

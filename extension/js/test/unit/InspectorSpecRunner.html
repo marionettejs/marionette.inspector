@@ -12,12 +12,7 @@
     <script src="../../../../node_modules/sinon-chai/lib/sinon-chai.js"></script>
     <script src="../../../../node_modules/chai-jq/chai-jq.js"></script>
 
-    <script src="../../lib/jquery.js"></script>
-    <script src="../../lib/underscore.js"></script>
-    <script src="../../test/libs/backbone.js"></script>
-    <script src="../../test/libs/marionette.js"></script>
-    <script src="../../agent/build/src/core.js"></script>
-
+    <script data-main="../../inspector/main.js" src="../../lib/require.js"></script>
 
     <script>
       mocha.setup('bdd');
@@ -25,9 +20,23 @@
       window.expect = chai.expect;
       window.sinon = sinon;
 
-      onload = function() {
+      window.chrome = {};
+      window.chrome.devtools = {};
+      window.chrome.devtools.inspectedWindow = {}
+      window.chrome.extension = {};
+      window.chrome.extension.connect = function() {return {
+        postMessage: function(){},
+        onMessage: {
+            addListener: function() {}
+        }
+      }};
+
+
+      window.appLoadCallback = function() {
+        require(['test/unit/inspector/foo.spec'], function(fooSpec) {
+            mocha.run();
+        })
         // mocha.checkLeaks();
-        mocha.run();
 
         var $fixtures = $('#fixtures');
 
@@ -51,29 +60,13 @@
 
         beforeEach(function () {
             this.sinon = sinon.sandbox.create();
-
-            /*
-             * This is the Agent secret sauce.
-             * We'll want to be able to run this before/after each unit test...
-             * but to do that, we'll need to be able to pass in a new Backbone,Marionette
-             * which means wrapping these libs in a factory that creates a new one.
-            */
-
-            delete window.patchedBackbone;
-            delete window.patchedMarionette;
-            delete window._knownTypes;
-            window.Backbone = window.BackboneFactory();
-            window.Marionette = window.MarionetteFactory(Backbone);
-            window.patchBackbone(Backbone);
-            window.patchMarionette(Backbone, Marionette);
-            window.knownTypes();
-
         });
 
         afterEach(function () {
             this.sinon.restore();
             this.clearFixtures();
             window.location.hash = originalHash;
+            var Backbone = require('backbone');
             Backbone.history.stop();
             Backbone.history.handlers.length = 0;
         });
@@ -81,24 +74,10 @@
     </script>
 
 
-<!--
-    <script>
-        window.Marionette = Backbone.Marionette = {};
-        window.slice = Array.prototype.slice;
-        Marionette.Deferred = Backbone.$.Deferred;
-    </script>
-     -->
-    <script src="agent/marionette/app-observer.spec.js"></script>
-    <script src="agent/marionette/serialize/serializeView.spec.js"></script>
-    <script src="agent/marionette/serialize/serializeModel.spec.js"></script>
-    <script src="agent/utils/inspectValue.spec.js"></script>
-    <script src="agent/utils/serializeObject.spec.js"></script>
-    <script src="agent/patches/patchDefineCallback.spec.js"></script>
-    <script src="agent/creating-a-model.spec.js"></script>
-
   </head>
   <body>
     <div id="mocha"></div>
     <div id="fixtures" hidden></div>
+    <div style="display:none;" data-region="app-region" class="app"></div>
   </body>
 </html>
