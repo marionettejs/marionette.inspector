@@ -51,7 +51,7 @@ define([
       // if the tree is empty and we now have data replace
       // the tree with a new tree
       if (!this.viewTreeModel || !this.viewTreeModel.nodes) {
-        this.viewTreeModel = new TreeNode(tree);
+        this.viewTreeModel = new TreeNode(tree, { parse: true });
 
         this.getRegion('viewTree').show(new ViewTree({
           model: this.viewTreeModel,
