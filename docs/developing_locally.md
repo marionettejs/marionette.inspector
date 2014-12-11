@@ -21,6 +21,29 @@ grunt build
 ```
 
 ---
+## Testing
+
+### Inspector
+
+1. Start localhost
+```bash
+python -m SimpleHTTPServer 4040
+```
+
+2. go to InspectorSpecRunner.html
+```
+http://localhost:4040/extension/js/test/unit/InspectorSpecRunner.html
+```
+
+
+### Agent
+
+1. Open the AgentSpecRunner.html
+```
+open extension/js/test/unit/AgentSpecRunner.html
+```
+
+---
 
 ## Logging
 
@@ -38,6 +61,7 @@ https://github.com/marionettejs/marionette.inspector/blob/master/extension/js/co
 ## agent
 
 ### Testing locally
+If you have chrome canary you'll see the agent.js in the sources pane. If not, you have to do this hack:
 
 A good way to test the agent is to run it locally in the `index.html` of the
 app you want to inspect.
