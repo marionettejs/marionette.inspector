@@ -11,9 +11,9 @@ this.patchMarionette = (function(agent) {
 
 
     if (Marionette.LayoutView) {
-      Marionette.LayoutView.prototype._className = 'Layout View';
+      Marionette.LayoutView.prototype._className = 'LayoutView';
     } else {
-      Marionette.Layout.prototype._className = 'Layout View';
+      Marionette.Layout.prototype._className = 'Layout.View';
     }
   }
 
