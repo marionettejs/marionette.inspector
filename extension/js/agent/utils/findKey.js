@@ -3,6 +3,8 @@
  *
  */
 
+;(function(agent) {
+
 var listenOnceFunc = function () {
       if (ran) return memo;
       ran = true;
@@ -11,28 +13,34 @@ var listenOnceFunc = function () {
       return memo;
     }
 
-function findKey (obj, value) {
+  agent.findKey = function (obj, value) {
 
-  if (typeof obj == "string") {
-    return obj;
-  }
-
-  if (!_.isObject(obj)) {
-    return '';
-  }
-
-
-
-  if (listenOnceFunc.toString() == value.toString()) {
-    value = value._callback;
-  }
-
-  var theKey = undefined;
-  var keys = _.union(_.keys(obj), _.keys(obj.constructor.prototype));
-  _.each(keys, function(key) {
-    if (obj[key] == value) {
-       theKey = key
+    if (typeof obj == "string") {
+      return obj;
     }
-  }, obj, value)
-  return theKey;
-}
+
+    if (!_.isObject(obj)) {
+      return '';
+    }
+
+    if (listenOnceFunc.toString() == value.toString()) {
+      value = value._callback;
+    }
+
+    var theKey = undefined;
+    var info = agent.ancestorInfo(obj);
+
+    _.each(info, function(_obj) {
+      _.each(_obj.keys, function(key) {
+        var path = _obj.path ? _obj.path +"."+key : key;
+        if (agent.objectPath(obj, path) == value) {
+           theKey = key
+        }
+      }, obj, value);
+    }, info, obj, value);
+
+    return theKey;
+  }
+
+}(this));
+
