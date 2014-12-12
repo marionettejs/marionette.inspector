@@ -18,6 +18,8 @@ define([
     events: {
       'click @ui.property': 'onClickProperty',
       'click @ui.propertyContext': 'onClickContext',
+      'mouseover @ui.propertyContext': 'onMouseOverContext',
+      'mouseleave @ui.propertyContext': 'onMouseLeaveContext',
       'click @ui.propertyCallback': 'onClickCallback'
     },
 
@@ -51,6 +53,35 @@ define([
           cid: cid,
           path: ''
         });
+      }
+    },
+
+    onMouseOverContext: function(e) {
+      e.stopPropagation();
+      var $target = $(e.currentTarget);
+      var $property = $target.closest('li');
+
+      var type = $property.data('property-context-type');
+      var cid = $property.data('property-context-cid');
+
+      if(isViewType(type)) {
+        Radio.command('ui', 'highlight-element', {
+          cid: cid,
+          path: 'el'
+        })
+      }
+    },
+
+    onMouseLeaveContext: function(e) {
+      e.stopPropagation();
+      var $target = $(e.currentTarget);
+      var $property = $target.closest('li');
+
+      var type = $property.data('property-context-type');
+      var cid = $property.data('property-context-cid');
+
+      if(isViewType(type)) {
+        Radio.command('ui', 'unhighlight-element');
       }
     },
 

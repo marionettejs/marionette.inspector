@@ -175,9 +175,11 @@ define([
         data.model = model.get('attributes').serialized;
       }
 
+
       data.el = formatEL(data.el.value);
       data.events = this.presentEvents(this.model);
       data.ui = this.presentUI(this.model.get('ui'));
+      data.showUI = !_.isEmpty(this.model.get('ui'));
       data.option_key = "options";
       return data;
     }
