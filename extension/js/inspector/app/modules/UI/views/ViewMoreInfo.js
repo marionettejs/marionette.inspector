@@ -142,7 +142,9 @@ define([
 
     presentAncestors: function(data, infoItems) {
       var properties = _.omit(data.properties, infoItems,
-              'options', '_events', 'events', 'ui', 'triggers', 'modelEvents', 'collectionEvents', 'el', '$el');
+              'options', '_events', 'events', '_events',
+              'ui', 'triggers', 'modelEvents', 'collectionEvents', 'el', '$el'
+      );
       var ancestorInfo = data.ancestorInfo;
 
       var ancestors = [];

@@ -106,6 +106,42 @@
   </div>
   {{/if }}
 
+  {{#if _events}}
+  <div class="sidebar-pane-title expanded" tabindex="0">
+    Listeners
+  </div>
+  <div class="sidebar-pane visible">
+    <div class="body">
+      <div class="section expanded">
+        <ol data-property-key="_events" class="properties properties-tree monospace">
+          {{#each _events}}
+          <li
+            data-property-index="{{@index}}"
+            data-property-context-type="{{context.type}}"
+            data-property-context-cid="{{context.cid}}"
+            data-property-callback-key="{{callback.key}}">
+            <span class="name">{{eventName}}</span><span class="separator">: </span>
+            <span class="value console-formatted-undefined" title="undefined">
+
+              <span data-property-value-context class="clickable-property">
+              {{context.inspect}}</span>
+
+              <span data-property-value-callback class="clickable-property">
+                {{#if callback.key}}
+                  {{callback.key}}
+                {{else}}
+                  {{callback.inspect}}
+                {{/if}}
+              </span>
+            </span>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+
   {{#if model}}
   <div class="sidebar-pane-title" tabindex="3">
     Model

@@ -1,9 +1,7 @@
-this.patchViewUIChanges = function(view, prop, action, difference, oldValue) {
-  this.sendAppComponentReport("view:ui:change", {
+this.patchViewChanges = function(view, prop, action, difference, oldValue) {
+  this.sendAppComponentReport("view:change", {
     cid: view.cid,
-    data: {
-      ui: this.serializeUI(view.ui)
-    }
+    data: this.serializeView(view)
   })
 }
 
@@ -34,9 +32,15 @@ this.patchBackboneView = function(BackboneView) {
         patchAppComponentTrigger(view, 'view');
 
         onDefined(view, 'ui', _.bind(function() {
-          onChange(view.ui, _.bind(this.patchViewUIChanges, this, view));
-          this.patchViewUIChanges(view);
+          onChange(view.ui, _.bind(this.patchViewChanges, this, view));
+          this.patchViewChanges(view);
         }, this));
+
+        onDefined(view, '_events', _.bind(function() {
+          onChange(view._events, _.bind(this.patchViewChanges, this, view));
+          this.patchViewChanges(view);
+        }, this));
+
 
         patchAppComponentEvents(view);
 
