@@ -30,7 +30,7 @@ define([
       // console.log('!!! found prop', data.path, prop)
 
       // if it's a jquery object, get the first element
-      if (prop instanceof jQuery) {
+      if (prop.length && prop.jquery) {
         prop = prop[0];
       }
 
