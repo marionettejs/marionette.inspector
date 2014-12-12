@@ -14,6 +14,7 @@ _.extend(AppObserver.prototype, {
   radioExpression: "app.wreqr",
 
   startSearch: function() {
+
     this.agent.search(this, this.getApp());
   },
 

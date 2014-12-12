@@ -8,6 +8,8 @@
 
 this.search = (function(agent) {
 
+    agent.observedElements = [];
+
     /*
      * Search constructor starts the search mode
      *
@@ -23,8 +25,10 @@ this.search = (function(agent) {
 
       this.addViewCidAttributes(views);
       this.$clickMask = this.buildClickMask();
+      this.searchEnabled = true;
 
       $(document).mouseleave(function() {
+        agent.stopSearch();
         agent.unhighlightEl();
       }.bind(this));
 
@@ -42,12 +46,18 @@ this.search = (function(agent) {
         'mousedown.regionSearch' : _.bind(this.onMouseDown, this)
       };
 
-      _.each(views, function(view){
-        view.$el.on(mouse_events);
+      var $els = _.pluck(views, '$el');
+      agent.observedElements = agent.observedElements.concat($els);
+
+      _.each($els, function($el){
+        $el.on(mouse_events);
       });
     },
 
     onMouseOver: function(e) {
+      if (!this.searchEnabled) {
+        return;
+      }
       e.stopPropagation();
       var $current = $(e.currentTarget);
       var cid = $current.attr('data-view-id');
@@ -61,6 +71,9 @@ this.search = (function(agent) {
     },
 
     onMouseLeave: function(e) {
+      if (!this.searchEnabled) {
+        return;
+      }
       e.stopPropagation();
       var $current = $(e.currentTarget);
       var cid = $current.attr('data-view-id');
@@ -72,12 +85,16 @@ this.search = (function(agent) {
     },
 
     onMouseDown: function(e) {
+      if (!this.searchEnabled) {
+        return;
+      }
       e.stopPropagation();
       var $current = $(e.currentTarget);
       var cid = $current.attr('data-view-id');
 
       this.placeClickElMask($current);
 
+      this.searchEnabled = false;
       agent.stopSearch(this.appObserver, this.app);
 
       agent.sendAppComponentReport('search', {
