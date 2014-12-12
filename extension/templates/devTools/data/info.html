@@ -30,7 +30,7 @@
             data-property-context-cid="{{context.cid}}"
             data-property-callback-key="{{callback.key}}">
             <span class="name">{{eventName}}</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined">
+            <span class="value console-formatted-undefined">
 
               <span data-property-value-context class="clickable-property">
               {{context.inspect}}</span>
@@ -61,7 +61,7 @@
           {{#each attributes.serialized}}
           <li title="" style="">
             <span class="name">{{name}}</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined"> {{value}} </span>
+            <span class="value console-formatted-undefined"> {{value}} </span>
           </li>
           {{/each}}
         </ol>
@@ -80,7 +80,7 @@
           {{#each changed.serialized}}
           <li title="" style="">
             <span class="name">{{name}}</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined"> {{value}} </span>
+            <span class="value console-formatted-undefined"> {{value}} </span>
           </li>
           {{/each}}
         </ol>
@@ -100,7 +100,7 @@
           {{#each _previousAttributes.serialized}}
           <li title="" style="">
             <span class="name">{{name}}</span><span class="separator">: </span>
-            <span class="value console-formatted-undefined" title="undefined"> {{value}} </span>
+            <span class="value console-formatted-undefined"> {{value}} </span>
           </li>
           {{/each}}
         </ol>
