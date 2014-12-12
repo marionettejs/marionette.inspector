@@ -18,7 +18,7 @@ define([
     },
 
     modelEvents: {
-      'change': 'render'
+      'all': 'render'
     },
 
     className: 'sidebar-panel',

@@ -52,6 +52,7 @@ define([
       // the tree with a new tree
       if (!this.viewTreeModel || !this.viewTreeModel.nodes) {
         this.viewTreeModel = new TreeNode(tree);
+        this.viewTreeModel.isCollapsed = false;
 
         this.getRegion('viewTree').show(new ViewTree({
           model: this.viewTreeModel,
