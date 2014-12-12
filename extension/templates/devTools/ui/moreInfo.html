@@ -64,6 +64,27 @@
   </div>
   {{/if}}
 
+  {{#if triggers}}
+  <div class="sidebar-pane-title expanded" tabindex="2">
+    Triggers
+  </div>
+  <div class="sidebar-pane visible">
+    <div class="body">
+      <div class="section expanded">
+        <ol data-property-key="" class="properties properties-tree monospace">
+          {{#each triggers}}
+          <li data-event="{{handler}}">
+            <span class="name">{{eventName}}</span>
+            <span class="separator">: </span>
+            <span data-property-name={{handler}} class="value console-formatted-undefined clickable-property" patchedMarionette>{{eventHandler}}</span>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </div>
+  {{/if }}
+
   {{#if events}}
   <div class="sidebar-pane-title expanded" tabindex="2">
     Events
