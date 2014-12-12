@@ -3,6 +3,14 @@
  *
  */
 
+var listenOnceFunc = function () {
+      if (ran) return memo;
+      ran = true;
+      memo = func.apply(this, arguments);
+      func = null;
+      return memo;
+    }
+
 function findKey (obj, value) {
 
   if (typeof obj == "string") {
@@ -11,6 +19,12 @@ function findKey (obj, value) {
 
   if (!_.isObject(obj)) {
     return '';
+  }
+
+
+
+  if (listenOnceFunc.toString() == value.toString()) {
+    value = value._callback;
   }
 
   var theKey = undefined;
