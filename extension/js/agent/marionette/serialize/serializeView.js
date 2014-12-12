@@ -6,6 +6,7 @@ this.serializeView = function(view) {
     return {};
   }
 
+
   data.cid = view.cid;
 
   data.options = this.serializeObject(view.options);
