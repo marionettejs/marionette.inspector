@@ -21,6 +21,8 @@ define([
       'change': 'render'
     },
 
+    className: 'sidebar-panel',
+
     ui: {
       domElement: '[data-dom-element]',
       eventHandler: '[data-event]',

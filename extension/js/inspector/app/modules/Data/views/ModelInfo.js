@@ -23,6 +23,8 @@ define([
       'change': 'render'
     },
 
+    className: 'sidebar-panel',
+
     serializeData: function() {
       var infoItems = ['cid', 'id', '_pending', '_changing', '_listenerId', 'collection'];
 
