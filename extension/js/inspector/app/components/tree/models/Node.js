@@ -16,7 +16,7 @@ define([
 
     level: undefined,   // Level of nesting, beginning with 0
     nodes: undefined,   // My child nodes
-    isCollapsed: false, // Whether my children are hidden
+    isCollapsed: true, // Whether my children are hidden
 
     // Overridable/extendable child collection class; see end of this module
     Collection: undefined,
