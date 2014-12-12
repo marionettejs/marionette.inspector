@@ -12,6 +12,7 @@ this.serializeView = function(view) {
   data.ui = this.serializeUI(view.ui);
   data.el = this.serializeElement(view.el, 'el', false);
   data.events = serializeEventsHash(view.events);
+  data._events = this.serializeEvents(view._events);
   data.modelEvents = serializeEventsHash(view.modelEvents);
   data.collectionEvents = serializeEventsHash(view.collectionEvents);
   data.triggers = serializeEventsHash(view.triggers);

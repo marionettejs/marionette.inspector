@@ -40,7 +40,7 @@ define([
       'agent:search': 'onSearch',
       'agent:View:new': 'onViewNew',
       'agent:View:remove': 'onViewRemove',
-      'agent:view:ui:change': 'onViewUIChange'
+      'agent:view:change': 'onViewChange'
     },
 
     appEvents: {
@@ -99,9 +99,9 @@ define([
       view.set('isRemoved', true)
     },
 
-    onViewUIChange: function(event) {
+    onViewChange: function(event) {
       var cid = event.cid;
-      logger.log('ui', 'onViewUIChange', cid);
+      logger.log('ui', 'onViewChange', cid);
 
       var view = this.viewCollection.findWhere({ cid: cid });
       if (!view) {
@@ -109,7 +109,7 @@ define([
         return;
       }
 
-      view.set('ui', event.data.ui);
+      view.set(event.data);
     },
 
 

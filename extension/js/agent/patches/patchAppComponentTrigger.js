@@ -38,12 +38,8 @@ var patchAppComponentTrigger = bind(function(appComponent, eventType) {//
 
         // Convert backbone array of array of backbone listener to a flattened array of
         // inspector listener with event trigger merged in.
-
-        var listeners = _.chain(this._events || {})
-            .pick('all', eventName)
-            .map(agent.serializeEvents)
-            .flatten()
-            .value();
+        var events = _.pick((this._events || {}), 'all', eventName);
+        var listeners = agent.serializeEvents(events);
 
         // save data only if there is
         var data = {
