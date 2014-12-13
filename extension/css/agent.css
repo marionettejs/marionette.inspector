@@ -5,6 +5,6 @@
 
 .marionette-inspector-highlighted-element {
   position: absolute;
-  outline: 1px solid rgba(48, 142, 176, 0.9);
-  background: rgba(5, 185, 250, 0.5);
+  background: rgba(55, 161, 243, 0.48);
+  -webkit-filter: grayscale(20%);
 }
