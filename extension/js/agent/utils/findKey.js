@@ -5,14 +5,6 @@
 
 ;(function(agent) {
 
-var listenOnceFunc = function () {
-      if (ran) return memo;
-      ran = true;
-      memo = func.apply(this, arguments);
-      func = null;
-      return memo;
-    }
-
   agent.findKey = function (obj, value) {
 
     if (typeof obj == "string") {
@@ -23,9 +15,7 @@ var listenOnceFunc = function () {
       return '';
     }
 
-    if (listenOnceFunc.toString() == value.toString()) {
-      value = value._callback;
-    }
+    value = agent.unwrapListenToOnceWrapper(value);
 
     var theKey = undefined;
     var info = agent.ancestorInfo(obj);

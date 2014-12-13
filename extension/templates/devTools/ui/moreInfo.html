@@ -106,7 +106,7 @@
   </div>
   {{/if }}
 
-  {{#if _events}}
+  {{#if listeners}}
   <div class="sidebar-pane-title" tabindex="0">
     Listeners
   </div>
@@ -114,7 +114,7 @@
     <div class="body">
       <div class="section expanded">
         <ol data-property-key="_events" class="properties properties-tree monospace">
-          {{#each _events}}
+          {{#each listeners}}
           <li
             data-property-index="{{@index}}"
             data-property-context-type="{{context.type}}"
@@ -122,17 +122,11 @@
             data-property-callback-key="{{callback.key}}">
             <span class="name">{{eventName}}</span><span class="separator">: </span>
             <span class="value console-formatted-undefined">
-
-              <span data-property-value-context class="clickable-property">
-              {{context.inspect}}</span>
-
-              <span data-property-value-callback class="clickable-property">
-                {{#if callback.key}}
-                  {{callback.key}}
-                {{else}}
-                  {{callback.inspect}}
-                {{/if}}
-              </span>
+              <span data-property-value-context class="clickable-property"> {{context.inspect}}</span>
+              <span
+                data-property-listener-callback
+                data-callback-path={{path}}
+                class="clickable-property"> {{name}} </span>
             </span>
           </li>
           {{/each}}
