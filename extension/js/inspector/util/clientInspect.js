@@ -42,6 +42,8 @@ define([
           window.temp = prop;
           console.log('Mn: temp = ', prop);
         } else {
+          prop = this.unwrapListenToOnceWrapper(prop);
+
           inspect(prop);
         }
       }

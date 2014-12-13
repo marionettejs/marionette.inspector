@@ -12,7 +12,8 @@ define([
     ui: {
       property: '[data-property-name]',
       propertyContext: '[data-property-value-context]',
-      propertyCallback: '[data-property-value-callback]'
+      propertyCallback: '[data-property-value-callback]',
+      listener: '[data-property-listener-callback]'
     },
 
     events: {
@@ -20,7 +21,8 @@ define([
       'click @ui.propertyContext': 'onClickContext',
       'mouseover @ui.propertyContext': 'onMouseOverContext',
       'mouseleave @ui.propertyContext': 'onMouseLeaveContext',
-      'click @ui.propertyCallback': 'onClickCallback'
+      'click @ui.propertyCallback': 'onClickCallback',
+      'click @ui.listener': 'onClickListener'
     },
 
     initialize: function() {
@@ -164,6 +166,13 @@ define([
       } else {
         this.view.model.clientInspect(path);
       }
+    },
+
+    onClickListener: function(e) {
+      var $target = $(e.currentTarget);
+      var path = $target.data('callback-path');
+      this.view.model.clientInspect(path);
+      return false;
     },
 
     /**
