@@ -134,6 +134,8 @@ define([
         return;
       }
 
+      Radio.command('app', 'navigate', 'ui');
+
       logger.log('ui', 'search event ', data.name);
       viewModel.trigger('search:' + data.name);
 
