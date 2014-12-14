@@ -1,7 +1,8 @@
 define([
   'backbone',
+  'logger',
   'app/modules/Activity/models/ActivityModel'
-], function(Backbone, ActivityModel) {
+], function(Backbone, logger, ActivityModel) {
 
   return Backbone.Collection.extend({
 
@@ -32,6 +33,7 @@ define([
         var parentNode;
         var newNode;
         var nidPath;
+        var missingAncestorCount;
 
         // If Activity ID has incremented, create a root child node and push onto path.
         if (actionId !== prevActionId) {
@@ -50,6 +52,16 @@ define([
         if (depth > prevDepth) {
           // Depth has advanced; add previous node to the path.
           path.push(prevNode);
+
+          // Handle case of missing ancestors.
+          // Bad data. Hopefully we can sanitize data earlier or fix at the source, but it should
+          // not break this algorithm.
+          if (depth > prevDepth + 1) {
+            missingAncestorCount = depth - prevDepth - 1;
+            logger.warn('activity', 'Adding ' + missingAncestorCount +
+                ' missing ancestor node(s) for name=' + name + ' nid=' + eventId);
+            _.times(missingAncestorCount, this._addMissingParents.bind(this, path));
+          }
         } else if (depth < prevDepth) {
           // Depth has regressed; pop the path appropriately.
           _.times(prevDepth - depth, path.pop, path);
@@ -75,9 +87,24 @@ define([
         prevDepth = depth;
         prevNode = newNode;
         prevActionId = actionId;
-      });
+      }, this);
 
       return root;
+    },
+
+    // Note: This modifies the `path` {array} argument.
+    _addMissingParents: function (path) {
+      var parentNode = _.last(path);
+      var missingParent = {
+        nid: _.uniqueId('missing-parent-'),
+        nidPath: parentNode.nidPath.concat(parentNode.nid),
+        name: null,
+        event: null,
+        nodes: []
+      };
+      parentNode.nodes.push(missingParent);
+      path.push(missingParent);
+      return path;
     }
   });
 });
