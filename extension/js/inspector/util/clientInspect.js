@@ -38,7 +38,7 @@ define([
 
       // inspect a function
       if (this._.isFunction(prop)) {
-        if (prop.toString().match(/native code/)) {
+        if (this.isNativeFunction(prop)) {
           window.temp = prop;
           console.log('Mn: temp = ', prop);
         } else {

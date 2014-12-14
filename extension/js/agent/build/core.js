@@ -55,6 +55,7 @@ var Marionette = this.Marionette;
 // @include ../utils/serializeObject.js
 // @include ../utils/findKey.js
 // @include ../utils/unwrapListenToOnceWrapper.js
+// @include ../utils/isNativeFunction.js
 // @include ../utils/printProperty.js
 
 
