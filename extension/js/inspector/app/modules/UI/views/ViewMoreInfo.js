@@ -5,8 +5,12 @@ define([
   'app/behaviors/SidebarPanes',
   'util/presenters/formatEL',
   'app/behaviors/ClickableProperties',
-  'util/presenters/presentListeners'
-], function(Marionette, Radio, tpl, SidebarPanesBehavior, formatEL, ClickableProperties, presentListeners) {
+  'util/presenters/presentListeners',
+  'util/presenters/presentAncestors'
+], function(
+  Marionette, Radio, tpl,
+  SidebarPanesBehavior, formatEL, ClickableProperties,
+  presentListeners, presentAncestors) {
 
   return Marionette.ItemView.extend({
     template: tpl,
@@ -141,35 +145,15 @@ define([
       return info;
     },
 
-    presentAncestors: function(data, infoItems) {
-      var properties = _.omit(data.properties, infoItems,
-              'options', '_events', 'events', '_events',
-              'ui', 'triggers', 'modelEvents', 'collectionEvents', 'el', '$el'
-      );
-      var ancestorInfo = data.ancestorInfo;
-
-      var ancestors = [];
-      _.each(ancestorInfo, function(info) {
-        var props = _.pick(properties, info.keys);
-        ancestors.push({
-          properties: props,
-          name: info.name || 'Class Properties',
-          path: info.path
-        });
-      });
-
-      ancestors[0].name = 'Properties';
-
-      return ancestors;
-    },
-
     serializeData: function() {
       var infoItems = ['cid', 'model', 'collection', 'parentClass', 'tagName', 'template'];
+      var instanceProperties = [
+        'options', '_events', 'events', '_events',
+        'ui', 'triggers', 'modelEvents', 'collectionEvents', 'el', '$el'
+      ];
       var data = {};
       _.extend(data, this.serializeModel(this.model));
 
-      data.info = this.presentInfo(data, infoItems);
-      data.ancestors = this.presentAncestors(data, infoItems);
 
       var model = this.model.viewModel();
       if (model) {
@@ -177,7 +161,8 @@ define([
       }
 
       data.listeners = presentListeners(data._events);
-
+      data.info = this.presentInfo(data, infoItems);
+      data.ancestors = presentAncestors(data, infoItems, instanceProperties);
       data.el = formatEL(data.el.value);
       data.events = this.presentEvents(this.model);
       data.ui = this.presentUI(this.model.get('ui'));

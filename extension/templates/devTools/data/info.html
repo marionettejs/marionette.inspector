@@ -22,7 +22,7 @@
  </div>
  <div class="sidebar-pane">
    <div class="body">
-     <div class="section expanded">
+     <div class="section">
        <ol data-property-key="_events" class="properties properties-tree monospace">
          {{#each listeners}}
          <li
@@ -46,12 +46,12 @@
  </div>
  {{/if}}
 
-  <div class="sidebar-pane-title expanded" tabindex="0">
+  <div class="sidebar-pane-title" tabindex="0">
     Attributes
   </div>
-  <div class="sidebar-pane visible">
+  <div class="sidebar-pane">
     <div class="body">
-      <div class="section expanded">
+      <div class="section">
         <ol class="properties properties-tree monospace">
           {{#each attributes.serialized}}
           <li title="" style="">
@@ -65,12 +65,12 @@
   </div>
 
  {{#unless changed.isEmpty}}
-  <div class="sidebar-pane-title expanded" tabindex="0">
+  <div class="sidebar-pane-title" tabindex="0">
     Changed
   </div>
-  <div class="sidebar-pane visible">
+  <div class="sidebar-pane">
     <div class="body">
-      <div class="section expanded">
+      <div class="section">
         <ol class="properties properties-tree monospace">
           {{#each changed.serialized}}
           <li title="" style="">
@@ -85,12 +85,12 @@
   {{/unless}}
 
  {{#unless _previousAttributes.isEmpty}}
-  <div class="sidebar-pane-title expanded" tabindex="0">
+  <div class="sidebar-pane-title" tabindex="0">
     Previous Attributes
   </div>
-  <div class="sidebar-pane visible">
+  <div class="sidebar-pane">
     <div class="body">
-      <div class="section expanded">
+      <div class="section">
         <ol class="properties properties-tree monospace">
           {{#each _previousAttributes.serialized}}
           <li title="" style="">
@@ -105,19 +105,21 @@
   {{/unless}}
 
 
-  <div class="sidebar-pane-title expanded" tabindex="0">
-    Properties
-  </div>
-  <div class="sidebar-pane visible">
-    <div class="body">
-      <div class="section expanded">
-        <ol data-property-key="" class="properties properties-tree monospace">
-          {{#each properties}}
-            {{> templates/devTools/partials/_property.html this}}
-          {{/each}}
-        </ol>
-      </div>
-    </div>
-  </div>
+  {{#each ancestors}}
+   <div class="sidebar-pane-title" tabindex="3">
+     {{name}}
+   </div>
+   <div class="sidebar-pane">
+     <div class="body">
+       <div class="section">
+         <ol data-property-key="{{path}}" class="properties properties-tree monospace">
+           {{#each properties}}
+             {{> templates/devTools/partials/_property.html this}}
+           {{/each}}
+         </ol>
+       </div>
+     </div>
+   </div>
+   {{/each }}
 
 </div>
