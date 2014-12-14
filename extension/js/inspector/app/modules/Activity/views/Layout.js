@@ -53,6 +53,10 @@ define([
       this.getRegion('activityList').show(new ActivityTree({
         model: this.activityRoot
       }));
+
+      this.activityRoot.collapse();
+      this.activityRoot.expandPath('root');
+
     },
 
     showInfo: function(activityModel) {
