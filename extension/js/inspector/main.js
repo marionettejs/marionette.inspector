@@ -86,7 +86,7 @@ require([
         app.module('Data', DataApp);
         app.module('Radio', RadioApp);
         app.module('UI', UIApp);
-        // app.module('Activity', ActivityApp);
+        app.module('Activity', ActivityApp);
     });
 
     logger.log('devtools', 'started!')

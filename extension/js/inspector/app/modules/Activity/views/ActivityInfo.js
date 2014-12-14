@@ -1,25 +1,31 @@
 define([
   'marionette',
   'util/Radio',
-  "text!templates/devTools/data/info.html",
-  'app/behaviors/SidebarPanes'
-], function(Marionette, Radio, tpl, SidebarPanesBehavior) {
+  "text!templates/devTools/activity/info.html",
+  'app/behaviors/SidebarPanes',
+  'app/behaviors/ClickableProperties'
+], function(Marionette, Radio, tpl, SidebarPanesBehavior, ClickableProperties) {
 
-  return Marionette.ItemView.extend({
+  var ActivityInfo = Marionette.ItemView.extend({
 
     template: tpl,
 
     behaviors: {
       sidebarPanes: {
-        behaviorClass: SidebarPanesBehavior,
+        behaviorClass: SidebarPanesBehavior
+      },
+      clickableProperties: {
+        behaviorClass: ClickableProperties
       }
     },
 
     serializeData: function() {
-      var data = {};
-      _.extend(data, this.serializeModel(this.model));
-
+      var data = ActivityInfo.__super__.serializeData.apply(this, arguments);
+      data.duration = this.model.get('endTime') - this.model.get('startTime');
+      data.hasArgs = this.model.get('args') && this.model.get('args').length;
       return data;
     }
   });
-})
+
+  return ActivityInfo;
+});

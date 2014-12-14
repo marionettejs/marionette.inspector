@@ -1,0 +1,15 @@
+{{!Do not render tree item for root or null name. Children will still be rendered.}}
+{{!These are both special cases of the event tree view not seen in the UI tree view.}}
+{{#unless isRoot}}
+{{#if name}}
+  <li class="tree-group-item {{ level }}">
+    {{#if hasNodes}}
+        <span data-action="toggle" class="glyphicon {{ collapseClass }}"></span>
+    {{else}}
+      <span style="width:19px; display: inline-block;"></span>
+    {{/if}}
+
+    {{ name }}
+  </li>
+{{/if}}
+{{/unless}}

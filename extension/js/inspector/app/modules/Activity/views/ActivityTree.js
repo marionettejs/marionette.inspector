@@ -1,23 +1,30 @@
 define([
   'app/components/tree/views/Tree',
   'util/Radio',
-  "text!templates/devTools/components/tree/tree.html",
+  "text!templates/devTools/activity/tree.html",
 ], function(Tree, Radio, tpl) {
-  return Tree.extend({
+
+  var ActivityTree = Tree.extend({
 
     template: tpl,
 
-    ui: {
-    },
-
     events: {
+      'click': 'onShowInfo'
     },
 
-    attributes: function() {
-      var data = {};
-      data['data-view'] = 'tree-view';
-      data['data-cid'] = this.model.get('cid');
+    onShowInfo: function (evt) {
+      evt.stopPropagation();
+      if (this.model.get('event')) {
+        Radio.command('activity', 'show:info', this.model.get('event'));
+      }
+    },
+
+    serializeData: function () {
+      var data = ActivityTree.__super__.serializeData.apply(this, arguments);
+      data.isRoot = this.model.level === 0;
       return data;
     }
   });
+
+  return ActivityTree;
 });
