@@ -42,6 +42,8 @@ define([
 
       this.bindEntityEvents(this.activityCollection, this.activityCollectionEvents);
       Radio.connectCommands('activity', this.activityCommands, this);
+
+      this.onChangeActivityCollection = _.debounce(this.onChangeActivityCollection, 50);
     },
 
     onChangeActivityCollection: function () {
