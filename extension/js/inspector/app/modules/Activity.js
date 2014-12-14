@@ -13,6 +13,8 @@ define([
 
     channelName: 'activity',
 
+    lastActivityModel: undefined,
+
     clientEvents: {
       "agent:View:trigger": 'onViewTrigger'
     },
@@ -33,11 +35,7 @@ define([
     onViewTrigger: function(event) {
       logger.log('activity', 'new event', event.name);
       var activityModel = new ActivityModel(event.data);
-
-      // Add only events with listeners to primary collection
-      if (activityModel.get('listeners').length) {
-        this.activityCollection.add(activityModel);
-      }
+      this.activityCollection.add(activityModel);
     },
 
     startModule: function() {
