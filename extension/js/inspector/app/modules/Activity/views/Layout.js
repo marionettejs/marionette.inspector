@@ -37,7 +37,7 @@ define([
       options = options || {};
       this.activityCollection = options.activityCollection;
 
-      activityTree = this.activityCollection.buildTree();
+      activityTree = this.activityCollection.buildTreePruned(this._filterTreeNode);
       this.activityRoot = new ActivityNode(activityTree, { level: 0 });
 
       this.bindEntityEvents(this.activityCollection, this.activityCollectionEvents);
@@ -45,7 +45,7 @@ define([
     },
 
     onChangeActivityCollection: function () {
-      var activityTree = this.activityCollection.buildTree();
+      var activityTree = this.activityCollection.buildTreePruned(this._filterTreeNode);
       this.activityRoot.updateNodes(activityTree.nodes);
     },
 
@@ -59,6 +59,11 @@ define([
       this.getRegion('activityInfo').show(new ActivityInfo({
         model: activityModel
       }));
+    },
+
+    // Note: 'this' is not bound
+    _filterTreeNode: function (treeNode) {
+      return treeNode.event && treeNode.event.get('listeners').length || treeNode.nodes.length;
     }
   });
 });
