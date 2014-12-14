@@ -39,8 +39,7 @@ define([
       // inspect a function
       if (this._.isFunction(prop)) {
         if (this.isNativeFunction(prop)) {
-          window.temp = prop;
-          console.log('Mn: temp = ', prop);
+          this.printProperty(prop);
         } else {
           prop = this.unwrapListenToOnceWrapper(prop);
 
