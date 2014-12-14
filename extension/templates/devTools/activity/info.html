@@ -1,3 +1,80 @@
 <div class="sidebar-pane-stack flex-auto visible">
+  <div class="sidebar-pane-title expanded" tabindex="0">
+    Event
+  </div>
+  <div class="sidebar-pane visible">
+    <div class="body">
+      <div class="section expanded">
+        <ol data-property-key="" class="properties properties-tree monospace">
+          <li>
+            <span class="name">Name</span><span class="separator">:</span>
+            <span class="value console-formatted-undefined">{{eventName}}</span>
+          </li>
+          <li>
+            <span class="name">Duration</span><span class="separator">:</span>
+            <span class="value console-formatted-undefined">{{duration}}ms</span>
+          </li>
+          <li>
+            <span class="name">Context</span><span class="separator">:</span>
+            <span class="value console-formatted-undefined">{{context.inspect}}</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
 
+  {{#if hasArgs}}
+  <div class="sidebar-pane-title expanded" tabindex="0">
+    Arguments
+  </div>
+  <div class="sidebar-pane visible">
+    <div class="body">
+      <div class="section expanded">
+        <ol data-property-key="" class="properties properties-tree monospace">
+          {{#args}}
+          <li>
+            <span class="name">{{@index}}</span><span class="separator">:</span>
+            <span class="value console-formatted-undefined">{{inspect}}</span>
+          </li>
+          {{/args}}
+        </ol>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+
+  {{#if listeners}}
+  <div class="sidebar-pane-title expanded" tabindex="0">
+    Listeners
+  </div>
+  <div class="sidebar-pane visible">
+    <div class="body">
+      <div class="section expanded">
+        <ol data-property-key="_events" class="properties properties-tree monospace">
+          {{#each listeners}}
+          <li data-property-index="{{@index}}"
+              data-property-context-type="{{context.type}}"
+              data-property-context-cid="{{context.cid}}"
+              data-property-callback-key="{{callback.key}}">
+            <span class="name">{{eventName}}</span><span class="separator">: </span>
+            <span class="value console-formatted-undefined">
+
+              <span data-property-value-context class="clickable-property">
+              {{context.inspect}}</span>
+
+              <span data-property-value-callback class="clickable-property">
+                {{#if callback.key}}
+                  {{callback.key}}
+                {{else}}
+                  {{callback.inspect}}
+                {{/if}}
+              </span>
+            </span>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </div>
+  {{/if}}
 </div>

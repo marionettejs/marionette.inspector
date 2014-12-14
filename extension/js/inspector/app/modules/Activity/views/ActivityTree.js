@@ -8,6 +8,17 @@ define([
 
     template: tpl,
 
+    events: {
+      'click': 'onShowInfo'
+    },
+
+    onShowInfo: function (evt) {
+      evt.stopPropagation();
+      if (this.model.get('event')) {
+        Radio.command('activity', 'show:info', this.model.get('event'));
+      }
+    },
+
     serializeData: function () {
       var data = ActivityTree.__super__.serializeData.apply(this, arguments);
       data.isRoot = this.model.level === 0;
