@@ -9,11 +9,11 @@ _.extend(this, {
 
     getActionId: function () {
         this._incActionId();
-        return 'a-' + this.actionId;
+        return 'a' + this.actionId;
     },
 
     getEventId: function () {
-        return 'e-' + (++this.eventId);
+        return 'e' + (++this.eventId);
     },
 
     _incActionId: _.debounce(function () {

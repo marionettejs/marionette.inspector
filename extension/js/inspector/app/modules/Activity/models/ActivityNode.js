@@ -1,7 +1,17 @@
 define([
-  'app/components/tree/models/Node'
-], function (Node) {
+  'app/components/tree/models/Node',
+], function(Node) {
 
-  return Node.extend({
+  var ActivityNodeCollection = Node.Collection.extend({});
+
+  var ActivityNode = Node.extend({
+
+    Collection: ActivityNodeCollection,
+    idAttribute: 'nid'
   });
+
+
+  ActivityNodeCollection.prototype.model = ActivityNode;
+
+  return ActivityNode;
 });

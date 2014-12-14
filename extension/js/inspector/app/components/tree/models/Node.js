@@ -8,14 +8,11 @@ define([
     idAttribute: 'name',
 
     defaults: {
-      cid: undefined,
-      name: undefined,
-      path: undefined,
-      idPath: undefined
+      name: undefined   // Display name for node
     },
 
     level: undefined,   // Level of nesting, beginning with 0
-    nodes: undefined,   // My child nodes
+    nodes: undefined,   // Child nodes collection
     isCollapsed: false, // Whether my children are hidden
 
     // Overridable/extendable child collection class; see end of this module
@@ -23,7 +20,8 @@ define([
 
     initialize: function(attributes, options) {
       options = options || {};
-      this.level = options.level || 1;
+      if (!_.isNumber(options.level)) this.level = 1;
+      else this.level = options.level;
       this.createNodes();
     },
 
