@@ -4,8 +4,9 @@ define([
   "text!templates/devTools/ui/moreInfo.html",
   'app/behaviors/SidebarPanes',
   'util/presenters/formatEL',
-  'app/behaviors/ClickableProperties'
-], function(Marionette, Radio, tpl, SidebarPanesBehavior, formatEL, ClickableProperties) {
+  'app/behaviors/ClickableProperties',
+  'util/presenters/presentListeners'
+], function(Marionette, Radio, tpl, SidebarPanesBehavior, formatEL, ClickableProperties, presentListeners) {
 
   return Marionette.ItemView.extend({
     template: tpl,
@@ -162,26 +163,6 @@ define([
       return ancestors;
     },
 
-    presentListeners: function(listeners) {
-      var data = [];
-
-      _.each(listeners, function(listener) {
-        var callback = listener.callback;
-
-        // _events.show.0.callback
-        var path = ["_events", listener.eventName, listener.eventIndex, "callback"].join(".");
-
-        data.push({
-          context: listener.context,
-          name: callback.key || callback.inspect,
-          path: path,
-          eventName: listener.eventName
-        });
-      });
-
-      return data;
-    },
-
     serializeData: function() {
       var infoItems = ['cid', 'model', 'collection', 'parentClass', 'tagName', 'template'];
       var data = {};
@@ -195,7 +176,7 @@ define([
         data.model = model.get('attributes').serialized;
       }
 
-      data.listeners = this.presentListeners(data._events);
+      data.listeners = presentListeners(data._events);
 
       data.el = formatEL(data.el.value);
       data.events = this.presentEvents(this.model);
