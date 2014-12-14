@@ -13,25 +13,33 @@ define([
     buildTree: function () {
       var root = {
         nid: 'root',
+        nidPath: [],
+        name: 'root',
+        event: null,
         nodes: []
       };
-      var path = [];
+      var path = [root];
       var prevDepth = 0;
       var prevActionId = null;
       var prevNode;
 
-      _.each(events, function (event) {
-        var actionId = this.get('actionId');
-        var eventId = this.get('eventId');
-        var depth = this.get('depth');
+      this.each(function (event) {
+        var actionId = event.get('actionId');
+        var eventId = event.get('eventId');
+        var depth = event.get('depth');
+        var name = event.get('eventName');
         var actionNode;
         var parentNode;
         var newNode;
+        var nidPath;
 
         // If Activity ID has incremented, create a root child node and push onto path.
         if (actionId !== prevActionId) {
           actionNode = {
             nid: actionId,
+            nidPath: ['root'],
+            name: 'Action ' + actionId.substring(1),
+            event: null,
             nodes: []
           };
           root.nodes.push(actionNode);
@@ -47,17 +55,23 @@ define([
           _.times(prevDepth - depth, path.pop, path);
         }
 
+        // Parent node is the final node on the path.
+        parentNode = _.last(path);
+
         // The node representing the current event object
         // TODO: Modify this to be compatible with Node#updateNodes
         newNode = {
           nid: eventId,
+          nidPath: parentNode.nidPath.concat(parentNode.nid),
+          name: name,
+          event: event,
           nodes: []
         };
 
-        // Parent node is the final node on the path.
-        parentNode = _.last(path);
+        // Add new node to parent's children
         parentNode.nodes.push(newNode);
 
+        // Set back references for next iteration
         prevDepth = depth;
         prevNode = newNode;
         prevActionId = actionId;
