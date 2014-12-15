@@ -25,7 +25,7 @@ define([
     },
 
     dataRequests: {
-      'model': 'requestModel'
+      'model': 'requestModel',
     },
 
     dataCommands: {

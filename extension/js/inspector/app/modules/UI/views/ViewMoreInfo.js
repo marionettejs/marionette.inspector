@@ -43,6 +43,12 @@ define([
       }
     },
 
+    initialize: function() {
+      this.activity = Radio.request('activity', 'view:activity', {
+        cid: this.model.get('cid')
+      });
+    },
+
     onMouseEnterDomElement: function(e) {
       var $target = $(e.currentTarget);
       var propertyName = $target.data('property-name')
@@ -145,6 +151,42 @@ define([
       return info;
     },
 
+    presentWarnings: function() {
+      var renderEvents = _.filter(this.activity, function(activity) {
+        return activity.get('eventName') == 'render'
+      });
+
+      var times = _.map(renderEvents, function(e) {
+        return e.get('startTime')
+      })
+
+      var timeDiffs = _.map(_.zip(times.slice(1), times.slice(0,-1)), function(t) {
+        return t[0]-t[1]
+      });
+
+      var data = {};
+
+      // calculate when more than 2 events happened in
+      // less than 50 milliseconds
+      data.wasAggressivelyRendered = _.some(timeDiffs, function(d) {
+        return d <= 50;
+      });
+
+      // determine if a render took too long
+      data.wasSlowlyRendered = false;
+
+      data.showWarnings = data.wasAggressivelyRendered || data.wasSlowlyRendered;
+      return data;
+    },
+
+    presentActivity: function() {
+      return _.map(this.activity, function(event) {
+        return {
+          event: event.get('eventName')
+        }
+      });
+    },
+
     serializeData: function() {
       var infoItems = ['cid', 'model', 'collection', 'parentClass', 'tagName', 'template'];
       var instanceProperties = [
@@ -165,6 +207,8 @@ define([
       data.ancestors = presentAncestors(data, infoItems, instanceProperties);
       data.el = formatEL(data.el.value);
       data.events = this.presentEvents(this.model);
+      data.activity = this.presentActivity();
+      data.warnings = this.presentWarnings();
       data.ui = this.presentUI(this.model.get('ui'));
       data.showUI = !_.isEmpty(this.model.get('ui'));
       data.option_key = "options";

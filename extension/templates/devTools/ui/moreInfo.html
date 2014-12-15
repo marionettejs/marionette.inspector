@@ -156,6 +156,44 @@
   </div>
   {{/if }}
 
+  {{#if activity}}
+  <div class="sidebar-pane-title" tabindex="2">
+    Activity
+  </div>
+  <div class="sidebar-pane">
+    <div class="body">
+      <div class="section ">
+        <ol data-property-key="" class="properties properties-tree monospace">
+          {{#each activity}}
+          <li data-event="{{handler}}">
+            <span class="name">{{event}}</span>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </div>
+  {{/if }}
+
+  {{#if warnings.showWarnings}}
+  <div class="sidebar-pane-title" tabindex="2">
+    Warnings
+  </div>
+  <div class="sidebar-pane">
+    <div class="body">
+      <div class="section ">
+        <ol data-property-key="" class="properties properties-tree monospace">
+          {{#if warnings.wasAggressivelyRendered}}
+          <li data-event="{{handler}}">
+            <span class="name">Rendered Aggressively</span>
+          </li>
+          {{/if}}
+        </ol>
+      </div>
+    </div>
+  </div>
+  {{/if }}
+
  {{#each ancestors}}
   <div class="sidebar-pane-title" tabindex="3">
     {{name}}

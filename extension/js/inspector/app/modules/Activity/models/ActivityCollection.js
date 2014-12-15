@@ -8,6 +8,12 @@ define([
 
     model: ActivityModel,
 
+    byContextCid: function(cid) {
+      return this.filter(function(activity) {
+        return activity.get('context').cid == cid;
+      });
+    },
+
     // This algorithm reverse-engineers a tree from a pre-order traversal of an n-ary tree.
     // By retaining a "back references", the algorithm can determine how the pre-order traversal
     // path shifted on each iteration and append the current node to the tree.
