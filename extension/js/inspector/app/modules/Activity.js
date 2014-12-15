@@ -19,6 +19,10 @@ define([
       "agent:View:trigger": 'onViewTrigger'
     },
 
+    activityRequests: {
+      'view:activity': 'requestViewActivity'
+    },
+
     initialize: function() {
       this.client = client;
     },
@@ -29,6 +33,11 @@ define([
 
     setupEvents: function() {
       Marionette.bindEntityEvents(this, this.client, this.clientEvents);
+      Radio.connectRequests('activity', this.activityRequests, this);
+    },
+
+    requestViewActivity: function(data) {
+      return this.activityCollection.byContextCid(data.cid);
     },
 
     // See patchAppComponentTrigger.js for definition of event.data
