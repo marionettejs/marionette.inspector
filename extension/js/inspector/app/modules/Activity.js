@@ -43,8 +43,8 @@ define([
     // See patchAppComponentTrigger.js for definition of event.data
     onViewTrigger: function(event) {
       logger.log('activity', 'new event', event.name);
-      var activityModel = new ActivityModel(event.data);
-      this.activityCollection.add(activityModel);
+
+      this.activityCollection.add(event.data);
     },
 
     startModule: function() {
