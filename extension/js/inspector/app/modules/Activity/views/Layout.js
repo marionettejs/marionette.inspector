@@ -50,14 +50,16 @@ define([
       var activityTree = this.activityCollection.buildTreePruned(this._filterTreeNode);
       this.activityRoot.updateNodes(activityTree.nodes);
     },
+    onBeforeRender: function() {
+    },
 
-    onRender: function() {
+    onBeforeShow: function() {
       this.getRegion('activityList').show(new ActivityTree({
         model: this.activityRoot
       }));
 
-      this.activityRoot.collapse();
-      this.activityRoot.expandPath('root');
+      // this.activityRoot.collapse();
+      // this.activityRoot.expandPath('root');
 
     },
 

@@ -4,6 +4,8 @@ define([
   'text!templates/devTools/components/tree/tree.html',
 ], function(Backbone, Marionette, tpl) {
 
+  window.treeCount = 0;
+
   var Tree = Backbone.Marionette.CompositeView.extend({
     tagName: 'ul',
 
@@ -36,8 +38,8 @@ define([
 
       Backbone.Marionette.CompositeView.prototype.constructor.apply(this, arguments);
 
-      this.i = ++window.i;
-      // console.log('!!! new tree', this.i, this.el);
+      this.treeCount = ++window.treeCount;
+      // console.log('!!! new tree', this.treeCount, this.el);
     },
 
     _onCollectionAdd: function() {
@@ -83,7 +85,7 @@ define([
     },
 
     onRender: function() {
-      // console.log('!!! render tree', this.i);
+      // console.log('!!! render tree', this.treeCount);
       this.$el.attr('class', this.className());
     },
 
