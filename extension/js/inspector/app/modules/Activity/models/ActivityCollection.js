@@ -33,6 +33,7 @@ define([
     buildTreePruned: function (filter) {
       var tree = this.buildTree();
       ActivityCollection.pruneTree(tree, filter);
+
       return tree;
     },
 
@@ -59,6 +60,7 @@ define([
           nodes[idx] = undefined;
         }
       });
+
       // Prevent sparse arrays (this may not be necessary)
       tree.nodes = _.compact(tree.nodes);
     }

@@ -37,30 +37,28 @@ define([
       options = options || {};
       this.activityCollection = options.activityCollection;
 
-      activityTree = this.activityCollection.buildTreePruned(this._filterTreeNode);
-      this.activityRoot = new ActivityNode(activityTree, { level: 0 });
 
       this.bindEntityEvents(this.activityCollection, this.activityCollectionEvents);
       Radio.connectCommands('activity', this.activityCommands, this);
-
-      this.onChangeActivityCollection = _.debounce(this.onChangeActivityCollection, 50);
     },
 
-    onChangeActivityCollection: function () {
-      var activityTree = this.activityCollection.buildTreePruned(this._filterTreeNode);
-      this.activityRoot.updateNodes(activityTree.nodes);
-    },
+    onChangeActivityCollection: _.debounce(function () {
+      // console.log('*** activity tree change called');
+      this.activityRoot.update();
+    }, 2000),
+
     onBeforeRender: function() {
     },
 
     onBeforeShow: function() {
+      this.activityRoot = ActivityNode.build(this.activityCollection, this._filterTreeNode);
+
       this.getRegion('activityList').show(new ActivityTree({
         model: this.activityRoot
       }));
 
-      // this.activityRoot.collapse();
-      // this.activityRoot.expandPath('root');
-
+      this.activityRoot.collapse();
+      this.activityRoot.expandPath('root');
     },
 
     showInfo: function(activityModel) {
