@@ -42,7 +42,7 @@ A good way to test the agent is to run it locally in the `index.html` of the
 app you want to inspect.
 
 ```html
-<script src="http://localhost:4001/build/localAgent.js"></script>
+<script src="http://localhost:4001/build/src/localAgent.js"></script>
 ````
 
 ```bash
