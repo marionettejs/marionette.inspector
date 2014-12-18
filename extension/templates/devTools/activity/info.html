@@ -14,9 +14,11 @@
             <span class="name">Duration</span><span class="separator">:</span>
             <span class="value console-formatted-undefined">{{duration}}ms</span>
           </li>
-          <li>
+          <li data-property-value-context
+              data-property-context-type="{{context.type}}"
+              data-property-context-cid="{{context.cid}}">
             <span class="name">Context</span><span class="separator">:</span>
-            <span class="value console-formatted-undefined">{{context.inspect}}</span>
+            <span class="value console-formatted-undefined clickable-property">{{context.inspect}}</span>
           </li>
         </ol>
       </div>
