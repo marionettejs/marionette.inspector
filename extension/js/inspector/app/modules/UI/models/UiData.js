@@ -14,10 +14,6 @@ define([
       this.getRegionTree();
     },
 
-    viewList: function() {
-      return this.buildViewList(this.get('regionTree'));
-    },
-
     getRegionTree: function() {
       this.client
         .appObserverCall('regionTree')
