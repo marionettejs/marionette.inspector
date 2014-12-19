@@ -16,6 +16,10 @@ You can use the Inspector to see what's going on under the hood with your **ui**
 
 Of course, there's also a helpful :mag: as well.
 
+### Watch the video
+
+[![screen shot 2014-12-18 at 10 31 32 pm](https://cloud.githubusercontent.com/assets/952783/5499855/ad455b4e-8705-11e4-86cb-fd47868e0cc8.png)](https://www.youtube.com/watch?v=jbGm3mJXh_s)
+
 ---
 ### Getting Started
 
