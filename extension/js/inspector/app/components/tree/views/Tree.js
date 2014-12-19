@@ -92,6 +92,13 @@ define([
       this.toggleNode();
     },
 
+    // Helper method to get the root
+    // node of a tree, based on the current model index.
+    getRootNode: function() {
+      var currentIndex = this.model.index;
+      return this.$el.parents()[currentIndex - 1];
+    },
+
     collapseNode: function() {
       this.model.isCollapsed = true;
       this.toggleNode();
