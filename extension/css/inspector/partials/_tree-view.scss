@@ -44,6 +44,11 @@ li.tree-group-item {
     background: #f2f2f2;
   }
 
+  &.node-active {
+    background: #428BCA;
+    color: #f2f2f2;
+  }
+
   .glyphicon {
     color: #888;
     padding-right: 5px;

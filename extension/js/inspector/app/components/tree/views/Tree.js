@@ -87,6 +87,16 @@ define([
       return false;
     },
 
+    // Sets a single element with the active class
+    // passed, while unsetting all matching child nodes
+    // with the same class.
+    setActiveNode: function($el, klass) {
+      klass = klass || 'node-active';
+
+      $('.'+klass, this.getRootNode()).removeClass(klass);
+      $el.children('li').addClass(klass);
+    },
+
     expandNode: function() {
       this.model.isCollapsed = false;
       this.toggleNode();
