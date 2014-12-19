@@ -43,6 +43,7 @@ module.exports = function(grunt) {
       files: [
         'extension/js/agent/**/*.js',
         'extension/js/common/**/*.js',
+        'extension/js/inspector/**/*.js',
         '!extension/js/agent/build/src/*.js',
         'extension/css/inspector/**/*.scss'
         ],
