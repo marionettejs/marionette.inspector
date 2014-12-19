@@ -13,7 +13,7 @@
 
   "repository": {
     "type": "git",
-    "url": "git://github.com/MarionetteLabs/marionette.inspector.git"
+    "url": "git://github.com/marionettejs/marionette.inspector.git"
   },
 
   "keywords": [
@@ -27,7 +27,7 @@
   "license": "BSD-2-Clause",
 
   "bugs": {
-    "url": "https://github.com/MarionetteLabs/marionette.inspector/issues"
+    "url": "https://github.com/marionettejs/marionette.inspector/issues"
   },
 
   "dependencies": {},
