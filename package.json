@@ -9,7 +9,8 @@
 
   "scripts": {
     "test": "grunt test --mocha-reporter=Spec;",
-    "build": "grunt build"
+    "build": "grunt build",
+    "watch": "grunt watch"
   },
 
   "repository": {

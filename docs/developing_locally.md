@@ -11,6 +11,11 @@ git clone git@github.com:MarionetteLabs/marionette.inspector.git
 npm run build
 ```
 
+Or you can run watch for dev,
+
+```bash
+npm run watch
+```
 
 ### 3. Install in Chrome
 ```
