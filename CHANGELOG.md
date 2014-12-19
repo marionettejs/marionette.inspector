@@ -1,3 +1,44 @@
+## V0.4
+#### 12-18-2014
+
+### Overview
++ We're enabling the Activity Pane for the first time
++ UI Info shows triggers, listeners, activity, and warnings
++ Data Info shows class heirarchy
++ Radio handler contexts and callbacks are much better supported
+
+
+### Added
++ Added more metadata for event triggers (listeners, tart, end, and actionId)
++ Added Behaviors, Module, Object, Application, and Controller to app component registry
++ Added printProperty helper for console messages
++ Re-styled inspector header
++ Add view Triggers pane
++ Add view Listners pane
++ Improved findKey helper so that it unwraps listenToOnce and detects the underlying callback
++ Improved findKey helper so that it looks up the prototype chain
++ Added class heiararchy panes to Model
++ Added much better support for detecting Radio contexts and callbacks
+
+
+### Changed
++ Refactored patchDefine to split it up into smaller pieces
++ Refactored serializeEvents to conform to B.Events
+
+
+### Fixed
++ Fixed bug where the info pane would appear clipped
++ Fixed bug where inspecting an element would fail if underscore weren't defined globally in the window
++ Fixed serious issue where agent.js linenumbers were mis-aligned
++ Fixed clientInspect so that it works for jQuery elements
++ Fixed search for sessions that changed the elements while search was on
++ Fixed clientInspect's handling of native functions
++ Fixed Activity pane UI so that it's based off of the new components tree
++ Fixed Activity pane perf issues by debouncing a couple things
++ Fixed patchWindow bug where marionette could be found w/o backbone
+
+### Removed
+
 ## V0.3
 #### 12-1-2014
 
