@@ -8,7 +8,7 @@ git clone git@github.com:MarionetteLabs/marionette.inspector.git
 ### 2. Build the extension
 
 ```bash
-grunt build
+npm run build
 ```
 
 
