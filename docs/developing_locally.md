@@ -2,7 +2,8 @@
 
 ### 1. Download the Extension
 ```bash
-git clone git@github.com:MarionetteLabs/marionette.inspector.git
+git clone github.com/marionettejs/marionette.inspector.git
+
 ```
 
 ### 2. Build the extension
@@ -25,8 +26,8 @@ grunt build
 
 Local logging can be turned on easily by enabling the two logger classes (`debug`, `logger`)
 
-https://github.com/MarionetteLabs/marionette.inspector/blob/master/extension/js/common/util/Logger.js#L14
-https://github.com/MarionetteLabs/marionette.inspector/blob/master/extension/js/common/util/debug.js#L4
+https://github.com/marionettejs/marionette.inspector/blob/master/extension/js/common/util/Logger.js#L14
+https://github.com/marionettejs/marionette.inspector/blob/master/extension/js/common/util/debug.js#L4
 
 **debug** is the window `agent` logger
 **logger** is the inspector logger
