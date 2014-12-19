@@ -87,9 +87,26 @@ define([
       return false;
     },
 
+    // Sets a single element with the active class
+    // passed, while unsetting all matching child nodes
+    // with the same class.
+    setActiveNode: function($el, klass) {
+      klass = klass || 'node-active';
+
+      $('.'+klass, this.getRootNode()).removeClass(klass);
+      $el.children('li').addClass(klass);
+    },
+
     expandNode: function() {
       this.model.isCollapsed = false;
       this.toggleNode();
+    },
+
+    // Helper method to get the root
+    // node of a tree, based on the current model index.
+    getRootNode: function() {
+      var currentIndex = this.model.index;
+      return this.$el.parents()[currentIndex - 1];
     },
 
     collapseNode: function() {
