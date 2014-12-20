@@ -2,7 +2,7 @@
 this.patchBackboneRouter = function(BackboneRouter) {
     debug.log("Backbone.Router detected");
 
-    patchBackboneComponent(BackboneRouter, bind(function(router) { // on new instance
+    patchBackboneComponent(BackboneRouter, _.bind(function(router) { // on new instance
         // registra il nuovo componente dell'app
         var routerIndex = registerAppComponent("Router", router);
 

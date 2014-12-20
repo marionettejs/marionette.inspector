@@ -1,7 +1,7 @@
 
 
 // @private
-var setAppComponentInfo = bind(function(appComponent, appComponentInfo) {
+var setAppComponentInfo = _.bind(function(appComponent, appComponentInfo) {
     var appComponentCategory = appComponentInfo.category;
     var appComponentIndex = appComponentInfo.index;
 
