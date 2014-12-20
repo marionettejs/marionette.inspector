@@ -34,3 +34,5 @@ var registerAppComponent = bind(function(appComponentCategory, appComponent, com
 
     return appComponentIndex;
 }, this);
+
+this.registerAppComponent = registerAppComponent;

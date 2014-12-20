@@ -28,3 +28,5 @@ var addAppComponentAction = bind(function(appComponent, appComponentAction) {
 
     return actionIndex;
 }, this);
+
+this.addAppComponentAction = addAppComponentAction;

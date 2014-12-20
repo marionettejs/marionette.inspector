@@ -1,9 +1,15 @@
-this.patchViewChanges = function(view, prop, action, difference, oldValue) {
-  this.sendAppComponentReport("view:change", {
-    cid: view.cid,
-    data: this.serializeView(view)
-  })
-}
+this.patchViewChanges = _.debounce(function(view, prop, action, difference, oldValue) {
+  this.lazyWorker.push({
+    context: this,
+    args: [view],
+    callback: function(view) {
+      this.sendAppComponentReport("view:change", {
+        cid: view.cid,
+        data: this.serializeView(view)
+      });
+    }
+  });
+}, 200);
 
 var patchViewRemove = function(originalFunction) {
   return function() {
@@ -23,10 +29,20 @@ this.patchBackboneView = function(BackboneView) {
     debug.log("Backbone.View detected");
 
     patchBackboneComponent(BackboneView, bind(function(view) { // on new instance
-        // registra il nuovo componente dell'app
-        var data = this.serializeView(view);
-        var viewIndex = registerAppComponent("View", view, data);
+        this.lazyWorker.push({
+          context: this,
+          args: [view],
+          callback: function(view) {
+            var data = this.serializeView(view)
+            this.sendAppComponentReport("view:change", {
+              data: data,
+              cid: view.cid
+            });
+          }
+        });
 
+        // registra il nuovo componente dell'app
+        this.registerAppComponent("View", view, this.serializeEmptyView(view));
 
         // Patcha i metodi del componente dell'app
         patchAppComponentTrigger(view, 'view');

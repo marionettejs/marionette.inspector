@@ -57,6 +57,8 @@ var Marionette = this.Marionette;
 // @include ../utils/unwrapListenToOnceWrapper.js
 // @include ../utils/isNativeFunction.js
 // @include ../utils/printProperty.js
+// @include ../utils/lazyWorker.js
+// @include ../utils/stackFrame.js
 
 
 
