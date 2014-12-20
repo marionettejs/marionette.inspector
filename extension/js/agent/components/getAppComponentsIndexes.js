@@ -1,7 +1,7 @@
 
 // Restituisce un array con gli indici dei componenti dell'applicazione
 // della categoria specificata che sono presenti nell'app.
-this.getAppComponentsIndexes = bind(function(appComponentCategory) {
+this.getAppComponentsIndexes = _.bind(function(appComponentCategory) {
     var appComponentsInfo = this.appComponentsInfo[appComponentCategory];
 
     var appComponentsIndexes = [];

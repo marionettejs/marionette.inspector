@@ -1,7 +1,7 @@
 
 // @private
 // Patcha il metodo sync del componente dell'app (presente in modelli e collezioni).
-var patchAppComponentSync = bind(function(appComponent) {
+var patchAppComponentSync = _.bind(function(appComponent) {
     patchFunctionLater(appComponent, "sync", function(originalFunction) { return function() {
 
         var method = arguments[0]; // es. "create", "read", etc.

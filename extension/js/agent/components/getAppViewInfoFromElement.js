@@ -2,7 +2,7 @@
 // Restituisce l'info della vista a cui appartiene l'elemento html passato, o undefined se non esiste.
 // L'elemento appartiene alla vista se questo combacia perfettamente con la sua proprietà el, o
 // se questa è l'ascendente più vicino rispetto a tutte le altre viste.
-this.getAppViewInfoFromElement = bind(function(pageElement) {
+this.getAppViewInfoFromElement = _.bind(function(pageElement) {
     // funzione che controlla se l'elemento html target è un ascendente dell'elemento html of
     var isAscendant = function(target, of) {
         if (!of) return false;

@@ -13,7 +13,7 @@
 // Possible options:
 // - stealth: if true then uses the stealth on setted function to monitor for changes, but this
 //   will cause the recursionLevel to be 0 since is not supported by the stealth monitoring.
-var monitorAppComponentProperty = bind(function(appComponent, property, recursionLevel, options) {
+var monitorAppComponentProperty = _.bind(function(appComponent, property, recursionLevel, options) {
     // handler per il cambiamento della proprietà
     var propertyChanged = bind(function() {
         // invia un report riguardante il cambiamento della proprietà

@@ -7,7 +7,7 @@ this.patchMarionetteController = function(MarionetteController) {
       MarionetteController.prototype.initialize = function(){};
     }
 
-    patchBackboneComponent(MarionetteController, bind(function(controller) { // on new instance
+    patchBackboneComponent(MarionetteController, _.bind(function(controller) { // on new instance
         this.addCidToComponent(controller);
         var data = {};
         var controllerIndex = registerAppComponent("Controller", controller, data);

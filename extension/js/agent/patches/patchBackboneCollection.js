@@ -2,7 +2,7 @@
 this.patchBackboneCollection = function(BackboneCollection) {
     debug.log("Backbone.Collection detected");
 
-    patchBackboneComponent(BackboneCollection, bind(function(collection) { // on new instance
+    patchBackboneComponent(BackboneCollection, _.bind(function(collection) { // on new instance
         this.addCidToComponent(collection);
 
         // registra il nuovo componente dell'app
