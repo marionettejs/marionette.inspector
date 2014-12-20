@@ -57,9 +57,9 @@ var patchAppComponentTrigger = _.bind(function(appComponent, eventType) {//
     return function(eventName) {
 
       agent.depth++;
-      var start = Date.now();
+      var start = performance.now();
       var result = originalFunction.apply(this, arguments);
-      var end = Date.now();
+      var end = performance.now();
 
       // function signature: trigger(eventName, arg1, arg2, ...)
       var args  = _.rest(arguments);

@@ -32,6 +32,7 @@ var Marionette = this.Marionette;
   */
 
 // @include ../../lib/function-bind-polyfill.js
+// @include ../../lib/function-performance-polyfill.js
 // @include ../../lib/watchjs/src/watch.js
 
 /*
