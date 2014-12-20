@@ -1,10 +1,10 @@
-;(function(agent) {
+;(function(Agent) {
 
-  agent.tempId = 0;
+  Agent.tempId = 0;
 
 
-  agent.printProperty = function(prop) {
-    var tempVar = 'mn' + ++agent.tempId;
+  Agent.printProperty = function(prop) {
+    var tempVar = 'mn' + ++Agent.tempId;
 
     window[tempVar] = prop;
     console.log(tempVar + ' = ', prop);

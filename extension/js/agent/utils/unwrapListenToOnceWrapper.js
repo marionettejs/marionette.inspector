@@ -1,30 +1,34 @@
-var underscoreListenOnceFuncString = function () {
-      if (ran) return memo;
-      ran = true;
-      memo = func.apply(this, arguments);
-      func = null;
-      return memo;
-    }.toString();
+(function(Agent) {
 
-var lodashListenOnceFuncString = function() {
-        if (ran) {
-          return result;
-        }
+  var underscoreListenOnceFuncString = function () {
+        if (ran) return memo;
         ran = true;
-        result = func.apply(this, arguments);
-
-        // clear the `func` variable so the function may be garbage collected
+        memo = func.apply(this, arguments);
         func = null;
-        return result;
+        return memo;
       }.toString();
 
-this.unwrapListenToOnceWrapper = function(func) {
-  var funcString = func.toString();
-  if (underscoreListenOnceFuncString == funcString
-    || lodashListenOnceFuncString == funcString) {
+  var lodashListenOnceFuncString = function() {
+          if (ran) {
+            return result;
+          }
+          ran = true;
+          result = func.apply(this, arguments);
 
-    return func._callback;
+          // clear the `func` variable so the function may be garbage collected
+          func = null;
+          return result;
+        }.toString();
+
+  Agent.unwrapListenToOnceWrapper = function(func) {
+    var funcString = func.toString();
+    if (underscoreListenOnceFuncString == funcString
+      || lodashListenOnceFuncString == funcString) {
+
+      return func._callback;
+    }
+
+    return func;
   }
 
-  return func;
-}
+})(this);

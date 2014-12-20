@@ -5,4 +5,4 @@ var setProperty = function(object, property, options) {
   };
 
   return Object.defineProperty(object, property, _.extend(opts, options));
-}
+};

@@ -130,8 +130,8 @@
     var value = toJSON(object);
     return {
       value: value,
-      inspect: this.inspectValue(object),
-      serialized: this.serializeObject(object),
+      inspect: Agent.inspectValue(object),
+      serialized: Agent.serializeObject(object),
       isEmpty: _.isEmpty(value),
     }
   };
