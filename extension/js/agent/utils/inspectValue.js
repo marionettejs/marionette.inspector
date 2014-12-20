@@ -112,4 +112,4 @@ this.inspectObject = function(object) {
     serialized: this.serializeObject(object),
     isEmpty: _.isEmpty(value),
   }
-}
+};
