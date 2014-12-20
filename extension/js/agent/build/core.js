@@ -41,10 +41,7 @@ var Marionette = this.Marionette;
 
 
 // @include ../../common/util/debug.js
-// @include ../utils/isObject.js
-// @include ../utils/isArray.js
 // @include ../utils/toJson.js
-// @include ../utils/clone.js
 // @include ../utils/sendMessage.js
 // @include ../utils/getHiddenProperty.js
 // @include ../utils/setHiddenProperty.js
@@ -54,8 +51,6 @@ var Marionette = this.Marionette;
 // @include ../utils/serializeObject.js
 // @include ../utils/findKey.js
 // @include ../utils/unwrapListenToOnceWrapper.js
-// @include ../utils/isNativeFunction.js
-// @include ../utils/printProperty.js
 
 
 

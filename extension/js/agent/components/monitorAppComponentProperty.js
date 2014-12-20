@@ -41,7 +41,7 @@ var monitorAppComponentProperty = _.bind(function(appComponent, property, recurs
             if (index == propertyFragments.length - 1) {
                 // the final target has changed
                 propertyChanged();
-            } else if (isObject(object[currentProperty])) {
+            } else if (_.isObject(object[currentProperty])) {
                 // remove the watchers of the old object and of its subproperties
                 for (var i=index; i<propertyFragments.length; i++) {
                     if (watchers[i]) stopOnSettedFunc(watchers[i]);
