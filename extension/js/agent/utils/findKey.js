@@ -17,17 +17,19 @@
 
     value = Agent.unwrapListenToOnceWrapper(value);
 
-    var theKey = undefined;
     var info = Agent.ancestorInfo(obj);
 
-    _.each(info, function(_obj) {
-      _.each(_obj.keys, function(key) {
-        var path = _obj.path ? _obj.path +"."+key : key;
-        if (Agent.objectPath(obj, path) == value) {
-           theKey = key
+    var theKey, path;
+
+    _.find(info, function(_obj) {
+      return _.find(_obj.keys, function(key) {
+        path = _obj.path ? _obj.path + '.' + key : key;
+        if(Agent.objectPath(obj, path) === value){
+          theKey = key;
+          return true;
         }
-      }, obj, value);
-    }, info, obj, value);
+      });
+    });
 
     return theKey;
   }
