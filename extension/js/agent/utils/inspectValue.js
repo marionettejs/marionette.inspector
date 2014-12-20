@@ -14,78 +14,97 @@
     return typeof obj
   }
 
+  var formatJquery = function(value) {
+    var elem = value[0] ? '<'+value[0].tagName.toLowerCase()+'>' : '';
+    return '<jQuery ' + elem + '>';
+  }
+
+  var formatArray = function(value) {
+    if (value.length === 0) { return '[]'; }
+
+    var ret;
+
+    if (Agent.isKnownType(value[0])) {
+      ret = Agent.knownTypeString(value[0]);
+    } else {
+      ret = inspect(value[0]);
+    }
+
+    var suffix = ' ]';
+
+    if(value.length > 1) suffix = ', ... ]';
+
+    return '[ ' + ret + suffix;
+  }
+
+  var formatObject = function(value) {
+    // `Ember.inspect` is able to handle this use case,
+    // but it is very slow as it loops over all props,
+    // so summarize to just first 2 props
+    var ret = [], v, t, count = 0, broken = false;
+
+    for (var key in value) {
+      if (!value.hasOwnProperty(key)) { continue; }
+
+      if (count++ === 2) {
+        broken = true;
+        break;
+      }
+
+      v = value[key];
+      t = typeOf(v);
+
+      if (Agent.isKnownType(v)) { v = Agent.knownTypeString(v); }
+      else if (v === 'toString') { continue; } // ignore useless items
+      else if (t === 'function') { v = 'function() {}'; }
+      else if (t === 'array') { v = '[Array : ' + v.length + ']'; }
+      else if (t === 'object') { v = '[Object]'; }
+
+      ret.push(key + ': ' + v);
+    };
+
+    var suffix = ' }';
+
+    if(broken) suffix = ' ...}';
+
+    return '{ ' + ret.join(', ') + suffix;
+  }
+
+
+  /**
+   inspect takes a value and based on the value's type
+   formats it in a nice way.
+
+   e.g.
+   inspect(new Backbone.Model) //=> "<Backbone.Model c12>"
+
+   @param value
+   @return {String} - formatted representation of the value
+   */
   var inspect = function(value) {
     var type = typeOf(value) ;
 
-    if (type === 'undefined') {
-      return 'undefined';
-    } else if (value === null) {
-      return 'null';
-    } else if (type === 'function') {
-      return 'function() {';
-    } else if (type === 'date') {
-      return value.toString();
-    } else if (type === 'string' || type === 'number' || type === 'boolean') {
-      return value;
-    } else if (value instanceof Error) {
-      return 'Error: ' + value.message;
-    } else if (jQuery && value instanceof jQuery) {
-      var elem = value[0] ? '<'+value[0].tagName.toLowerCase()+'>' : '';
-      return '<jQuery ' + elem + '>';
-    } else if (type === 'array') {
-      if (value.length === 0) { return '[]'; }
-
-      var ret;
-
-      if (Agent.isKnownType(value[0])) {
-        ret = Agent.knownTypeString(value[0]);
-      } else {
-        ret = inspect(value[0]);
-      }
-
-      var suffix = ' ]';
-
-      if(value.length > 1) suffix = ', ... ]';
-
-      return '[ ' + ret + suffix;
-    } else if (type === 'object') {
-      // `Ember.inspect` is able to handle this use case,
-      // but it is very slow as it loops over all props,
-      // so summarize to just first 2 props
-      var ret = [], v, count = 0, broken = false;
-
-      for (var key in value) {
-        if (!value.hasOwnProperty(key)) { continue; }
-
-        if (count++ === 2) {
-          broken = true;
-          break;
-        }
-
-        v = value[key];
-
-        if (Agent.isKnownType(v)) { v = Agent.knownTypeString(v); }
-        else if (v === 'toString') { continue; } // ignore useless items
-        else if (typeOf(v) === 'function') { v = 'function() {}'; }
-        else if (typeOf(v) === 'array') { v = '[Array : ' + v.length + ']'; }
-        else if (typeOf(v) === 'object') { v = '[Object]'; }
-
-        ret.push(key + ': ' + v);
-      };
-
-      var suffix = ' }';
-
-      if(broken) suffix = ' ...}';
-
-      return '{ ' + ret.join(', ') + suffix;
-
-    } else {
+    if (type === 'undefined') { return 'undefined'; }
+    else if (value === null) { return 'null'; }
+    else if (type === 'function') {return 'function() {'; }
+    else if (type === 'date') { return value.toString(); }
+    else if (type === 'string' || type === 'number' || type === 'boolean') { return value; }
+    else if (value instanceof Error) { return 'Error: ' + value.message; }
+    else if (jQuery && value instanceof jQuery) { return formatJquery(value); }
+    else if (type === 'array') { return formatArray(value); }
+    else if (type === 'object') { return formatObject(value); }
+    else {
       debug.log('serialize: couldn\'t find the type for ', value);
       return '';
     }
   }
 
 
+  /**
+   * inspectValue({a: 2, b: 3, c: 4})  //=>
+   *   {type:'object', inspect:"{a: 2, b: 3, ... }"}
+   *
+   */
   Agent.inspectValue = function(value, object) {
     var key = this.findKey(object, value);
 
