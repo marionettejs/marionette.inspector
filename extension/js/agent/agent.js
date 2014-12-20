@@ -23,5 +23,17 @@ this.start = function(Backbone, Marionette) {
 };
 
 
-console.log('marionette inspector', this);
+console.log('Marionette Inspector: window.__agent = ', this);
 sendAppComponentReport('start');
+
+
+window.setTimeout(function() {
+
+  if(window.__agent && window.__agent.patchedBackbone) {
+    return;
+  }
+
+  console.warn("Marionette Inspector: Hmmm... couldn't find yo Backbone");
+  console.log("Please peruse https://github.com/marionettejs/marionette.inspector#caveats");
+
+}, 2000);
