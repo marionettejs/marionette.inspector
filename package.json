@@ -39,7 +39,6 @@
     "grunt-contrib-watch": "0.6.1",
     "grunt-contrib-clean": "0.5.0",
     "grunt-mocha": "0.4.0",
-    "grunt-contrib-sass": "0.8",
     "contextify": "0.1.9",
     "chai": "1.9.1",
     "chai-jq": "0.0.7",
@@ -48,6 +47,6 @@
     "mocha": "1.19.0",
     "sinon": "1.10.3",
     "sinon-chai": "2.5.0",
-    "sass": "0.5.0"
+    "grunt-sass": "0.17.0"
   }
 }
