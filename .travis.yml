@@ -7,4 +7,5 @@ before_install:
   - npm config set ca ""
 
 before_script:
-  - grunt agent
+  - npm run bower
+  - npm run build
