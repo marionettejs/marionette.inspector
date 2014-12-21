@@ -4,7 +4,7 @@
   window.expect = chai.expect;
   window.sinon = sinon;
 
-  onload = function() {
+  window.onload = function() {
   // mocha.checkLeaks();
   mocha.run();
 
