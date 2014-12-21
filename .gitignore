@@ -22,4 +22,4 @@ extension/js/lib/requirejs
 extension/js/lib/text
 extension/js/lib/underscore
 extension/js/lib/underscore-contrib
-extension/js/lib/Watch.JS
+extension/js/lib/watchjs
