@@ -23,18 +23,21 @@ module.exports = function(grunt) {
         options: {
           reporter: grunt.option('mocha-reporter') || 'Nyan'
         },
-        src: ['extension/js/test/unit/AgentSpecRunner.html'],
+        src: [
+        'extension/js/test/unit/AgentSpecRunner.html',
+        'extension/js/test/unit/InspectorSpecRunner.html'
+        ],
         dest: './test/output/xunit.out',
       },
     },
 
     sass: {
+      options: {
+        expanded: true
+      },
       dist: {
-        options: {
-          style: 'expanded'
-        },
         files: {
-          'extension/css/marionette_inspector.css': 'extension/css/inspector/main.scss',
+         'extension/css/marionette_inspector.css':  'extension/css/inspector/main.scss'
         }
       }
     },
@@ -55,7 +58,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-preprocess');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-mocha');
-  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-sass');
 
 
   grunt.registerTask('agent', ['preprocess']);

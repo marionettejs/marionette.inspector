@@ -34,7 +34,6 @@ define([
         prop = prop[0];
       }
 
-      // console.log('found prop', prop);
 
       // inspect a function
       if (this._.isFunction(prop)) {

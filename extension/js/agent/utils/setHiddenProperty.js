@@ -1,6 +1,6 @@
 // @private
 var setHiddenProperty = function(object, property, value) {
-    if (!isObject(object)) return;
+    if (!_.isObject(object)) return;
     Object.defineProperty(object, hiddenPropertyPrefix+property, {
         configurable: false,
         enumerable: false,

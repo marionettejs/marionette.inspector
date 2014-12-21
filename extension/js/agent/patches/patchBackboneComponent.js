@@ -3,7 +3,7 @@
 // specificato (e dei suoi sottotipi), passandogli la nuova istanza.
 // I componenti Backbone validi sono Backbone.View, Backbone.Model, Backbone.Collection e Backbone.Router
 // N.B: suppone che il componente backbone sia stato settato solo inizialmente.
-var patchBackboneComponent = bind(function(BackboneComponent, instancePatcher) {
+var patchBackboneComponent = _.bind(function(BackboneComponent, instancePatcher) {
 
     onceDefined(BackboneComponent, "extend", function() {
         // (l'extend è l'ultimo metodo impostato, quindi ora il componente è pronto)

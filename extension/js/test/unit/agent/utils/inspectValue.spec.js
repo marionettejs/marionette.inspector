@@ -32,6 +32,17 @@ describe('inspectValue', function() {
     });
   });
 
+  describe('jQuery', function() {
+    it('jQuery(\'body\')', function() {
+      expect(window.inspectValue(jQuery('body'))).to.deep.equal({
+        type: "type-object",
+        inspect: "<jQuery <body>>",
+        cid: undefined,
+        key: ""
+      });
+    });
+  });
+
   describe('arrays', function() {
     it('[]', function() {
       expect(window.inspectValue([])).to.deep.equal({

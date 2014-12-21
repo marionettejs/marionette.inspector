@@ -4,7 +4,7 @@ var QueuePostMessages = function() {
 
   _.bindAll(this, 'sendBatch');
   this.sendBatch = _.debounce(this.sendBatch, this._debounceTime);
-}
+};
 
 _.extend(QueuePostMessages.prototype, {
 

@@ -16,6 +16,8 @@ define([
       evt.stopPropagation();
       if (this.model.get('event')) {
         Radio.command('activity', 'show:info', this.model.get('event'));
+
+        this.setActiveNode(this.$el);
       }
     },
 
