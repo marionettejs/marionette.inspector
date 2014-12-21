@@ -3,12 +3,14 @@
 ### 1. Download the Extension
 ```bash
 git clone github.com/marionettejs/marionette.inspector.git
-
 ```
+
 
 ### 2. Build the extension
 
 ```bash
+npm i
+npm run bower
 grunt build
 ```
 
