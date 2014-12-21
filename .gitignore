@@ -9,3 +9,17 @@ npm-debug.log
 .sass-cache/*
 extension/css/marionette_inspector.css
 extension/css/marionette_inspector.css.map
+extension/js/lib/backbone
+extension/js/lib/backbone.babysitter
+extension/js/lib/backbone.marionette
+extension/js/lib/backbone.radio
+extension/js/lib/backbone.wreqr
+extension/js/lib/bootstrap
+extension/js/lib/handlebars
+extension/js/lib/jquery
+extension/js/lib/jquery-treegrid
+extension/js/lib/requirejs
+extension/js/lib/text
+extension/js/lib/underscore
+extension/js/lib/underscore-contrib
+extension/js/lib/Watch.JS

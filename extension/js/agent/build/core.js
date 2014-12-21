@@ -1,24 +1,24 @@
 
 if (typeof window._ == "undefined") {
-  // @include ../../lib/underscore.js
+  // @include ../../lib/underscore/underscore.js
 }
 var _ = this._;
 
 
 // add jQuery if it's not there
 if (typeof window.$ == "undefined") {
-  // @include ../../lib/jquery.js
+  // @include ../../lib/jquery/jquery.js
 }
 
 // add jQuery to window.__agent because Backbone requires it on the root
 this.$ = window.$;
 
-// @include ../../lib/underscore-contrib.js
+// @include ../../lib/underscore-contrib/dist/underscore-contrib.js
 
 
 // @include ../../lib/backbone-no-amd.js
-// @include ../../lib/backbone.radio.js
-// @include ../../lib/marionette.js
+// @include ../../lib/backbone.radio/build/backbone.radio.js
+// @include ../../lib/backbone.marionette/lib/backbone.marionette.js
 
 // define Backbone and Marionette locally in the agent closure
 var Backbone = this.Backbone;
@@ -32,7 +32,7 @@ var Marionette = this.Marionette;
   */
 
 // @include ../../lib/function-bind-polyfill.js
-// @include ../../lib/watch.js
+// @include ../../lib/watch.js/src/watch.js
 
 /*
  * UTILS
