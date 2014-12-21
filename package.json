@@ -5,7 +5,8 @@
   "main": "",
   "scripts": {
     "test": "grunt test --mocha-reporter=Spec;",
-    "bower": "bower i"
+    "bower": "bower i",
+    "build": "grunt build"
   },
   "repository": {
     "type": "git",
