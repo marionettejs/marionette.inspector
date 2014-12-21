@@ -32,12 +32,12 @@ module.exports = function(grunt) {
     },
 
     sass: {
+      options: {
+        expanded: true
+      },
       dist: {
-        options: {
-          style: 'expanded'
-        },
         files: {
-          'extension/css/marionette_inspector.css': 'extension/css/inspector/main.scss',
+         'extension/css/marionette_inspector.css':  'extension/css/inspector/main.scss'
         }
       }
     },
@@ -58,7 +58,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-preprocess');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-mocha');
-  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-sass');
 
 
   grunt.registerTask('agent', ['preprocess']);
