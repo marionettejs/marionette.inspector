@@ -21,7 +21,7 @@ _.extend(this, {
     }, 50)
 });
 
-var patchAppComponentTrigger = bind(function(appComponent, eventType) {//
+var patchAppComponentTrigger = _.bind(function(appComponent, eventType) {//
 
     var agent = this;
     patchFunctionLater(appComponent, "trigger", function(originalFunction) {

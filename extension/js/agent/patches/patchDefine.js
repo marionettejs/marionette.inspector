@@ -1,6 +1,6 @@
 this.patchDefine = (function(agent){
   var moduleHasComponents = function (Candidate, components) {
-    return isObject(Candidate) &&
+    return _.isObject(Candidate) &&
       _.all(components, function (component) {
         return _.isFunction(Candidate[component]);
       });

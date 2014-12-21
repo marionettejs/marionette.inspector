@@ -22,7 +22,7 @@ var patchViewRemove = function(originalFunction) {
 this.patchBackboneView = function(BackboneView) {
     debug.log("Backbone.View detected");
 
-    patchBackboneComponent(BackboneView, bind(function(view) { // on new instance
+    patchBackboneComponent(BackboneView, _.bind(function(view) { // on new instance
         // registra il nuovo componente dell'app
         var data = this.serializeView(view);
         var viewIndex = registerAppComponent("View", view, data);
