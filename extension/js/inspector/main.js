@@ -4,6 +4,7 @@ require.config({
     // paths configuration
     paths: {
         templates: '../../templates',
+        test: '../test/',
 
         jquery: '../lib/jquery',
         underscore: '../lib/underscore',
@@ -53,6 +54,7 @@ require.config({
     }
 });
 
+
 require([
   "jquery",
   "jquery.treegrid",
@@ -74,6 +76,8 @@ require([
       return Handlebars.compile(template)(data);
     };
 
+
+
     $(document).ready(function() {
         // var router = new Router();
         // Backbone.history.start();
@@ -87,6 +91,8 @@ require([
         app.module('Radio', RadioApp);
         app.module('UI', UIApp);
         app.module('Activity', ActivityApp);
+
+        window.appLoadCallback();
     });
 
     logger.log('devtools', 'started!')
