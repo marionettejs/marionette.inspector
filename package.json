@@ -1,37 +1,26 @@
 {
   "name": "marionette.inspector",
-
   "version": "0.4.0",
-
   "description": "A proper inspector for Marionette",
-
   "main": "",
-
   "scripts": {
     "test": "grunt test --mocha-reporter=Spec;"
   },
-
   "repository": {
     "type": "git",
     "url": "git://github.com/marionettejs/marionette.inspector.git"
   },
-
   "keywords": [
     "marionette",
     "backbone",
     "devtools"
   ],
-
   "author": "Jason Laster",
-
   "license": "BSD-2-Clause",
-
   "bugs": {
     "url": "https://github.com/marionettejs/marionette.inspector/issues"
   },
-
   "dependencies": {},
-
   "devDependencies": {
     "grunt": "0.4.5",
     "grunt-cli": "0.1.13",
