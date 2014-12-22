@@ -40,6 +40,9 @@ if (window.__agent) {
 
 > Note this should go at the very top before your Application or View classes are defined.
 
+#### Frequently Asked Questions
+If you have any additional questions, check out our [FAQ](https://github.com/marionettejs/marionette.inspector/blob/master/docs/faq.md).
+
 ---
 
 ### Play with it locally
