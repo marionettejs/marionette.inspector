@@ -14,8 +14,7 @@ _.extend(AppObserver.prototype, {
   radioExpression: "app.wreqr",
 
   startSearch: function() {
-
-    this.agent.search(this, this.getApp());
+    this.agent.startSearch(this, this.getApp());
   },
 
   stopSearch: function() {
@@ -79,7 +78,7 @@ _.extend(AppObserver.prototype, {
 
   viewList: function() {
     var regionTree = this.regionTree('', false);
-    return viewList(regionTree);
+    return this.agent.viewList(regionTree);
   },
 
   // called by the inspector to get the current channel list

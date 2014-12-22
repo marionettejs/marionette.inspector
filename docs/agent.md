@@ -8,9 +8,10 @@ The Agent is the script that is injected into the application window. The agent 
 extension/js/agent
 ├── agent.js           // main script
 ├── app.json           // config file
-├── build              // folder for build concat files
+├── build              // concat files
 ├── components         // component definitions (Views, Models..)
-├── marionette         // serializers and actions
+├── serializes         // objects to serialize
+├── actions            // functions that perform window actions (search, highlight)
 ├── patches            // class monkey patches
 ├── utils              // agent util files
 └── watchers           // object observe helpers
