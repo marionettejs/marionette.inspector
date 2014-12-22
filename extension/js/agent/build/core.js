@@ -1,17 +1,18 @@
 
 if (typeof window._ == "undefined") {
   // @include ../../lib/underscore/underscore.js
+ var _ = this._;
 }
-var _ = this._;
-
 
 // add jQuery if it's not there
 if (typeof window.$ == "undefined") {
   // @include ../../lib/jquery/jquery.js
+ var $ = this.$;
 }
 
 // add jQuery to window.__agent because Backbone requires it on the root
-this.$ = window.$;
+this.$ = $ || window.$ || window.jQuery;
+var $ = this.$;
 
 // @include ../../lib/underscore-contrib/dist/underscore-contrib.js
 
