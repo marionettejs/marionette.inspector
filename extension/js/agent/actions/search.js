@@ -6,9 +6,9 @@
  *
  */
 
-this.search = (function(agent) {
+;(function(Agent) {
 
-    agent.observedElements = [];
+    Agent.observedElements = [];
 
     /*
      * Search constructor starts the search mode
@@ -28,8 +28,8 @@ this.search = (function(agent) {
       this.searchEnabled = true;
 
       $(document).mouseleave(function() {
-        agent.stopSearch();
-        agent.unhighlightEl();
+        Agent.stopSearch();
+        Agent.unhighlightEl();
       }.bind(this));
 
       this.bindElEvents(views);
@@ -47,7 +47,7 @@ this.search = (function(agent) {
       };
 
       var $els = _.pluck(views, '$el');
-      agent.observedElements = agent.observedElements.concat($els);
+      Agent.observedElements = Agent.observedElements.concat($els);
 
       _.each($els, function($el){
         $el.on(mouse_events);
@@ -62,9 +62,9 @@ this.search = (function(agent) {
       var $current = $(e.currentTarget);
       var cid = $current.attr('data-view-id');
 
-      agent.highlightEl($current);
+      Agent.highlightEl($current);
 
-      agent.sendAppComponentReport('search', {
+      Agent.sendAppComponentReport('search', {
         name: 'mouseover',
         cid: cid
       });
@@ -78,7 +78,7 @@ this.search = (function(agent) {
       var $current = $(e.currentTarget);
       var cid = $current.attr('data-view-id');
 
-      agent.sendAppComponentReport('search', {
+      Agent.sendAppComponentReport('search', {
         name: 'mouseleave',
         cid: cid
       });
@@ -95,9 +95,9 @@ this.search = (function(agent) {
       this.placeClickElMask($current);
 
       this.searchEnabled = false;
-      agent.stopSearch(this.appObserver, this.app);
+      Agent.stopSearch();
 
-      agent.sendAppComponentReport('search', {
+      Agent.sendAppComponentReport('search', {
         name: 'mousedown',
         cid: cid
       }, {immediate: true});
@@ -138,8 +138,26 @@ this.search = (function(agent) {
     }
   })
 
-  return function(appObserver, app) {
+  Agent.startSearch = function(appObserver, app) {
     return new Search(appObserver, app);
   }
+
+  /*
+   * stopSearch stops the magifying glass
+   * it also unbinds all of the events and clears the observedElements cache
+   *
+   */
+  Agent.stopSearch = function() {
+    _.each(Agent.observedElements, function($el) {
+      $el.off('.regionSearch');
+      $el.removeAttr('data-view-id');
+    });
+
+    Agent.observedElements = [];
+
+    $(document).off('mouseleave');
+    Agent.unhighlightEl();
+  };
+
 }(this));
 
