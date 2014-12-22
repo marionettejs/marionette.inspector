@@ -2,6 +2,8 @@
 
 
 debug.log("Backbone agent is starting...");
+console.log('Marionette Inspector: window.__agent = ', this);
+sendAppComponentReport('start');
 
 this.patchDefine(
   _.bind(this.patchBackbone, this),
@@ -23,10 +25,6 @@ this.start = function(Backbone, Marionette) {
 };
 
 this.lazyWorker = new this.LazyWorker();
-
-console.log('Marionette Inspector: window.__agent = ', this);
-sendAppComponentReport('start');
-
 
 window.setTimeout(function() {
   if(window.__agent && window.__agent.patchedBackbone) {

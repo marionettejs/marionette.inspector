@@ -48,6 +48,9 @@ If you have any additional questions, check out our [FAQ](https://github.com/mar
 ### Play with it locally
 Follows these these steps in the [Install Guide](docs/developing_locally.md) and you should be up and running in no time.
 
+Read the [agent](https://github.com/marionettejs/marionette.inspector/blob/master/docs/agent.md) overview to understand how the inspector gathers all the information.
+
+
 ### Open Source (a.k.a. you)
 
 The inspector is built with 100% open source love. That means, we absolutely want your help and your passion. If you want to get involved, stop by and say hello [here](https://gitter.im/marionettejs/marionette.inspector). We've got tons of [help wanted](https://github.com/marionettejs/marionette.inspector/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) tickets and would be be happy to setup a 30 minute [screenhero](https://screenhero.com/) pairing session to help you get started. Many of our contributions, even some of the best ones like the Activity pane, came from first time contributors.
