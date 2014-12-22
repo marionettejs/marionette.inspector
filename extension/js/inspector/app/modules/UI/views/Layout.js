@@ -31,6 +31,7 @@ define([
 
     uiCommands: {
       'show:more-info': 'showMoreInfo',
+      'empty:moreInfo': 'emptyMoreInfo',
       'unhighlightRows': 'unhighlightRows',
       'highlightRow': 'highlightRow'
     },
@@ -79,6 +80,10 @@ define([
         model: viewModel,
         path: data.path
       }));
+    },
+
+    emptyMoreInfo: function() {
+      this.getRegion('viewMoreInfo').empty();
     },
 
     unhighlightRows: function() {

@@ -55,7 +55,7 @@ define([
             });
         };
 
-        this.recordMessages = function(messages) {
+        this.recordMessages = _.debounce(function(messages) {
 
           if(!window.recordMessages) {
             return;
@@ -78,7 +78,7 @@ define([
             success: function() {
             }
           });
-        }
+        }, 1000);
 
         this.exec = function(func, args, context) {
 

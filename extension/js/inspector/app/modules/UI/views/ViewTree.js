@@ -55,8 +55,12 @@ define([
       }
     },
 
-    onClickMoreInfo: function() {
+    onClickMoreInfo: function(e) {
+      e.stopPropagation()
+
       if (!this.model.has('cid')) {
+        this.unhighlightRow();
+        Radio.command('ui', 'empty:moreInfo');
         return;
       }
 
