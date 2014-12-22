@@ -76,7 +76,11 @@ require([
       return Handlebars.compile(template)(data);
     };
 
-
+    /*
+     * This flag is used to turn on the recorder
+     * for when you want to run the inspector in a sandboxed environment
+     */
+    // window.recordMessages = true;
 
     $(document).ready(function() {
         // var router = new Router();

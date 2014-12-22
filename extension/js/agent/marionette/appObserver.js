@@ -61,6 +61,11 @@ _.extend(AppObserver.prototype, {
     return tree;
   },
 
+  getRegionTree: function(path, shouldSerialize) {
+    var tree = this.regionTree(path, shouldSerialize);
+    this.agent.sendAppComponentReport("ui:regionTree", tree);
+  },
+
   getView: function(path) {
     var subTree = this.regionTree(path, false);
 

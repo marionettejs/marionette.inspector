@@ -12,6 +12,8 @@ define([
         this.initialize = function() {
             _.bindAll(this);
 
+            this.messageCache = [];
+
             // true when the injection process is being executed, tipically used by the router
             // to decide whether to reload the panel or not.
             this.isInjecting = false;
@@ -25,6 +27,8 @@ define([
               }
 
               logger.log('ip', 'batch of ' + messages.length + " messages received." )
+
+              this.recordMessages(messages);
 
               _.each(messages, function(message) {
                 if (message && message.target == "page") {
@@ -50,6 +54,31 @@ define([
                 }
             });
         };
+
+        this.recordMessages = function(messages) {
+
+          if(!window.recordMessages) {
+            return;
+          }
+
+          // the message cache is an array that holds all of the messages
+          // up to this point. we send the entire thing over because
+          // we can. it's probably as inefficient as possible.
+          this.messageCache = this.messageCache.concat(messages);
+
+          var data = {
+            messages: JSON.stringify(this.messageCache)
+          };
+
+          $.ajax({
+            url: 'http://localhost:4567/record',
+            type: 'POST',
+            data: data,
+            crossDomain: true,
+            success: function() {
+            }
+          });
+        }
 
         this.exec = function(func, args, context) {
 

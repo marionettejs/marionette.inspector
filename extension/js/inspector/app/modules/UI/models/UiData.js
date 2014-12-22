@@ -15,9 +15,7 @@ define([
     },
 
     getRegionTree: function() {
-      this.client
-        .appObserverCall('regionTree')
-        .then(_.bind(this.set, this, 'regionTree'));
+      this.client.appObserverCall('getRegionTree');
     },
 
     viewTree: function() {
