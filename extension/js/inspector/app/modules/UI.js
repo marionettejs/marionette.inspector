@@ -134,19 +134,21 @@ define([
      *
     */
     onSearch: function(data) {
+      logger.log('ui', 'search event ', data.name);
+
       var viewModel = this.viewCollection.findView(data.cid);
       if (!viewModel) {
         return;
       }
 
-      Radio.command('app', 'navigate', 'ui');
-
-      logger.log('ui', 'search event ', data.name);
       viewModel.trigger('search:' + data.name);
 
       if (data.name == 'mousedown') {
         Radio.command('app', 'search:stop');
-        Radio.command('ui', 'highlightRow', data)
+        Radio.command('app', 'navigate:knownObject', {
+          type: 'View',
+          cid: data.cid
+        });
       }
 
     },
@@ -205,14 +207,27 @@ define([
         this.showModule();
         this.fetchData();
       },
+
       showView: function(cid) {
-        this.showModule();
+        if (Radio.request('app', 'active:tool') != 'ui') {
+          this.showModule();
+        }
+
         var view = this.viewCollection.findView(cid);
+        if (!view) {
+          console.log('couldnt find view', cid);
+          return;
+        }
+
+        var node = this.uiData.findViewTreeNodeByCid(cid);
+        if (!node) {
+          return;
+        }
+
         Radio.command('ui', 'show:more-info', {
           cid: cid,
-          path: view.treeProperties.path
+          path: node.path
         });
-
       }
     }
   });

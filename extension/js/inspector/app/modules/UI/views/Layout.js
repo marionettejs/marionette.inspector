@@ -94,18 +94,18 @@ define([
     },
 
     highlightRow: function(data) {
-      var viewModel = this.viewCollection.findView(data.cid);
-      if (!viewModel || !viewModel.treeProperties || !viewModel.treeProperties.path) {
-        return;
-      }
+      var $row = this.findRowWithCid(data.cid);
+      $row.trigger('highlight');
 
-      this.viewTreeModel.expandPath(viewModel.treeProperties.idPath);
-      viewModel.trigger('highlight');
       this.scrollToRow(data.cid);
     },
 
+    findRowWithCid: function(cid) {
+      return this.$el.find("[data-cid='" + cid + "']");
+    },
+
     scrollToRow: function(cid) {
-      $row = this.$el.find("[data-cid='" + cid + "']");
+      $row = this.findRowWithCid(cid);
       $list = this.getRegion('viewTree').$el;
 
       isOffScreen =

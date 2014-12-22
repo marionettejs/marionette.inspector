@@ -23,6 +23,30 @@ define([
       return tree;
     },
 
+    findViewTreeNodeByCid: function(cid) {
+      var tree = this.viewTree();
+      return this._findNode(cid, tree);
+    },
+
+    _findNode: function(cid, tree) {
+      if (tree.cid == cid) {
+        return tree
+      }
+
+      if (!tree.nodes) {
+        return null;
+      }
+
+      for (var i = 0; i < tree.nodes.length; i++) {
+        var node = this._findNode(cid, tree.nodes[i]);
+        if (node) {
+          return node;
+        }
+      }
+
+      return null;
+    },
+
     _buildViewTree: function(regionTree, subPath, idPath) {
       var viewData = {};
       subPath = subPath || '';

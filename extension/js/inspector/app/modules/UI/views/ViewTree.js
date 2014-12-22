@@ -16,7 +16,8 @@ define([
       "click @ui.moreInfoLink": "onClickMoreInfo",
       "click @ui.logViewLink": 'onClickLogViewLink',
       "mouseover @ui.view": 'onMouseOver',
-      "mouseleave @ui.view": 'onMouseLeave'
+      "mouseleave @ui.view": 'onMouseLeave',
+      'highlight': 'highlightRow'
     },
 
     /**
@@ -41,12 +42,13 @@ define([
 
     initialize: function(options) {
       this.viewModel = options.viewCollection.findView(this.model.get('cid'));
+
       if (this.viewModel) {
         this.bindEntityEvents(this.viewModel, this.viewModelEvents);
         this.viewModel.treeProperties = _.clone(this.model.attributes);
         this.viewModel.treeProperties.isAttached = true
-
       }
+
     },
 
     childViewOptions: function() {
@@ -64,7 +66,10 @@ define([
         return;
       }
 
-      this.showMoreInfo();
+      Radio.command('app', 'navigate:knownObject', {
+        type: 'View',
+        cid: this.model.get('cid')
+      });
 
       return false;
     },
@@ -99,6 +104,8 @@ define([
     highlightRow: function() {
       this.unhighlightRow();
       this.ui.view.addClass && this.ui.view.addClass('is-highlighted');
+
+      return false;
     },
 
     unhighlightRow: function() {

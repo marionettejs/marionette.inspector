@@ -1,7 +1,7 @@
 define([
   'backbone',
   'marionette',
-  'util/Radio',
+  'radio',
   'logger',
   'util/Router',
   'util/ModuleRoutes',
@@ -14,13 +14,11 @@ define([
 
   return Marionette.Application.extend({
 
-    commands: function() {
-        return {
-          'show:tool': this.showTool,
-          'navigate': this.navigate,
-          'search:stop': this.stopSearch,
-          'navigate:knownObject': this.navigateToKnowonObject
-        }
+    appCommands: {
+      'show:tool': 'showTool',
+      'navigate': 'navigate',
+      'search:stop': 'stopSearch',
+      'navigate:knownObject': 'navigateToKnowonObject'
     },
 
     clientEvents: {
@@ -29,6 +27,10 @@ define([
       'app:found': 'onAppFound',
       'ready': 'onPageReady',
       'updated': 'onPageUpdated'
+    },
+
+    appRequests: {
+      'active:tool': 'activeTool'
     },
 
     onStart: function() {
@@ -55,13 +57,19 @@ define([
         isWaiting: false, // the inpector is waiting on the inspected page to load (document.readyState)
         hasStarted: false, // the inspector was started by user
         isInjecting: false, // the inspector is currently injecting the agent
-        searchOn: false  // inspector search
+        searchOn: false,  // inspector search
+        tool: '' // active tool name
       });
     },
 
     setupEvents: function() {
-      Radio.comply('app', this.commands, this);
+      Radio.connectRequests('app', this.appRequests, this);
+      Radio.connectCommands('app', this.appCommands, this);
       Marionette.bindEntityEvents(this, this.client, this.clientEvents);
+    },
+
+    activeTool: function() {
+      return this.appData.get('tool');
     },
 
     showTool: function(tool, layout) {
@@ -148,7 +156,7 @@ define([
     },
 
     navigateToKnowonObject: function(data) {
-      var object = data.object;
+      var object = data.object || data;
       if (!object) {
         return;
       }
