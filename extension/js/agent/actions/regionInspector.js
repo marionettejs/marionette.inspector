@@ -1,6 +1,4 @@
-
-
-this.regionInspector = (function(agent) {
+;(function(Agent) {
 
   var _regionInspector = function (obj, shouldSerialize) {
     if (!obj) {
@@ -69,7 +67,7 @@ this.regionInspector = (function(agent) {
   * @param {shouldSerialize} - should the region tree serialize the views
   */
 
-  return function(regionTreeRoot, path, shouldSerialize) {
+  Agent.regionInspector = function(regionTreeRoot, path, shouldSerialize) {
     shouldSerialize = !!shouldSerialize;
 
     var regions = _regionInspector(regionTreeRoot, shouldSerialize)
