@@ -62,7 +62,7 @@ https://github.com/marionettejs/marionette.inspector/blob/master/extension/js/co
 
 Once you have the inspector installed locally in chrome, there are a couple things to do.
 
-#### 1. Setup grunt to watch for changes  
+#### 1. Setup grunt to watch for changes
   This will make sure that all of your changes get compiled.
 ```
 grunt watch
@@ -109,6 +109,73 @@ cd extension/js/agent
 python -m SimpleHTTPServer 4001
 ```
 
-## 6. Debugging the background.html page
+## 6. Using the Inspector in a sandboxed environment
+
+While it's not to bad to hack on the inspector directly, sometimes it's nice to work on it by itself. The major use cases are new features to the inspector and UI css tweaks where it's really nice to refresh often.
+
+How do I use it? Step one is record an inspector session with your app. Step two, play it back from within the sandboxed environment.
+
+![](http://f.cl.ly/items/1D45010g071W2p0q1L0l/Image%202014-12-22%20at%206.18.20%20PM.png)
+
+### Running the recorder
+
+There are two steps for setting up the recorder:
+
+#### 1. add a flag in the inspector's main.js bootstrap script to turn it on.
+After it's on, all of the messages will be written to the `recorder/messages.json` file.
+
+```diff
+diff --git a/extension/js/inspector/main.js b/extension/js/inspector/main.js
+index 85c9e36..c2875b2 100644
+--- a/extension/js/inspector/main.js
++++ b/extension/js/inspector/main.js
+@@ -76,7 +76,7 @@ require([
+       return Handlebars.compile(template)(data);
+     };
+
+-
++    window.recordMessages = true;
+
+     $(document).ready(function() {
+         // var router = new Router();
+```
+
+#### 2. **turn on the recorder**
+
+```bash
+cd recorder
+bundle install
+ruby recorder.rb
+```
+
+### Running the sandbox
+
+#### 1. turnoff the recorder flag
+
+```diff
+diff --git a/extension/js/inspector/main.js b/extension/js/inspector/main.js
+index 85c9e36..c2875b2 100644
+--- a/extension/js/inspector/main.js
++++ b/extension/js/inspector/main.js
+@@ -76,7 +76,7 @@ require([
+  return Handlebars.compile(template)(data);
+};
+
+-    window.recordMessages = true;
+
+$(document).ready(function() {
+  // var router = new Router();
+  ```
+
+#### 2. start the sandbox server
+
+```bash
+cd recorder
+ruby sandbox.rb
+```
+
+Once the server is started, go to `localhost:9494` and begin playing!
+
+## 7. Debugging the background.html page
 
 This is almost never done. In fact, I haven't reloaded my development version of the inspector in weeks. The background.html is principally used to connect the inspector pane with the chrome tab where the website lives. The communication layer is solid and there's little chance you'll want to go in there and mess with it.

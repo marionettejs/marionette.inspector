@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+gem 'sinatra'
+gem 'pry'
+gem 'sinatra-cross_origin', '~> 0.3.2'
+

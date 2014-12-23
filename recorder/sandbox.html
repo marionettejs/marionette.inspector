@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Marionette SpecRunner</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="/../extension/css/bootstrap3.css" />
+    <link rel="stylesheet" type="text/css" href="/../extension/css/marionette_inspector.css"/>
+
+    <script type="text/javascript" src="lib/jquery/jquery.js"></script>
+    <script src="/lib/underscore/underscore.js"></script>
+
+    <script data-main="/inspector/main.js" src="/lib/requirejs/require.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      window.chrome = {};
+      window.chrome.devtools = {};
+      window.chrome.devtools.inspectedWindow = {};
+      chrome.devtools.inspectedWindow.eval = function() {};
+
+      window.chrome.extension = {};
+      window.chrome.extension.getURL = function() {};
+
+      window.chrome.extension.connect = function() {return {
+        postMessage: function(){},
+        onMessage: {
+            addListener: function() {}
+        }
+      }};
+
+      chrome.extension.connect = function() {
+        return {
+          postMessage: function() {},
+          onMessage: {
+            addListener: function(cbk) {
+              window.panelPortCbk = cbk;
+            }
+          }
+        }
+      }
+
+      setTimeout(function() {
+        $.ajax({
+          url: 'http://localhost:4567/replay',
+          type: 'GET',
+          success: function(res) {
+            var data = JSON.parse(res);
+            window.panelPortCbk(data);
+          }
+        })
+      }, 3000);
+    })
+
+    </script>
+
+  </head>
+  <body>
+    <div data-region="app-region" class="app"></div>
+  </body>
+</html>

@@ -40,7 +40,8 @@ define([
       'agent:search': 'onSearch',
       'agent:View:new': 'onViewNew',
       'agent:View:remove': 'onViewRemove',
-      'agent:view:change': 'onViewChange'
+      'agent:view:change': 'onViewChange',
+      'agent:ui:regionTree': 'onRegionTree'
     },
 
     appEvents: {
@@ -77,6 +78,10 @@ define([
 
     onAgentStart: function() {
       this.viewCollection.reset();
+    },
+
+    onRegionTree: function(regionTree) {
+      this.uiData.set('regionTree', regionTree);
     },
 
     onViewNew: function (event) {
