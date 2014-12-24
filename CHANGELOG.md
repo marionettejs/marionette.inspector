@@ -1,3 +1,26 @@
+## V0.5
+#### 12-24-2014
+
+### Overview
+
+### Added
++ Added the LazyWorker. The lazy worker throttles agent tasks so that the tasks are run primarily during window idle cycles.
++ Added Inspector sandbox. The sandbox is a new dev environment for working on the inspector w/o a running app.
++ Added lots of new documentation for getting started
++ Improved the activity pane duration precision from milliseconds to nanoseconds.
++ Added an inspector test-suite. We should have had this a long time ago, but the environment was difficult to configure.
++ Added UI activity and warnings pane for showing events in the UI info panel
++ Added a selected state for the activity tree node
+
+### Changed
++ Changed vendor 3rd party libraries to be installed from bower and npm rather than a local version in the repo.
++ Upgraded to latest grunt-mocha
++ Extracted tests scripts into their own file
++ Switched to grunt-sass for 1000x perf speedup on build times
++ Refactored agent to use more underscore utils
++ Refactored agent util folder to use iife pattern with Agent namespaces.
+
+
 ## V0.4
 #### 12-18-2014
 
