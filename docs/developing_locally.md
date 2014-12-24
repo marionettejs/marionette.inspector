@@ -145,7 +145,7 @@ index 85c9e36..c2875b2 100644
 ```bash
 cd recorder
 bundle install
-ruby recorder.rb
+ruby record.rb
 ```
 
 ### Running the sandbox
