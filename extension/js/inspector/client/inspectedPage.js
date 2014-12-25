@@ -28,6 +28,11 @@ define([
 
               logger.log('ip', 'batch of ' + messages.length + " messages received." )
 
+              // the message cache is an array that holds all of the messages
+              // up to this point. we send the entire thing over because
+              // we can. it's probably as inefficient as possible.
+              this.messageCache = this.messageCache.concat(messages);
+
               this.recordMessages(messages);
 
               _.each(messages, function(message) {
@@ -61,10 +66,7 @@ define([
             return;
           }
 
-          // the message cache is an array that holds all of the messages
-          // up to this point. we send the entire thing over because
-          // we can. it's probably as inefficient as possible.
-          this.messageCache = this.messageCache.concat(messages);
+          console.log('recording', this.messageCache.length, 'messages');
 
           var data = {
             messages: JSON.stringify(this.messageCache)
