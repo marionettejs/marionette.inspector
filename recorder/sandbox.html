@@ -8,49 +8,70 @@
     <link rel="stylesheet" type="text/css" href="/../extension/css/bootstrap3.css" />
     <link rel="stylesheet" type="text/css" href="/../extension/css/marionette_inspector.css"/>
 
-    <script type="text/javascript" src="lib/jquery/jquery.js"></script>
+    <script src="/lib/jquery/jquery.js"></script>
     <script src="/lib/underscore/underscore.js"></script>
 
     <script data-main="/inspector/main.js" src="/lib/requirejs/require.js"></script>
     <script type="text/javascript">
-    $(document).ready(function() {
-      window.chrome = {};
-      window.chrome.devtools = {};
-      window.chrome.devtools.inspectedWindow = {};
-      chrome.devtools.inspectedWindow.eval = function() {};
 
-      window.chrome.extension = {};
-      window.chrome.extension.getURL = function() {};
+    window.replayMessages = function() {
 
-      window.chrome.extension.connect = function() {return {
-        postMessage: function(){},
-        onMessage: {
-            addListener: function() {}
+      // Local Replay URL
+      // var url ='http://localhost:4567/replay';
+
+      // marionette wires colors messages gist
+      var url = 'https://gist.githubusercontent.com/jasonLaster/503fad8d03bb4132f402/raw/cec4edc3438f94f997842c011e7c203ccdcda844/-';
+
+      $.ajax({
+        url: url,
+        type: 'GET',
+
+        success: function(res) {
+          var data = JSON.parse(res);
+
+          window.app.appData.set({
+            isAgentActive: true, // the inspector agent is injected into the inspected page
+            isWaiting: false, // the inpector is waiting on the inspected page to load (document.readyState)
+            hasStarted: true, // the inspector was started by user
+            isInjecting: false, // the inspector is currently injecting the agent
+          });
+
+          window.app.navigate('ui');
+
+          window.panelPortCbk(data);
         }
-      }};
+      })
+    };
 
-      chrome.extension.connect = function() {
-        return {
-          postMessage: function() {},
-          onMessage: {
-            addListener: function(cbk) {
-              window.panelPortCbk = cbk;
-            }
+
+    window.chrome = {};
+    window.chrome.devtools = {};
+    window.chrome.devtools.inspectedWindow = {};
+    chrome.devtools.inspectedWindow.eval = function() {};
+    chrome.devtools.inspectedWindow.reload = function() {};
+
+    window.chrome.extension = {};
+    window.chrome.extension.getURL = function() {};
+
+    window.chrome.extension.connect = function() {
+      return {
+        postMessage: function() {},
+        onMessage: {
+          addListener: function(cbk) {
+            window.panelPortCbk = cbk;
           }
         }
       }
+    }
 
-      setTimeout(function() {
-        $.ajax({
-          url: 'http://localhost:4567/replay',
-          type: 'GET',
-          success: function(res) {
-            var data = JSON.parse(res);
-            window.panelPortCbk(data);
-          }
-        })
-      }, 3000);
-    })
+    // TODO: should be called at the right time
+    setTimeout(window.replayMessages, 3000)
+
+    window.appLoadCallback = function() {
+      var client = require(["client"], function(cl) {
+        cl.start = function() {};
+      });
+    };
 
     </script>
 
