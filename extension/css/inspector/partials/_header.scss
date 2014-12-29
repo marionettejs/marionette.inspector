@@ -33,6 +33,20 @@
     .mag {
       padding-top:4px;
       width:25px;
+      margin-right: 10px;
+    }
+
+    .back-forward {
+      font-size: 13px;
+      padding-bottom: 5px;
+      padding-top: 7px;
+      padding-left: 8px;
+      color: #747474;
+
+      &:hover {
+        color: #545454;
+        cursor: pointer;
+      }
     }
   }
 

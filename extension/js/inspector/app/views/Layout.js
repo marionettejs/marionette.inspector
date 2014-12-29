@@ -31,7 +31,7 @@ define([
     },
 
     events: {
-      'click .nav a': 'onToolClick',
+      'click @ui.tools': 'onToolClick',
       'click @ui.startButton': 'onStartClick',
       'click @ui.searchBtn': 'onClickSearch'
     },
@@ -75,8 +75,19 @@ define([
         logger.log('app', 'cannot select tool when the agent is not active', e);
         return;
       }
+      var tool = $currentTarget.data('tool');
 
-      Radio.command('app', 'navigate', $currentTarget.data('route'));
+
+      if (tool == "back") {
+        window.history.back();
+      }
+      else if (tool == "forward"){
+        window.history.forward();
+      }
+      else {
+        Radio.command('app', 'navigate', $currentTarget.data('route'));
+      }
+      return false;
     },
 
 
