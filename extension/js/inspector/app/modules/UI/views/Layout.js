@@ -7,8 +7,9 @@ define([
   'app/modules/UI/views/ViewMoreInfo',
   'app/modules/UI/models/TreeNode',
   'app/modules/UI/views/ViewTree',
+  'app/modules/UI/views/LoadingView',
 ], function(Marionette, Backbone, tpl, Radio, logger,
-  ViewMoreInfo, TreeNode, ViewTree) {
+  ViewMoreInfo, TreeNode, ViewTree, LoadingView) {
 
   return Marionette.LayoutView.extend({
 
@@ -31,6 +32,7 @@ define([
 
     uiCommands: {
       'show:more-info': 'showMoreInfo',
+      'show:loadingView': 'showLoadingView',
       'empty:moreInfo': 'emptyMoreInfo',
       'unhighlightRows': 'unhighlightRows',
       'highlightRow': 'highlightRow'
@@ -44,6 +46,14 @@ define([
     onRender: function() {
       logger.log('ui', 'layout rendered');
       this.onRegionTreeUpdate();
+    },
+
+    showLoadingView: function(data) {
+      var cid = data.cid;
+
+      this.getRegion('viewMoreInfo').show(new LoadingView({
+        model: new Backbone.Model({cid: cid})
+      }));
     },
 
     onRegionTreeUpdate: function() {
