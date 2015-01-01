@@ -56,6 +56,10 @@ define([
       this.client = client;
       _.bindAll(this, 'fetchData');
       this.fetchData = _.debounce(this.fetchData, 30);
+
+      // used for keeping track the cid of a view we want to show,
+      // but hasn't been reported by the agent
+      this._waitingForCid = undefined;
     },
 
     setupData: function() {
@@ -89,6 +93,11 @@ define([
 
       var viewData = event.data;
       this.viewCollection.add(viewData);
+
+      if (event.data.cid == this._waitingForCid) {
+        this.showViewInfo(event.data.cid);
+        this._waitingForCid = null;
+      }
     },
 
     onViewRemove: function (event) {
@@ -188,6 +197,18 @@ define([
       this.client.appObserverCall('stopSearch');
     },
 
+    showViewInfo: function(cid) {
+      var node = this.uiData.findViewTreeNodeByCid(cid);
+      if (!node) {
+        return;
+      }
+
+      Radio.command('ui', 'show:more-info', {
+        cid: cid,
+        path: node.path
+      });
+    },
+
     buildLayout: function() {
       return new Layout({
         model: this.uiData,
@@ -215,19 +236,16 @@ define([
 
         var view = this.viewCollection.findView(cid);
         if (!view) {
-          console.log('couldnt find view', cid);
+          Radio.command('ui', 'show:loadingView', {
+            cid: cid
+          });
+
+          logger.log('ui', 'couldnt find view', cid);
+          this._waitingForCid = cid;
           return;
         }
 
-        var node = this.uiData.findViewTreeNodeByCid(cid);
-        if (!node) {
-          return;
-        }
-
-        Radio.command('ui', 'show:more-info', {
-          cid: cid,
-          path: node.path
-        });
+        this.showViewInfo(cid);
       }
     }
   });
