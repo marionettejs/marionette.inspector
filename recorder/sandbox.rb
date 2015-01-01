@@ -46,6 +46,16 @@ get "/extension/fonts/glyphicons-halflings-regular.woff" do
   File.read(File.join('..', 'extension/fonts/glyphicons-halflings-regular.woff'))
 end
 
+get "/extension/fonts/fontawesome-webfont.ttf?v=4.2.0" do
+  content_type 'application/font-woff'
+  File.read(File.join('..', 'extension/fonts/fontawesome-webfont.ttf'))
+end
+
+get "/extension/fonts/fontawesome-webfont.woff?v=4.2.0" do
+  content_type 'application/font-woff'
+  File.read(File.join('..', 'extension/fonts/fontawesome-webfont.woff'))
+end
+
 get "/extension/css/Images/statusbarButtonGlyphs_2x.png" do
   content_type "image/png"
   File.read(File.join('..', 'extension/css/Images/statusbarButtonGlyphs_2x.png'))
