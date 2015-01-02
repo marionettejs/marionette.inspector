@@ -43,10 +43,8 @@ var Marionette = this.Marionette;
 
 
 // @include ../../common/util/debug.js
-// @include ../utils/toJson.js
 // @include ../utils/sendMessage.js
-// @include ../utils/getHiddenProperty.js
-// @include ../utils/setHiddenProperty.js
+// @include ../utils/hiddenProperty.js
 // @include ../utils/setProperty.js
 // @include ../utils/objectPath.js
 // @include ../utils/inspectValue.js
