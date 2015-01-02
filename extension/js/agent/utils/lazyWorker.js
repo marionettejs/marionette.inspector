@@ -41,7 +41,7 @@
       while (this.isWorking) {
         //console.log('working loop called', this.queue.length, new Date() - this.initTime);
 
-        var job = this.queue.shift();
+        job = this.queue.shift();
         if (!job) {
           //console.log('queue is empty', new Date() - this.startTime)
           this.stopWork();
