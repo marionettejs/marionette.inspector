@@ -1,10 +1,14 @@
-(function(Agent) {
+;(function(Agent) {
 
-  /**
-   * inspectValue({a: 2, b: 3, c: 4})  //=>
-   *   {type:'object', inspect:"{a: 2, b: 3, ... }"}
-   *
-   */
+  var toJSON = function(obj) {
+    try {
+      return JSON.parse(JSON.stringify(obj));
+    }
+    catch (e) {
+      debug.log('failed parsing object', obj);
+      return {};
+    }
+  };
 
   var typeOf = function(obj) {
     if (obj instanceof Array) {
@@ -133,7 +137,7 @@
       inspect: Agent.inspectValue(object),
       serialized: Agent.serializeObject(object),
       isEmpty: _.isEmpty(value),
-    }
+    };
   };
 
 }(this));

@@ -1,13 +1,12 @@
-/**
- * takes an object and a value and returns the key that stores the value
- *
- */
-
 ;(function(Agent) {
 
+  /**
+   * takes an object and a value and returns the key that stores the value
+   *
+   */
   Agent.findKey = function (obj, value) {
 
-    if (typeof obj == "string") {
+    if (typeof obj == 'string') {
       return obj;
     }
 

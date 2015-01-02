@@ -5,6 +5,8 @@
 // N.B: suppone che il componente backbone sia stato settato solo inizialmente.
 var patchBackboneComponent = _.bind(function(BackboneComponent, instancePatcher) {
 
+    var Agent = this;
+
     onceDefined(BackboneComponent, "extend", function() {
         // (l'extend è l'ultimo metodo impostato, quindi ora il componente è pronto)
 
@@ -17,9 +19,9 @@ var patchBackboneComponent = _.bind(function(BackboneComponent, instancePatcher)
                 // Patcha l'istanza se non è già stato fatto
                 // (se ad es. l'istanza chiama l'initialize definita nel padre, evita
                 // di patcharla due volte)
-                if (!getHiddenProperty(this, "isInstancePatched")) {
+                if (!Agent.getHiddenProperty(this, "isInstancePatched")) {
                     instancePatcher(this);
-                    setHiddenProperty(this, "isInstancePatched", true);
+                    Agent.setHiddenProperty(this, "isInstancePatched", true);
                 }
 
                 if (typeof originalInitialize === "function") {
@@ -39,15 +41,15 @@ var patchBackboneComponent = _.bind(function(BackboneComponent, instancePatcher)
         var initializeFncName = _.has(BackboneComponent.prototype, 'initialize') ? 'initialize' : 'start';
 
         var patchedInitialize = patchInitialize(BackboneComponent.prototype[initializeFncName]);
-        setHiddenProperty(BackboneComponent.prototype, "patchedInitialize", patchedInitialize);
+        Agent.setHiddenProperty(BackboneComponent.prototype, "patchedInitialize", patchedInitialize);
 
-        setProperty(BackboneComponent.prototype, initializeFncName, {
+        Agent.setProperty(BackboneComponent.prototype, initializeFncName, {
             get: function() {
-                return getHiddenProperty(this, "patchedInitialize");
+                return Agent.getHiddenProperty(this, "patchedInitialize");
             },
 
             set: function(newInitialize) {
-                setHiddenProperty(this, "patchedInitialize", patchInitialize(newInitialize));
+                Agent.setHiddenProperty(this, "patchedInitialize", patchInitialize(newInitialize));
             }
         });
     });
