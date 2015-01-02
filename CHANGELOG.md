@@ -1,3 +1,22 @@
+## V0.5.1
+#### 1-2-2014
+
+### Overview
+This is a small, hopefully uneventful Inspector Release.
+
+The nicest thing here is the introduction of a back & forward button, which helps when you use the inspector a lot to jump from one view, to another, and then a model get back to where you came from.
+
+The other nice little thing, is a "View is loading" pane, which is useful now that we delay serializing views. In 0.5 it became kinda common to have to wait a second or two for everything to load. During that time, you'd see a blank view info pane if you clicked on a region. Now we let you know, you just gotta hold your horses.
+
+
+### Added
++ Added a default recording for the sandbox
++ Added an inspector back/forward button
++ Added an inspector loading view for fetching views
+
+### Changed
++ Refactored agent utilities to be more consistent
+
 ## V0.5
 #### 12-24-2014
 
