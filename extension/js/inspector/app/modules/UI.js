@@ -44,6 +44,11 @@ define([
       'agent:ui:regionTree': 'onRegionTree'
     },
 
+    uiRequests: {
+      'view': 'requestView',
+      'view:node': 'requestViewNode'
+    },
+
     appEvents: {
       'agent:start': 'onAgentStart'
     },
@@ -73,11 +78,25 @@ define([
     setupEvents: function() {
       Radio.connectCommands('ui', this.uiCommands, this);
       Radio.connectEvents('app', this.appEvents, this);
+      Radio.connectRequests('ui', this.uiRequests, this);
+
 
       Marionette.bindEntityEvents(this, this.client, this.clientEvents);
 
       var regionTreeEvents = new ComponentReportToRegionTreeMap();
       Marionette.bindEntityEvents(this, regionTreeEvents, this.regionTreeEvents);
+    },
+
+    requestView: function(cid) {
+      return this.viewCollection.findView(cid);
+    },
+
+    requestViewNode: function(cid) {
+      return this.getViewNode(cid);
+    },
+
+    getViewNode: function(cid) {
+      return this.uiData.findViewTreeNodeByCid(cid);
     },
 
     onAgentStart: function() {
@@ -198,7 +217,7 @@ define([
     },
 
     showViewInfo: function(cid) {
-      var node = this.uiData.findViewTreeNodeByCid(cid);
+      var node = this.getViewNode(cid);
       if (!node) {
         return;
       }
