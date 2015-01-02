@@ -6,5 +6,5 @@
 */
 
 this.addCidToComponent = function(object) {
-  setHiddenProperty(object, '__marionette_inspector__cid',  _.uniqueId('c'));
+  this.setHiddenProperty(object, 'cid',  _.uniqueId('c'));
 }
