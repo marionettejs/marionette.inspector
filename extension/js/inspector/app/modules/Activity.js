@@ -16,7 +16,8 @@ define([
     lastActivityModel: undefined,
 
     clientEvents: {
-      "agent:View:trigger": 'onViewTrigger'
+      "agent:View:trigger": 'onTrigger',
+      "agent:Model:trigger": 'onTrigger'
     },
 
     activityRequests: {
@@ -41,7 +42,7 @@ define([
     },
 
     // See patchAppComponentTrigger.js for definition of event.data
-    onViewTrigger: function(event) {
+    onTrigger: function(event) {
       logger.log('activity', 'new event', event.name);
 
       this.activityCollection.add(event.data);

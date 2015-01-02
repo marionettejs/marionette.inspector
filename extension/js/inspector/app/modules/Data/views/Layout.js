@@ -73,6 +73,9 @@ define([
     },
 
     showInfo: function(data) {
+      if (!data.instance) {
+        return;
+      }
 
       data.instance.trigger('highlight');
       if (data.type == 'model') {

@@ -2,14 +2,23 @@
 {{!These are both special cases of the event tree view not seen in the UI tree view.}}
 {{#unless isRoot}}
 {{#if name}}
-  <li class="tree-group-item {{ level }}">
+  <li data-property-context-type="{{context.type}}"
+      data-property-context-cid="{{context.cid}}"
+      class="tree-group-item {{ level }}">
     {{#if hasNodes}}
         <span data-action="toggle" class="toggle-caret glyphicon {{ collapseClass }}"></span>
     {{else}}
       <span style="width:19px; display: inline-block;"></span>
     {{/if}}
 
-    {{ name }}
+    <a data-action="show:event" href="#" class="event"> {{ name }}</a>
+
+    <a
+      data-action="show:context"
+      data-property-value-context href="#"
+      class="context {{#isDetatched}}is-detatched{{/isDetatched}}">
+      {{contextName}}
+    </a>
   </li>
 {{/if}}
 {{/unless}}
