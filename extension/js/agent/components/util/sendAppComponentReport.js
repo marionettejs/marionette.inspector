@@ -15,5 +15,7 @@ var sendAppComponentReport = function(name, report, options) {
     }, options);
 };
 
+//TODO: remove when components have Agent IIFE
+sendMessage = this.sendMessage;
 
 this.sendAppComponentReport = sendAppComponentReport;

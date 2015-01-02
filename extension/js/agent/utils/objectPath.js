@@ -1,15 +1,17 @@
-var objectPath = function (obj, path, defaultValue) {
-  if (typeof path == "string") path = path.split(".");
-  if (obj === undefined) return defaultValue;
-  if (path.length === 0) return obj;
-  if (obj === null) return defaultValue;
+;(function(Agent) {
 
-  var part = _.first(path);
-  if (part == "") {
-    return obj;
-  }
+  Agent.objectPath = function (obj, path, defaultValue) {
+    if (typeof path == "string") path = path.split(".");
+    if (obj === undefined) return defaultValue;
+    if (path.length === 0) return obj;
+    if (obj === null) return defaultValue;
 
-  return objectPath(obj[part], _.rest(path), defaultValue);
-};
+    var part = _.first(path);
+    if (part == "") {
+      return obj;
+    }
 
-this.objectPath = objectPath;
+    return Agent.objectPath(obj[part], _.rest(path), defaultValue);
+  };
+
+}(this));
