@@ -41,8 +41,8 @@ define([
       var $target = $(e.currentTarget);
       var $property = $target.closest('li');
 
-      var type = $property.data('property-context-type');
-      var cid = $property.data('property-context-cid');
+      var type = $property.data('property-context-type') || '';
+      var cid = $property.data('property-context-cid') || '';
 
       if(isTypeNavigable(type)) {
         this.navigateTo({

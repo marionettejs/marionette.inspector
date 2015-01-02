@@ -2,14 +2,28 @@ define([
   'app/components/tree/views/Tree',
   'util/Radio',
   "text!templates/devTools/activity/tree.html",
-], function(Tree, Radio, tpl) {
+  'app/behaviors/ClickableProperties',
+  'util/isViewType',
+], function(Tree, Radio, tpl, ClickableProperties, isViewType) {
 
   var ActivityTree = Tree.extend({
 
     template: tpl,
 
+    ui: {
+      eventLink: '[data-action="show:event"]',
+      contextLink: '[data-action="show:context"]'
+    },
+
     events: {
+      'click @ui.eventLink': 'onShowInfo',
       'click': 'onShowInfo'
+    },
+
+    behaviors: {
+      clickableProperties: {
+        behaviorClass: ClickableProperties
+      }
     },
 
     onShowInfo: function (evt) {
@@ -21,9 +35,29 @@ define([
       }
     },
 
+    serializeEvent: function(data) {
+      if (!data.event) {
+        return;
+      }
+
+      var context = data.event.get('context');
+      data.context = context;
+      data.contextName = context.inspect;
+
+      if (isViewType(context)) {
+        var view = Radio.request('ui', 'view',  context.cid);
+        data.isView = true;
+        data.isDetatched = view.isDetatched();
+        data.contextName = view.getName();
+      }
+    },
+
     serializeData: function () {
       var data = ActivityTree.__super__.serializeData.apply(this, arguments);
       data.isRoot = this.model.level === 0;
+
+      this.serializeEvent(data);
+
       return data;
     }
   });

@@ -12,6 +12,24 @@ define([
        });
     },
 
+    isDetatched: function() {
+      return !this.viewNode();
+    },
+
+    getName: function() {
+      var viewNode = this.viewNode();
+
+      if (viewNode) {
+        return viewNode.name;
+      } else {
+        return "detatched";
+      }
+    },
+
+    viewNode: function() {
+      return Radio.request('ui', 'view:node',  this.get('cid'));
+    },
+
     viewModel: function() {
       if (!this.get('model')) {
         return
