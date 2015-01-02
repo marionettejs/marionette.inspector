@@ -28,7 +28,7 @@ define([
       'add remove reset': 'onChangeActivityCollection'
     },
 
-    className: 'app-tool',
+    className: 'app-tool activity',
 
     activityCollection: undefined,
     activityRoot: undefined,
