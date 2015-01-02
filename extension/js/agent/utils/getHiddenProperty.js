@@ -1,4 +1,4 @@
-var hiddenPropertyPrefix = "__backboneDebugger__";
+var hiddenPropertyPrefix = "__marionette_inspector__";
 
 
 // @private
