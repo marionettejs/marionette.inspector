@@ -1,18 +1,17 @@
-;(function(agent){
+;(function(Agent){
 
   var toString = function(obj) {
     var name = obj._className ? obj._className : this.className;
     var cid = _.isFunction(this.cid) ? this.cid(obj) : this.cid;
-    return '<' + name + ' ' + cid +'>'
+    return '<' + name + ' ' + cid + '>';
   }
 
-  agent.isKnownType = function(obj) {
-    return !!agent.knownType(obj);
+  Agent.isKnownType = function(obj) {
+    return !!Agent.knownType(obj);
   };
 
-
-  agent.knownTypeString = function(obj) {
-    var type = agent.knownType(obj);
+  Agent.knownTypeString = function(obj) {
+    var type = Agent.knownType(obj);
 
     if (!type) {
       return ''
@@ -21,14 +20,14 @@
      return type.toString(obj);
   };
 
-  agent.knownType = function (o) {
-    if (_.isUndefined(agent.patchedBackbone) || _.isUndefined(agent.patchedMarionette)) {
+  Agent.knownType = function (o) {
+    if (_.isUndefined(Agent.patchedBackbone) || _.isUndefined(Agent.patchedMarionette)) {
       return;
     }
 
-    var type = _.find(agent.knownTypes(), function(knownType) {
+    var type = _.find(Agent.knownTypes(), function(knownType) {
       return (o instanceof knownType.type)
-    }, agent);
+    }, Agent);
 
     if (!type) {
       return;
@@ -39,20 +38,20 @@
     type.cid = type.cid(o);
 
     return type;
-  }
+  };
 
-  agent._knownTypes = {};
+  Agent._knownTypes = {};
 
-  agent.knownTypes = function() {
+  Agent.knownTypes = function() {
     var knownTypes = {};
 
-    if (!_.isEmpty(agent._knownTypes)) {
-      return agent._knownTypes;
+    if (!_.isEmpty(Agent._knownTypes)) {
+      return Agent._knownTypes;
     }
 
-    if (agent.patchedMarionette.VERSION && agent.patchedMarionette.VERSION[0] == "2") {
+    if (Agent.patchedMarionette.VERSION && Agent.patchedMarionette.VERSION[0] == "2") {
       knownTypes['Marionette.LayoutView'] = {
-        type: agent.patchedMarionette.LayoutView,
+        type: Agent.patchedMarionette.LayoutView,
         name: 'marionette-layout-view',
         className: 'Marionette.LayoutView',
         cid: function(obj) { return obj.cid },
@@ -60,7 +59,7 @@
       };
     } else {
       knownTypes['Marionette.Layout'] = {
-        type: agent.patchedMarionette.Layout,
+        type: Agent.patchedMarionette.Layout,
         name: 'marionette-layout',
         className: 'Marionette.Layout',
         cid: function(obj) { return obj.cid },
@@ -70,7 +69,7 @@
 
     _.extend(knownTypes, {
       'Backbone.Model': {
-        type: agent.patchedBackbone.Model,
+        type: Agent.patchedBackbone.Model,
         name: 'backbone-model',
         className: 'Backbone.Model',
         cid: function(obj) { return obj.cid },
@@ -78,7 +77,7 @@
       },
 
       'Backbone.Collection': {
-        type: agent.patchedBackbone.Collection,
+        type: Agent.patchedBackbone.Collection,
         name: 'backbone-collection',
         className: 'Backbone.Collection',
         cid: function(obj) { return obj.__marionette_inspector__cid },
@@ -86,7 +85,7 @@
       },
 
       'Marionette.CompositeView': {
-        type: agent.patchedMarionette.CompositeView,
+        type: Agent.patchedMarionette.CompositeView,
         name: 'marionette-composite-view',
         className: 'Marionette.CompositeView',
         cid: function(obj) { return obj.cid },
@@ -94,7 +93,7 @@
       },
 
       'Marionette.CollectionView': {
-        type: agent.patchedMarionette.CollectionView,
+        type: Agent.patchedMarionette.CollectionView,
         name: 'marionette-collection-view',
         className: 'Marionette.CollectionView',
         cid: function(obj) { return obj.cid },
@@ -102,7 +101,7 @@
       },
 
       'Marionette.ItemView': {
-        type: agent.patchedMarionette.ItemView,
+        type: Agent.patchedMarionette.ItemView,
         name: 'marionette-item-view',
         className: 'Marionette.ItemView',
         cid: function(obj) { return obj.cid },
@@ -110,7 +109,7 @@
       },
 
       'Marionette.View': {
-        type: agent.patchedMarionette.View,
+        type: Agent.patchedMarionette.View,
         name: 'marionette-view',
         className: 'Marionette.View',
         cid: function(obj) { return obj.cid },
@@ -118,7 +117,7 @@
       },
 
       'Marionette.Application': {
-        type: agent.patchedMarionette.Application,
+        type: Agent.patchedMarionette.Application,
         name: 'marionette-application',
         className: 'Marionette.Application',
         cid: function(obj) { return obj.__marionette_inspector__cid },
@@ -126,7 +125,7 @@
       },
 
       'Marionette.Module': {
-        type: agent.patchedMarionette.Module,
+        type: Agent.patchedMarionette.Module,
         name: 'marionette-module',
         className: 'Marionette.Module',
         cid: function(obj) { return obj.__marionette_inspector__cid },
@@ -134,7 +133,7 @@
       },
 
       'Marionette.Controller': {
-        type: agent.patchedMarionette.Controller,
+        type: Agent.patchedMarionette.Controller,
         name: 'marionette-controller',
         className: 'Marionette.Controller',
         cid: function(obj) { return obj.__marionette_inspector__cid },
@@ -142,7 +141,7 @@
       },
 
       'Marionette.Region': {
-        type: agent.patchedMarionette.Region,
+        type: Agent.patchedMarionette.Region,
         name: 'marionette-region',
         className: 'Marionette.Region',
         cid: function(obj) { return '' },
@@ -150,7 +149,7 @@
       },
 
       'Backbone.View': {
-        type: agent.patchedBackbone.View,
+        type: Agent.patchedBackbone.View,
         name: 'backbone-view',
         className: 'Backbone.View',
         cid: function(obj) { return obj.cid },
@@ -160,10 +159,10 @@
 
 
     // Marionette Object was introduced in V2.1
-    if (agent.patchedMarionette.Object) {
+    if (Agent.patchedMarionette.Object) {
       _.extend(knownTypes, {
         'Marionette.Object': {
-          type: agent.patchedMarionette.Object,
+          type: Agent.patchedMarionette.Object,
           name: 'marionette-object',
           className: 'Marionette.Object',
           cid: function(obj) { return obj.__marionette_inspector__cid },
@@ -172,10 +171,10 @@
       });
     }
 
-    if (agent.patchedMarionette.Behavior) {
+    if (Agent.patchedMarionette.Behavior) {
       _.extend(knownTypes, {
         'Marionette.Behavior': {
-          type: agent.patchedMarionette.Behavior,
+          type: Agent.patchedMarionette.Behavior,
           name: 'marionette-behavior',
           className: 'Marionette.Behavior',
           cid: function(obj) { return obj.__marionette_inspector__cid },
@@ -184,9 +183,9 @@
       });
     }
 
-    agent._knownTypes = knownTypes;
+    Agent._knownTypes = knownTypes;
 
     return knownTypes;
-  }
-}(this))
+  };
 
+}(this));

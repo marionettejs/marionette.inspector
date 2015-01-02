@@ -6,7 +6,7 @@ var setAppComponentInfo = _.bind(function(appComponent, appComponentInfo) {
     var appComponentIndex = appComponentInfo.index;
 
     // salva l'appComponentInfo all'interno del componente e nell'hash pubblico apposito
-    setHiddenProperty(appComponent, "appComponentInfo", appComponentInfo);
+    this.setHiddenProperty(appComponent, "appComponentInfo", appComponentInfo);
     if (this.appComponentsInfo[appComponentCategory] == null) {
       this.appComponentsInfo[appComponentCategory] = [];
     }

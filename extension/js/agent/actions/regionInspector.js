@@ -73,7 +73,7 @@
     var regions = _regionInspector(regionTreeRoot, shouldSerialize)
 
     if (!!path) {
-      regions = objectPath(regions, path, {});
+      regions = Agent.objectPath(regions, path, {});
     }
 
     //debug.log('region inspector: ', regions);

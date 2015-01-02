@@ -1,4 +1,4 @@
-(function(Agent) {
+;(function(Agent) {
 
   /*
    * serializeObject({a: 2, b:3}) // =>
@@ -7,7 +7,6 @@
    *    b: {type: int, value: 3, name: 'b'},
    *  }
    */
-
   Agent.serializeObject = function(obj) {
     var data = {};
 
@@ -53,7 +52,7 @@
       });
 
       path = !!path ? path + ".constructor.__super__" : "constructor.prototype";
-      parent = objectPath(obj, path);
+      parent = this.objectPath(obj, path);
       if (!parent) {
         return info;
       }
@@ -76,7 +75,7 @@
       return obj._className;
     }
 
-    return ''
+    return '';
   }
 
 
@@ -84,7 +83,7 @@
 
   Agent.serializeClass = function(object, info, shouldMemoize) {
 
-    var serializeObject = objectPath(object, info.path);
+    var serializeObject = this.objectPath(object, info.path);
 
     if (this.classPropertyCache[info.name]
         && info.keys == _.keys(this.classPropertyCache[info.name])) {
@@ -120,7 +119,7 @@
     var ancestorInfo = this.ancestorInfo(object);
     _.each(ancestorInfo, function(info) {
       properties.push(this.serializeClass(object, info, true));
-    }, this)
+    }, this);
 
     // reverse the list of properties so that the
     // topmost ancestor properties come first and the instance properties
