@@ -111,17 +111,43 @@ python -m SimpleHTTPServer 4001
 
 ## 6. Using the Inspector in a sandboxed environment
 
-While it's not to bad to hack on the inspector directly, sometimes it's nice to work on it by itself. The major use cases are new features to the inspector and UI css tweaks where it's really nice to refresh often.
+While it's not too bad to hack on the inspector directly, sometimes it's nice to work on it by itself. If you think about it, working on the inspector requires maintaing three separate screens, the first is the app you're inspecting, the second is the inspector, and the third is the inspector for your inspector. Sometimes, you just *want* to work on the inspector and it's great not to think about the app it's inspecting or the agent that needs to be injected.
 
-How do I use it? Step one is record an inspector session with your app. Step two, play it back from within the sandboxed environment.
+**Enter the Recorder and Sandbox.**
+The recorder lets you record one inspector session and save all of the messages that the agent sends to the inspector. The sandbox is a locally hosted page for the inspector where the recorder messages are replayed. We basically fake out the inspector so that it thinks it's in the chrome devtools window and it thinks it's receiving agent messages from the inspected app. Don't tell the inspector it's all a lie.
 
-![](http://f.cl.ly/items/1D45010g071W2p0q1L0l/Image%202014-12-22%20at%206.18.20%20PM.png)
+**Why build a Sandbox and a Recorder?**  
+The major use cases are new features to the inspector and UI css tweaks where it's really nice to refresh often. You'll see that once you start running the inspector in the sandbox, working on the inspector feels like developing any old Marionette App, hopefully that's a pleasurable experience for you :) Don't forget, that at this point that means that you can turn on the inspector for the sandboxed inspector you're working on... Did I just blow yo mind?
+
+
+
+![](http://f.cl.ly/items/470q10142Q1V1o162e3s/Image%202015-01-02%20at%2011.28.37%20AM.png)
+
+> Photo of the Inspector being run locally in the sandbox.  
+  Note: Inspector inception has been unlocked. The Marionette Inspector is inspecting the Inspector panel.
+
+
+### Running the sandbox
+The sandbox is a small hosted environment, where the inspector can be run safely.
+
+#### Steps to set it up
+```bash
+cd recorder
+ruby sandbox.rb
+```
+
+Once the sandbox is started, go to `localhost:9494` to start the inspector. It's really that simple :)
+
+
 
 ### Running the recorder
 
-There are two steps for setting up the recorder:
 
-#### 1. add a flag in the inspector's main.js bootstrap script to turn it on.
+The sandbox works by playing back a recording of the a previous inspector session. By default, it plays back a session that was recorded and saved as a gist. If you'd like to make your own recording to test out a different app or develop a different feature, it's not too hard.
+
+There are three steps for running the recorder:
+
+#### 1. Add a flag in the inspector's main.js bootstrap script to turn it on.
 After it's on, all of the messages will be written to the `recorder/messages.json` file.
 
 ```diff
@@ -130,17 +156,17 @@ index 85c9e36..c2875b2 100644
 --- a/extension/js/inspector/main.js
 +++ b/extension/js/inspector/main.js
 @@ -76,7 +76,7 @@ require([
-       return Handlebars.compile(template)(data);
-     };
+  return Handlebars.compile(template)(data);
+};
 
 -
 +    window.recordMessages = true;
 
-     $(document).ready(function() {
-         // var router = new Router();
-```
+$(document).ready(function() {
+  // var router = new Router();
+  ```
 
-#### 2. **turn on the recorder**
+#### 2. Turn on the recorder
 
 ```bash
 cd recorder
@@ -148,9 +174,7 @@ bundle install
 ruby recorder.rb
 ```
 
-### Running the sandbox
-
-#### 1. turnoff the recorder flag
+#### 3. Turn off the recorder flag
 
 ```diff
 diff --git a/extension/js/inspector/main.js b/extension/js/inspector/main.js
@@ -164,17 +188,9 @@ index 85c9e36..c2875b2 100644
 -    window.recordMessages = true;
 
 $(document).ready(function() {
-  // var router = new Router();
-  ```
-
-#### 2. start the sandbox server
-
-```bash
-cd recorder
-ruby sandbox.rb
+// var router = new Router();
 ```
 
-Once the server is started, go to `localhost:9494` and begin playing!
 
 ## 7. Debugging the background.html page
 
