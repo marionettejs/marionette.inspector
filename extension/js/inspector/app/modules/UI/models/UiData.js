@@ -8,6 +8,7 @@ define([
 
     initialize: function() {
       this.client = client;
+      this.on('change:regionTree', this.resetViewTree);
     },
 
     fetch: function() {
@@ -19,8 +20,16 @@ define([
     },
 
     viewTree: function() {
-      var tree = this._buildViewTree(this.get('regionTree'));
-      return tree;
+      if (this._viewTree) {
+        return this._viewTree;
+      }
+
+      this._viewTree = this._buildViewTree(this.get('regionTree'));
+      return this._viewTree;
+    },
+
+    resetViewTree: function() {
+      this._viewTree = null;
     },
 
     findViewTreeNodeByCid: function(cid) {

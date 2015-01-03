@@ -53,12 +53,12 @@ define([
     onBeforeShow: function() {
       this.activityRoot = ActivityNode.build(this.activityCollection, this._filterTreeNode);
 
+      this.activityRoot.collapse();
+      this.activityRoot.expandPath('root');
+
       this.getRegion('activityList').show(new ActivityTree({
         model: this.activityRoot
       }));
-
-      // this.activityRoot.collapse();
-      // this.activityRoot.expandPath('root');
     },
 
     showInfo: function(activityModel) {

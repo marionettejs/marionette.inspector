@@ -98,7 +98,6 @@ define([
     },
 
     expandNode: function() {
-      this.model.isCollapsed = false;
       this.toggleNode();
     },
 
@@ -110,7 +109,6 @@ define([
     },
 
     collapseNode: function() {
-      this.model.isCollapsed = true;
       this.toggleNode();
     },
 
