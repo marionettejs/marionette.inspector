@@ -89,6 +89,7 @@ define([
     },
 
     expandPath: function(path) {
+      this.isCollapsed = false;
       this.trigger('expand');
 
       if (!_.isArray(path) || path.length == 0) {
@@ -104,6 +105,7 @@ define([
     },
 
     collapsePath: function() {
+      this.isCollapsed = true;
       this.trigger('collapse');
 
       if (!_.isArray(path) || path.length == 0) {
@@ -120,6 +122,7 @@ define([
     },
 
     expand: function() {
+      this.isCollapsed = false;
       this.trigger('expand');
 
       if (!this.nodes) {
@@ -130,7 +133,9 @@ define([
     },
 
     collapse: function() {
-      this.trigger('collapse')
+      this.isCollapsed = true;
+      this.trigger('collapse');
+
       if (!this.nodes) {
         return;
       }
