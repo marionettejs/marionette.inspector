@@ -3,6 +3,12 @@ this.patchBackboneWreqr = function(Wreqr) {
   var Wreqr = this.patchedBackboneWreqr = Wreqr;
   debug.log("Wreqr detected: ", Wreqr);
 
+
+  _.each(
+    [ Wreqr.Commands.prototype, Wreqr.RequestResponse.prototype ],
+    this.patchBackboneTrigger, this
+  );
+
   // listen for new channels
   this.onChange(Wreqr.radio._channels, onWreqrChannelChange);
   _.each(Wreqr.radio._channels, function(channel, channelName) {

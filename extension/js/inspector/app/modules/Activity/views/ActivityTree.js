@@ -43,9 +43,14 @@ define([
       var context = data.event.get('context');
       data.context = context;
       data.contextName = context.inspect;
+      data.eventId = data.event.get('eventId');
 
       if (isViewType(context)) {
         var view = Radio.request('ui', 'view',  context.cid);
+        if (!view) {
+          return;
+        }
+
         data.isView = true;
         data.isDetatched = view.isDetatched();
         data.contextName = view.getName();
