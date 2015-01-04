@@ -179,3 +179,11 @@ Once the server is started, go to `localhost:9494` and begin playing!
 ## 7. Debugging the background.html page
 
 This is almost never done. In fact, I haven't reloaded my development version of the inspector in weeks. The background.html is principally used to connect the inspector pane with the chrome tab where the website lives. The communication layer is solid and there's little chance you'll want to go in there and mess with it.
+
+
+## 8. Watch some live coding screencasts
+
+There are two screencasts of live coding exercises that offer an "over the shoulder" perspective of what it's like to work on the inspector. They're both fairly lengthy, but offer lots of tips for getting started.
+
+[Hacking the Inspector Activity Pane](https://www.youtube.com/watch?v=yG3e5nKey20)  
+[Add some perf wins to the marionette inspector activity pane](https://www.youtube.com/watch?v=071wSIxlf-o&feature=youtu.be)
