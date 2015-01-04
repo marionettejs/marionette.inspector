@@ -1,5 +1,5 @@
 
-this.patchBackboneModel = (function(agent) {
+;(function(agent) {
 
   var patchModelEventsChanges = _.debounce(function(model, prop, action, difference, oldValue) {
     agent.lazyWorker.push({
@@ -42,7 +42,7 @@ this.patchBackboneModel = (function(agent) {
 
 
 
-  return function(BackboneModel) {
+  agent.patchBackboneModel = function(BackboneModel) {
     debug.log("Backbone.Model detected");
 
     patchBackboneComponent(BackboneModel, function(model) { // on new instance
@@ -58,12 +58,6 @@ this.patchBackboneModel = (function(agent) {
         });
 
         // monitora i cambiamenti alle proprietà d'interesse del componente dell'app
-        // monitorAppComponentProperty(model, "attributes", 1);
-        // monitorAppComponentProperty(model, "id", 0);
-        // monitorAppComponentProperty(model, "cid", 0);
-        // monitorAppComponentProperty(model, "urlRoot", 0); // usato dal metodo url() (insieme a collection)
-        // monitorAppComponentProperty(model, "collection", 0);
-
         onChange(model.attributes, _.partial(patchModelAttributesChange, model))
 
         onDefined(model, '_events', function() {
@@ -72,9 +66,7 @@ this.patchBackboneModel = (function(agent) {
         });
 
         // Patcha i metodi del componente dell'app
-        patchAppComponentTrigger(model);
-        patchAppComponentEvents(model);
-        patchAppComponentSync(model);
+        agent.patchAppComponentTrigger(model);
         patchFunctionLater(model, "destroy", patchModelDestroy);
     });
   }

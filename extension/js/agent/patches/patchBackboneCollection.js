@@ -1,18 +1,21 @@
-// @private
-this.patchBackboneCollection = function(BackboneCollection) {
+;(function(Agent){
+  // @private
+  Agent.patchBackboneCollection = function(BackboneCollection) {
     debug.log("Backbone.Collection detected");
 
-    patchBackboneComponent(BackboneCollection, _.bind(function(collection) { // on new instance
-        this.addCidToComponent(collection);
+    patchBackboneComponent(BackboneCollection, function(collection) { // on new instance
+      Agent.addCidToComponent(collection);
 
-        // registra il nuovo componente dell'app
-        var data = this.serializeCollection(collection);
-        var collectionIndex = registerAppComponent("Collection", collection, data);
-        debug.log('found new collection', collection, data);
+      // registra il nuovo componente dell'app
+      var data = Agent.serializeCollection(collection);
+      var collectionIndex = Agent.registerAppComponent("Collection", collection, data);
 
-        // Patcha i metodi del componente dell'app
-        patchAppComponentTrigger(collection);
-        patchAppComponentEvents(collection);
-        patchAppComponentSync(collection);
-    }, this));
-}
+      debug.log('found new collection', collection, data);
+
+      // Patcha i metodi del componente dell'app
+      Agent.patchAppComponentTrigger(collection);
+    });
+  }
+
+}(this));
+
