@@ -11,31 +11,24 @@ define([
 
   return Marionette.Object.extend({
 
-    reportMap: {
-      'trigger': ['show', 'close', 'swap', 'remove', 'destroy'],
-      'operation': ['remove']
-    },
+    events: [
+      'show', 'close', 'swap', 'remove', 'destroy'
+    ],
 
     initialize: function() {
       this.client = client;
       this.listenTo(this.client, 'all', this.onClientEvent);
     },
 
-    onClientEvent: function(eventName, data) {
-      if (!data) {
+    onClientEvent: function(eventName, options) {
+      if (eventName != "agent:trigger") {
         return;
       }
 
-      var reportType = data.type;
-      var reportName = data.name;
-
-      if (_.has(this.reportMap, reportType)) {
-        if (_.contains(this.reportMap[reportType], reportName)) {
-          this.trigger('regionTree:update', eventName, reportType, reportName, data);
-        }
+      if (_.contains(this.events, options.data.eventName)) {
+        this.trigger('regionTree:update');
       }
     }
-
 
   })
 

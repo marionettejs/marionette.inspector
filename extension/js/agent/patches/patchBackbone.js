@@ -16,6 +16,15 @@ this.patchBackbone = function(Backbone) {
   this.patchBackboneRouter(Backbone.Router);
   _patchBackboneWreqr(Backbone, _.bind(this.patchBackboneWreqr, this));
   _patchBackboneRadio(Backbone, _.bind(this.patchBackboneRadio, this));
+
+
+  _.each(
+    [
+      Backbone.Events, Backbone.Model.prototype,
+      Backbone.View.prototype, Backbone.Collection.prototype
+    ],
+    this.patchBackboneTrigger, this
+  );
 }
 
 var _patchBackboneWreqr = function(Backbone, onWreqrDetected) {
