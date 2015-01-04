@@ -16,8 +16,7 @@ define([
     lastActivityModel: undefined,
 
     clientEvents: {
-      "agent:View:trigger": 'onTrigger',
-      "agent:Model:trigger": 'onTrigger'
+      "agent:trigger": 'onTrigger',
     },
 
     activityRequests: {

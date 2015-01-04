@@ -183,6 +183,32 @@
       });
     }
 
+
+    if (Agent.patchedBackbone.Wreqr) {
+      _.extend(knownTypes, {
+        'Backbone.Wreqr.Channel': {
+          type: Agent.patchedBackbone.Wreqr.Channel,
+          name: 'wreqr-channel',
+          className: 'Wreqr.Channel',
+          cid: function(obj) { return ''},
+          toString: toString
+        }
+      });
+    }
+
+
+    if (Agent.patchedBackbone.Radio) {
+      _.extend(knownTypes, {
+        'Backbone.Radio.Channel': {
+          type: Agent.patchedBackbone.Radio.Channel,
+          name: 'radio-channel',
+          className: 'Radio.Channel',
+          cid: function(obj) { return '' },
+          toString: toString
+        }
+      });
+    }
+
     Agent._knownTypes = knownTypes;
 
     return knownTypes;

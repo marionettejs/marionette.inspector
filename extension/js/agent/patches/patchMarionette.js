@@ -36,7 +36,18 @@ this.patchMarionette = (function(agent) {
 
     if (Marionette.Object) {
       this.patchMarionetteObject(Marionette.Object);
+      this.patchBackboneTrigger(Marionette.Object.prototype);
     }
+
+    _.each(
+      [
+        Marionette.Application.prototype, Marionette.Module.prototype,
+        Marionette.Behavior.prototype, Marionette.Region.prototype,
+        Marionette.Controller.prototype
+      ],
+
+      this.patchBackboneTrigger, this
+    );
   }
 
 }(this));

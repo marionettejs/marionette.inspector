@@ -2,25 +2,22 @@
 // Patcha il metodo trigger del componente dell'app.
 
 ;(function(Agent){
-
-
   _.extend(Agent, {
-
       depth: 0,
       actionId: 0,
       eventId: 0,
 
       getActionId: function () {
-          Agent._incActionId();
-          return 'a' + Agent.actionId;
+        Agent._incActionId();
+        return 'a' + Agent.actionId;
       },
 
       getEventId: function () {
-          return 'e' + (++Agent.eventId);
+        return ++Agent.eventId;
       },
 
       _incActionId: _.debounce(function () {
-          Agent.actionId++;
+        Agent.actionId++;
       }, 1000)
   });
 
@@ -46,30 +43,29 @@
       listeners: listeners
     };
 
-    var dataKind = (data === undefined) ? undefined : "event arguments";
-
-    Agent.addAppComponentAction(ctx, new Agent.AppComponentAction(
-      "trigger", eventName, data, dataKind
-    ));
+    Agent.sendAppComponentReport("trigger", {
+      data: data
+    });
   }
 
-  Agent.patchAppComponentTrigger = _.bind(function(appComponent, eventType) {//
+  Agent.patchAppComponentTrigger = function() {};
 
-    patchFunctionLater(appComponent, "trigger", function(originalFunction) {
+
+  Agent.patchBackboneTrigger = function(BackboneEvents) {
+    patchFunction(BackboneEvents, "trigger", function(originalFunction) {
       return function(eventName) {
+
+        // function signature: trigger(eventName, arg1, arg2, ...)
+        var args  = _.rest(arguments);
+        var context = this;
 
         Agent.depth++;
         var start = performance.now();
         var result = originalFunction.apply(this, arguments);
         var end = performance.now();
 
-        // function signature: trigger(eventName, arg1, arg2, ...)
-        var args  = _.rest(arguments);
-        var context = this;
-
         Agent.lazyWorker.push({
           context: Agent,
-
           args: [Agent, args, start, end, Agent.depth, this, eventName],
           callback: serializeTrigger
         });
@@ -79,7 +75,7 @@
         return result;
       };
     });
-  }, Agent);
+  };
 
 }(this));
 
