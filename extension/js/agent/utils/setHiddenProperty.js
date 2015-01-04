@@ -8,3 +8,5 @@ var setHiddenProperty = function(object, property, value) {
         writable: true
     });
 };
+
+this.setHiddenProperty = setHiddenProperty;

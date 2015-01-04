@@ -6,9 +6,5 @@
 */
 
 this.addCidToComponent = function(object) {
-  Object.defineProperty(object, '__marionette_inspector__cid', {
-    enumerable: false,
-    writable: false,
-    value: _.uniqueId('c')
-  });
+  this.setHiddenProperty(object, 'cid',  _.uniqueId('c'));
 }
