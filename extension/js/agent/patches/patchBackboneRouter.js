@@ -1,15 +1,12 @@
-// @private
-this.patchBackboneRouter = function(BackboneRouter) {
+;(function(Agent){
+  Agent.patchBackboneRouter = function(BackboneRouter) {
     debug.log("Backbone.Router detected");
 
-    patchBackboneComponent(BackboneRouter, _.bind(function(router) { // on new instance
-        // registra il nuovo componente dell'app
-        var routerIndex = registerAppComponent("Router", router);
+    patchBackboneComponent(BackboneRouter, function(router) {
+      var routerIndex = Agent.registerAppComponent("Router", router);
+      Agent.patchAppComponentTrigger(router);
+    });
+  };
+}(this));
 
-        // Patcha i metodi del componente dell'app
-
-        patchAppComponentTrigger(router);
-        patchAppComponentEvents(router);
-    }, this));
-};
 
