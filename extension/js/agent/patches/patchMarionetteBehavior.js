@@ -6,6 +6,6 @@ this.patchMarionetteBehavior = function(MarionetteBehavior) {
     patchBackboneComponent(MarionetteBehavior, _.bind(function(behavior) { // on new instance
         this.addCidToComponent(behavior);
         var data = {};
-        var behaviorIndex = registerAppComponent("Behavior", behavior, data);
+        var behaviorIndex = this.registerAppComponent("Behavior", behavior, data);
     }, this));
 }

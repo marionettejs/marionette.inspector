@@ -10,6 +10,6 @@ this.patchMarionetteController = function(MarionetteController) {
     patchBackboneComponent(MarionetteController, _.bind(function(controller) { // on new instance
         this.addCidToComponent(controller);
         var data = {};
-        var controllerIndex = registerAppComponent("Controller", controller, data);
+        var controllerIndex = this.registerAppComponent("Controller", controller, data);
     }, this));
 }

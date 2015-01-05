@@ -19,7 +19,7 @@
       var appComponent = this;
       var result = originalFunction.apply(this, arguments);
 
-      addAppComponentAction(this, new AppComponentAction(
+      agent.addAppComponentAction(this, new agent.AppComponentAction(
         "destroy", ""
       ));
 
@@ -53,7 +53,7 @@
           callback: function(model) {
             // registra il nuovo componente dell'app
             var data = agent.serializeModel(model);
-            var modelIndex = registerAppComponent("Model", model, data);
+            var modelIndex = agent.registerAppComponent("Model", model, data);
           }
         });
 
