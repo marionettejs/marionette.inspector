@@ -3,7 +3,7 @@
 
 debug.log("Backbone agent is starting...");
 console.log('Marionette Inspector: window.__agent = ', this);
-sendAppComponentReport('start');
+this.sendAppComponentReport('start');
 
 this.patchDefine(
   _.bind(this.patchBackbone, this),
