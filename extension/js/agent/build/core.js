@@ -85,21 +85,13 @@ var Marionette = this.Marionette;
  *
  */
 
-// @include ../components/components.js
 // @include ../components/util/sendAppComponentReport.js
 
 // @include ../components/AppComponentAction.js
 // @include ../components/AppComponentInfo.js
-
-// @include ../components/addCidToComponent.js
-// @include ../components/getAppComponentsIndexes.js
-// @include ../components/getAppComponentInfo.js
-// @include ../components/getAppComponentInfoByIndex.js
 // @include ../components/getAppComponentByTypeAndCid.js
 // @include ../components/getAppViewInfoFromElement.js
-// @include ../components/setAppComponentInfo.js
 // @include ../components/registerAppComponent.js
-// @include ../components/monitorAppComponentProperty.js
 // @include ../components/addAppComponentAction.js
 
 
@@ -110,6 +102,7 @@ var Marionette = this.Marionette;
 
 // @include ../patches/util/patchFunction.js
 // @include ../patches/util/patchFunctionLater.js
+// @include ../patches/util/addCidToComponent.js
 
 // @include ../patches/patchDefineCallback.js
 // @include ../patches/patchDefine.js

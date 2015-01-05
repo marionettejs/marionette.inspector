@@ -1,38 +1,47 @@
+;(function(Agent) {
 
-// Restituisce l'info della vista a cui appartiene l'elemento html passato, o undefined se non esiste.
-// L'elemento appartiene alla vista se questo combacia perfettamente con la sua proprietà el, o
-// se questa è l'ascendente più vicino rispetto a tutte le altre viste.
-this.getAppViewInfoFromElement = _.bind(function(pageElement) {
-    // funzione che controlla se l'elemento html target è un ascendente dell'elemento html of
-    var isAscendant = function(target, of) {
-        if (!of) return false;
+  // funzione che controlla se l'elemento html target è un ascendente dell'elemento html of
+  var isAscendant = function(target, of) {
+      if (!of) return false;
 
-        var ofParent = of.parentNode;
-        if (target === ofParent) return true;
-        return isAscendant(target, ofParent);
-    };
+      var ofParent = of.parentNode;
+      if (target === ofParent) return true;
+      return isAscendant(target, ofParent);
+  };
 
-    // cerca il miglior candidato
-    var candidateViewInfo;
-    var viewsIndexes = this.getAppComponentsIndexes("View");
-    for (var i=0,l=viewsIndexes.length; i<l; i++) {
-        var currentViewInfo = this.getAppComponentInfoByIndex("View", viewsIndexes[i]);
-        var currentView = currentViewInfo.component;
+  // Restituisce l'info della vista a cui appartiene l'elemento html passato, o undefined se non esiste.
+  // L'elemento appartiene alla vista se questo combacia perfettamente con la sua proprietà el, o
+  // se questa è l'ascendente più vicino rispetto a tutte le altre viste.
+  Agent.getAppViewInfoFromElement = function(pageElement) {
 
-        if (currentView.el === pageElement) {
-            // candidato perfetto trovato
-            candidateViewInfo = currentViewInfo;
-            break;
-        }
-        // l'el di currentView è un ascendente di pageElement ed è un discendente del miglior
-        // candidato trovato finora?
-        var candidateView = candidateViewInfo? candidateViewInfo.component : undefined;
-        var isBetterCandidate = isAscendant(currentView.el, pageElement) &&
-                               (!candidateView || isAscendant(candidateView.el, currentView.el));
-        if (isBetterCandidate) {
-            // candidato migliore trovato
-            candidateViewInfo = currentViewInfo;
-        }
-    }
-    return candidateViewInfo;
-}, this);
+      var viewRegistry = Agent.getAppComponentsInfo('View');
+
+      // cerca il miglior candidato
+      var candidateViewInfo;
+
+      var foundViewInfo = _.find(viewRegistry, function(currentViewInfo){
+          var currentView = currentViewInfo.component;
+
+          if (currentView.el === pageElement) {
+              // candidato perfetto trovato
+              return currentViewInfo;
+          }
+
+          // is this view in the pageElement
+          if(isAscendant(currentView.el, pageElement)){
+            // l'el di currentView è un ascendente di pageElement ed è un discendente del miglior
+            // candidato trovato finora?
+            var candidateView = candidateViewInfo? candidateViewInfo.component : undefined;
+
+            // is the view better than a previous candidate?
+            if (!candidateView || isAscendant(candidateView.el, currentView.el)) {
+                // candidato migliore trovato
+                candidateViewInfo = currentViewInfo;
+            }
+          }
+      });
+
+      return foundViewInfo || candidateViewInfo;
+  };
+
+}(this));
