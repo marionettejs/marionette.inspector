@@ -8,7 +8,7 @@
 
 ;(function(Agent) {
 
-    Agent.observedElements = [];
+    var observedElements = [];
 
     /*
      * Search constructor starts the search mode
@@ -27,10 +27,10 @@
       this.$clickMask = this.buildClickMask();
       this.searchEnabled = true;
 
-      $(document).mouseleave(function() {
+      $(document).on('mouseleave.regionSearch', function() {
         Agent.stopSearch();
         Agent.unhighlightEl();
-      }.bind(this));
+      });
 
       this.bindElEvents(views);
 
@@ -47,7 +47,7 @@
       };
 
       var $els = _.pluck(views, '$el');
-      Agent.observedElements = Agent.observedElements.concat($els);
+      observedElements = observedElements.concat($els);
 
       _.each($els, function($el){
         $el.on(mouse_events);
@@ -148,14 +148,14 @@
    *
    */
   Agent.stopSearch = function() {
-    _.each(Agent.observedElements, function($el) {
+    _.each(observedElements, function($el) {
       $el.off('.regionSearch');
       $el.removeAttr('data-view-id');
     });
 
-    Agent.observedElements = [];
+    observedElements = [];
 
-    $(document).off('mouseleave');
+    $(document).off('mouseleave.regionSearch');
     Agent.unhighlightEl();
   };
 
