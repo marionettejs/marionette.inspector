@@ -6,6 +6,6 @@ this.patchMarionetteObject = function(MarionetteObject) {
     patchBackboneComponent(MarionetteObject, _.bind(function(object) { // on new instance
         this.addCidToComponent(object);
         var data = {};
-        var objectIndex = registerAppComponent("Object", object, data);
+        var objectIndex = this.registerAppComponent("Object", object, data);
     }, this));
 }

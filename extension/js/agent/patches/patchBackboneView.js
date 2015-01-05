@@ -18,7 +18,7 @@
       var appComponent = this;
       var result = originalFunction.apply(appComponent, arguments);
 
-      addAppComponentAction(appComponent, new AppComponentAction(
+      Agent.addAppComponentAction(appComponent, new Agent.AppComponentAction(
         "remove", ""
       ));
 
@@ -63,7 +63,7 @@
       patchFunctionLater(view, "render", function(originalFunction) { return function() {
         var result = originalFunction.apply(this, arguments);
 
-        addAppComponentAction(this, new AppComponentAction(
+        Agent.addAppComponentAction(this, new Agent.AppComponentAction(
             "operation", "render"
         ));
 

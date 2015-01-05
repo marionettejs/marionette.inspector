@@ -1,15 +1,17 @@
-;(function(agent) {
+;(function(Agent) {
 
-  agent.getAppComponentByTypeAndCid = function(type, cid) {
+  Agent.getAppComponentByTypeAndCid = function(type, cid) {
     // console.log('!!! inside inspect Function', type, cid);
-    var typeRegistry = agent.appComponentsInfo[type];
-    // console.log('!!! just got the type registry', typeRegistry)
+    var typeRegistry = Agent.getAppComponentsInfo(type);
+    // console.log('!!! just got the appComponentCategory registry', typeRegistry)
 
-    var appComponentInfo = agent._.find(typeRegistry, function(appComponentInfo) {
+    var component, componentCid;
+
+    var appComponentInfo = _.find(typeRegistry, function(appComponentInfo) {
       var component = appComponentInfo.component;
       var componentCid = component.cid || component.__marionette_inspector__cid;
 
-      return  cid == componentCid;
+      return  cid === componentCid;
     });
 
     // console.log('!!! just found an ACI', appComponentInfo);
@@ -18,12 +20,8 @@
     // if we find an app component info object, we'll grab the component
     // that it holds and use that!
     if (appComponentInfo) {
-      object = appComponentInfo.component;
-    } else {
-      return;
+      return appComponentInfo.component;
     }
+  };
 
-    return object
-  }
 }(this));
-
