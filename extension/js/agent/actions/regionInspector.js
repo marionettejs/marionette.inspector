@@ -57,7 +57,7 @@
 
     data.cid = view.cid;
     return data;
-  }
+  };
 
   /*
   * regionInspector
@@ -79,4 +79,5 @@
     //debug.log('region inspector: ', regions);
     return regions;
   }
-}(this))
+
+}(this));
