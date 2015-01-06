@@ -6,7 +6,6 @@
       Agent.addCidToComponent(app);
 
       var data = {};
-      Agent.sendAppComponentReport('app:found');
       var appIndex = Agent.registerAppComponent("Application", app, data);
 
       if (appIndex === 0) {

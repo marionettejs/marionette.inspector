@@ -24,7 +24,7 @@ define([
     clientEvents: {
       'app:load-failed': 'onAppLoadFail',
       'agent:start': 'onAgentStart',
-      'app:found': 'onAppFound',
+      'Application:new': 'onAppFound',
       'ready': 'onPageReady',
       'updated': 'onPageUpdated'
     },
