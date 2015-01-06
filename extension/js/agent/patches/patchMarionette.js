@@ -29,15 +29,17 @@ this.patchMarionette = (function(agent) {
     debug.log("Marionette detected: ", Marionette);
 
     assignClassNames(Backbone, Marionette);
-    this.patchMarionetteApplication(Marionette.Application);
-    this.patchMarionetteBehavior(Marionette.Behavior);
-    this.patchMarionetteModule(Marionette.Module);
-    this.patchMarionetteController(Marionette.Controller);
+
 
     if (Marionette.Object) {
       this.patchMarionetteObject(Marionette.Object);
       this.patchBackboneTrigger(Marionette.Object.prototype);
     }
+
+    this.patchMarionetteApplication(Marionette.Application);
+    this.patchMarionetteBehavior(Marionette.Behavior);
+    this.patchMarionetteModule(Marionette.Module);
+    this.patchMarionetteController(Marionette.Controller);
 
     _.each(
       [
