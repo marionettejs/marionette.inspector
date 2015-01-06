@@ -72,8 +72,18 @@ require([
     logger, App, RadioApp, UIApp, DataApp, ActivityApp,
     _property) {
 
+    var tplCache = {};
+
     Marionette.Renderer.render = function(template, data, view) {
-      return Handlebars.compile(template)(data);
+      var compiledTpl = tplCache[template];
+      if (_.isFunction(compiledTpl)) {
+        return compiledTpl(data);
+      }
+
+      compiledTpl =  Handlebars.compile(template);
+      tplCache[template] = compiledTpl;
+
+      return compiledTpl(data);
     };
 
     /*

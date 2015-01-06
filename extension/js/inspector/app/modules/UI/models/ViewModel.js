@@ -22,7 +22,7 @@ define([
       if (viewNode) {
         return viewNode.name;
       } else {
-        return "detatched";
+        return this.get('inspect').inspect;
       }
     },
 
