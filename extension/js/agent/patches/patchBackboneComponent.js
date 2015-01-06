@@ -38,7 +38,7 @@ var patchBackboneComponent = _.bind(function(BackboneComponent, instancePatcher)
         // la proprietà sarà ereditata anche dai sottotipi e finirà nelle varie istanze,
         // contiene la versione patchata della initialize
 
-        var initializeFncName = _.has(BackboneComponent.prototype, 'initialize') ? 'initialize' : 'start';
+        var initializeFncName = BackboneComponent.prototype.initialize ? 'initialize' : 'start';
 
         var patchedInitialize = patchInitialize(BackboneComponent.prototype[initializeFncName]);
         Agent.setHiddenProperty(BackboneComponent.prototype, "patchedInitialize", patchedInitialize);

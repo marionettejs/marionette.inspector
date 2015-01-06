@@ -1,16 +1,37 @@
 describe('patchMarionetteApplication', function() {
 
-  beforeEach(function() {
+  describe('base application class', function() {
+    beforeEach(function() {
+      this.sinon.spy(window, 'sendAppComponentReport')
+      this.app = new Marionette.Application();
+    })
 
-    this.sinon.spy(window, 'sendAppComponentReport')
+    it('calls sendAppComponentReport with data', function() {
+      var callCount = window.sendAppComponentReport.callCount;
+      var callArgs = window.sendAppComponentReport.getCall(callCount-1).args;
 
-    this.app = new Marionette.Application();
+      expect(callArgs[0]).to.equal('Application:new');
+    })
   })
 
-  it('callls registerAppComponent with data', function() {
-    var callCount = window.sendAppComponentReport.callCount;
-    var callArgs = window.sendAppComponentReport.getCall(callCount-1).args;
+  describe('base application class', function() {
+    beforeEach(function() {
 
-    expect(callArgs[0]).to.equal('Application:new');
+      this.sinon.spy(window, 'sendAppComponentReport')
+
+      this.App = Marionette.Application.extend({
+        initialize: this.sinon.spy()
+      })
+
+      this.app = new this.App();
+    })
+
+    it('calls sendAppComponentReport with data', function() {
+      var callCount = window.sendAppComponentReport.callCount;
+      var callArgs = window.sendAppComponentReport.getCall(callCount-1).args;
+
+      expect(callArgs[0]).to.equal('Application:new');
+    })
   })
+
 })
