@@ -1,3 +1,19 @@
+## V0.5.2
+#### 1-7-2014
+
+### Added
++ Added a context field to the Activity feed
++ Added some big performance improvements to the Activity Feed
+
+### Changed
++ Continued refactoring the agent to support an IIFE pattern
++ Refactored setHiddenProperty
++ Fixed a bug that was impacting marionette 2.3
+
+### Removed
++ Removed the Activity tool for the time being. It'll come back when it's more ready for the prime time.
+
+
 ## V0.5.1
 #### 1-2-2014
 
