@@ -31,6 +31,6 @@
 
       return _.flatten(view.concat(subViews));
   }
-}(this));
+}(Agent));
 
 

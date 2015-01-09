@@ -1,7 +1,5 @@
 // debugger;
 
-var Agent = {};
-
 ;(function(Agent){
 
   debug.log("Backbone agent is starting...");
@@ -29,9 +27,7 @@ var Agent = {};
 
   Agent.lazyWorker = new Agent.LazyWorker();
 
-}(this));
-
-
+}(Agent));
 
 window.setTimeout(function() {
   if(window.__agent && window.__agent.patchedBackbone) {

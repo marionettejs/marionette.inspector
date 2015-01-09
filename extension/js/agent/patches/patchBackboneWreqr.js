@@ -125,4 +125,4 @@
     handler(storage, 'root', 'differentattr', difference, {});
   };
 
-}(this));
+}(Agent));

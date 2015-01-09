@@ -138,4 +138,4 @@
     return patchDefine;
   }();
 
-}(this));
+}(Agent));

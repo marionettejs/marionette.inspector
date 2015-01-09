@@ -16,4 +16,4 @@
       }, options);
   };
 
-}(this));
+}(Agent));

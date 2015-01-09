@@ -6,4 +6,4 @@
       unwatchOne.apply(this, watcher);
   };
 
-}(this));
+}(Agent));

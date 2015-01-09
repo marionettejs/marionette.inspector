@@ -46,4 +46,4 @@
     return data;
   };
 
-}(this));
+}(Agent));

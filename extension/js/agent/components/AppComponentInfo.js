@@ -55,4 +55,4 @@
     return Agent.getHiddenProperty(appComponent, 'appComponentInfo');
   };
 
-}(this));
+}(Agent));

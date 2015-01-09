@@ -80,4 +80,4 @@
     return regions;
   }
 
-}(this));
+}(Agent));

@@ -43,4 +43,4 @@
       return appComponentIndex;
   };
 
-}(this));
+}(Agent));

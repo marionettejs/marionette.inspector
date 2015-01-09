@@ -15,4 +15,4 @@
     return line.trim().split(/\(/)[0];
   }
 
-}(this));
+}(Agent));

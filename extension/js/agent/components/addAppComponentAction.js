@@ -30,4 +30,4 @@
       return actionIndex;
   }, Agent);
 
-}(this));
+}(Agent));

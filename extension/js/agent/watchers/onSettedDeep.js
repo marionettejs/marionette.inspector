@@ -15,4 +15,4 @@
       return [object, property, handler]; // usable to stop watching via stopOnSetted
   };
 
-}(this));
+}(Agent));

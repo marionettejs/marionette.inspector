@@ -56,4 +56,4 @@
     return channel._events;
   };
 
-}(this));
+}(Agent));

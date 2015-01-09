@@ -50,4 +50,4 @@
     queuePostMessages.push(message, options);
   };
 
-}(this));
+}(Agent));

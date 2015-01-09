@@ -11,4 +11,4 @@
     Agent.setHiddenProperty(object, 'cid',  _.uniqueId('c'));
   }
 
-}(this));
+}(Agent));

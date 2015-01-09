@@ -44,4 +44,4 @@
       return foundViewInfo || candidateViewInfo;
   };
 
-}(this));
+}(Agent));
