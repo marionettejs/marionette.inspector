@@ -1,15 +1,14 @@
-
-;(function(agent) {
+;(function(Agent) {
 
   var patchModelEventsChanges = _.debounce(function(model, prop, action, difference, oldValue) {
-    agent.lazyWorker.push({
-        context: agent,
+    Agent.lazyWorker.push({
+        context: Agent,
         args: [model],
         callback: function(model) {
-          agent.sendAppComponentReport("model:events:change", {
+          Agent.sendAppComponentReport('model:events:change', {
             cid: model.cid,
-            data: agent.serializeModel(model)
-          })
+            data: Agent.serializeModel(model)
+          });
         }
     });
   }, 200);
@@ -17,57 +16,58 @@
   var patchModelDestroy = function(originalFunction) {
     return function() {
       var appComponent = this;
-      var result = originalFunction.apply(this, arguments);
+      var result = originalFunction.apply(appComponent, arguments);
 
-      agent.addAppComponentAction(this, new agent.AppComponentAction(
-        "destroy", ""
+      Agent.addAppComponentAction(appComponent, new Agent.AppComponentAction(
+        'destroy', ''
       ));
 
       return result;
-    }
-  }
+    };
+  };
 
   var patchModelAttributesChange = _.debounce(function(model, prop, action, difference, oldvalue) {
-    var data = agent.lazyWorker.push({
-        context: agent,
+    var data = Agent.lazyWorker.push({
+        context: Agent,
         args: [model],
         callback: function(model) {
-          agent.sendAppComponentReport("model:attributes:change", {
+          Agent.sendAppComponentReport('model:attributes:change', {
             cid: model.cid,
-            data: agent.serializeModel(model)
-          })
+            data: Agent.serializeModel(model)
+          });
         }
     });
   }, 200);
 
 
 
-  agent.patchBackboneModel = function(BackboneModel) {
-    debug.log("Backbone.Model detected");
+  Agent.patchBackboneModel = function(BackboneModel) {
+    debug.log('Backbone.Model detected');
 
-    patchBackboneComponent(BackboneModel, function(model) { // on new instance
+    Agent.patchBackboneComponent(BackboneModel, function(model) { // on new instance
 
-        agent.lazyWorker.push({
-          context: agent,
+        Agent.lazyWorker.push({
+          context: Agent,
           args: [model],
           callback: function(model) {
             // registra il nuovo componente dell'app
-            var data = agent.serializeModel(model);
-            var modelIndex = agent.registerAppComponent("Model", model, data);
+            var data = Agent.serializeModel(model);
+            var modelIndex = Agent.registerAppComponent('Model', model, data);
           }
         });
 
         // monitora i cambiamenti alle proprietà d'interesse del componente dell'app
-        onChange(model.attributes, _.partial(patchModelAttributesChange, model))
+        Agent.onChange(model.attributes, _.partial(patchModelAttributesChange, model))
 
-        onDefined(model, '_events', function() {
-          onChange(model._events, _.partial(patchModelEventsChanges, model));
+        Agent.onDefined(model, '_events', function() {
+          Agent.onChange(model._events, _.partial(patchModelEventsChanges, model));
           patchModelEventsChanges(model);
         });
 
         // Patcha i metodi del componente dell'app
-        agent.patchAppComponentTrigger(model);
-        patchFunctionLater(model, "destroy", patchModelDestroy);
+        Agent.patchAppComponentTrigger(model);
+        Agent.patchFunctionLater(model, 'destroy', patchModelDestroy);
     });
-  }
+  };
+
 }(this));

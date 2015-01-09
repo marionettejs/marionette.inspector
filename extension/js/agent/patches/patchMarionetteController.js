@@ -1,15 +1,19 @@
-// @private
-this.patchMarionetteController = function(MarionetteController) {
-    debug.log("Marionette.controller detected");
+;(function(Agent){
+
+  // @private
+  Agent.patchMarionetteController = function(MarionetteController) {
+    debug.log('Marionette.controller detected');
 
     // add initialize if it's not already there (pre 2.x)
     if (!MarionetteController.prototype.initialize) {
       MarionetteController.prototype.initialize = function(){};
     }
 
-    patchBackboneComponent(MarionetteController, _.bind(function(controller) { // on new instance
-        this.addCidToComponent(controller);
-        var data = {};
-        var controllerIndex = this.registerAppComponent("Controller", controller, data);
-    }, this));
-}
+    Agent.patchBackboneComponent(MarionetteController, function(controller) { // on new instance
+      Agent.addCidToComponent(controller);
+      var data = {};
+      var controllerIndex = Agent.registerAppComponent('Controller', controller, data);
+    });
+  };
+
+}(this));

@@ -1,114 +1,104 @@
-this.patchBackboneRadio = function(Radio) {
+;(function(Agent){
 
-  var Radio = this.patchedBackboneRadio = Radio;
-  debug.log("Radio detected: ", Radio);
+  Agent.patchBackboneRadio = function(Radio) {
 
-  // listen for new channels
-  this.onChange(Radio._channels, onRadioChannelChange);
-  _.each(Radio._channels, function(channel, channelName) {
-    this.onNewRadioChannel(channel, channelName);
-  }, this);
-};
+    var Radio = Agent.patchedBackboneRadio = Radio;
+    debug.log('Radio detected: ', Radio);
 
-var onRadioChannelChange = function(newValue, prop, action, difference, oldValue) {
-  _.each(difference.added, function(channelName) {
-      var channel = newValue[channelName];
-      this.onNewRadioChannel(channel, channelName);
-  }, this, newValue);
-};
+    // listen for new channels
+    Agent.onChange(Radio._channels, onRadioChannelChange);
+    _.each(Radio._channels, function(channel, channelName) {
+      Agent.onNewRadioChannel(channel, channelName);
+    });
+  };
 
-this.onNewRadioChannel = function(channel, channelName) {
-  var requests = getRadioRequests(channel);
-  var commands = getRadioCommands(channel);
-  var events = getRadioEvents(channel);
+  var onRadioChannelChange = function(newValue, prop, action, difference, oldValue) {
+    _.each(difference.added, function(channelName) {
+        Agent.onNewRadioChannel(newValue[channelName], channelName);
+    });
+  };
 
-  this.reportNewRadioChannel(channel, channelName);
+  Agent.onNewRadioChannel = function(channel, channelName) {
+    var requests = Agent.getRadioRequests(channel);
+    var commands = Agent.getRadioCommands(channel);
+    var events = Agent.getRadioEvents(channel);
 
-  // listen to newly registered or removed requests
-  var handler = _.bind(this.onRadioRequestChange, this, channel);
-  onChange(requests, handler);
-  invokeStorageUpdater(requests, handler);
+    Agent.reportNewRadioChannel(channel, channelName);
 
-  // listen for newly registered or removed commands
-  var handler = _.bind(this.onRadioCommandChange, this, channel);
-  onChange(commands, handler);
-  invokeStorageUpdater(commands, handler);
+    // listen to newly registered or removed requests
+    var handler = _.partial(this.onRadioRequestChange, channel);
+    Agent.onChange(requests, handler);
+    Agent.invokeStorageUpdater(requests, handler);
 
-  // listen for newly registered or removed events
-  var handler = _.bind(this.onRadioEventChange, this, channel);
-  onChange(events, handler);
-  invokeStorageUpdater(events, handler);
-};
+    // listen for newly registered or removed commands
+    var handler = _.partial(this.onRadioCommandChange, channel);
+    Agent.onChange(commands, handler);
+    Agent.invokeStorageUpdater(commands, handler);
 
-this.onRadioRequestChange = function(channel, newValue, prop, action, difference, oldvalue) {
-  this.lazyWorker.push({
-    context: this,
-    args: [channel],
-    callback: function() {
-      this.sendAppComponentReport('Channel:change', {
-        channelName: channel.channelName,
-        data: this.serializeChannelRadio(channel)
-      });
-    }
-  });
+    // listen for newly registered or removed events
+    var handler = _.partial(Agent.onRadioEventChange, channel);
+    Agent.onChange(events, handler);
+    Agent.invokeStorageUpdater(events, handler);
+  };
 
-  debug.log('channel request change', channel.channelName);
-};
+  Agent.onRadioRequestChange = function(channel, newValue, prop, action, difference, oldvalue) {
+    Agent.lazyWorker.push({
+      context: Agent,
+      args: [channel],
+      callback: function() {
+        Agent.sendAppComponentReport('Channel:change', {
+          channelName: channel.channelName,
+          data: Agent.serializeChannelRadio(channel)
+        });
+      }
+    });
 
-this.onRadioCommandChange = function(channel, newValue, prop, action, difference, oldvalue) {
-  this.lazyWorker.push({
-    context: this,
-    args: [channel],
-    callback: function() {
-      this.sendAppComponentReport('Channel:change', {
-        channelName: channel.channelName,
-        data: this.serializeChannelRadio(channel)
-      });
-    }
-  });
+    debug.log('channel request change', channel.channelName);
+  };
 
-  debug.log('channel command change', channel.channelName);
-};
+  Agent.onRadioCommandChange = function(channel, newValue, prop, action, difference, oldvalue) {
+    Agent.lazyWorker.push({
+      context: Agent,
+      args: [channel],
+      callback: function() {
+        Agent.sendAppComponentReport('Channel:change', {
+          channelName: channel.channelName,
+          data: Agent.serializeChannelRadio(channel)
+        });
+      }
+    });
 
-this.onRadioEventChange = function(channel, newValue, prop, action, difference, oldvalue) {
-  this.lazyWorker.push({
-    context: this,
-    args: [channel],
-    callback: function() {
-      this.sendAppComponentReport('Channel:change', {
-        channelName: channel.channelName,
-        data: this.serializeChannelRadio(channel)
-      });
-    }
-  });
+    debug.log('channel command change', channel.channelName);
+  };
 
-  debug.log('channel event change', channel.channelName);
-};
+  Agent.onRadioEventChange = function(channel, newValue, prop, action, difference, oldvalue) {
+    Agent.lazyWorker.push({
+      context: Agent,
+      args: [channel],
+      callback: function() {
+        Agent.sendAppComponentReport('Channel:change', {
+          channelName: channel.channelName,
+          data: Agent.serializeChannelRadio(channel)
+        });
+      }
+    });
 
-this.reportNewRadioChannel = function(channel, channelName) {
-  this.lazyWorker.push({
-    context: this,
-    args: [channel],
-    callback: function() {
-      this.sendAppComponentReport('Channel:new', {
-        channelName: channel.channelName,
-        data: this.serializeChannelRadio(channel)
-      });
-    }
-  });
+    debug.log('channel event change', channel.channelName);
+  };
 
-  debug.log('new channel', channel.channelName);
-};
+  Agent.reportNewRadioChannel = function(channel, channelName) {
+    Agent.lazyWorker.push({
+      context: Agent,
+      args: [channel],
+      callback: function() {
+        Agent.sendAppComponentReport('Channel:new', {
+          channelName: channel.channelName,
+          data: Agent.serializeChannelRadio(channel)
+        });
+      }
+    });
 
+    debug.log('new channel', channel.channelName);
+  };
 
-var getRadioRequests = function(channel) {
-  return channel._requests;
-};
-
-var getRadioCommands = function(channel) {
-  return channel._commands;
-};
-
-var getRadioEvents = function(channel) {
-  return channel._events;
-};
+}(this));

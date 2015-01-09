@@ -1,11 +1,14 @@
+;(function(Agent){
 
-// @private
-this.patchMarionetteBehavior = function(MarionetteBehavior) {
-    debug.log("Backbone.View detected");
+  // @private
+  Agent.patchMarionetteBehavior = function(MarionetteBehavior) {
+    debug.log('Backbone.View detected');
 
-    patchBackboneComponent(MarionetteBehavior, _.bind(function(behavior) { // on new instance
-        this.addCidToComponent(behavior);
-        var data = {};
-        var behaviorIndex = this.registerAppComponent("Behavior", behavior, data);
-    }, this));
-}
+    Agent.patchBackboneComponent(MarionetteBehavior, function(behavior) { // on new instance
+      Agent.addCidToComponent(behavior);
+      var data = {};
+      var behaviorIndex = Agent.registerAppComponent('Behavior', behavior, data);
+    });
+  };
+
+}(this));

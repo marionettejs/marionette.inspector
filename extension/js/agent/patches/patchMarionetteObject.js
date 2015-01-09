@@ -1,11 +1,14 @@
+;(function(Agent){
 
-// @private
-this.patchMarionetteObject = function(MarionetteObject) {
-    debug.log("MarionetteObject detected");
+  // @private
+  Agent.patchMarionetteObject = function(MarionetteObject) {
+      debug.log('MarionetteObject detected');
 
-    patchBackboneComponent(MarionetteObject, _.bind(function(object) { // on new instance
-        this.addCidToComponent(object);
-        var data = {};
-        var objectIndex = this.registerAppComponent("Object", object, data);
-    }, this));
-}
+      Agent.patchBackboneComponent(MarionetteObject, function(object) { // on new instance
+          Agent.addCidToComponent(object);
+          var data = {};
+          var objectIndex = Agent.registerAppComponent('Object', object, data);
+      });
+  };
+
+}(this));

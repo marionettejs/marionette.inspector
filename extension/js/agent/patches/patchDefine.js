@@ -1,4 +1,5 @@
-this.patchDefine = (function(agent){
+;(function(Agent){
+
   var moduleHasComponents = function (Candidate, components) {
     return _.isObject(Candidate) &&
       _.all(components, function (component) {
@@ -21,11 +22,11 @@ this.patchDefine = (function(agent){
   // find the factory function to patch it
   var patchFactoryFunction = function(defineArgs) {
     for (var i=0, l=defineArgs.length; i<l; i++) {
-      if (typeof defineArgs[i] != "function") {
+      if (typeof defineArgs[i] != 'function') {
         continue;
       }
 
-      patchFunction(defineArgs, i, _.partial(_patchFactoryFunc, defineArgs, i));
+      Agent.patchFunction(defineArgs, i, _.partial(_patchFactoryFunc, defineArgs, i));
     }
   }
 
@@ -50,7 +51,7 @@ this.patchDefine = (function(agent){
       var module = originalFunction.apply(this, bodyArguments);
 
       // check if Backbone has been defined by the factory fuction
-      // (some factories set "this" to Backbone)
+      // (some factories set 'this' to Backbone)
       var Candidate = module || this;
 
       if (!loadedModules.Backbone && isBackbone(Candidate)) {
@@ -79,7 +80,7 @@ this.patchDefine = (function(agent){
 
     // we patch the define call back so that the functionBody is
     // called with the same arity that the original anonymous function was called with.
-    return agent.patchDefineCallback(defineArgs[defineIndex], functionBody);
+    return Agent.patchDefineCallback(defineArgs[defineIndex], functionBody);
   };
 
 
@@ -118,18 +119,23 @@ this.patchDefine = (function(agent){
    @param _patchBackbone - callback called when we detect Backbone being defined
    @param _patchMarionette - callback called when we detect Marionette being defined
   */
-  return function(_patchBackbone, _patchMarionette) {
-    patchBackbone = _patchBackbone;
-    patchMarionette = _patchMarionette;
+  Agent.patchDefine = function() {
 
-    debug.log('patch define');
-    patchFunctionLater(window, "define", function(defineFunction) {
-      return function() {
-        var args = _.toArray(arguments);
-        patchFactoryFunction(args);
-        return defineFunction.apply(this, args);
-      }
-    });
-  };
+    var patchDefine = function(_patchBackbone, _patchMarionette) {
+      patchBackbone = _patchBackbone;
+      patchMarionette = _patchMarionette;
+
+      debug.log('patch define');
+      Agent.patchFunctionLater(window, 'define', function(defineFunction) {
+        return function() {
+          var args = _.toArray(arguments);
+          patchFactoryFunction(args);
+          return defineFunction.apply(this, args);
+        };
+      });
+    };
+
+    return patchDefine;
+  }();
 
 }(this));

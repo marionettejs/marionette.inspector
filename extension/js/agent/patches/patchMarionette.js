@@ -1,4 +1,4 @@
-this.patchMarionette = (function(agent) {
+;(function(Agent){
 
   var assignClassNames = function(Backbone, Marionette) {
     Marionette.ItemView.prototype._className = 'ItemView';
@@ -15,41 +15,46 @@ this.patchMarionette = (function(agent) {
     } else {
       Marionette.Layout.prototype._className = 'Layout.View';
     }
-  }
+  };
+
+  Agent.patchMarionette = function() {
+
+    var patchMarionette = function(Backbone, Marionette) {
+
+      if (Agent.patchedMarionette) {
+        debug.log('Backbone was detected again');
+        return;
+      }
+
+      Agent.patchedMarionette = Marionette;
+      debug.log('Marionette detected: ', Marionette);
+
+      assignClassNames(Backbone, Marionette);
 
 
-  return function(Backbone, Marionette) {
+      if (Marionette.Object) {
+        Agent.patchMarionetteObject(Marionette.Object);
+        Agent.patchBackboneTrigger(Marionette.Object.prototype);
+      }
 
-    if (this.patchedMarionette) {
-      debug.log('Backbone was detected again');
-      return;
-    }
+      Agent.patchMarionetteApplication(Marionette.Application);
+      Agent.patchMarionetteBehavior(Marionette.Behavior);
+      Agent.patchMarionetteModule(Marionette.Module);
+      Agent.patchMarionetteController(Marionette.Controller);
 
-    var Marionette = this.patchedMarionette = Marionette;
-    debug.log("Marionette detected: ", Marionette);
+      _.each(
+        [
+          Marionette.Application.prototype, Marionette.Module.prototype,
+          Marionette.Behavior.prototype, Marionette.Region.prototype,
+          Marionette.Controller.prototype
+        ],
 
-    assignClassNames(Backbone, Marionette);
+        Agent.patchBackboneTrigger
+      );
+    };
 
+    return patchMarionette;
 
-    if (Marionette.Object) {
-      this.patchMarionetteObject(Marionette.Object);
-      this.patchBackboneTrigger(Marionette.Object.prototype);
-    }
-
-    this.patchMarionetteApplication(Marionette.Application);
-    this.patchMarionetteBehavior(Marionette.Behavior);
-    this.patchMarionetteModule(Marionette.Module);
-    this.patchMarionetteController(Marionette.Controller);
-
-    _.each(
-      [
-        Marionette.Application.prototype, Marionette.Module.prototype,
-        Marionette.Behavior.prototype, Marionette.Region.prototype,
-        Marionette.Controller.prototype
-      ],
-
-      this.patchBackboneTrigger, this
-    );
-  }
+  }();
 
 }(this));

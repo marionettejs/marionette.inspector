@@ -5,9 +5,9 @@
       context: Agent,
       args: [view],
       callback: function(view) {
-        this.sendAppComponentReport("view:change", {
+        Agent.sendAppComponentReport('view:change', {
           cid: view.cid,
-          data: this.serializeView(view)
+          data: Agent.serializeView(view)
         });
       }
     });
@@ -19,26 +19,26 @@
       var result = originalFunction.apply(appComponent, arguments);
 
       Agent.addAppComponentAction(appComponent, new Agent.AppComponentAction(
-        "remove", ""
+        'remove', ''
       ));
 
       return result;
-    }
-  }
+    };
+  };
 
   // @private
   Agent.patchBackboneView = function(BackboneView) {
-    debug.log("Backbone.View detected");
+    debug.log('Backbone.View detected');
 
-    patchBackboneComponent(BackboneView, function(view) { // on new instance
+    Agent.patchBackboneComponent(BackboneView, function(view) { // on new instance
       Agent.lazyWorker.push({
         context: Agent,
         args: [view],
         callback: function(view) {
           // registra il nuovo componente dell'app
-          var data = this.serializeView(view)
-          this.registerAppComponent("View", view, data);
-          this.sendAppComponentReport("view:change", {
+          var data = Agent.serializeView(view)
+          Agent.registerAppComponent('View', view, data);
+          Agent.sendAppComponentReport('view:change', {
             data: data,
             cid: view.cid
           });
@@ -49,29 +49,31 @@
       // Patcha i metodi del componente dell'app
       Agent.patchAppComponentTrigger(view, 'view');
 
-      onDefined(view, 'ui', _.bind(function() {
-        onChange(view.ui, _.bind(patchViewChanges, this, view));
+      Agent.onDefined(view, 'ui', function() {
+        Agent.onChange(view.ui, _.partial(patchViewChanges, view));
         patchViewChanges(view);
-      }, this));
+      });
 
-      onDefined(view, '_events', _.bind(function() {
-        onChange(view._events, _.bind(patchViewChanges, this, view));
+      Agent.onDefined(view, '_events', function() {
+        Agent.onChange(view._events, _.partial(patchViewChanges, view));
         patchViewChanges(view);
-      }, this));
+      });
 
 
-      patchFunctionLater(view, "render", function(originalFunction) { return function() {
-        var result = originalFunction.apply(this, arguments);
+      Agent.patchFunctionLater(view, 'render', function(originalFunction) { return function() {
+        var appComponent = this;
+        var result = originalFunction.apply(appComponent, arguments);
 
-        Agent.addAppComponentAction(this, new Agent.AppComponentAction(
-            "operation", "render"
+        Agent.addAppComponentAction(appComponent, new Agent.AppComponentAction(
+          'operation', 'render'
         ));
 
         return result;
       }});
 
-      patchFunctionLater(view, "remove", patchViewRemove);
+      Agent.patchFunctionLater(view, 'remove', patchViewRemove);
     });
-  }
+  };
+
 }(this));
 
