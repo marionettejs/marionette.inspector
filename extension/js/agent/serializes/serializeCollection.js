@@ -1,12 +1,16 @@
-this.serializeCollection = function(collection) {
-  var data = {};
+;(function(Agent) {
 
-  if (!(collection instanceof this.patchedBackbone.Collection)) {
-    return {};
-  }
+  Agent.serializeCollection = function(collection) {
+    var data = {};
 
-  data.properties = this.serializeObjectProperties(collection);
-  data.cid = collection.__marionette_inspector__cid;
+    if (!(collection instanceof Agent.patchedBackbone.Collection)) {
+      return {};
+    }
 
-  return data;
-}
+    data.properties = Agent.serializeObjectProperties(collection);
+    data.cid = collection.__marionette_inspector__cid;
+
+    return data;
+  };
+
+})(this);

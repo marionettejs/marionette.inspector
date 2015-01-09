@@ -1,45 +1,49 @@
-this.serializeView = function(view) {
-  var data = {};
-  // debug.log('serializeView', view)
+;(function(Agent) {
 
-  if (!_.isObject(view)) {
-    return {};
-  }
+  Agent.serializeView = function(view) {
+    var data = {};
+    // debug.log('serializeView', view)
 
-
-  data.cid = view.cid;
-  data.isLoading = false; // set when a view is registered, but not serialized
-
-  data.options = this.serializeObject(view.options);
-  data.ui = this.serializeUI(view.ui);
-  data.el = this.serializeElement(view.el, 'el', false);
-  data.events = serializeEventsHash(view.events);
-  data._events = this.serializeEvents(view._events);
-  data.modelEvents = serializeEventsHash(view.modelEvents);
-  data.collectionEvents = serializeEventsHash(view.collectionEvents);
-  data.triggers = serializeEventsHash(view.triggers);
-  data.properties = this.serializeObjectProperties(view);
-  data.ancestorInfo = this.ancestorInfo(view);
-  data._requirePath = view._requirePath;
-  data._className = this.serializeClassName(view);
-  data.parentClass = this.isKnownType(view) ? this.knownType(view).name : '';
-  data.inspect = this.inspectValue(view);
-
-  if (view.model) {
-    data.model = {
-      cid: view.model.cid
-    };
-  }
-
-  return data;
-}
+    if (!_.isObject(view)) {
+      return {};
+    }
 
 
-this.serializeUI = function(ui) {
-  var data = {};
-  _.each(ui, function(element, uiName) {
-    data[uiName] = this.serializeElement(element, uiName, false);
-  }, this);
+    data.cid = view.cid;
+    data.isLoading = false; // set when a view is registered, but not serialized
 
-  return data;
-}
+    data.options = Agent.serializeObject(view.options);
+    data.ui = Agent.serializeUI(view.ui);
+    data.el = Agent.serializeElement(view.el, 'el', false);
+    data.events = Agent.serializeEventsHash(view.events);
+    data._events = Agent.serializeEvents(view._events);
+    data.modelEvents = Agent.serializeEventsHash(view.modelEvents);
+    data.collectionEvents = Agent.serializeEventsHash(view.collectionEvents);
+    data.triggers = Agent.serializeEventsHash(view.triggers);
+    data.properties = Agent.serializeObjectProperties(view);
+    data.ancestorInfo = Agent.ancestorInfo(view);
+    data._requirePath = view._requirePath;
+    data._className = Agent.serializeClassName(view);
+    data.parentClass = Agent.isKnownType(view) ? Agent.knownType(view).name : '';
+    data.inspect = Agent.inspectValue(view);
+
+    if (view.model) {
+      data.model = {
+        cid: view.model.cid
+      };
+    }
+
+    return data;
+  };
+
+
+  Agent.serializeUI = function(ui) {
+    var data = {};
+    _.each(ui, function(element, uiName) {
+      data[uiName] = Agent.serializeElement(element, uiName, false);
+    });
+
+    return data;
+  };
+
+}(this));
