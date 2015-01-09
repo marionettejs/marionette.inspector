@@ -41,4 +41,4 @@
     waitForMarionetteLoad(window, onMarionetteLoaded);
   };
 
-}(this));
+}(Agent));

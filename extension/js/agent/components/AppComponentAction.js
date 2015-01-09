@@ -27,4 +27,4 @@
     return AppComponentAction;
   }();
 
-}(this));
+}(Agent));

@@ -5,4 +5,4 @@
     return funcStr.match(/native code/) || funcStr.match(/function bound()/);
   };
 
-}(this));
+}(Agent));

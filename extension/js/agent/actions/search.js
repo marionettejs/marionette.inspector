@@ -159,5 +159,5 @@
     Agent.unhighlightEl();
   };
 
-}(this));
+}(Agent));
 

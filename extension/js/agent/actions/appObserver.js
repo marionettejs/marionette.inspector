@@ -92,6 +92,6 @@
   });
 
 
-}(this));
+}(Agent));
 
 this.appObserver = new this.AppObserver();

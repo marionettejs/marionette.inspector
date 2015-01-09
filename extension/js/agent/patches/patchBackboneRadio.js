@@ -101,4 +101,4 @@
     debug.log('new channel', channel.channelName);
   };
 
-}(this));
+}(Agent));

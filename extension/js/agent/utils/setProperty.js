@@ -9,4 +9,4 @@
     return Object.defineProperty(object, property, _.extend(opts, options));
   };
 
-}(this));
+}(Agent));

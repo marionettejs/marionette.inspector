@@ -19,4 +19,4 @@
     return object[prop]
   };
 
-}(this));
+}(Agent));

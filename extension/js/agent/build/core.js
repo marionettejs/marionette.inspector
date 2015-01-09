@@ -25,7 +25,7 @@ var $ = this.$;
 var Backbone = this.Backbone;
 var Marionette = this.Marionette;
 
-
+var Agent = this;
 
  /*
   * LIBRARIES

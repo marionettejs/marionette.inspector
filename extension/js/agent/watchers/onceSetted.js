@@ -10,4 +10,4 @@
       return [object, property, handler];
   };
 
-}(this));
+}(Agent));

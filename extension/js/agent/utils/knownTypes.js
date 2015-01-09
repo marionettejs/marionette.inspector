@@ -214,4 +214,4 @@
     return knownTypes;
   };
 
-}(this));
+}(Agent));

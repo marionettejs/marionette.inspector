@@ -14,4 +14,4 @@
     return Agent.objectPath(obj[part], _.rest(path), defaultValue);
   };
 
-}(this));
+}(Agent));

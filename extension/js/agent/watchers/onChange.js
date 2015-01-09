@@ -15,4 +15,4 @@
     watch(object, _onChange, 0, true);
   };
 
-}(this));
+}(Agent));
