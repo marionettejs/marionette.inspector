@@ -1,11 +1,14 @@
+;(function(Agent){
 
-// @private
-this.patchMarionetteModule = function(MarionetteModule) {
-    debug.log("MarionetteModule detected");
+  // @private
+  Agent.patchMarionetteModule = function(MarionetteModule) {
+    debug.log('MarionetteModule detected');
 
-    patchBackboneComponent(MarionetteModule, _.bind(function(module) { // on new instance
-        this.addCidToComponent(module);
-        var data = {};
-        var moduleIndex = this.registerAppComponent("Module", module, data);
-    }, this));
-}
+    Agent.patchBackboneComponent(MarionetteModule, function(module) { // on new instance
+      Agent.addCidToComponent(module);
+      var data = {};
+      var moduleIndex = Agent.registerAppComponent('Module', module, data);
+    });
+  };
+
+}(this));

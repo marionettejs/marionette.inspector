@@ -1,25 +1,24 @@
-// @private
-// Patcha il metodo trigger del componente dell'app.
-
 ;(function(Agent){
-  _.extend(Agent, {
-      depth: 0,
-      actionId: 0,
-      eventId: 0,
 
-      getActionId: function () {
-        Agent._incActionId();
-        return 'a' + Agent.actionId;
-      },
+  // @private
+  // Patcha il metodo trigger del componente dell'app.
 
-      getEventId: function () {
-        return ++Agent.eventId;
-      },
+  var depth = 0;
+  var actionId = 0;
+  var eventId = 0;
 
-      _incActionId: _.debounce(function () {
-        Agent.actionId++;
-      }, 1000)
-  });
+  var getActionId = function () {
+    _incActionId();
+    return 'a' + actionId;
+  };
+
+  var getEventId = function () {
+    return ++eventId;
+  };
+
+  var _incActionId = _.debounce(function () {
+    actionId++;
+  }, 1000);
 
   var serializeTrigger = function(
     Agent, args, start, end, depth,
@@ -32,8 +31,8 @@
 
     // save data only if there is
     var data = {
-      eventId: Agent.getEventId(),
-      actionId: Agent.getActionId(),
+      eventId: getEventId(),
+      actionId: getActionId(),
       startTime: start,
       endTime: end,
       eventName: eventName,
@@ -43,34 +42,34 @@
       listeners: listeners
     };
 
-    Agent.sendAppComponentReport("trigger", {
+    Agent.sendAppComponentReport('trigger', {
       data: data
     });
-  }
+  };
 
   Agent.patchAppComponentTrigger = function() {};
 
 
   Agent.patchBackboneTrigger = function(BackboneEvents) {
-    patchFunction(BackboneEvents, "trigger", function(originalFunction) {
+    Agent.patchFunction(BackboneEvents, 'trigger', function(originalFunction) {
       return function(eventName) {
 
         // function signature: trigger(eventName, arg1, arg2, ...)
         var args  = _.rest(arguments);
         var context = this;
 
-        Agent.depth++;
+        depth++;
         var start = performance.now();
         var result = originalFunction.apply(this, arguments);
         var end = performance.now();
 
         Agent.lazyWorker.push({
           context: Agent,
-          args: [Agent, args, start, end, Agent.depth, this, eventName],
+          args: [Agent, args, start, end, depth, this, eventName],
           callback: serializeTrigger
         });
 
-        Agent.depth--;
+        depth--;
 
         return result;
       };
@@ -78,4 +77,3 @@
   };
 
 }(this));
-

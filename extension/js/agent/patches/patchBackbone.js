@@ -1,46 +1,49 @@
+;(function(Agent){
 
-this.patchBackbone = function(Backbone) {
+  Agent.patchBackbone = function(Backbone) {
 
-  if (this.patchedBackbone) {
-    debug.log('Backbone was detected again');
-    return;
-  }
+    if (Agent.patchedBackbone) {
+      debug.log('Backbone was detected again');
+      return;
+    }
 
-  var Backbone = this.patchedBackbone = Backbone;
+    Agent.patchedBackbone = Backbone;
 
-  debug.log("Backbone detected: ", Backbone);
+    debug.log('Backbone detected: ', Backbone);
 
-  this.patchBackboneView(Backbone.View)
-  this.patchBackboneModel(Backbone.Model);
-  this.patchBackboneCollection(Backbone.Collection);
-  this.patchBackboneRouter(Backbone.Router);
-  _patchBackboneWreqr(Backbone, _.bind(this.patchBackboneWreqr, this));
-  _patchBackboneRadio(Backbone, _.bind(this.patchBackboneRadio, this));
+    Agent.patchBackboneView(Backbone.View)
+    Agent.patchBackboneModel(Backbone.Model);
+    Agent.patchBackboneCollection(Backbone.Collection);
+    Agent.patchBackboneRouter(Backbone.Router);
+    _patchBackboneWreqr(Backbone, Agent.patchBackboneWreqr);
+    _patchBackboneRadio(Backbone, Agent.patchBackboneRadio);
 
 
-  _.each(
-    [
-      Backbone.Events, Backbone.Model.prototype,
-      Backbone.View.prototype, Backbone.Collection.prototype
-    ],
-    this.patchBackboneTrigger, this
-  );
-}
+    _.each(
+      [
+        Backbone.Events, Backbone.Model.prototype,
+        Backbone.View.prototype, Backbone.Collection.prototype
+      ],
+      Agent.patchBackboneTrigger
+    );
+  };
 
-var _patchBackboneWreqr = function(Backbone, onWreqrDetected) {
-  onObjectAndPropertiesSetted(
-    Backbone,
-    'Wreqr',
-    ['Channel', 'EventAggregator', 'CommandStorage', 'Handlers', 'RequestResponse', 'radio'],
-    onWreqrDetected
-  );
-}
+  var _patchBackboneWreqr = function(Backbone, onWreqrDetected) {
+    Agent.onObjectAndPropertiesSetted(
+      Backbone,
+      'Wreqr',
+      ['Channel', 'EventAggregator', 'CommandStorage', 'Handlers', 'RequestResponse', 'radio'],
+      onWreqrDetected
+    );
+  };
 
-var _patchBackboneRadio = function(Backbone, onRadioDetected) {
-  onObjectAndPropertiesSetted(
-    Backbone,
-    'Radio',
-    ['Channel'],
-    onRadioDetected
-  );
-}
+  var _patchBackboneRadio = function(Backbone, onRadioDetected) {
+    Agent.onObjectAndPropertiesSetted(
+      Backbone,
+      'Radio',
+      ['Channel'],
+      onRadioDetected
+    );
+  };
+
+}(this));
