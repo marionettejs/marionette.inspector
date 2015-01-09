@@ -1,6 +1,8 @@
+;(function(Agent) {
 
+  // @private
+  Agent.stopStealthOnSetted = function(watcher) {
+      clearInterval(watcher);
+  };
 
-// @private
-var stopStealthOnSetted = function(watcher) {
-    clearInterval(watcher);
-};
+}(this));
