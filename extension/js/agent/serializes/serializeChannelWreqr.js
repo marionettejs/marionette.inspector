@@ -1,54 +1,58 @@
-this.serializeWreqrChannel = function(channel) {
-  var data = {};
+;(function(Agent) {
 
-  if (!(channel instanceof this.patchedBackboneWreqr.Channel)) {
-    return {};
+  Agent.serializeWreqrChannel = function(channel) {
+    var data = {};
+
+    if (!(channel instanceof Agent.patchedBackboneWreqr.Channel)) {
+      return {};
+    }
+
+    data.commands = {};
+    data.events = {};
+    data.requests = {};
+    data.channelName = channel.channelName;
+
+    _.each(Agent.getWreqrCommands(channel), function(command, commandName) {
+      data.commands[commandName] = {
+        name: commandName,
+        context: Agent.inspectValue(command.context),
+        callback: Agent.inspectValue(command.callback, command.context)
+      };
+    });
+
+    _.each(Agent.getWreqrRequests(channel), function(request, requestName) {
+      data.requests[requestName] = {
+        name: requestName,
+        context: Agent.inspectValue(request.context),
+        callback: Agent.inspectValue(request.callback, request.context)
+      };
+    });
+
+    _.each(Agent.getWreqrEvents(channel), function(eventHandlers, eventName) {
+      var eventHandlerList = data.events[eventName] = [];
+
+      _.each(eventHandlers, function(eventHandler) {
+        eventHandlerList.push({
+          name: eventName,
+          context: Agent.inspectValue(eventHandler.context),
+          callback: Agent.inspectValue(eventHandler.callback, eventHandler.context)
+        });
+      });
+    });
+
+    return data;
   }
 
-  data.commands = {};
-  data.events = {};
-  data.requests = {};
-  data.channelName = channel.channelName;
+  Agent.getWreqrRequests = function(channel) {
+    return channel.reqres._wreqrHandlers;
+  };
 
-  _.each(getWreqrCommands(channel), function(command, commandName) {
-    data.commands[commandName] = {
-      name: commandName,
-      context: this.inspectValue(command.context),
-      callback: this.inspectValue(command.callback, command.context)
-    }
-  }, this, data);
+  Agent.getWreqrCommands = function(channel) {
+    return channel.commands._wreqrHandlers;
+  };
 
-  _.each(getWreqrRequests(channel), function(request, requestName) {
-    data.requests[requestName] = {
-      name: requestName,
-      context: this.inspectValue(request.context),
-      callback: this.inspectValue(request.callback, request.context)
-    }
-  }, this, data);
+  Agent.getWreqrEvents = function(channel) {
+    return channel.vent._events
+  };
 
-  _.each(getWreqrEvents(channel), function(eventHandlers, eventName) {
-   var eventHandlerList = data.events[eventName] = [];
-
-   _.each(eventHandlers, function(eventHandler) {
-    eventHandlerList.push({
-      name: eventName,
-      context: this.inspectValue(eventHandler.context),
-      callback: this.inspectValue(eventHandler.callback, eventHandler.context)
-    });
-   }, this, eventName, eventHandlerList)
- }, this, data);
-
-  return data;
-}
-
-var getWreqrRequests = function(channel) {
-  return channel.reqres._wreqrHandlers;
-};
-
-var getWreqrCommands = function(channel) {
-  return channel.commands._wreqrHandlers;
-};
-
-var getWreqrEvents = function(channel) {
-  return channel.vent._events
-};
+})(this);

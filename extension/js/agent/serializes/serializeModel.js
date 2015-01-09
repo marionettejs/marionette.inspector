@@ -1,18 +1,21 @@
-this.serializeModel = function(model) {
-  var data = {};
+;(function(Agent) {
 
-  if (!(model instanceof this.patchedBackbone.Model)) {
-    return {};
-  }
+  Agent.serializeModel = function(model) {
+    var data = {};
 
-  data.attributes = this.inspectObject(model.attributes);
-  data.properties = this.serializeObjectProperties(model);
-  data.ancestorInfo = this.ancestorInfo(model);
-  data._events = this.serializeEvents(model._events);
-  data._previousAttributes = this.inspectObject(model._previousAttributes);
-  data.changed = this.inspectObject(model.changed);
-  data.cid = model.cid;
+    if (!(model instanceof Agent.patchedBackbone.Model)) {
+      return {};
+    }
 
-  return data;
-}
+    data.attributes = Agent.inspectObject(model.attributes);
+    data.properties = Agent.serializeObjectProperties(model);
+    data.ancestorInfo = Agent.ancestorInfo(model);
+    data._events = Agent.serializeEvents(model._events);
+    data._previousAttributes = Agent.inspectObject(model._previousAttributes);
+    data.changed = Agent.inspectObject(model.changed);
+    data.cid = model.cid;
 
+    return data;
+  };
+
+})(this);
