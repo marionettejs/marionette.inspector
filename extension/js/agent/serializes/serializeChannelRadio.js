@@ -28,7 +28,7 @@
       };
     });
 
-    _.each(getRadioEvents(channel), function(eventHandlers, eventName) {
+    _.each(Agent.getRadioEvents(channel), function(eventHandlers, eventName) {
       var eventHandlerList = data.events[eventName] = [];
 
       _.each(eventHandlers, function(eventHandler) {
