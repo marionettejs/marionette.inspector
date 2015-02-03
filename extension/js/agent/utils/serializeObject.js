@@ -90,13 +90,28 @@
       return this.classPropertyCache[info.name];
     }
 
-    var props = this.serializeObject(_.pick(serializeObject, info.keys));
+    // :FIXME: Properties should always be resolved on `object`.  This might
+    // break memoization though.
+    var properties = _.object(_.map(info.keys, function(key) {
+      var value;
+
+      try {
+        value = serializeObject[key];
+      }
+      catch (error) {
+        value = object[key];
+      }
+
+      return [key, value];
+    }));
+
+    var serializedProperties = this.serializeObject(properties);
 
     if (shouldMemoize && info.name) {
-      this.classPropertyCache[info.name] = props;
+      this.classPropertyCache[info.name] = serializedProperties;
     }
 
-    return props;
+    return serializedProperties;
   }
 
   /*
