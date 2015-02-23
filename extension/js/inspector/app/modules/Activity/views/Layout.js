@@ -4,8 +4,9 @@ define([
   "util/Radio",
   'app/modules/Activity/models/ActivityNode',
   'app/modules/Activity/views/ActivityTree',
+  'app/modules/Activity/views/ActionList',
   'app/modules/Activity/views/ActivityInfo',
-], function(Marionette, tpl, Radio, ActivityNode, ActivityTree, ActivityInfo) {
+], function(Marionette, tpl, Radio, ActivityNode, ActivityTree, ActionList, ActivityInfo) {
 
   return Marionette.LayoutView.extend({
 
@@ -36,7 +37,7 @@ define([
     initialize: function(options) {
       options = options || {};
       this.activityCollection = options.activityCollection;
-
+      this.actionCollection = options.actionCollection;
 
       this.bindEntityEvents(this.activityCollection, this.activityCollectionEvents);
       Radio.connectCommands('activity', this.activityCommands, this);
@@ -44,20 +45,24 @@ define([
 
     onChangeActivityCollection: _.debounce(function () {
       // console.log('*** activity tree change called');
-      this.activityRoot.update();
+      // this.activityRoot.update();
     }, 2000),
 
     onBeforeRender: function() {
     },
 
     onBeforeShow: function() {
-      this.activityRoot = ActivityNode.build(this.activityCollection, this._filterTreeNode);
+      // this.activityRoot = ActivityNode.build(this.activityCollection, this._filterTreeNode);
 
-      this.activityRoot.collapse();
-      this.activityRoot.expandPath('root');
+      // this.activityRoot.collapse();
+      // this.activityRoot.expandPath('root');
 
-      this.getRegion('activityList').show(new ActivityTree({
-        model: this.activityRoot
+      // this.getRegion('activityList').show(new ActivityTree({
+      //   model: this.activityRoot
+      // }));
+
+      this.getRegion('activityList').show(new ActionList({
+        collection: this.actionCollection
       }));
     },
 
