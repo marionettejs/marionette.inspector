@@ -37,7 +37,8 @@ define([
     initialize: function(options) {
       options = options || {};
       this.activityCollection = options.activityCollection;
-      this.actionCollection = options.actionCollection;
+      window.actionCollection = this.actionCollection = options.actionCollection;
+      this.actionCollection.activityCollection = options.activityCollection;
 
       this.bindEntityEvents(this.activityCollection, this.activityCollectionEvents);
       Radio.connectCommands('activity', this.activityCommands, this);
@@ -45,25 +46,25 @@ define([
 
     onChangeActivityCollection: _.debounce(function () {
       // console.log('*** activity tree change called');
-      // this.activityRoot.update();
+      this.activityRoot.update();
     }, 2000),
 
     onBeforeRender: function() {
     },
 
     onBeforeShow: function() {
-      // this.activityRoot = ActivityNode.build(this.activityCollection, this._filterTreeNode);
+      window.activityRoot = this.activityRoot = ActivityNode.build(this.activityCollection, this._filterTreeNode);
 
-      // this.activityRoot.collapse();
-      // this.activityRoot.expandPath('root');
+      this.activityRoot.collapse();
+      this.activityRoot.expandPath('root');
 
-      // this.getRegion('activityList').show(new ActivityTree({
-      //   model: this.activityRoot
-      // }));
-
-      this.getRegion('activityList').show(new ActionList({
-        collection: this.actionCollection
+      this.getRegion('activityList').show(new ActivityTree({
+        model: this.activityRoot
       }));
+
+      // this.getRegion('activityList').show(new ActionList({
+      //   collection: this.actionCollection
+      // }));
     },
 
     showInfo: function(activityModel) {
