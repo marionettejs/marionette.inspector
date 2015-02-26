@@ -55,16 +55,16 @@ define([
     onBeforeShow: function() {
       window.activityRoot = this.activityRoot = ActivityNode.build(this.activityCollection, this._filterTreeNode);
 
-      this.activityRoot.collapse();
-      this.activityRoot.expandPath('root');
+      // this.activityRoot.collapse();
+      // this.activityRoot.expandPath('root');
 
-      this.getRegion('activityList').show(new ActivityTree({
-        model: this.activityRoot
-      }));
-
-      // this.getRegion('activityList').show(new ActionList({
-      //   collection: this.actionCollection
+      // this.getRegion('activityList').show(new ActivityTree({
+      //   model: this.activityRoot
       // }));
+
+      this.getRegion('activityList').show(new ActionList({
+        collection: this.actionCollection
+      }));
     },
 
     showInfo: function(activityModel) {

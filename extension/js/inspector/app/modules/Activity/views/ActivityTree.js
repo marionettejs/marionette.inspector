@@ -59,8 +59,8 @@ define([
 
     serializeData: function () {
       var data = ActivityTree.__super__.serializeData.apply(this, arguments);
-      data.isRoot = this.model.level === 0;
-      // data.isRoot = this.model.level === 1;
+      // data.isRoot = this.model.level === 0;
+      data.isRoot = this.model.level === 1;
 
       this.serializeEvent(data);
 
