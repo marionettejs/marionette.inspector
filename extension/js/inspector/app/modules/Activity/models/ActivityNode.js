@@ -24,16 +24,18 @@ define([
     return isAction || actionEvent(treeNode, actionId, false) && _filterTreeNode(treeNode);
   };
 
-  // TODO: function recurses all the way until no child nodes are found
-  // update so that it returns as soon as actionId is found
-  var actionEvent = function(treeNode, actionId, found) {
+  /**
+   actionEvent: recursive function determines whether an event is associated with a particular action
+   this is necessary as some events have dummy ancestors with event being null
+  */
+  var actionEvent = function(treeNode, actionId) {
     if (treeNode.event && treeNode.event.get('actionId') === actionId) {
-      found = true;
+      return true;
     }
-    _.each(treeNode.nodes, function(node) {
-      found = actionEvent(node, actionId, found);
+    return _.some(treeNode.nodes, function(node) {
+      return actionEvent(node, actionId);
     });
-    return found;
+    return false;
   };
 
   var ActivityNode = Node.extend({
