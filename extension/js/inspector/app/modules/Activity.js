@@ -1,13 +1,15 @@
 define([
+  'backbone',
   'marionette',
   'util/Radio',
   'logger',
   'client',
   'app/modules/Module',
   'app/modules/Activity/views/Layout',
+  'app/modules/Activity/models/Action',
   'app/modules/Activity/models/ActivityModel',
   'app/modules/Activity/models/ActivityCollection',
-], function(Marionette, Radio, logger, client, Module, Layout, ActivityModel, ActivityCollection) {
+], function(Backbone, Marionette, Radio, logger, client, Module, Layout, Action, ActivityModel, ActivityCollection) {
 
   return Module.extend({
 
@@ -29,6 +31,7 @@ define([
 
     setupData: function() {
       this.activityCollection = new ActivityCollection();
+      this.actionCollection = new Backbone.Collection();
     },
 
     setupEvents: function() {
@@ -45,6 +48,14 @@ define([
       logger.log('activity', 'new event', event.name);
 
       this.activityCollection.add(event.data);
+
+      if (this.actionCollection.findWhere({ actionId: event.data.actionId }) === undefined) {
+        var actionId = event.data.actionId;
+        this.actionCollection.add(new Action({
+          actionId: actionId,
+          name: 'Action ' + actionId.substring(1)
+        }));
+      }
     },
 
     startModule: function() {
@@ -53,7 +64,8 @@ define([
 
     buildLayout: function() {
       return new Layout({
-        activityCollection: this.activityCollection
+        activityCollection: this.activityCollection,
+        actionCollection: this.actionCollection
       });
     },
 
