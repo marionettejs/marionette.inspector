@@ -23,7 +23,7 @@ ul.action-list {
 }
 
 ul.action-list > div.is-collapsed {
-  div[data-event-tree] {
+  div.event-tree {
     display: none;
   }
 }
