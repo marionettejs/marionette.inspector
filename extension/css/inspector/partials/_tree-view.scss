@@ -18,6 +18,16 @@ ul.is-collapsed > ul.tree-group {
   display: none;
 }
 
+ul.action-list {
+  padding: 0;
+}
+
+ul.action-list > div.is-collapsed {
+  div[data-event-tree] {
+    display: none;
+  }
+}
+
 .example {
   width: 250px;
   height: 200px;
@@ -31,7 +41,7 @@ li.is-leaf {
   margin-left: 0;
 }
 
-li.tree-group-item {
+li.tree-group-item, li.action-item {
 
   list-style: none;
   line-height: 35px;
@@ -67,7 +77,11 @@ li.tree-group-item {
   }
 }
 
-
+li.action-item {
+  .glyphicon {
+    padding-left: 10px;
+  }
+}
 
 
 .level-1 { margin-left: -24px; }

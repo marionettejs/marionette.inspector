@@ -41,6 +41,7 @@ define([
             nid: actionId,
             nidPath: ['root'],
             name: 'Action ' + actionId.substring(1),
+            isAction: true,
             event: null,
             nodes: []
           };

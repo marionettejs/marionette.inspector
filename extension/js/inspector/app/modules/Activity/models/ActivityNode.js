@@ -13,13 +13,27 @@ define([
     return treeNode.event && treeNode.event.get('listeners').length || treeNode.nodes.length;
   };
 
-  var _filterForAction = function (treeNode, actionId) {
-    return (treeNode.event && treeNode.event.get('listeners').length || treeNode.nodes.length) && (treeNode.event && treeNode.event.get('actionId') === actionId) || isAction(treeNode) && treeNode.nid === actionId;
+  /**
+   _filterByAction: same as _filterTreeNode but also checks:
+     1. if the node is the action root
+     2. whether the event corresponds to the action with actionId
+  */
+  var _filterByAction = function (treeNode, actionId) {
+
+    var isAction = treeNode.isAction && treeNode.nid === actionId;
+    return isAction || actionEvent(treeNode, actionId, false) && _filterTreeNode(treeNode);
   };
 
-  var isAction = function(node) {
-    var re = /^a\d+/;
-    return typeof node.nid === 'string' && node.nid.match(re) !== null;
+  // TODO: function recurses all the way until no child nodes are found
+  // update so that it returns as soon as actionId is found
+  var actionEvent = function(treeNode, actionId, found) {
+    if (treeNode.event && treeNode.event.get('actionId') === actionId) {
+      found = true;
+    }
+    _.each(treeNode.nodes, function(node) {
+      found = actionEvent(node, actionId, found);
+    });
+    return found;
   };
 
   var ActivityNode = Node.extend({
@@ -47,7 +61,7 @@ define([
 
     buildEvents: function(activityCollection, actionId) {
       var filter = function(treeNode) {
-        return _filterForAction(treeNode, actionId);
+        return _filterByAction(treeNode, actionId);
       };
 
       var activityTree = activityCollection.buildTreePruned(filter);
