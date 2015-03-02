@@ -31,27 +31,31 @@
 
       assignClassNames(Backbone, Marionette);
 
-
       if (Marionette.Object) {
         Agent.patchMarionetteObject(Marionette.Object);
         Agent.patchBackboneTrigger(Marionette.Object.prototype);
       }
 
       Agent.patchMarionetteApplication(Marionette.Application);
-      Agent.patchMarionetteBehavior(Marionette.Behavior);
       Agent.patchMarionetteModule(Marionette.Module);
       Agent.patchMarionetteController(Marionette.Controller);
 
-      _.each(
-        [
-          Marionette.Application.prototype, Marionette.Module.prototype,
-          Marionette.Behavior.prototype, Marionette.Region.prototype,
-          Marionette.Controller.prototype
-        ],
+      if(Marionette.Behavior) {
+        Agent.patchMarionetteBehavior(Marionette.Behavior);
+      }
 
-        Agent.patchBackboneTrigger
-      );
+      var marionetteClasses = [
+        Marionette.Application.prototype,
+        Marionette.Module.prototype,
+        Marionette.Region.prototype,
+        Marionette.Controller.prototype
+      ];
 
+      if (Marionette.Behavior) {
+        marionetteClasses.push(Marionette.Behavior.prototype);
+      }
+
+      _.each(marionetteClasses, Agent.patchBackboneTrigger, this);
 
       Agent.markEvent('start', {
         marionette_version: Marionette.VERSION,
