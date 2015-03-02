@@ -37,19 +37,22 @@ this.patchMarionette = (function(agent) {
     }
 
     this.patchMarionetteApplication(Marionette.Application);
-    this.patchMarionetteBehavior(Marionette.Behavior);
+    if(Marionette.Behavior) {
+      this.patchMarionetteBehavior(Marionette.Behavior);  
+    } 
     this.patchMarionetteModule(Marionette.Module);
     this.patchMarionetteController(Marionette.Controller);
 
-    _.each(
-      [
-        Marionette.Application.prototype, Marionette.Module.prototype,
-        Marionette.Behavior.prototype, Marionette.Region.prototype,
-        Marionette.Controller.prototype
-      ],
+    var marionetteClasses = [
+      Marionette.Application.prototype, Marionette.Module.prototype,
+      Marionette.Region.prototype, Marionette.Controller.prototype
+    ];
 
-      this.patchBackboneTrigger, this
-    );
+    if (Marionette.Behavior) {
+      marionetteClasses.push(Marionette.Behavior.prototype);
+    }
+
+    _.each(marionetteClasses, this.patchBackboneTrigger, this);
   }
 
 }(this));
