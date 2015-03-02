@@ -9,7 +9,8 @@ define([
   'app/modules/Activity/models/Action',
   'app/modules/Activity/models/ActivityModel',
   'app/modules/Activity/models/ActivityCollection',
-], function(Backbone, Marionette, Radio, logger, client, Module, Layout, Action, ActivityModel, ActivityCollection) {
+  'app/modules/Activity/models/ActionCollection',
+], function(Backbone, Marionette, Radio, logger, client, Module, Layout, Action, ActivityModel, ActivityCollection, ActionCollection) {
 
   return Module.extend({
 
@@ -31,7 +32,7 @@ define([
 
     setupData: function() {
       this.activityCollection = new ActivityCollection();
-      this.actionCollection = new Backbone.Collection();
+      this.actionCollection = new ActionCollection();
     },
 
     setupEvents: function() {
