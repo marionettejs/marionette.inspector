@@ -1,3 +1,12 @@
+## V0.5.3
+#### 3-1-2014
+
+### Added
++ Re-Added the Activity feed.
+
+### Changed
++ Hid the "application" view tree root, which was confusing a lot of people
+
 ## V0.5.2
 #### 1-7-2014
 

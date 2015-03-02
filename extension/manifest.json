@@ -1,6 +1,6 @@
 {
   "name": "Marionette Inspector",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "A devtool for Marionette",
   "author": "Jason Laster",
   "minimum_chrome_version": "22.0",
