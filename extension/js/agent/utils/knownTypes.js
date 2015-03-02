@@ -183,8 +183,8 @@
       });
     }
 
-
-    if (Agent.patchedBackbone.Wreqr) {
+    //Marionette 2.0.0 does not have Radio in Wreqr
+    if (Agent.patchedBackbone.Wreqr && Agent.patchedBackbone.Wreqr.Channel) {
       _.extend(knownTypes, {
         'Backbone.Wreqr.Channel': {
           type: Agent.patchedBackbone.Wreqr.Channel,
