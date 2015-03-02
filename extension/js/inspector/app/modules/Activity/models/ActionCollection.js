@@ -8,8 +8,7 @@ define([
     model: Action,
 
     resetCollapse: function() {
-      var actions = this.models;
-      _.each(actions, function(action) {
+      this.each(function(action) {
         action.isCollapsed = true;
       });
     },
