@@ -1,3 +1,4 @@
+{{#unless isRoot}}
 <li data-view class="tree-group-item {{ level }} {{ leafClass }} ">
 
   {{#if hasNodes}}
@@ -14,3 +15,4 @@
    alt='see view in the console'
    class="right-button glyphicon glyphicon-download-alt"></span>
 </li>
+{{/unless}}

@@ -139,6 +139,7 @@ define([
 
     serializeData: function() {
       var data = Tree.prototype.serializeData.apply(this, arguments);
+      data.isRoot = this.model.get('name') === 'app';
 
       data.summary = (this.viewModel && this.viewModel.get('_className')) ||
        this.model.get('name');
