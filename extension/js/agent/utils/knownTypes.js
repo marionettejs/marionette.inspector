@@ -184,28 +184,16 @@
     }
 
     //Marionette 2.0.0 does not have Radio in Wreqr
-    if (Agent.patchedBackbone.Wreqr) {
-      if(Agent.patchedBackbone.Wreqr.Channel) {
-        _.extend(knownTypes, {
-          'Backbone.Wreqr.Channel': {
-            type: Agent.patchedBackbone.Wreqr.Channel,
-            name: 'wreqr-channel',
-            className: 'Wreqr.Channel',
-            cid: function(obj) { return ''},
-            toString: toString
-          }
-        });
-      } else {
-        _.extend(knownTypes, {
-          'Backbone.Wreqr': {
-            type: Agent.patchedBackbone.Wreqr.__proto__.constructor,
-            name: 'backbone-wreqr',
-            className: 'Backbone.Wreqr',
-            cid: function(obj) { return ''},
-            toString: toString
-          }
-        });
-      }
+    if (Agent.patchedBackbone.Wreqr && Agent.patchedBackbone.Wreqr.Channel) {
+      _.extend(knownTypes, {
+        'Backbone.Wreqr.Channel': {
+          type: Agent.patchedBackbone.Wreqr.Channel,
+          name: 'wreqr-channel',
+          className: 'Wreqr.Channel',
+          cid: function(obj) { return ''},
+          toString: toString
+        }
+      });
     }
 
 
