@@ -2,7 +2,6 @@
 node_modules
 extension/js/agent/build/src
 extension-bundles/
-extension.zip
 /test
 npm-debug.log
 
