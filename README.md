@@ -16,6 +16,12 @@ You can use the Inspector to see what's going on under the hood with your **ui**
 
 Of course, there's also a helpful :mag: as well.
 
+### Try it out on a live app!
+
+Once you've installed the Chrome extension, open the DevTools, click on the "Marionette" tab, and inspect this app!
+
+[Marionette Wires](https://marionette-wires.herokuapp.com)
+
 ---
 ### Developing Locally
 [Install Guide](docs/developing_locally.md)
