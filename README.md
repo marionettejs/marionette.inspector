@@ -64,6 +64,12 @@ if (window.__agent) {
 }
 ```
 
+### Try it out on a live app!
+
+Once you've installed the Chrome extension, open the DevTools, click on the "Marionette" tab, and inspect this app!
+
+[Marionette Wires](https://marionette-wires.herokuapp.com)
+
 ---
 
 ### Play with it locally
