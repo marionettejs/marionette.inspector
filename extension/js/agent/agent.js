@@ -25,6 +25,10 @@
     Agent.patchMarionette(Backbone, Marionette);
   };
 
+
+  Aget.disableAnalytics = false;
+
+  Agent.startAnalytics();
   Agent.lazyWorker = new Agent.LazyWorker();
 
 }(Agent));

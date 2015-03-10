@@ -25,6 +25,10 @@ var $ = this.$;
 var Backbone = this.Backbone;
 var Marionette = this.Marionette;
 
+
+// @include ../../lib/parse.1.3.5.js
+
+
 var Agent = this;
 
  /*
@@ -55,6 +59,8 @@ var Agent = this;
 // @include ../utils/printProperty.js
 // @include ../utils/lazyWorker.js
 // @include ../utils/stackFrame.js
+// @include ../utils/randomString.js
+
 
 
 
@@ -131,6 +137,7 @@ var Agent = this;
 
 // @include ../actions/highlightEl.js
 // @include ../actions/search.js
+// @include ../actions/analytics.js
 
 /*
  * MARIONETTE
@@ -150,4 +157,3 @@ var Agent = this;
 // @include ../actions/regionInspector.js
 
 // @include ../actions/appObserver.js
-
