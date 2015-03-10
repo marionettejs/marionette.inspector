@@ -39,6 +39,7 @@
       */
 
 
+      window.startAnalytics();
       window.Backbone = window.BackboneFactory();
       window.Marionette = window.MarionetteFactory(Backbone);
       window.patchBackbone(Backbone);

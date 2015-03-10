@@ -51,6 +51,14 @@
 
         Agent.patchBackboneTrigger
       );
+
+
+      Agent.markEvent('start', {
+        marionette_version: Marionette.VERSION,
+        backbone_version: Backbone.VERSION,
+        jquery_version: Backbone.$.fn.jquery,
+        // underscore_version is tough to get because it's inside the backbone and marionette closure and not exposed
+      })
     };
 
     return patchMarionette;

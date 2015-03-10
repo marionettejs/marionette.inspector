@@ -54,6 +54,16 @@ if (window.__agent) {
 #### Frequently Asked Questions
 If you have any additional questions, check out our [FAQ](https://github.com/marionettejs/marionette.inspector/blob/master/docs/faq.md).
 
+
+#### Usage Analytics
+The Inspector gathers usage analytics to better report on inspector statistics such as average weekly users and popular features as well as to report on marionette patterns such as library versions in usage and architectural / api patterns. If you would prefer to disable analytics it is easy to do so:
+
+```js
+if (window.__agent) {
+  window.__agent.disableAnalytics = true;
+}
+```
+
 ---
 
 ### Play with it locally
