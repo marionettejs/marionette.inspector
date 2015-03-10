@@ -31,7 +31,7 @@ The inspector makes it possible to understand how your App works, without needin
 
 Once you've installed the Chrome extension, open the DevTools, click on the "Marionette" tab, and inspect this app!
 
-[Marionette Wires](https://marionette-wires.herokuapp.com)
+[Marionette Wires](http://www.marionettewires.com)
 
 ---
 ### Getting Started
