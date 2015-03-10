@@ -1,3 +1,12 @@
+## V0.5.4
+#### 3-10-2014
+
+### Added
++ License
++ Usage analytics
++ Wires URL
++ Static build
+
 ## V0.5.3
 #### 3-1-2014
 
