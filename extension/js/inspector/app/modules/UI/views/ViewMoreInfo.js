@@ -187,6 +187,18 @@ define([
       });
     },
 
+    presentModel: function () {
+      var model = this.model.viewModel();
+      if (!model) {
+        return {};
+
+      }
+
+      var attributes = model.get('attributes').serialized;
+      var sortedAttributes = _.object(_.sortBy(_.pairs(attributes), function(value) {return value[0]}));
+      return sortedAttributes;
+    },
+
     serializeData: function() {
       var infoItems = ['cid', 'model', 'collection', 'parentClass', 'tagName', 'template'];
       var instanceProperties = [
@@ -197,11 +209,7 @@ define([
       _.extend(data, this.serializeModel(this.model));
 
 
-      var model = this.model.viewModel();
-      if (model) {
-        data.model = model.get('attributes').serialized;
-      }
-
+      data.model = this.presentModel();
       data.listeners = presentListeners(data._events);
       data.info = this.presentInfo(data, infoItems);
       data.ancestors = presentAncestors(data, infoItems, instanceProperties);
