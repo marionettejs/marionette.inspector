@@ -2,7 +2,7 @@
 
 ### 1. Download the Extension
 ```bash
-git clone github.com/marionettejs/marionette.inspector.git
+git clone git@github.com:marionettejs/marionette.inspector.git
 ```
 
 
