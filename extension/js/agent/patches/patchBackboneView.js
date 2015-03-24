@@ -13,19 +13,6 @@
     });
   }, 200);
 
-  var patchViewRemove = function(originalFunction) {
-    return function() {
-      var appComponent = this;
-      var result = originalFunction.apply(appComponent, arguments);
-
-      Agent.addAppComponentAction(appComponent, new Agent.AppComponentAction(
-        'remove', ''
-      ));
-
-      return result;
-    };
-  };
-
   // @private
   Agent.patchBackboneView = function(BackboneView) {
     debug.log('Backbone.View detected');
@@ -58,22 +45,7 @@
         Agent.onChange(view._events, _.partial(patchViewChanges, view));
         patchViewChanges(view);
       });
-
-
-      Agent.patchFunctionLater(view, 'render', function(originalFunction) { return function() {
-        var appComponent = this;
-        var result = originalFunction.apply(appComponent, arguments);
-
-        Agent.addAppComponentAction(appComponent, new Agent.AppComponentAction(
-          'operation', 'render'
-        ));
-
-        return result;
-      }});
-
-      Agent.patchFunctionLater(view, 'remove', patchViewRemove);
     });
   };
 
 }(Agent));
-
