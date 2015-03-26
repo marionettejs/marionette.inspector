@@ -113,6 +113,7 @@ var Agent = this;
 // @include ../patches/patchDefineCallback.js
 // @include ../patches/patchDefine.js
 // @include ../patches/patchBackbone.js
+// @include ../patches/patchBackboneExtend.js
 // @include ../patches/patchBackboneComponent.js
 // @include ../patches/patchAppComponentTrigger.js
 // @include ../patches/patchBackboneView.js

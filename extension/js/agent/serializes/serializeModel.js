@@ -14,8 +14,9 @@
     data._previousAttributes = Agent.inspectObject(model._previousAttributes);
     data.changed = Agent.inspectObject(model.changed);
     data.cid = model.cid;
-
+    data.classId = Agent.getHiddenProperty(model, 'classId');
+    
     return data;
   };
 
-})(this);
+})(Agent);

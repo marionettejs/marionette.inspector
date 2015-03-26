@@ -18,4 +18,4 @@
     }).flatten().value();
   };
 
-})(this);
+})(Agent);

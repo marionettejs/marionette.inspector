@@ -8,9 +8,10 @@
     }
 
     data.properties = Agent.serializeObjectProperties(collection);
-    data.cid = collection.__marionette_inspector__cid;
-
+    data.cid =  Agent.getHiddenProperty(collection, 'cid');
+    data.classId = Agent.getHiddenProperty(collection, 'classId');
+    
     return data;
   };
 
-})(this);
+})(Agent);
