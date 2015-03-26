@@ -26,6 +26,7 @@
     data._className = Agent.serializeClassName(view);
     data.parentClass = Agent.isKnownType(view) ? Agent.knownType(view).name : '';
     data.inspect = Agent.inspectValue(view);
+    data.classId = Agent.getHiddenProperty(view, 'classId');
 
     if (view.model) {
       data.model = {

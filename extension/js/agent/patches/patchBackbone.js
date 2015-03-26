@@ -11,7 +11,7 @@
 
     debug.log('Backbone detected: ', Backbone);
 
-    Agent.patchBackboneView(Backbone.View)
+    Agent.patchBackboneView(Backbone.View);
     Agent.patchBackboneModel(Backbone.Model);
     Agent.patchBackboneCollection(Backbone.Collection);
     Agent.patchBackboneRouter(Backbone.Router);
@@ -19,6 +19,14 @@
     _patchBackboneRadio(Backbone, Agent.patchBackboneRadio);
 
 
+    _.each(
+      [
+        Backbone.Model, Backbone.Collection,
+        Backbone.View
+      ],
+      Agent.patchBackboneExtend
+    );
+    
     _.each(
       [
         Backbone.Events, Backbone.Model.prototype,
