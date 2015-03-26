@@ -55,4 +55,4 @@
     return channel.vent._events
   };
 
-})(this);
+})(Agent);
