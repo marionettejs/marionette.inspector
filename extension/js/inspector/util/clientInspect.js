@@ -36,7 +36,8 @@ define([
 
 
       // inspect a function
-      if (this._.isFunction(prop)) {
+      var underscore = _ || this._;
+      if (underscore.isFunction(prop)) {
         if (this.isNativeFunction(prop)) {
           this.printProperty(prop);
         } else {
