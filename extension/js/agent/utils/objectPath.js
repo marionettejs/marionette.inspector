@@ -11,7 +11,12 @@
       return obj;
     }
 
-    return Agent.objectPath(obj[part], _.rest(path), defaultValue);
+    try {
+      return Agent.objectPath(obj[part], _.rest(path), defaultValue);
+    }
+    catch (error) {
+      return defaultValue;
+    }
   };
 
 }(Agent));

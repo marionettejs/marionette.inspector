@@ -55,7 +55,12 @@
         break;
       }
 
-      v = value[key];
+      try {
+        v = value[key];
+      }
+      catch (error) {
+        v = undefined;
+      }
       t = typeOf(v);
 
       if (Agent.isKnownType(v)) { v = Agent.knownTypeString(v); }

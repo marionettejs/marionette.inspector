@@ -375,11 +375,13 @@
     };
 
     var unwatchOne = function (obj, prop, watcher) {
-        for (var i=0; i<obj.watchers[prop].length; i++) {
-            var w = obj.watchers[prop][i];
+        if (obj.watchers[prop] !== undefined) {
+            for (var i=0; i<obj.watchers[prop].length; i++) {
+                var w = obj.watchers[prop][i];
 
-            if(w == watcher) {
-                obj.watchers[prop].splice(i, 1);
+                if(w == watcher) {
+                    obj.watchers[prop].splice(i, 1);
+                }
             }
         }
 
