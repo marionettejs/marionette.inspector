@@ -55,7 +55,6 @@
       delete window.patchedBackbone;
       delete window.patchedMarionette;
       delete window._knownTypes;
-      delete window.lazyWorker;
       window.location.hash = originalHash;
       Backbone.history.stop();
       Backbone.history.handlers.length = 0;
