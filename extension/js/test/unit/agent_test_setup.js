@@ -8,6 +8,9 @@
   // mocha.checkLeaks();
   mocha.run();
 
+  // stubbed for the Lazy Worker tests (was seeing a call stack exceeded maximum before)
+  Agent.postMessage = function() {};
+
   var $fixtures = $('#fixtures');
 
   var setFixtures = function () {
