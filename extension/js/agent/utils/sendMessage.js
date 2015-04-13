@@ -35,10 +35,14 @@
     send: function() {
       // console.log('!!!! sending batch message')
       debug.log('postMessage sent ' + this.queue.length + ' messages.');
-      window.postMessage(this.queue, '*');
+      Agent.lazyWorker.push({
+        context: Agent,
+        args: [_.clone(this.queue)],
+        callback: Agent.postMessage
+      });
+
       this.queue = [];
     }
-
   });
 
 
@@ -49,5 +53,9 @@
     options = options || {};
     queuePostMessages.push(message, options);
   };
+
+  Agent.postMessage = function(data) {
+    window.postMessage(data, '*');
+  }
 
 }(Agent));
