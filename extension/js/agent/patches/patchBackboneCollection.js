@@ -7,11 +7,17 @@
     Agent.patchBackboneComponent(BackboneCollection, function(collection) { // on new instance
       Agent.addCidToComponent(collection);
 
-      // registra il nuovo componente dell'app
-      var data = Agent.serializeCollection(collection);
-      var collectionIndex = Agent.registerAppComponent('Collection', collection, data);
+      Agent.lazyWorker.push({
+        context: Agent,
+        args: [collection],
+        callback: function(collection) {
+          // registra il nuovo componente dell'app
+          var data = Agent.serializeCollection(collection);
+          var collectionIndex = Agent.registerAppComponent('Collection', collection, data);
+          debug.log('found new collection', collection, data);
+        }
+      });
 
-      debug.log('found new collection', collection, data);
 
       // Patcha i metodi del componente dell'app
       Agent.patchAppComponentTrigger(collection);
