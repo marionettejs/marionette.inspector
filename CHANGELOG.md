@@ -1,3 +1,21 @@
+## V0.5.5
+#### 4-13-2014
+
+This release fixes an ES6 issue, is significantly faster for big apps, and adds class IDs.
+
+### Added
++ Now tests across multiple versions of _ and bb and mn
++ Model attributes are now sorted
++ Started patching extend, which gives us a class id
++ Make serialize collection lazy
++ Make QueuedWorker.send lazy - communication with the inspector will be much faster
+
+### Fixed
++ Removed Wreqr as knownType for backbone 2.0.0 apps,
++ stopped patching render and remove function calls, which will be a nice perf win
++ better handle undefined / invalid getters
++ clicking a function in the inspector used to jump to source
+
 ## V0.5.4
 #### 3-10-2014
 
