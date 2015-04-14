@@ -178,9 +178,9 @@
             }
         } else {
             for (var prop2 in obj) { //for each attribute if obj is an object
-                if (prop2 == "$val") {
-                    continue;
-                }
+				if (prop2 == "$val") {
+					continue;
+				}
 
                 if (Object.prototype.hasOwnProperty.call(obj, prop2)) {
                     props.push(prop2); //put in the props
@@ -375,22 +375,22 @@
     };
 
     var unwatchOne = function (obj, prop, watcher) {
-        if (obj.watchers[prop] !== undefined) {
-            for (var i=0; i<obj.watchers[prop].length; i++) {
-                var w = obj.watchers[prop][i];
+        for (var i=0; i<obj.watchers[prop].length; i++) {
+            var w = obj.watchers[prop][i];
 
-                if(w == watcher) {
-                    obj.watchers[prop].splice(i, 1);
-                }
+            if(w == watcher) {
+                obj.watchers[prop].splice(i, 1);
             }
         }
 
         removeFromLengthSubjects(obj, prop, watcher);
     };
 
-    var loop = function(){
+    var loop = function(start, stop){
 
-        for(var i=0; i<lengthsubjects.length; i++) {
+        var t0 = performance.now();
+
+        for(var i=start; i<stop; i++) {
 
             var subj = lengthsubjects[i];
 
@@ -428,6 +428,11 @@
 
         }
 
+        var t1 = performance.now();
+
+        console.log("loop (" + start + ", " + stop + ") " + lengthsubjects.length + " ws: " +  (t1 - t0) + " milliseconds.")
+
+
     };
 
     var pushToLengthSubjects = function(obj, prop, watcher, level){
@@ -461,18 +466,57 @@
 
     };
 
+
     setInterval(function() {
         if(!__agent) return
 
-        __agent.lazyWorker.push({
-          context: this,
-          args: [],
-          callback: loop
-        })
+
+        var total = lengthsubjects.length;
+        var increment = 1000;
+
+        if (total == 0) {
+            return;
+        }
+
+        if (total < increment) {
+            __agent.lazyWorker.push({
+              context: this,
+              args: [0, total],
+              callback: loop
+            });
+        } else {
+            // Do the first n thousand loops
+            // if there are 15633 tasks do them in chunks 0-999, 1000-1999
+            var n = Math.ceil(total / increment);
+            for (var i = 0; i < n; i++) {
+               __agent.lazyWorker.push({
+                 context: this,
+                 args: [i*increment, (i+1)*increment-1],
+                 callback: loop
+               });
+            }
+
+
+          // do the remaining tasks now
+          // if there are 15,633 task, we've already done
+          // the first 14999, now we'll 1500 - 1633
+          var remainder = total % increment;
+          __agent.lazyWorker.push({
+            context: this,
+            args: [n*increment, n*increment+remainder],
+            callback: loop
+          });
+
+        }
+
+
+        // __agent.lazyWorker.push({
+        //   context: this,
+        //   args: [],
+        //   callback: loop
+        // })
 
     }, 500);
-
-    // setInterval(loop, 50);
 
     WatchJS.watch = watch;
     WatchJS.unwatch = unwatch;
