@@ -1,6 +1,6 @@
 {
   "name": "marionette.inspector",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "description": "A proper inspector for Marionette",
   "main": "",
   "scripts": {

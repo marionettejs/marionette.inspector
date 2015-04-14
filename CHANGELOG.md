@@ -1,3 +1,14 @@
+## V0.5.6
+#### 4-13-2014
+
+
+### Added
++ Added a batching system for checking for changed properties. Previously, all the objects we were watching were checked synchronously, now we check in groups of a thousand, which could have a big impact on performance. As a rule of thumb, checking for changes took 10ms per thousand objects.
+
+### Fixed
++ Fixed the loop interval, so that instead of checking every 50 milliseconds, we now check every 200ms and when there are idle cycles. This was a regression introduced in a previous release.
+
+
 ## V0.5.5
 #### 4-13-2014
 
