@@ -139,6 +139,7 @@ var Agent = this;
 // @include ../actions/highlightEl.js
 // @include ../actions/search.js
 // @include ../actions/analytics.js
+// @include ../actions/observeChanges.js
 
 /*
  * MARIONETTE

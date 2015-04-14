@@ -73,7 +73,7 @@
 
     logSize: function() {
       window.setInterval(function() {
-        console.log('!!! queue size', __agent.lazyWorker.queue.length)
+        console.log('!!! queue size', Agent.lazyWorker.queue.length)
       }, 1000);
     }
 
