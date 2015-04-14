@@ -25,6 +25,7 @@
 
   var originalHash = window.location.hash;
 
+  window.__agent = {};
 
   before(function() {
       this.setFixtures = setFixtures;

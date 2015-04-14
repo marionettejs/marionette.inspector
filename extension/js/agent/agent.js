@@ -30,6 +30,7 @@
 
   Agent.startAnalytics();
   Agent.lazyWorker = new Agent.LazyWorker();
+  setInterval(Agent.observeChanges, 500);
 
 }(Agent));
 
