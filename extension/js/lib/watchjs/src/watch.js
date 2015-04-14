@@ -178,9 +178,9 @@
             }
         } else {
             for (var prop2 in obj) { //for each attribute if obj is an object
-                if (prop2 == "$val") {
-                    continue;
-                }
+				if (prop2 == "$val") {
+					continue;
+				}
 
                 if (Object.prototype.hasOwnProperty.call(obj, prop2)) {
                     props.push(prop2); //put in the props
@@ -375,58 +375,61 @@
     };
 
     var unwatchOne = function (obj, prop, watcher) {
-        if (obj.watchers[prop] !== undefined) {
-            for (var i=0; i<obj.watchers[prop].length; i++) {
-                var w = obj.watchers[prop][i];
+        for (var i=0; i<obj.watchers[prop].length; i++) {
+            var w = obj.watchers[prop][i];
 
-                if(w == watcher) {
-                    obj.watchers[prop].splice(i, 1);
-                }
+            if(w == watcher) {
+                obj.watchers[prop].splice(i, 1);
             }
         }
 
         removeFromLengthSubjects(obj, prop, watcher);
     };
 
-    var loop = function(){
+    var loop = function(start, stop){
 
-        for(var i=0; i<lengthsubjects.length; i++) {
+        // var t0 = performance.now();
+
+        for(var i=start; i<stop; i++) {
 
             var subj = lengthsubjects[i];
+            if (subj) {
+                if (subj.prop === "$$watchlengthsubjectroot") {
 
-            if (subj.prop === "$$watchlengthsubjectroot") {
+                    var difference = getObjDiff(subj.obj, subj.actual);
 
-                var difference = getObjDiff(subj.obj, subj.actual);
-
-                if(difference.added.length || difference.removed.length){
-                    if(difference.added.length){
-                        watchMany(subj.obj, difference.added, subj.watcher, subj.level - 1, true);
-                    }
-
-                    subj.watcher.call(subj.obj, "root", "differentattr", difference, subj.actual);
-                }
-                subj.actual = clone(subj.obj);
-
-
-            } else {
-
-                var difference = getObjDiff(subj.obj[subj.prop], subj.actual);
-
-                if(difference.added.length || difference.removed.length){
-                    if(difference.added.length){
-                        for (var j=0; j<subj.obj.watchers[subj.prop].length; j++) {
-                            watchMany(subj.obj[subj.prop], difference.added, subj.obj.watchers[subj.prop][j], subj.level - 1, true);
+                    if(difference.added.length || difference.removed.length){
+                        if(difference.added.length){
+                            watchMany(subj.obj, difference.added, subj.watcher, subj.level - 1, true);
                         }
+
+                        subj.watcher.call(subj.obj, "root", "differentattr", difference, subj.actual);
+                    }
+                    subj.actual = clone(subj.obj);
+
+
+                } else {
+
+                    var difference = getObjDiff(subj.obj[subj.prop], subj.actual);
+
+                    if(difference.added.length || difference.removed.length){
+                        if(difference.added.length){
+                            for (var j=0; j<subj.obj.watchers[subj.prop].length; j++) {
+                                watchMany(subj.obj[subj.prop], difference.added, subj.obj.watchers[subj.prop][j], subj.level - 1, true);
+                            }
+                        }
+
+                        callWatchers(subj.obj, subj.prop, "differentattr", difference, subj.actual);
                     }
 
-                    callWatchers(subj.obj, subj.prop, "differentattr", difference, subj.actual);
+                    subj.actual = clone(subj.obj[subj.prop]);
+
                 }
-
-                subj.actual = clone(subj.obj[subj.prop]);
-
             }
-
         }
+
+        // var t1 = performance.now();
+        // console.log("loop (" + start + ", " + stop + ") " + lengthsubjects.length + " ws: " +  (t1 - t0) + " milliseconds.");
 
     };
 
@@ -461,18 +464,47 @@
 
     };
 
+
     setInterval(function() {
         if(!__agent) return
 
-        __agent.lazyWorker.push({
-          context: this,
-          args: [],
-          callback: loop
-        })
+        var total = lengthsubjects.length;
+        var increment = 500;
 
-    }, 500);
+        if (total == 0) {
+            return;
+        }
 
-    // setInterval(loop, 50);
+        if (total < increment) {
+            __agent.lazyWorker.push({
+              context: this,
+              args: [0, total],
+              callback: loop
+            });
+        } else {
+            // Do the first n thousand loops
+            // if there are 15633 tasks do them in chunks 0-999, 1000-1999
+            var n = Math.ceil(total / increment);
+            for (var i = 0; i < n; i++) {
+               __agent.lazyWorker.push({
+                 context: this,
+                 args: [i*increment, (i+1)*increment-1],
+                 callback: loop
+               });
+            }
+
+          // do the remaining tasks now
+          // if there are 15,633 task, we've already done
+          // the first 14999, now we'll 1500 - 1633
+          var remainder = total % increment;
+          __agent.lazyWorker.push({
+            context: this,
+            args: [n*increment, n*increment+remainder],
+            callback: loop
+          });
+
+        }
+    }, 200);
 
     WatchJS.watch = watch;
     WatchJS.unwatch = unwatch;
