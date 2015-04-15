@@ -1,9 +1,9 @@
-html {
+html, body {
   height: 100%;
 }
 
+
 body {
-  height: 100%;
   overflow: hidden;
 }
 
@@ -26,7 +26,6 @@ body {
 
 // shared between both panels
 .tool-panel {
-    float: left;
     overflow: auto;
 }
 
@@ -38,4 +37,19 @@ body {
 // panel on the right, with details on info
 .info-panel {
     width: 40%;
+}
+
+@include mq-medium {
+  .tool-panel {
+    float: left;
+    height: 100%;
+  }
+
+  .list-panel {
+      width: 60%;
+  }
+
+  .info-panel {
+      width: 40%;
+  }
 }
