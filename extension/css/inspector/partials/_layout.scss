@@ -31,12 +31,12 @@ body {
 
 // panel on the left, with list of info
 .list-panel {
-    width: 60%;
+    height: 60%;
 }
 
 // panel on the right, with details on info
 .info-panel {
-    width: 40%;
+    height: 40%;
 }
 
 @include mq-medium {
