@@ -115,10 +115,10 @@ define([
     },
 
     scrollToRow: function(cid) {
-      $row = this.findRowWithCid(cid);
-      $list = this.getRegion('viewTree').$el;
+      var $row = this.findRowWithCid(cid);
+      var $list = this.getRegion('viewTree').$el;
 
-      isOffScreen =
+      var isOffScreen =
         $row.offset().top < $list.offset().top ||
         $row.offset().top > $list.offset().top + $list.height();
 
