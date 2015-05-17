@@ -91,6 +91,7 @@ define([
       var events = [];
       return events
         .concat(this._presentEvents(null, viewModel.get('events')))
+        .concat(this._presentListeningTo(viewModel.get('listeningTo')))
         .concat(this._presentEvents('model', viewModel.get('modelEvents')))
         .concat(this._presentEvents('collection', viewModel.get('collectionEvents')))
     },
@@ -112,7 +113,7 @@ define([
             handler = 'inline function';
           }
         } else {
-          handler = _event.eventHandler;
+          handler = _event.eventHandler || 'anonymous function';
         }
 
         var eventName = (!!this.objName) ? (this.objName + " " + _event.eventName) : _event.eventName;
@@ -122,6 +123,23 @@ define([
           handler: handler
         }
       }, {objName: objName});
+
+      return data;
+    },
+
+    _presentListeningTo: function(events) {
+      var data = _.clone(events);
+
+      if (_.isEmpty(events)) {
+        return [];
+      }
+
+      data = _.map(data, function(_event, i) {
+        return {
+          event: _event.eventName,
+          handler:_event.callback.key || _event.callback.inspect
+        }
+      });
 
       return data;
     },
