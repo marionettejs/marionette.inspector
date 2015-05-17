@@ -17,6 +17,7 @@
     data.el = Agent.serializeElement(view.el, 'el', false);
     data.events = Agent.serializeEventsHash(view.events);
     data._events = Agent.serializeEvents(view._events);
+    data.listeningTo = Agent.serializeListeningTo(view, view._listeningTo);
     data.modelEvents = Agent.serializeEventsHash(view.modelEvents);
     data.collectionEvents = Agent.serializeEventsHash(view.collectionEvents);
     data.triggers = Agent.serializeEventsHash(view.triggers);

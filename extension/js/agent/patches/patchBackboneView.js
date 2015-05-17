@@ -49,6 +49,11 @@
         Agent.onChange(view._events, _.partial(patchViewChanges, view));
         patchViewChanges(view);
       });
+
+      Agent.onDefined(view, '_listeningTo', function() {
+        Agent.onChange(view._events, _.partial(patchViewChanges, view));
+        patchViewChanges(view);
+      });
     });
   };
 
