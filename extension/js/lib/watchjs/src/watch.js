@@ -504,7 +504,7 @@
           });
 
         }
-    }, 200);
+    }, 300);
 
     WatchJS.watch = watch;
     WatchJS.unwatch = unwatch;
