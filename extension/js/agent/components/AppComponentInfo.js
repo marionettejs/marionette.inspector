@@ -34,6 +34,18 @@
     return appComponentsInfo[appComponentCategory];
   };
 
+  Agent.getComponents = function() {
+    return appComponentsInfo;
+  }
+
+  Agent.getViews = function() {
+    return appComponentsInfo['View'];
+  }
+
+  Agent.getModels = function() {
+    return appComponentsInfo['Model'];
+  }
+
   // @private
   Agent.setAppComponentInfo = function(appComponent, appComponentInfo) {
       var appComponentCategory = appComponentInfo.category;
