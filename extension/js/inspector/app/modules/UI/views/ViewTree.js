@@ -74,7 +74,12 @@ define([
       return false;
     },
 
-    onMouseOver: function() {
+    onMouseOver: function(e) {
+      function randomColor() {
+        return '#'+Math.floor(Math.random()*16777215).toString(16);
+      }
+
+      // $(e.currentTarget).find('a').css('color', randomColor());
       this.highlightViewOnPage();
       return false;
     },
