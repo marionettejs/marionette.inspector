@@ -1,5 +1,10 @@
 // @private
 // backbone agent debugging utils
+
+this.startLogging = function() {
+  debug.active = true;
+}
+
 var debug = {
     active: false, // set to true in logic to activate debugging
 
