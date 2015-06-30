@@ -59,7 +59,9 @@
 
     getRegionTree: function(path, shouldSerialize) {
       var tree = this.regionTree(path, shouldSerialize);
-      Agent.sendAppComponentReport('ui:regionTree', tree);
+      Agent.sendAppComponentReport('ui:regionTree', tree, {
+        immediate: true
+      });
     },
 
     getView: function(path) {
