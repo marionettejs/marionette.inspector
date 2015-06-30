@@ -32,6 +32,10 @@
         }
       });
 
+      // set class name if we can
+      if (view._requirePath) {
+        view._className = _.last(view._requirePath.split('/'));
+      }
 
       // Patcha i metodi del componente dell'app
       Agent.patchAppComponentTrigger(view, 'view');
