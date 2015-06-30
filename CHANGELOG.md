@@ -1,5 +1,21 @@
+## V0.6
+#### 6-30-2015
+
+### Fixed
++ scrolling when an element is selected
++ fixed serializing views with undefined getters
+
+### Addded
++ responsive info panels
++ Moved watch loop into it's own file
++ added class names based on require path
++ start sending region tree updates immediately (feels faster)
++ added startLogging and getViews convenience methods
+
+
+
 ## V0.5.6
-#### 4-13-2014
+#### 4-13-2015
 
 
 ### Added
@@ -10,7 +26,7 @@
 
 
 ## V0.5.5
-#### 4-13-2014
+#### 4-13-2015
 
 This release fixes an ES6 issue, is significantly faster for big apps, and adds class IDs.
 
@@ -28,7 +44,7 @@ This release fixes an ES6 issue, is significantly faster for big apps, and adds 
 + clicking a function in the inspector used to jump to source
 
 ## V0.5.4
-#### 3-10-2014
+#### 3-10-2015
 
 ### Added
 + License
@@ -37,7 +53,7 @@ This release fixes an ES6 issue, is significantly faster for big apps, and adds 
 + Static build
 
 ## V0.5.3
-#### 3-1-2014
+#### 3-1-2015
 
 ### Added
 + Re-Added the Activity feed.
@@ -46,7 +62,7 @@ This release fixes an ES6 issue, is significantly faster for big apps, and adds 
 + Hid the "application" view tree root, which was confusing a lot of people
 
 ## V0.5.2
-#### 1-7-2014
+#### 1-7-2015
 
 ### Added
 + Added a context field to the Activity feed
@@ -62,7 +78,7 @@ This release fixes an ES6 issue, is significantly faster for big apps, and adds 
 
 
 ## V0.5.1
-#### 1-2-2014
+#### 1-2-2015
 
 ### Overview
 This is a small, hopefully uneventful Inspector Release.
