@@ -32,10 +32,9 @@ define([
 
     viewModel: function() {
       if (!this.get('model')) {
-        return
+        return;
       }
-
-      return Radio.request('data', 'model', this.get('model').cid)
+      return Radio.request('data', 'model', this.get('model').cid);
     }
   });
-})
+});

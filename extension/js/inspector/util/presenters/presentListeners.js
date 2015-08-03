@@ -1,5 +1,6 @@
-define([], function() {
+define(['util/sortAttributes'], function(sortAttributes) {
   return function(listeners) {
+
     var data = [];
 
     _.each(listeners, function(listener) {
@@ -12,10 +13,12 @@ define([], function() {
         context: listener.context,
         name: callback.key || callback.inspect,
         path: path,
-        eventName: listener.eventName
+        eventName: listener.eventName,
+        sortKey: listener.eventName
       });
-    });
 
-    return data;
-  }
+    });
+    var sortedData = sortAttributes(data);
+    return sortedData;
+  };
 });

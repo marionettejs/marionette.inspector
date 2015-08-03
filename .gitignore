@@ -4,6 +4,7 @@ extension/js/agent/build/src
 extension-bundles/
 /test
 npm-debug.log
+build
 
 .sass-cache/*
 extension/css/marionette_inspector.css
