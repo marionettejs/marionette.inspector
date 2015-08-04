@@ -1,4 +1,4 @@
-define([], function() {
+define(['util/sortAttributes'], function(sortAttributes) {
   return function(data, infoItems, instanceProperties) {
     var properties = _.omit(data.properties, infoItems, instanceProperties);
     var ancestorInfo = data.ancestorInfo;
@@ -6,8 +6,9 @@ define([], function() {
     var ancestors = [];
     _.each(ancestorInfo, function(info) {
       var props = _.pick(properties, info.keys);
+      var sortedProps = sortAttributes(props);
       ancestors.push({
-        properties: props,
+        properties: sortedProps,
         name: info.name || 'Class Properties',
         path: info.path
       });
@@ -16,5 +17,5 @@ define([], function() {
     ancestors[0].name = 'Properties';
 
     return ancestors;
-  }
-})
+  };
+});

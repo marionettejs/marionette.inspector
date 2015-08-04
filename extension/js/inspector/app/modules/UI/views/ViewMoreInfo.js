@@ -6,11 +6,12 @@ define([
   'util/presenters/formatEL',
   'app/behaviors/ClickableProperties',
   'util/presenters/presentListeners',
-  'util/presenters/presentAncestors'
+  'util/presenters/presentAncestors',
+  'util/sortAttributes'
 ], function(
   Marionette, Radio, tpl,
   SidebarPanesBehavior, formatEL, ClickableProperties,
-  presentListeners, presentAncestors) {
+  presentListeners, presentAncestors, sortAttributes) {
 
   return Marionette.ItemView.extend({
     template: tpl,
@@ -63,11 +64,12 @@ define([
       Radio.command('ui', 'highlight-element', {
         cid: this.model.get('cid'),
         path: path
-      })
+      });
+
     },
 
     onMouseLeaveDomElement: function(e) {
-      Radio.command('ui', 'unhighlight-element')
+      Radio.command('ui', 'unhighlight-element');
     },
 
     presentUI: function(ui) {
@@ -81,8 +83,8 @@ define([
         return {
           name: _ui.name,
           value: formatEL(_ui.value)
-        }
-      })
+        };
+      });
 
       return data;
     },
@@ -92,7 +94,7 @@ define([
       return events
         .concat(this._presentEvents(null, viewModel.get('events')))
         .concat(this._presentEvents('model', viewModel.get('modelEvents')))
-        .concat(this._presentEvents('collection', viewModel.get('collectionEvents')))
+        .concat(this._presentEvents('collection', viewModel.get('collectionEvents')));
     },
 
     _presentEvents: function(objName, events) {
@@ -120,7 +122,7 @@ define([
         return {
           event: eventName,
           handler: handler
-        }
+        };
       }, {objName: objName});
 
       return data;
@@ -133,12 +135,12 @@ define([
         info._requirePath = {
           name: 'path',
           value: data._requirePath
-        }
+        };
 
         info._className = {
           name: 'class',
           value: data._className
-        }
+        };
       }
 
       if (data.parentClass) {
@@ -148,20 +150,22 @@ define([
         };
       }
 
-      return info;
+      var sortedInfo = sortAttributes(info);
+
+      return sortedInfo;
     },
 
     presentWarnings: function() {
       var renderEvents = _.filter(this.activity, function(activity) {
-        return activity.get('eventName') == 'render'
+        return activity.get('eventName') == 'render';
       });
 
       var times = _.map(renderEvents, function(e) {
-        return e.get('startTime')
-      })
+        return e.get('startTime');
+      });
 
       var timeDiffs = _.map(_.zip(times.slice(1), times.slice(0,-1)), function(t) {
-        return t[0]-t[1]
+        return t[0]-t[1];
       });
 
       var data = {};
@@ -183,7 +187,7 @@ define([
       return _.map(this.activity, function(event) {
         return {
           event: event.get('eventName')
-        }
+        };
       });
     },
 
@@ -195,7 +199,9 @@ define([
       }
 
       var attributes = model.get('attributes').serialized;
-      var sortedAttributes = _.object(_.sortBy(_.pairs(attributes), function(value) {return value[0]}));
+
+      var sortedAttributes = sortAttributes(attributes);
+
       return sortedAttributes;
     },
 
@@ -208,7 +214,6 @@ define([
       var data = {};
       _.extend(data, this.serializeModel(this.model));
 
-
       data.model = this.presentModel();
       data.listeners = presentListeners(data._events);
       data.info = this.presentInfo(data, infoItems);
@@ -220,6 +225,7 @@ define([
       data.ui = this.presentUI(this.model.get('ui'));
       data.showUI = !_.isEmpty(this.model.get('ui'));
       data.option_key = "options";
+
       return data;
     }
   });

@@ -22,7 +22,6 @@
   "bugs": {
     "url": "https://github.com/marionettejs/marionette.inspector/issues"
   },
-  "dependencies": {},
   "devDependencies": {
     "grunt": "0.4.5",
     "grunt-cli": "0.1.13",
@@ -30,7 +29,7 @@
     "grunt-contrib-watch": "0.6.1",
     "grunt-contrib-clean": "0.5.0",
     "grunt-mocha": "0.4.7",
-    "contextify": "0.1.9",
+    "contextify": "^0.1.14",
     "chai": "1.9.1",
     "chai-jq": "0.0.7",
     "chai-jquery": "1.2.1",
