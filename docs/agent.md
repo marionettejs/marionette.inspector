@@ -22,12 +22,12 @@ extension/js/agent
 ### Spying
 
 The Agent spies on the Application by patching a Backbone and Marionette [source](../extension/js/agent/agent.js).
-Patching the key classes, lets the agent monitor for application events like a new View being instantiated or a Radio command being executed. All of the patches can be found in
+Patching the key classes lets the agent monitor for application events, like a new View being instantiated or a Radio command being executed. All of the patches can be found in
 the patches [folder](../extension/js/agent/patches).
 
 ### Inspector Actions
 
-When the Inspector wants to carry out an action on the page like highlight a dom element, or starting search, the inspector talks to the Agent's `appObserver`. The AppObserver, knows about all of the actions that are possible and will delegate to the responsible party to see it through. The appObserver can be found [here](../extension/js/agent/marionette/appObserver.js)
+When the Inspector wants to carry out an action on the page like highlight a dom element, or starting search, the inspector talks to the Agent's `appObserver`. The AppObserver, knows about all of the actions that are possible and will delegate to the responsible party to see it through. The appObserver can be found [here](../extension/js/agent/actions/appObserver.js)
 
 
 ### Agent Events
