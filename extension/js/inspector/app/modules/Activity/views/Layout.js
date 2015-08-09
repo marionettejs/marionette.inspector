@@ -32,6 +32,10 @@ define([
       'onClickToggle': 'showGraph'
     },
 
+    actionCommands: {
+      'onClickToggle': 'showGraph'
+    },
+
     className: 'app-tool activity',
 
     activityCollection: undefined,
