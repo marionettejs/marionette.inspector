@@ -25,7 +25,8 @@
     "backbone.marionette": "2.1.0",
     "requirejs": "2.1.15",
     "text": "requirejs/text#2.0.5",
-    "watchjs": "samccone/watchjs"
+    "watchjs": "samccone/watchjs",
+    "d3": "~3.5.6"
   },
   "resolutions": {
     "underscore": "1.4.4"

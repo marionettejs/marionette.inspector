@@ -13,6 +13,7 @@ require.config({
         marionette: '../lib/backbone.marionette/lib/backbone.marionette',
         text: '../lib/text/text',
         bootstrap: '../lib/bootstrap/dist/bootstrap',
+        d3: '../lib/d3/d3',
         handlebars: '../lib/handlebars/handlebars',
         'jquery.treegrid': '../lib/jquery-treegrid/js/jquery.treegrid',
         logger: '../common/util/Logger'

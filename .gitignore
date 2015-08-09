@@ -15,6 +15,7 @@ extension/js/lib/backbone.marionette
 extension/js/lib/backbone.radio
 extension/js/lib/backbone.wreqr
 extension/js/lib/bootstrap
+extension/js/lib/d3
 extension/js/lib/handlebars
 extension/js/lib/jquery
 extension/js/lib/jquery-treegrid
