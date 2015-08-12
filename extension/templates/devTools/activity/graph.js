@@ -69,17 +69,6 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
 
         Radio.command('activity', 'click:graph', eventId);
 
-        svg.select("text").remove();
-
-        svg.append("text")
-          .attr("x", 0 )
-          .attr("y", 20 )
-          .text('name: ' + d.attributes.eventName);
-
-
-
-
-
       }
 
     }
