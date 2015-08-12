@@ -1,4 +1,4 @@
-define(['d3'], function(d3) {
+define(['d3', 'util/Radio'], function(d3, Radio) {
   
   return {
 
@@ -34,41 +34,52 @@ define(['d3'], function(d3) {
 
     displayGraph: function (formattedData, startX, endX) {
 
-      var width = 500,
-      height = 500;
+      var activityGraph = d3.select('div.activity-graph');
+
+      var width = +activityGraph.style('width').split('px')[0];
+      var height = 100;
 
       var x = d3.scale.linear()
+        .domain([startX, endX])
         .range([0, width]);
 
       var y = d3.scale.linear()
+        .domain([0, 100])
         .range([0, height]);
 
       var color = d3.scale.category20c();
 
-      var svg = d3.select("div.activity-graph").append("svg")
+      var svg = activityGraph.append("svg")
         .attr("width", width)
         .attr("height", height);
 
       rect = svg.selectAll("rect")
           .data(formattedData)
         .enter().append("rect")
-          .attr("x", function(d) {
-            console.log("d:", d);
-            return d.attributes.position.x - startX;
-          })
+          .attr("x", function(d) { return d.attributes.position.x - startX; })
           .attr("y", function(d) { return d.attributes.position.y; })
           .attr("width", function(d) { return 500 * d.attributes.position.dx; })
           .attr("height", function(d) { return d.attributes.position.dy; })
           .attr("fill", function(d) { return color(d.attributes.eventName); })
-          .on("click", clicked);
+          .on("click", onShowInfo);
 
-      function clicked(d) {
+      function onShowInfo(d) {
+
+        var eventId = d.attributes.eventId;
+
+        Radio.command('activity', 'click:graph', eventId);
+
         svg.select("text").remove();
 
         svg.append("text")
-          .attr("x", 400 )
-          .attr("y", 0 )
+          .attr("x", 0 )
+          .attr("y", 20 )
           .text('name: ' + d.attributes.eventName);
+
+
+
+
+
       }
 
     }
