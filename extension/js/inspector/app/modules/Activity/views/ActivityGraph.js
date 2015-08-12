@@ -1,4 +1,5 @@
 define(['backbone', 'marionette', 'app/modules/activity/d3/graph', 'text!templates/devTools/activity/graph.html'
+
   ], function(Backbone, Marionette, Graph, tpl) {
 
   var ActivityGraph = Backbone.Marionette.ItemView.extend({
