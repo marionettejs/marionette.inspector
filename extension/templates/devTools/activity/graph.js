@@ -36,7 +36,7 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
 
       var activityGraph = d3.select('div.activity-graph');
 
-      var margin = 10;
+      var margin = 2;
       var width = +activityGraph.style('width').split('px')[0];
       var height = 100;
 
@@ -51,18 +51,17 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
       var color = d3.scale.category20();
 
       var svg = activityGraph.append("svg")
-        .attr("width", width + (2 * margin))
-        .attr("height", height + (2 * margin));
+        .attr("width", width - (2 * margin))
+        .attr("height", height - (2 * margin));
 
       rect = svg.selectAll('rect')
           .data(formattedData)
         .enter().append("rect")
           .attr("x", function(d) { return x(d.attributes.position.x); })
           .attr("y", function(d) { return y(d.attributes.position.y); })
-          .attr("width", function(d) { return 100 * d.attributes.position.dx; })
+          .attr("width", function(d) { return 5 * d.attributes.position.dx; })
           .attr("height", function(d) { return d.attributes.position.dy; })
           .attr("fill", function(d) { return color(d.attributes.eventName); })
-          .attr("id", function(d) { return "id" + d.attributes.eventId; })
           .on("click", onClick)
           .on("mouseover", onMouseover);
 
@@ -73,19 +72,18 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
 
       }
 
-      // function onMouseover(event) {
-      //   console.log("event: ", event);
-      //   d3.select("text").remove();
+      function onMouseover(event) {
 
-      //   d3.select("rect#id"+ event.attributes.eventId).append('text')
-      //   .attr('x', function(d) { return x(d.attributes.position.x); })
-      //   .attr('y', function(d) { return y(d.attributes.position.y); })
-      //   .text(function(d) {
-      //     console.log("d.attributes.eventName: ", d.attributes.eventName);
-      //     return d.attributes.eventName;
-      //   });
+        svg.selectAll('text').remove();
 
-      // }
+        var text = svg.selectAll('text')
+          .data([event])
+          .enter()
+          .append('text')
+          .attr('x', function(d) { return x(d.attributes.position.x); })
+          .attr('y', function(d) { return y(d.attributes.position.y); })
+          .text(function(d) { return d.attributes.eventName; });
+      }
     }
   };
 
