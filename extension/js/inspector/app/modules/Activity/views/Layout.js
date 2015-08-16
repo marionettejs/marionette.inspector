@@ -60,11 +60,21 @@ define([
 
     showGraph: function(actionId) {
 
-      var filteredActivityCollection = this.activityCollection.filterByActionId(actionId);
+      var actionModel = this.actionCollection.findByActionId(actionId);
 
-      this.getRegion('activityGraph').show(new ActivityGraph({
-        activityCollection: filteredActivityCollection
-      }));
+      if (actionModel.isCollapsed) {
+
+        this.getRegion('activityGraph').empty();
+
+      } else {
+        
+        var filteredActivityCollection = this.activityCollection.filterByActionId(actionId);
+
+        this.getRegion('activityGraph').show(new ActivityGraph({
+          activityCollection: filteredActivityCollection
+        }));
+
+      }
 
     },
 

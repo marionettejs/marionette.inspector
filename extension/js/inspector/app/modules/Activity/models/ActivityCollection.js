@@ -14,7 +14,7 @@ define([
         return activity.get('eventId') === eventId;
       });
     },
-
+    
     filterByContextCid: function(cid) {
       return this.filter(function(activity) {
         return activity.get('context').cid == cid;

@@ -32,16 +32,16 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
 
     },
 
-    displayGraph: function (formattedData, startX, endX) {
+    displayGraph: function (formattedData, startX, endX, windowStart, windowEnd, icicleGraph) {
 
-      var activityGraph = d3.select('div.activity-graph');
+      var activityGraph = d3.select('div.icicle-graph');
 
       var margin = 2;
       var width = +activityGraph.style('width').split('px')[0];
       var height = 100;
 
       var x = d3.scale.linear()
-        .domain([startX, endX])
+        .domain([startX + ((endX-startX) * windowStart), startX + ((endX-startX) * windowEnd)])
         .range([0, width]);
 
       var y = d3.scale.linear()
@@ -50,6 +50,8 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
 
       var color = d3.scale.category20();
 
+      activityGraph.select("svg").remove();
+
       var svg = activityGraph.append("svg")
         .attr("width", width - (2 * margin))
         .attr("height", height - (2 * margin));
@@ -57,9 +59,10 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
       rect = svg.selectAll('rect')
           .data(formattedData)
         .enter().append("rect")
-          .attr("x", function(d) { return x(d.attributes.position.x); })
+          .attr("x", function(d) {
+          return x(d.attributes.position.x); })
           .attr("y", function(d) { return y(d.attributes.position.y); })
-          .attr("width", function(d) { return 5 * d.attributes.position.dx; })
+          .attr("width", function(d) { return (1 / (windowEnd - windowStart)) * d.attributes.position.dx; })
           .attr("height", function(d) { return d.attributes.position.dy; })
           .attr("fill", function(d) { return color(d.attributes.eventName); })
           .on("click", onClick)
