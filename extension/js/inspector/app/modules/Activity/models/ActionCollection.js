@@ -13,6 +13,12 @@ define([
       });
     },
 
+    findByActionId: function(actionId) {
+      return this.find(function(action) {
+        return action.get('actionId') === actionId;
+      });
+    }
+
   });
 
   return ActionCollection;

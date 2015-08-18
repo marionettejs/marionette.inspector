@@ -9,9 +9,21 @@ define([
 
     model: ActivityModel,
 
-    byContextCid: function(cid) {
+    findByEventId: function(eventId) {
+      return this.find(function(activity) {
+        return activity.get('eventId') === eventId;
+      });
+    },
+    
+    filterByContextCid: function(cid) {
       return this.filter(function(activity) {
         return activity.get('context').cid == cid;
+      });
+    },
+
+    filterByActionId: function(actionId) {
+      return this.filter(function(activity) {
+        return activity.get('actionId') === actionId;
       });
     },
 

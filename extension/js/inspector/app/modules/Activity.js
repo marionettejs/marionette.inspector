@@ -41,7 +41,7 @@ define([
     },
 
     requestViewActivity: function(data) {
-      return this.activityCollection.byContextCid(data.cid);
+      return this.activityCollection.filterByContextCid(data.cid);
     },
 
     // See patchAppComponentTrigger.js for definition of event.data
