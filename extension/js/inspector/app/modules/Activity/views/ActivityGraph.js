@@ -34,7 +34,7 @@ define(['backbone', 'marionette', 'app/modules/activity/d3/graph', 'text!templat
 
     showGraph: function() {
       
-      var formattedData = Graph.formatData(this.options.activityCollection);
+      var formattedData = this.formatData(this.options.activityCollection);
       Graph.displayGraph(
         formattedData.data,
         formattedData.startX,
@@ -43,6 +43,34 @@ define(['backbone', 'marionette', 'app/modules/activity/d3/graph', 'text!templat
         +(this.ui.windowEnd.val()) || 1,
         this.ui.icicleGraph
       );
+    },
+
+    formatData: function(data) {
+      var rectHeight = 20;
+      var startX = Infinity;
+      var endX = -Infinity;
+
+      _.each(data, function(activity) {
+
+        activity = activity.attributes;
+
+        startX = activity.startTime < startX ? activity.startTime : startX;
+        endX = activity.endTime > endX ? activity.endTime : endX;
+
+        activity.position = {
+          "dx": activity.endTime - activity.startTime,
+          "dy": rectHeight,
+          "x": activity.startTime,
+          "y": rectHeight * activity.depth - 20
+        };
+
+      });
+
+      return {
+        data: data,
+        startX: startX,
+        endX: endX
+      };
     }
 
   });
