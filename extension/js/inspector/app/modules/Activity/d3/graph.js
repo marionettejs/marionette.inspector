@@ -48,7 +48,10 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
 
       svg.append("g")
         .attr("class", "axis")
-        .call(xAxis);
+        .call(xAxis)
+        .selectAll("text")
+        .style("text-anchor", "start")
+        .style("font-size", "10px");
 
       // svg.append("g")
       //   .attr("class", "axis")
