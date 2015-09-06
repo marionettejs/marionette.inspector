@@ -22,10 +22,6 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
         .scale(x)
         .orient("top");
 
-      // var yAxis = d3.svg.axis()
-      //   .scale(y)
-      //   .orient("left");
-
       var color = d3.scale.category20();
 
       activityGraph.select("svg").remove();
@@ -52,10 +48,6 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
         .selectAll("text")
         .style("text-anchor", "start")
         .style("font-size", "10px");
-
-      // svg.append("g")
-      //   .attr("class", "axis")
-      //   .call(yAxis);
 
       function onClick(d) {
 
