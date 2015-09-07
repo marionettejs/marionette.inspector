@@ -26,13 +26,6 @@ define([
     activityCommands: {
       'show:info': 'showInfo',
       'click:graph': 'findAndShowInfo'
-<<<<<<< HEAD
-    },
-
-    actionCommands: {
-      'onClickToggle': 'showGraph'
-=======
->>>>>>> update ActivityGraph visualization and showInfo on click
     },
 
     actionCommands: {
