@@ -14,34 +14,18 @@ define(['backbone', 'marionette', 'app/modules/activity/d3/graph', 'text!templat
       activityCollection: undefined
     },
 
-    ui: {
-      'windowStart': '[name="window-start"]',
-      'windowEnd': '[name="window-end"]',
-      'icicleGraph': '.icicle-graph'
-    },
-
-    events: {
-      'change @ui.windowStart': 'showGraph',
-      'change @ui.windowEnd': 'showGraph'
-
-    },
-
     onShow: function() {
 
-      this.showGraph();
+      this.showSlider();
 
     },
 
-    showGraph: function() {
-      
+    showSlider: function() {
       var formattedData = this.formatData(this.options.activityCollection);
-      Graph.displayGraph(
+      Graph.displaySlider(
         formattedData.data,
         formattedData.startX,
-        formattedData.endX,
-        +(this.ui.windowStart.val()) || 0,
-        +(this.ui.windowEnd.val()) || 1,
-        this.ui.icicleGraph
+        formattedData.endX
       );
     },
 

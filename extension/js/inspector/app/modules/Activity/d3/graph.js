@@ -2,16 +2,15 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
   
   return {
 
-    displayGraph: function (formattedData, startX, endX, windowStart, windowEnd, icicleGraph) {
+    displayGraph: function (formattedData, windowStart, windowEnd, range) {
 
-      var activityGraph = d3.select('div.icicle-graph');
-
-      var margin = 2;
-      var width = +activityGraph.style('width').split('px')[0];
-      var height = 100;
+      var activityGraph = d3.select('div.graph-icicle'),
+          margin = 5,
+          height = 100,
+          width = +activityGraph.style('width').split('px')[0];
 
       var x = d3.scale.linear()
-        .domain([startX + ((endX-startX) * windowStart), startX + ((endX-startX) * windowEnd)])
+        .domain([windowStart, windowEnd])
         .range([0, width]);
 
       var y = d3.scale.linear()
@@ -27,17 +26,19 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
       activityGraph.select("svg").remove();
 
       var svg = activityGraph.append("svg")
-        .attr("width", width - (2 * margin))
-        .attr("height", height - (2 * margin));
+        .attr("width", width + (2 * margin))
+        .attr("height", height + (2 * margin))
+        .attr("class", "activity-graph-svg");
+
       rect = svg.selectAll('rect')
           .data(formattedData)
         .enter().append("rect")
           .attr("x", function(d) { return x(d.attributes.position.x); })
           .attr("y", function(d) { return y(d.attributes.position.y); })
-          .attr("width", function(d) { return (1 / (windowEnd - windowStart)) * d.attributes.position.dx; })
+          .attr("width", function(d) { return (range / (windowEnd - windowStart)) * d.attributes.position.dx; })
           .attr("height", function(d) { return d.attributes.position.dy; })
           .attr("fill", function(d) { return color(d.attributes.eventName); })
-          .attr("class", "activity-rect")
+          .attr("class", "activity-graph-rect")
           .on("click", onClick)
           .on("mouseover", onMouseover)
           .on("mouseout", onMouseout);
@@ -46,7 +47,7 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
         .attr("class", "axis")
         .call(xAxis)
         .selectAll("text")
-        .style("text-anchor", "start")
+        .style("text-anchor", "middle")
         .style("font-size", "10px");
 
       function onClick(d) {
@@ -87,8 +88,70 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
         svg.selectAll('g.label').remove();
       }
 
+    },
+
+    displaySlider: function(formattedData, startX, endX) {
+      
+      var context = this,
+          slider = d3.select('div.graph-slider'),
+          margin = 5,
+          height = 50,
+          width = +slider.style('width').split('px')[0];
+
+      var x = d3.scale.linear()
+        .domain([startX, endX])
+        .range([0, width]);
+
+      var y = d3.scale.linear()
+        .domain([0, 100])
+        .range([0, height]);
+
+      var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("top");
+
+      var brush = d3.svg.brush()
+        .x(x)
+        .extent([startX, endX])
+        .on("brushend", brushend);
+
+      var arc = d3.svg.arc()
+        .outerRadius(height / 10)
+        .startAngle(0)
+        .endAngle(360);
+      
+      var svg = slider.append("svg")
+        .attr("width", width + (2 * margin))
+        .attr("height", height + (2 * margin))
+        .append("g");
+
+      svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(0," + (height / 2) + ")")
+        .call(xAxis);
+      
+      var brushg = svg.append("g")
+        .attr("class", "brush")
+        .call(brush);
+      
+      brushg.selectAll(".resize").append("path")
+        .attr("transform", "translate(0," + (height / 2) + ")")
+        .attr("d", arc);
+
+      brushg.selectAll("rect")
+        .attr("height", height / 5)
+        .attr('y', height * 0.4);
+
+      this.displayGraph(formattedData, startX, endX, endX - startX);
+
+      function brushend() {
+        var s = brush.extent();
+        console.log("s: ", s);
+        context.displayGraph(formattedData, +s[0], +s[1], endX - startX);
+      }
 
     }
+
   };
 
 });
