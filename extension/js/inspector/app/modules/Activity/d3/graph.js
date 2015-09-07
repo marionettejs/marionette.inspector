@@ -2,24 +2,21 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
   
   return {
 
-    displayGraph: function (formattedData, windowStart, windowEnd, range) {
+    displayGraph: function (formattedData, windowStart, windowEnd, range, maxDepth) {
 
       var activityGraph = d3.select('div.graph-icicle'),
           margin = 5,
-          height = 100,
+          height = 50 + (+maxDepth * 20),
           width = +activityGraph.style('width').split('px')[0];
 
       var x = d3.scale.linear()
         .domain([windowStart, windowEnd])
         .range([0, width]);
 
-      var y = d3.scale.linear()
-        .domain([0, 100])
-        .range([0, height]);
-
       var xAxis = d3.svg.axis()
         .scale(x)
-        .orient("top");
+        .orient("top")
+        .ticks(10);
 
       var color = d3.scale.category20();
 
@@ -34,7 +31,7 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
           .data(formattedData)
         .enter().append("rect")
           .attr("x", function(d) { return x(d.attributes.position.x); })
-          .attr("y", function(d) { return y(d.attributes.position.y); })
+          .attr("y", function(d) { return d.attributes.position.y; })
           .attr("width", function(d) { return (range / (windowEnd - windowStart)) * d.attributes.position.dx; })
           .attr("height", function(d) { return d.attributes.position.dy; })
           .attr("fill", function(d) { return color(d.attributes.eventName); })
@@ -72,11 +69,11 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
           .attr("fill", "#c7c7c7")
           .attr("fill-opacity", "0.75")
           .attr("x", function(d) { return x(d.attributes.position.x); })
-          .attr("y", function(d) { return y(d.attributes.position.y - 20); });
+          .attr("y", function(d) { return d.attributes.position.y - 20; });
 
         label.append("text")
           .attr("x", function(d) { return x(d.attributes.position.x) + (4 * d.attributes.eventName.length); })
-          .attr("y", function(d) { return y(d.attributes.position.y) - 5; })
+          .attr("y", function(d) { return d.attributes.position.y - 5; })
           .attr("text-anchor", "middle")
           .attr("font-size", "10px")
           .text(function(d) { return d.attributes.eventName; });
@@ -90,7 +87,7 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
 
     },
 
-    displaySlider: function(formattedData, startX, endX) {
+    displaySlider: function(formattedData, startX, endX, maxDepth) {
       
       var context = this,
           slider = d3.select('div.graph-slider'),
@@ -108,7 +105,8 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
 
       var xAxis = d3.svg.axis()
         .scale(x)
-        .orient("top");
+        .orient("bottom")
+        .ticks(10);
 
       var brush = d3.svg.brush()
         .x(x)
@@ -127,27 +125,30 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
 
       svg.append("g")
         .attr("class", "axis")
-        .attr("transform", "translate(0," + (height / 2) + ")")
-        .call(xAxis);
+        .attr("transform", "translate(0,10)")
+        .call(xAxis)
+        .append("text")
+        .attr("text-anchor", "middle")
+        .attr("transform", "translate(" + width / 2 + "," + "40)")
+        .text("time to execute in ms");
       
       var brushg = svg.append("g")
         .attr("class", "brush")
         .call(brush);
       
       brushg.selectAll(".resize").append("path")
-        .attr("transform", "translate(0," + (height / 2) + ")")
+        .attr("transform", "translate(0,10)")
         .attr("d", arc);
 
       brushg.selectAll("rect")
         .attr("height", height / 5)
-        .attr('y', height * 0.4);
+        .attr('y', 5);
 
-      this.displayGraph(formattedData, startX, endX, endX - startX);
+      this.displayGraph(formattedData, startX, endX, endX - startX, maxDepth);
 
       function brushend() {
         var s = brush.extent();
-        console.log("s: ", s);
-        context.displayGraph(formattedData, +s[0], +s[1], endX - startX);
+        context.displayGraph(formattedData, +s[0], +s[1], endX - startX, maxDepth);
       }
 
     }

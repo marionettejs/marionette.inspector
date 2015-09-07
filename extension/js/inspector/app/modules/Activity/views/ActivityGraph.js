@@ -25,14 +25,16 @@ define(['backbone', 'marionette', 'app/modules/activity/d3/graph', 'text!templat
       Graph.displaySlider(
         formattedData.data,
         formattedData.startX,
-        formattedData.endX
+        formattedData.endX,
+        formattedData.maxDepth
       );
     },
 
     formatData: function(data) {
-      var rectHeight = 20;
-      var startX = Infinity;
-      var endX = -Infinity;
+      var rectHeight = 20,
+          startX = Infinity,
+          endX = -Infinity,
+          maxDepth = 0;
 
       _.each(data, function(activity) {
 
@@ -40,6 +42,7 @@ define(['backbone', 'marionette', 'app/modules/activity/d3/graph', 'text!templat
 
         startX = activity.startTime < startX ? activity.startTime : startX;
         endX = activity.endTime > endX ? activity.endTime : endX;
+        maxDepth = activity.depth > maxDepth ? activity.depth : maxDepth;
 
         activity.position = {
           "dx": activity.endTime - activity.startTime,
@@ -53,7 +56,8 @@ define(['backbone', 'marionette', 'app/modules/activity/d3/graph', 'text!templat
       return {
         data: data,
         startX: startX,
-        endX: endX
+        endX: endX,
+        maxDepth: maxDepth
       };
     }
 
