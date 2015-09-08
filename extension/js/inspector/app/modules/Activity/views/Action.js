@@ -66,7 +66,7 @@ define([
     },
 
     chevronClass: function() {
-      return this.model.isCollapsed ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'
+      return this.model.isCollapsed ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down';
     }
   });
 
