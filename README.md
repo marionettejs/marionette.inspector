@@ -75,6 +75,30 @@ Once you've installed the Chrome extension, open the DevTools, click on the "Mar
 ### Play with it locally
 Follows these these steps in the [Install Guide](docs/developing_locally.md) and you should be up and running in no time. Read the [agent](https://github.com/marionettejs/marionette.inspector/blob/master/docs/agent.md) overview to understand how the inspector gathers all the information.
 
+### TLDR version
+
+#### 1. Download the Extension
+```bash
+git clone git@github.com:marionettejs/marionette.inspector.git
+```
+
+
+#### 2. Build the Extension
+
+```bash
+npm i
+npm run bower
+grunt build
+```
+
+
+#### 3. Install in Chrome
+```
+1. go to the Extensions tab in chrome > Window
+2. check the "Developer Mode" checkbox
+3. click the "Load unpacked extension" and select the extension folder in the repo
+```
+
 
 ### Open Source (a.k.a. you)
 
