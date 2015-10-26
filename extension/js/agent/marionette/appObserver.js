@@ -46,6 +46,17 @@ _.extend(AppObserver.prototype, {
     return false;
   },
 
+  getRoots: function() {
+    var views = Agent.getViews(),
+        viewMap = {};
+
+    viewMap = views.filter(function (view) {
+      return view.children;
+    });
+
+    return viewMap;
+  },
+
   // called by inspector to get the current region tree
   regionTree: function(path, shouldSerialize) {
     shouldSerialize = !_.isUndefined(shouldSerialize) ? shouldSerialize : true;
@@ -57,8 +68,19 @@ _.extend(AppObserver.prototype, {
     var app = this.getApp();
     var tree = this.agent.regionInspector(app, path, shouldSerialize);
 
+    // NOTE: commented out for testing
+    // if (_.isEmpty(tree)) {
+    //   tree = this.agent.regionInspector(app.rootView || app.layout, path, shouldSerialize);
+    // }
+
     if (_.isEmpty(tree)) {
-      tree = this.agent.regionInspector(app.rootView || app.layout, path, shouldSerialize);
+      var roots = this.getRoots();
+
+      var forest = roots.map(function (root) {
+        return Agent.regionInspector(root, shouldSerialize);
+      });
+
+      var tree = { root: forest };
     }
 
     return tree;
