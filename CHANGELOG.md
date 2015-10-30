@@ -1,3 +1,13 @@
+## V0.7
+#### 10-30-2015
+
+### Fixed
++ fixed grunt-sass dependency [thanks @jdaudier]
+
+### Added
++ A flamechart timeline of event activity. It's insanely great.
+
+
 ## V0.6
 #### 6-30-2015
 
