@@ -6,8 +6,9 @@ define([
   'app/modules/Data/views/Layout',
   'client',
   'app/modules/Data/models/ModelCollection',
-  'app/modules/Data/models/CollectionCollection'
-], function(Marionette, Radio, logger, Module, Layout, client, ModelCollection, CollectionCollection) {
+  'app/modules/Data/models/CollectionCollection',
+  'app/modules/Data/models/ClassCollection'
+], function(Marionette, Radio, logger, Module, Layout, client, ModelCollection, CollectionCollection, ClassCollection) {
   return Module.extend({
 
     channelName: 'data',
@@ -39,6 +40,7 @@ define([
       this.client = client;
       this.modelCollection = new ModelCollection();
       this.collectionCollection = new CollectionCollection();
+      this.classCollection = new ClassCollection();
 
       this.modelGraveyard = new ModelCollection();
       this.collectionGraveyard = new CollectionCollection();
@@ -58,6 +60,7 @@ define([
     onAgentStart: function() {
       this.collectionCollection.reset();
       this.modelCollection.reset();
+      this.classCollection.reset();
       this.modelGraveyard.reset();
       this.collectionGraveyard.reset();
     },
@@ -67,6 +70,7 @@ define([
 
       var modelData = event.data;
       this.modelCollection.add(modelData);
+      this.classCollection.add(modelData);
     },
 
     onCollectionNew: function (event) {
@@ -124,6 +128,7 @@ define([
     buildLayout: function() {
       return new Layout({
         modelCollection: this.modelCollection,
+        classCollection: this.classCollection,
         collectionCollection: this.collectionCollection
       });
     },

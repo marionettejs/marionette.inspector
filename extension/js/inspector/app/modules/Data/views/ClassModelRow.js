@@ -1,6 +1,6 @@
 define([
   'marionette',
-  'text!templates/devTools/data/row.html',
+  'text!templates/devTools/data/class-model-row.html',
   'util/Radio',
 ], function(Marionette, tpl, Radio) {
   return Marionette.ItemView.extend({
@@ -18,8 +18,7 @@ define([
 
     events: {
       "click @ui.moreInfoLink": "onClickInfo",
-      "click @ui.log": 'onClickLog',
-      "click @ui.classId": 'onClickClassId'
+      "click @ui.log": 'onClickLog'
     },
 
     modelEvents: {
@@ -44,12 +43,6 @@ define([
     onClickLog: function() {
       Radio.command('data', 'log', {
         cid: this.model.get('cid')
-      });
-    },
-
-    onClickClassId: function() {
-      Radio.command('data', 'show:classCollectionModels', {
-        classId: this.model.id
       });
     },
 

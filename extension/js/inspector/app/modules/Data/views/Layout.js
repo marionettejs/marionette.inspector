@@ -4,11 +4,14 @@ define([
   "text!templates/devTools/data/layout.html",
   "util/Radio",
   'app/modules/Data/views/ModelList',
+  'app/modules/Data/views/ClassModelList',
   'app/modules/Data/views/ModelInfo',
   'app/modules/Data/views/CollectionInfo',
   'app/modules/Data/views/CollectionList',
   'util/presenters/currentValue'
-], function(Backbone, Marionette, tpl, Radio, ModelList, ModelInfo, CollectionInfo, CollectionList, currentValue) {
+], function(
+    Backbone, Marionette, tpl, Radio, ModelList, ClassModelList, ModelInfo,
+    CollectionInfo, CollectionList, currentValue) {
 
   return Marionette.LayoutView.extend({
 
@@ -34,7 +37,8 @@ define([
     },
 
     dataCommands: {
-      'show:info': 'showInfo'
+      'show:info': 'showInfo',
+      'show:classCollectionModels': 'showClassCollectionModels'
     },
 
     viewModelEvents: {
@@ -61,7 +65,7 @@ define([
 
       if (this.viewModel.get('active') === 'model') {
         list = new ModelList({
-          collection: this.options.modelCollection
+          collection: this.options.classCollection
         })
       } else {
         list = new CollectionList({
@@ -89,12 +93,24 @@ define([
       }
     },
 
+    showClassCollectionModels: function(opt) {
+      var filteredList = this.options.modelCollection.filter(function(model) {
+        return model.get('classId') === opt.classId
+      });
+
+      var list = new ClassModelList({
+        collection: new Backbone.Collection(filteredList)
+      });
+
+      this.getRegion('list').show(list);
+    },
+
     serializeData: function() {
       var data = {};
       data.active_nav = currentValue(
         ['model', 'collection'],
         this.viewModel.get('active')
-      )
+      );
       return data;
     }
 
