@@ -1,5 +1,3 @@
-// debugger;
-
 ;(function(Agent){
 
   debug.log("Backbone agent is starting...");
@@ -25,21 +23,21 @@
     Agent.patchMarionette(Backbone, Marionette);
   };
 
-
   Agent.disableAnalytics = false;
+  Agent.patchedBackbone = false;
 
   Agent.startAnalytics();
   Agent.lazyWorker = new Agent.LazyWorker();
   setInterval(Agent.observeChanges, 500);
 
+  window.setTimeout(function() {
+    if(Agent && Agent.patchedBackbone || Agent.patchedBackbone === false) {
+      return;
+    }
+
+    console.warn("Marionette Inspector: Hmmm... couldn't find yo Backbone");
+    console.log("Please peruse https://github.com/marionettejs/marionette.inspector#caveats");
+
+  }, 5000);
+
 }(Agent));
-
-window.setTimeout(function() {
-  if(window.__agent && window.__agent.patchedBackbone) {
-    return;
-  }
-
-  console.warn("Marionette Inspector: Hmmm... couldn't find yo Backbone");
-  console.log("Please peruse https://github.com/marionettejs/marionette.inspector#caveats");
-
-}, 5000);

@@ -18,7 +18,6 @@
     _patchBackboneWreqr(Backbone, Agent.patchBackboneWreqr);
     _patchBackboneRadio(Backbone, Agent.patchBackboneRadio);
 
-
     _.each(
       [
         Backbone.Model, Backbone.Collection,
@@ -26,7 +25,7 @@
       ],
       Agent.patchBackboneExtend
     );
-    
+
     _.each(
       [
         Backbone.Events, Backbone.Model.prototype,
