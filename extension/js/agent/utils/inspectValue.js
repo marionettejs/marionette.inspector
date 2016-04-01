@@ -19,8 +19,14 @@
   }
 
   var formatJquery = function(value) {
-    var elem = value[0] ? '<'+value[0].tagName.toLowerCase()+'>' : '';
-    return '<jQuery ' + elem + '>';
+    var elem = value[0];
+    var tagName;
+    if (!elem || !elem.tagName) {
+      tagName = '';
+    } else {
+      tagName = '<'+value[0].tagName.toLowerCase()+'>';
+    }
+    return '<jQuery ' + tagName + '>';
   }
 
   var formatArray = function(value) {
