@@ -12,6 +12,9 @@
 
 
 
+### Not Maintained 
+
+The inspector is no longer being maintained. I would be happy to mentor somebody who would like to take on the responsibility. Feel free to reach out to me at jason<dot>laster<dot>11@gmail.com if you're inteested. 
 
 ### Functionality
 
