@@ -3,7 +3,7 @@
   var waitForMarionetteLoad = function(object, callback) {
     Agent.onObjectAndPropertiesSetted(
       object,
-      'Marionette', ['Application'],
+      'Marionette', ['Application', 'Module'],
       callback
     );
   }
