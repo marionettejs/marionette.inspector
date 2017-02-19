@@ -26,7 +26,7 @@ define([
     showModule: function() {
       var layout = this.buildLayout();
       logger.log(this.channelName, 'showing ' + this.channelName);
-      Radio.command('app', 'show:tool', this.channelName, layout);
+      Radio.request('app', 'show:tool', this.channelName, layout);
     },
 
     controller: {}

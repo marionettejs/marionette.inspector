@@ -138,7 +138,7 @@ define([
         this.showModule();
 
         var model = this.modelCollection.findModel(cid);
-        Radio.command('data', 'show:info', {
+        Radio.request('data', 'show:info', {
           type: 'model',
           instance: model
         });

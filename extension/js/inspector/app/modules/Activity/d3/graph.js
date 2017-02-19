@@ -50,7 +50,7 @@ define(['d3', 'util/Radio'], function(d3, Radio) {
       function onClick(d) {
 
         var eventId = d.attributes.eventId;
-        Radio.command('activity', 'click:graph', eventId);
+        Radio.request('activity', 'click:graph', eventId);
 
       }
 

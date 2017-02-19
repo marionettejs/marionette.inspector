@@ -85,7 +85,7 @@ define([
         window.history.forward();
       }
       else {
-        Radio.command('app', 'navigate', $currentTarget.data('route'));
+        Radio.request('app', 'navigate', $currentTarget.data('route'));
       }
       return false;
     },
@@ -106,9 +106,9 @@ define([
       this.model.set('searchOn', !this.model.get('searchOn'));
 
       if (this.model.get('searchOn')) {
-        Radio.command('ui', 'search:start');
+        Radio.request('ui', 'search:start');
       } else {
-        Radio.command('ui', 'search:stop');
+        Radio.request('ui', 'search:stop');
       }
 
     },

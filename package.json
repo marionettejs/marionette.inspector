@@ -4,7 +4,7 @@
   "description": "A proper inspector for Marionette",
   "main": "",
   "scripts": {
-    "test": "grunt test --mocha-reporter=Spec;",
+    "test": "grunt test --mocha-reporter=Spec",
     "bower": "bower i",
     "build": "grunt build"
   },
@@ -29,11 +29,10 @@
     "grunt-contrib-watch": "0.6.1",
     "grunt-contrib-clean": "0.5.0",
     "grunt-mocha": "0.4.7",
-    "contextify": "^0.1.14",
     "chai": "1.9.1",
     "chai-jq": "0.0.7",
     "chai-jquery": "1.2.1",
-    "jsdom": "0.10.5",
+    "jsdom": "*",
     "mocha": "1.19.0",
     "sinon": "1.10.3",
     "sinon-chai": "2.5.0",

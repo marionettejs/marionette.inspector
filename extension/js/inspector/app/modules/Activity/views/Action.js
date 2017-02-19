@@ -40,7 +40,7 @@ define([
 
       var actionId = this.model.get('actionId');
 
-      Radio.command('activity', 'onClickToggle', actionId);
+      Radio.request('activity', 'onClickToggle', actionId);
 
       return false;
     },

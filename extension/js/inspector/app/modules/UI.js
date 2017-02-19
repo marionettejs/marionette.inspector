@@ -172,8 +172,8 @@ define([
       viewModel.trigger('search:' + data.name);
 
       if (data.name == 'mousedown') {
-        Radio.command('app', 'search:stop');
-        Radio.command('app', 'navigate:knownObject', {
+        Radio.request('app', 'search:stop');
+        Radio.request('app', 'navigate:knownObject', {
           type: 'View',
           cid: data.cid
         });
@@ -222,7 +222,7 @@ define([
         return;
       }
 
-      Radio.command('ui', 'show:more-info', {
+      Radio.request('ui', 'show:more-info', {
         cid: cid,
         path: node.path
       });
@@ -255,7 +255,7 @@ define([
 
         var view = this.viewCollection.findView(cid);
         if (!view) {
-          Radio.command('ui', 'show:loadingView', {
+          Radio.request('ui', 'show:loadingView', {
             cid: cid
           });
 

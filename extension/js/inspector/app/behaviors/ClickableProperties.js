@@ -67,7 +67,7 @@ define([
       var cid = $property.data('property-context-cid');
 
       if(isViewType(type)) {
-        Radio.command('ui', 'highlight-element', {
+        Radio.request('ui', 'highlight-element', {
           cid: cid,
           path: 'el'
         })
@@ -83,7 +83,7 @@ define([
       var cid = $property.data('property-context-cid');
 
       if(isViewType(type)) {
-        Radio.command('ui', 'unhighlight-element');
+        Radio.request('ui', 'unhighlight-element');
       }
     },
 
@@ -195,7 +195,7 @@ define([
 
     navigateTo: function(object) {
       if (object && object.type && object.cid) {
-        Radio.command('app', 'navigate:knownObject', {
+        Radio.request('app', 'navigate:knownObject', {
           object: object
         });
       }

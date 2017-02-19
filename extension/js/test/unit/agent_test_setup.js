@@ -44,7 +44,7 @@
 
 
       window.startAnalytics();
-      window.Backbone = window.BackboneFactory();
+      window.Backbone = window.BackboneFactory(window._, window.jQuery || window.$);
       window.Marionette = window.MarionetteFactory(Backbone);
       window.patchBackbone(Backbone);
       window.patchMarionette(Backbone, Marionette);

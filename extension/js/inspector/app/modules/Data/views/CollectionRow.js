@@ -25,14 +25,14 @@ define([
         return;
       }
 
-      Radio.command('data', 'show:info', {
+      Radio.request('data', 'show:info', {
         type: 'collection',
         instance: this.model
       });
     },
 
     highlightRow: function() {
-      Radio.command('data', 'unhighlight-rows');
+      Radio.request('data', 'unhighlight-rows');
       this.$el.addClass('bg-info');
     },
 

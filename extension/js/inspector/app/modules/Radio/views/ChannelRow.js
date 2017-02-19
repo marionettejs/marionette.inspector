@@ -25,12 +25,12 @@ define([
         return;
       }
 
-      Radio.command('radio', 'show:info', this.model);
+      Radio.request('radio', 'show:info', this.model);
     },
 
 
     highlightRow: function() {
-      Radio.command('radio', 'unhighlight-rows');
+      Radio.request('radio', 'unhighlight-rows');
       this.$el.addClass('bg-info');
     },
 
