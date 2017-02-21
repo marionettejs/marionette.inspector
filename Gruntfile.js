@@ -21,14 +21,20 @@ module.exports = function(grunt) {
     mocha: {
       test: {
         options: {
-          reporter: grunt.option('mocha-reporter') || 'Nyan'
+          reporter: grunt.option('mocha-reporter') || 'Nyan',
+          run: false,
+          page: {
+            settings: {
+              webSecurityEnabled: false,  // disable cors checks in phantomjs
+            }
+          }
         },
         src: [
         'extension/js/test/unit/AgentSpecRunner.html',
         'extension/js/test/unit/InspectorSpecRunner.html'
         ],
-        dest: './test/output/xunit.out',
-      },
+        dest: './test/output/xunit.out'
+      }
     },
 
     sass: {

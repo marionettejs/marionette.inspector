@@ -33,20 +33,20 @@ define([
         return;
       }
 
-      Radio.command('data', 'show:info', {
+      Radio.request('data', 'show:info', {
         type: 'model',
         instance: this.model
       });
     },
 
     onClickLog: function() {
-      Radio.command('data', 'log', {
+      Radio.request('data', 'log', {
         cid: this.model.get('cid')
       });
     },
 
     highlightRow: function() {
-      Radio.command('data', 'unhighlight-rows');
+      Radio.request('data', 'unhighlight-rows');
       this.$el.addClass('bg-info');
     },
 

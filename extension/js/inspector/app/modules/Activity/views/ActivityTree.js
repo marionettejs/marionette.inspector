@@ -29,7 +29,7 @@ define([
     onShowInfo: function (evt) {
       evt.stopPropagation();
       if (this.model.get('event')) {
-        Radio.command('activity', 'show:info', this.model.get('event'));
+        Radio.request('activity', 'show:info', this.model.get('event'));
 
         this.setActiveNode(this.$el);
       }

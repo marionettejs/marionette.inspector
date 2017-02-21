@@ -61,7 +61,7 @@ define([
         path = propertyName;
       }
 
-      Radio.command('ui', 'highlight-element', {
+      Radio.request('ui', 'highlight-element', {
         cid: this.model.get('cid'),
         path: path
       });
@@ -69,7 +69,7 @@ define([
     },
 
     onMouseLeaveDomElement: function(e) {
-      Radio.command('ui', 'unhighlight-element');
+      Radio.request('ui', 'unhighlight-element');
     },
 
     presentUI: function(ui) {

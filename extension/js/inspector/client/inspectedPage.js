@@ -10,7 +10,7 @@ define([
         _.extend(this, Backbone.Events);
 
         this.initialize = function() {
-            _.bindAll(this);
+            _.bindAll(this, 'execFunction', 'recordMessages', 'exec', 'waitFor', 'ready', 'reloadInjecting');
 
             this.messageCache = [];
 

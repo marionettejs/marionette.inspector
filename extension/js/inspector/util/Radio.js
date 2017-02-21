@@ -12,7 +12,7 @@ define([
         var channel = Radio.channel(channelName);
 
         _.each(normalizedCommands, function(fn, eventName) {
-            channel.comply(eventName, fn, context);
+            channel.reply(eventName, fn, context);
         });
     };
 
@@ -24,7 +24,7 @@ define([
         var channel = Radio.channel(channelName);
 
         _.each(_.keys(commands), function(eventName) {
-            channel.stopComplying(eventName);
+            channel.stopReplying(eventName);
         });
     };
 

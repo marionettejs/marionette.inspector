@@ -62,11 +62,11 @@ define([
 
       if (!this.model.has('cid')) {
         this.unhighlightRow();
-        Radio.command('ui', 'empty:moreInfo');
+        Radio.request('ui', 'empty:moreInfo');
         return;
       }
 
-      Radio.command('app', 'navigate:knownObject', {
+      Radio.request('app', 'navigate:knownObject', {
         type: 'View',
         cid: this.model.get('cid')
       });
@@ -114,29 +114,29 @@ define([
     },
 
     unhighlightRow: function() {
-      Radio.command('ui', 'unhighlightRows');
+      Radio.request('ui', 'unhighlightRows');
     },
 
     logView: function() {
-      Radio.command('ui', 'log', {
+      Radio.request('ui', 'log', {
         viewPath: this.model.get('path'),
         message: 'view'
       });
     },
 
     showMoreInfo: function() {
-      Radio.command('ui', 'show:more-info', {
+      Radio.request('ui', 'show:more-info', {
         cid: this.model.get('cid'),
         path: this.model.get('path')
       });
     },
 
     unhighlightViewOnPage: function() {
-      Radio.command('ui', 'unhighlight-element');
+      Radio.request('ui', 'unhighlight-element');
     },
 
     highlightViewOnPage: function() {
-      Radio.command('ui', 'highlight-element', {
+      Radio.request('ui', 'highlight-element', {
         cid: this.model.get('cid'),
         path: '$el'
       });

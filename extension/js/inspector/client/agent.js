@@ -3,7 +3,7 @@ define(["backbone", "underscore", "client/inspectedPage"], function(Backbone, _,
         _.extend(this, Backbone.Events);
 
         this.initialize = function() {
-            _.bindAll(this);
+            _.bindAll(this , 'isActive', 'activate', 'execFunction', 'exec', 'waitFor');
         };
 
         // Call the callback passing to it a boolean indicating if the Backbone Agent is active.
