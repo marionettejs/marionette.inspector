@@ -54,6 +54,7 @@
   });
 
   afterEach(function () {
+      window.lazyWorker.destroy();
       this.sinon.restore();
       this.clearFixtures();
       delete window.patchedBackbone;

@@ -17,6 +17,10 @@
       // this.logSize();
     },
 
+    onDestroy: function() {
+      this.queue = [];
+    },
+
     push: function(job) {
       // console.log('** callee', Agent.stackFrame(8));
       // console.log('push called', this.queue.length, new Date() - this.initTime);
