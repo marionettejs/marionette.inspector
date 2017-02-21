@@ -108,14 +108,14 @@ describe('lazyWorker', function() {
       this.job1 = sinon.stub();
       this.worker.push({
         context: this,
-        callback: function() {fib(2000000); this.job1();},
+        callback: function() {fib(4000000); this.job1();},
         args: []
       });
 
       this.job2 = sinon.stub();
       this.worker.push({
         context: this,
-        callback: function() {fib(2000000); this.job2();},
+        callback: function() {fib(4000000); this.job2();},
         args: []
       });
 
