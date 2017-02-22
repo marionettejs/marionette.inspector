@@ -4,12 +4,13 @@ define([
   'text!templates/devTools/ui/layout.html',
   'util/Radio',
   'logger',
+  'app/modules/UI/views/EmptyMoreInfo',
   'app/modules/UI/views/ViewMoreInfo',
   'app/modules/UI/models/TreeNode',
   'app/modules/UI/views/ViewTree',
   'app/modules/UI/views/LoadingView',
 ], function(Marionette, Backbone, tpl, Radio, logger,
-  ViewMoreInfo, TreeNode, ViewTree, LoadingView) {
+   EmptyMoreInfo, ViewMoreInfo, TreeNode, ViewTree, LoadingView) {
 
   return Marionette.LayoutView.extend({
 
@@ -92,8 +93,11 @@ define([
       }));
     },
 
-    emptyMoreInfo: function() {
-      this.getRegion('viewMoreInfo').empty();
+    emptyMoreInfo: function(data) {
+      this.getRegion('viewMoreInfo').show(new EmptyMoreInfo({
+        name: data.name,
+        path: data.path
+      }));
     },
 
     unhighlightRows: function() {
