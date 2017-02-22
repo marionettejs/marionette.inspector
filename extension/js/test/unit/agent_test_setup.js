@@ -54,7 +54,7 @@
   });
 
   afterEach(function () {
-      window.lazyWorker.destroy();
+      window.lazyWorker.queue = [];
       this.sinon.restore();
       this.clearFixtures();
       delete window.patchedBackbone;
