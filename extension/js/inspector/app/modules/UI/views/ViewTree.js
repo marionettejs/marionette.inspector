@@ -63,6 +63,7 @@ define([
       if (!this.model.has('cid')) {
         this.unhighlightRow();
         Radio.request('ui', 'empty:moreInfo', this.model.pick('name', 'path'));
+        Radio.request('app', 'navigate', 'data/emptyview');
         return;
       }
 
