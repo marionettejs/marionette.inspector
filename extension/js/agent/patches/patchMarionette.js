@@ -1,19 +1,22 @@
 ;(function(Agent){
 
   var assignClassNames = function(Backbone, Marionette) {
-    Marionette.ItemView.prototype._className = 'ItemView';
     Marionette.CollectionView.prototype._className = 'CollectionView';
     Marionette.CompositeView.prototype._className = 'CompositeView';
     Marionette.View.prototype._className = 'Marionette.View';
     Backbone.View.prototype._className = 'Backbone.View';
     Backbone.Model.prototype._className = 'Backbone.Model';
     Backbone.Collection.prototype._className = 'Backbone.Collection';
-
+    if (Marionette.ItemView) {
+      Marionette.ItemView.prototype._className = 'ItemView';
+    }
 
     if (Marionette.LayoutView) {
       Marionette.LayoutView.prototype._className = 'LayoutView';
     } else {
-      Marionette.Layout.prototype._className = 'Layout.View';
+      if (Marionette.Layout) {
+        Marionette.Layout.prototype._className = 'Layout.View';
+      }
     }
   };
 
@@ -37,22 +40,25 @@
       }
 
       Agent.patchMarionetteApplication(Marionette.Application);
-      Agent.patchMarionetteModule(Marionette.Module);
-      Agent.patchMarionetteController(Marionette.Controller);
-
-      if(Marionette.Behavior) {
-        Agent.patchMarionetteBehavior(Marionette.Behavior);
-      }
 
       var marionetteClasses = [
         Marionette.Application.prototype,
-        Marionette.Module.prototype,
-        Marionette.Region.prototype,
-        Marionette.Controller.prototype
+        Marionette.Region.prototype
       ];
 
+      if (Marionette.Controller) {
+        Agent.patchMarionetteController(Marionette.Controller);
+        marionetteClasses.push(Marionette.Controller.prototype);
+      }
+
       if (Marionette.Behavior) {
+        Agent.patchMarionetteBehavior(Marionette.Behavior);
         marionetteClasses.push(Marionette.Behavior.prototype);
+      }
+
+      if (Marionette.Module) {
+        Agent.patchMarionetteModule(Marionette.Module);
+        marionetteClasses.push(Marionette.Module.prototype);
       }
 
       _.each(marionetteClasses, Agent.patchBackboneTrigger, this);
