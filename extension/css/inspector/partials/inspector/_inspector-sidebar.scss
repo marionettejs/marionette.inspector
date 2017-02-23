@@ -58,6 +58,11 @@
     background-color: #fff;
 }
 
+.sidebar-pane-stack .empty-region {
+    text-align: center;
+    margin-top: 20px;
+}
+
 .sidebar-pane-stack > .sidebar-pane.visible:nth-last-of-type(1) {
     border-bottom: 1px solid rgb(189, 189, 189);
 }
