@@ -1,54 +1,27 @@
 ;(function(Agent) {
 
-  var _regionInspector;
-
-  var _regionInspectorV2 = function (obj, shouldSerialize) {
+  var _regionInspector = function (obj, shouldSerialize) {
     if (!obj) {
       return {};
     }
 
-    if (obj._regionManager) { // app
+    if (obj._regionManager) { // app v2
       //debug.log('ri: found app');
       var subViews = _subViews(obj._regionManager._regions, shouldSerialize);
       return subViews;
 
-    } else if (obj.regionManager) { // layout
+    } else if (obj.regionManager) { // layout v2
       //debug.log('ri: found layout');
       var subViews = _subViews(obj.regionManager._regions, shouldSerialize);
-      subViews._view =  shouldSerialize ? serializeView(obj) :  obj;
+      subViews._view = shouldSerialize ? serializeView(obj) : obj;
       return subViews;
 
-    } else if (obj.children) { // collection view
-      //debug.log('ri: found collection view');
-
-      var subViews = {};
-      _.each(obj.children._views, function(view, index) {
-        subViews[index] = _regionInspectorV2(view, shouldSerialize);
-      }, this, subViews, shouldSerialize);
-
-      subViews._view =  shouldSerialize ? serializeView(obj) :  obj;
-      return subViews;
-
-    } else { // simple view
-      //debug.log('ri: found simple view');
-
-      return {
-        _view: shouldSerialize ? serializeView(obj) :  obj
-      }
-    }
-  };
-
-  var _regionInspectorV3 = function (obj, shouldSerialize) {
-    if (!obj) {
-      return {};
-    }
-
-    if (obj._region) { // app
+    } else if (obj._region) { // app v3
       //debug.log('ri: found app');
       var subViews = _subViews({appregion: obj._region}, shouldSerialize);
       return subViews;
 
-    } else if (obj._regions) { // view
+    } else if (obj._regions) { // view v3
       //debug.log('ri: found view');
       var subViews = _subViews(obj._regions, shouldSerialize);
       subViews._view =  shouldSerialize ? serializeView(obj) :  obj;
@@ -59,14 +32,20 @@
 
       var subViews = {};
       _.each(obj.children._views, function(view, index) {
-        subViews[index] = _regionInspectorV3(view, shouldSerialize);
+        subViews[index] = _regionInspector(view, shouldSerialize);
       }, this, subViews, shouldSerialize);
 
       subViews._view =  shouldSerialize ? serializeView(obj) :  obj;
       return subViews;
 
-    } else { // ??
-      //debug.log('ri: found unknown type');
+    } else { // simple view v2
+      //debug.log('ri: found simple view');
+
+      if (Agent.mnVersion === '3') return;
+
+      return {
+        _view: shouldSerialize ? serializeView(obj) :  obj
+      }
     }
   };
 
@@ -102,12 +81,6 @@
 
   Agent.regionInspector = function(regionTreeRoot, path, shouldSerialize) {
     shouldSerialize = !!shouldSerialize;
-
-    if (Agent.patchedMarionette.VERSION && Agent.patchedMarionette.VERSION[0] === '3') {
-      _regionInspector = _regionInspectorV3
-    } else {
-      _regionInspector = _regionInspectorV2
-    }
 
     var regions = _regionInspector(regionTreeRoot, shouldSerialize)
 

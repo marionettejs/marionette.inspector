@@ -32,6 +32,8 @@
       Agent.patchedMarionette = Marionette;
       debug.log('Marionette detected: ', Marionette);
 
+      Agent.mnVersion = Marionette.VERSION && Marionette.VERSION[0];
+
       assignClassNames(Backbone, Marionette);
 
       if (Marionette.Object) {
