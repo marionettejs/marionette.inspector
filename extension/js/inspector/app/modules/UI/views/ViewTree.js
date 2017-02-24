@@ -61,8 +61,7 @@ define([
       e.stopPropagation()
 
       if (!this.model.get('hasView')) {
-        this.unhighlightRow();
-        Radio.request('ui', 'empty:moreInfo', this.model.pick('name', 'path'));
+        Radio.request('ui', 'empty:moreInfo', this.model.pick('name', 'path', 'cid'));
         Radio.request('app', 'navigate', 'data/emptyview');
         return;
       }
