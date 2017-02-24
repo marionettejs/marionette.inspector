@@ -27,3 +27,4 @@ extension/js/lib/watchjs
 
 recorder/messages.json
 
+/yarn-error.log
