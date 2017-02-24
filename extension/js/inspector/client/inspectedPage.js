@@ -37,8 +37,7 @@ define([
 
               _.each(messages, function(message) {
                 if (message && message.target == "page") {
-                    message.data = message.data || {};
-                    this.trigger(message.name, message.data);
+                    this.trigger(message.name, message.data || {}, message.timestamp);
                 }
               }, this);
             }, this));
