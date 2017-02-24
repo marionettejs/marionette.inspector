@@ -57,7 +57,7 @@ define([
     },
 
     _buildViewTree: function(regionTree, subPath, idPath) {
-      var viewData = {};
+      var cid, viewData = {};
       subPath = subPath || '';
       regionTree = regionTree || {};
 
@@ -72,8 +72,14 @@ define([
         viewData.path = subPath;
         viewData.name = _.last(subPath.split('.'));
         if (_.has(regionTree, '_view')) {
-          viewData.cid = regionTree._view.cid;
-          viewData.idPath = idPath.concat(regionTree._view.cid);
+          cid = regionTree._view.cid;
+          viewData.hasView = true;
+        } else if (_.has(regionTree, '_region')) {
+          cid = regionTree._region;
+        }
+        if (cid) {
+          viewData.cid = cid;
+          viewData.idPath = idPath.concat(cid);
         }
       }
 

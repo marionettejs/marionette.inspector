@@ -60,7 +60,7 @@ define([
     onClickMoreInfo: function(e) {
       e.stopPropagation()
 
-      if (!this.model.has('cid')) {
+      if (!this.model.get('hasView')) {
         this.unhighlightRow();
         Radio.request('ui', 'empty:moreInfo', this.model.pick('name', 'path'));
         Radio.request('app', 'navigate', 'data/emptyview');
