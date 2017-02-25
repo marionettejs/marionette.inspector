@@ -7,12 +7,13 @@
       report = report || {};
       options = options || {};
 
-      // the timestamp is tipicaly used by the panel to exclude old reports
-      report.timestamp = new Date().getTime();
+      // the timestamp is typically used by the panel to exclude old reports
+      var timestamp = new Date().getTime();
 
       Agent.sendMessage({
           name: 'agent:' + name,
-          data: report
+          data: report,
+          timestamp: timestamp
       }, options);
   };
 
