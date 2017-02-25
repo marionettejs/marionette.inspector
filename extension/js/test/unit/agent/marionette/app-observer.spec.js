@@ -53,8 +53,10 @@ describe('regionInspector', function() {
 
     it('the layout\'s regions are in the region tree', function() {
       var regionTree = window.regionInspector(this.app);
-      expect(regionTree.header.header._region ).to.equal("region");
-      expect(regionTree.header.body._region ).to.equal("region");
+      var headerRegion = this.layout.getRegion('header');
+      var bodyRegion = this.layout.getRegion('body');
+      expect(regionTree.header.header._region ).to.equal(headerRegion.cid || headerRegion.__marionette_inspector__cid);
+      expect(regionTree.header.body._region ).to.equal(bodyRegion.cid || bodyRegion.__marionette_inspector__cid);
     });
   });
 
