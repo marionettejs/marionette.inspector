@@ -53,7 +53,7 @@
     var subViews = {};
     _.each(regions, function(region, regionName) {
       var subRegions = _regionInspector(region.currentView, shouldSerialize);
-      subRegions._region = 'region' //region;
+      subRegions._region = region.cid || region.__marionette_inspector__cid;
       subViews[regionName] = subRegions;
     }, this);
     return subViews;

@@ -82,7 +82,7 @@ define([
         query[this.idAttribute] = node.id;
         var newNodeNodes = _.findWhere(newNodes, query);
 
-        if (newNodeNodes.nodes) {
+        if (newNodeNodes && newNodeNodes.nodes) {
           node.updateNodes(newNodeNodes.nodes)
         }
       }, this);
