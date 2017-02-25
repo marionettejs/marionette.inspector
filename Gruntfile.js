@@ -30,8 +30,7 @@ module.exports = function(grunt) {
           }
         },
         src: [
-        'extension/js/test/unit/AgentSpecRunner.html',
-        'extension/js/test/unit/InspectorSpecRunner.html'
+        'extension/js/test/unit/AgentSpecRunner.html'
         ],
         dest: './test/output/xunit.out'
       }
