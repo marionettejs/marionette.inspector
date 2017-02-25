@@ -12,10 +12,6 @@
 
 
 
-### Not Maintained 
-
-The inspector is no longer being maintained. I would be happy to mentor somebody who would like to take on the responsibility. Feel free to reach out to me at jason<dot>laster<dot>11@gmail.com if you're inteested. 
-
 ### Functionality
 
 The inspector makes it possible to understand how your App works, without needing to understand how all the code works. This is possible because everything's one click away. You'll be amazed at how quickly this changes everything.
@@ -34,7 +30,7 @@ The inspector makes it possible to understand how your App works, without needin
 
 Once you've installed the Chrome extension, open the DevTools, click on the "Marionette" tab, and inspect this app!
 
-[Marionette Wires](http://www.marionettewires.com)
+[Marionette Wires](https://marionette-wires.herokuapp.com/)
 
 ---
 ### Getting Started
@@ -42,6 +38,14 @@ Once you've installed the Chrome extension, open the DevTools, click on the "Mar
 
 #### Download it
 The inspector should work out of the box with most setups. You can download it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/marionette-inspector/fbgfjlockdhidoaempmjcddibjklhpka?hl=en).
+
+#### Usage
+* Load the app in Google Chrome
+* Open the devtools (F12 or Ctrl + Shift + I)
+* Select Marionette tab
+* Click in 'Start the Inspector!' button
+
+> The extension icon next to URL bar has no functionality and can be ignored 
 
 #### Caveats
 If you're either using `Browserify` or `Webpack` or not exposing `Backbone` & `Marionette` as globals, you'll need to add one block to your setup.
@@ -52,14 +56,19 @@ if (window.__agent) {
 }
 ```
 
-> Note this line should be placed after all underscore, backbone, and marionette REQUIRES, but before Application or View classes are defined.
+> Note this line should be placed after all underscore, backbone, and marionette CommonJS `require` calls, but before Application or View classes are defined.
+
+> Since EcmaScript `import` statements are hoisted, i.e., always called in the start of the module, putting `__agent.start` call before the import of a module 
+> that defines an Marionette class will not work. See [related issue](https://github.com/marionettejs/marionette.inspector/issues/305).
+> When using EcmaScript modules is recommended to put the `__agent.start` call in a separated module as in [Marionette Wires](https://github.com/thejameskyle/marionette-wires/blob/master/src/plugins.js)      
 
 #### Frequently Asked Questions
 If you have any additional questions, check out our [FAQ](https://github.com/marionettejs/marionette.inspector/blob/master/docs/faq.md).
 
 
 #### Usage Analytics
-The Inspector gathers usage analytics to better report on inspector statistics such as average weekly users and popular features as well as to report on marionette patterns such as library versions in usage and architectural / api patterns. If you would prefer to disable analytics it is easy to do so:
+~~The Inspector gathers usage analytics to better report on inspector statistics such as average weekly users and popular features as well as to report on marionette patterns such as library versions in usage and architectural / api patterns.
+If you would prefer to disable analytics it is easy to do so:~~
 
 ```js
 if (window.__agent) {
@@ -67,13 +76,7 @@ if (window.__agent) {
 }
 ```
 
-### Try it out on a live app!
-
-Once you've installed the Chrome extension, open the DevTools, click on the "Marionette" tab, and inspect this app!
-
-[Marionette Wires](https://marionette-wires.herokuapp.com)
-
----
+*Current version does not implement usage analytics*
 
 ### Play with it locally
 Follows these these steps in the [Install Guide](docs/developing_locally.md) and you should be up and running in no time. Read the [agent](https://github.com/marionettejs/marionette.inspector/blob/master/docs/agent.md) overview to understand how the inspector gathers all the information.
