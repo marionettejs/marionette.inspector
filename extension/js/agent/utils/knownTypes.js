@@ -49,7 +49,7 @@
       return Agent._knownTypes;
     }
 
-    if (Agent.patchedMarionette.VERSION && Agent.patchedMarionette.VERSION[0] == "2") {
+    if (Agent.patchedMarionette.LayoutView) {
       knownTypes['Marionette.LayoutView'] = {
         type: Agent.patchedMarionette.LayoutView,
         name: 'marionette-layout-view',
@@ -58,13 +58,15 @@
         toString: toString
       };
     } else {
-      knownTypes['Marionette.Layout'] = {
-        type: Agent.patchedMarionette.Layout,
-        name: 'marionette-layout',
-        className: 'Marionette.Layout',
-        cid: function(obj) { return obj.cid },
-        toString: toString
-      };
+      if (Agent.patchedMarionette.Layout) {
+        knownTypes['Marionette.Layout'] = {
+          type: Agent.patchedMarionette.Layout,
+          name: 'marionette-layout',
+          className: 'Marionette.Layout',
+          cid: function(obj) { return obj.cid },
+          toString: toString
+        };
+      }
     }
 
     _.extend(knownTypes, {
@@ -100,14 +102,6 @@
         toString: toString
       },
 
-      'Marionette.ItemView': {
-        type: Agent.patchedMarionette.ItemView,
-        name: 'marionette-item-view',
-        className: 'Marionette.ItemView',
-        cid: function(obj) { return obj.cid },
-        toString: toString
-      },
-
       'Marionette.View': {
         type: Agent.patchedMarionette.View,
         name: 'marionette-view',
@@ -120,22 +114,6 @@
         type: Agent.patchedMarionette.Application,
         name: 'marionette-application',
         className: 'Marionette.Application',
-        cid: function(obj) { return obj.__marionette_inspector__cid },
-        toString: toString
-      },
-
-      'Marionette.Module': {
-        type: Agent.patchedMarionette.Module,
-        name: 'marionette-module',
-        className: 'Marionette.Module',
-        cid: function(obj) { return obj.__marionette_inspector__cid },
-        toString: function() {return '<Marionette.Module>'}
-      },
-
-      'Marionette.Controller': {
-        type: Agent.patchedMarionette.Controller,
-        name: 'marionette-controller',
-        className: 'Marionette.Controller',
         cid: function(obj) { return obj.__marionette_inspector__cid },
         toString: toString
       },
@@ -157,6 +135,41 @@
       }
     });
 
+    if (Agent.patchedMarionette.ItemView) {
+      _.extend(knownTypes, {
+        'Marionette.ItemView': {
+          type: Agent.patchedMarionette.ItemView,
+          name: 'marionette-item-view',
+          className: 'Marionette.ItemView',
+          cid: function(obj) { return obj.cid },
+          toString: toString
+        }
+      });
+    }
+
+    if (Agent.patchedMarionette.Module) {
+      _.extend(knownTypes, {
+        'Marionette.Module': {
+          type: Agent.patchedMarionette.Module,
+          name: 'marionette-module',
+          className: 'Marionette.Module',
+          cid: function(obj) { return obj.__marionette_inspector__cid },
+          toString: function() {return '<Marionette.Module>'}
+        }
+      });
+    }
+
+    if (Agent.patchedMarionette.Controller) {
+      _.extend(knownTypes, {
+        'Marionette.Controller': {
+          type: Agent.patchedMarionette.Controller,
+          name: 'marionette-controller',
+          className: 'Marionette.Controller',
+          cid: function(obj) { return obj.__marionette_inspector__cid },
+          toString: toString
+        }
+      });
+    }
 
     // Marionette Object was introduced in V2.1
     if (Agent.patchedMarionette.Object) {

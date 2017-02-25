@@ -5,14 +5,25 @@
       return {};
     }
 
-    if (obj._regionManager) { // app
+    if (obj._regionManager) { // app v2
       //debug.log('ri: found app');
-      var subViews = _subViews(obj, shouldSerialize);
+      var subViews = _subViews(obj._regionManager._regions, shouldSerialize);
       return subViews;
 
-    } else if (obj.regionManager) { // layout
+    } else if (obj.regionManager) { // layout v2
       //debug.log('ri: found layout');
-      var subViews = _subViews(obj, shouldSerialize);
+      var subViews = _subViews(obj.regionManager._regions, shouldSerialize);
+      subViews._view = shouldSerialize ? serializeView(obj) : obj;
+      return subViews;
+
+    } else if (obj._region) { // app v3
+      //debug.log('ri: found app');
+      var subViews = _subViews({appregion: obj._region}, shouldSerialize);
+      return subViews;
+
+    } else if (obj._regions) { // view v3
+      //debug.log('ri: found view');
+      var subViews = _subViews(obj._regions, shouldSerialize);
       subViews._view =  shouldSerialize ? serializeView(obj) :  obj;
       return subViews;
 
@@ -27,8 +38,10 @@
       subViews._view =  shouldSerialize ? serializeView(obj) :  obj;
       return subViews;
 
-    } else { // simple view
+    } else { // simple view v2
       //debug.log('ri: found simple view');
+
+      if (Agent.mnVersion === '3') return;
 
       return {
         _view: shouldSerialize ? serializeView(obj) :  obj
@@ -36,9 +49,8 @@
     }
   };
 
-  var _subViews = function(obj, shouldSerialize) {
+  var _subViews = function(regions, shouldSerialize) {
     var subViews = {};
-    var regions = (obj._regionManager || obj.regionManager)._regions;
     _.each(regions, function(region, regionName) {
       var subRegions = _regionInspector(region.currentView, shouldSerialize);
       subRegions._region = 'region' //region;
