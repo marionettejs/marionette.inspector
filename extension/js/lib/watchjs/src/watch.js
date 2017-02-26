@@ -105,49 +105,21 @@
     }
 
     var defineGetAndSet = function (obj, propName, getter, setter) {
-        try {
-
-
-            Object.observe(obj, function(changes) {
-                changes.forEach(function(change) {
-                    if (change.name === propName) {
-                        setter(change.object[change.name]);
-                    }
-                });
-            });
-
-        } catch(e) {
-
-            try {
-                    Object.defineProperty(obj, propName, {
-                            get: getter,
-                            set: setter,
-                            enumerable: true,
-                            configurable: true
-                    });
-            } catch(e2) {
-                try{
-                    Object.prototype.__defineGetter__.call(obj, propName, getter);
-                    Object.prototype.__defineSetter__.call(obj, propName, setter);
-                } catch(e3) {
-                    throw new Error("watchJS error: browser not supported :/")
-                }
-            }
-
-        }
+        Object.defineProperty(obj, propName, {
+            get: getter,
+            set: setter,
+            enumerable: true,
+            configurable: true
+        });
     };
 
     var defineProp = function (obj, propName, value) {
-        try {
-            Object.defineProperty(obj, propName, {
-                enumerable: false,
-                configurable: true,
-                writable: false,
-                value: value
-            });
-        } catch(error) {
-            obj[propName] = value;
-        }
+        Object.defineProperty(obj, propName, {
+            enumerable: false,
+            configurable: true,
+            writable: false,
+            value: value
+        });
     };
 
     var watch = function () {
