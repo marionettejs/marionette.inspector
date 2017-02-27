@@ -94,6 +94,7 @@ define([
     },
 
     emptyMoreInfo: function(data) {
+      this.highlightRow(data);
       this.getRegion('viewMoreInfo').show(new EmptyMoreInfo({
         name: data.name,
         path: data.path
