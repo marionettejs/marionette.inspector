@@ -1,3 +1,16 @@
+## V0.8
+#### 02-28-2017
+
+### Fixed
++ Loading Marionette v2.4 applications
++ Do not show dummy timestamp region in UI tree
++ Fix endless loop in WatchJS when observing view._events
+
+### Added
++ Support for Marionette v3 applications
++ Show a meaningful message in the side panel for empty regions
+
+
 ## V0.7
 #### 10-30-2015
 
