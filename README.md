@@ -85,7 +85,7 @@ Follows these these steps in the [Install Guide](docs/developing_locally.md) and
 
 #### 1. Download the Extension
 ```bash
-git clone git@github.com:marionettejs/marionette.inspector.git
+git clone https://github.com/marionettejs/marionette.inspector.git
 ```
 
 
