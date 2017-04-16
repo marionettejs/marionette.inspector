@@ -32,6 +32,10 @@ Once you've installed the Chrome extension, open the DevTools, click on the "Mar
 
 [Marionette Wires](https://marionette-wires.herokuapp.com/)
 
+### Watch the video
+
+[![screen shot 2014-12-18 at 10 31 32 pm](https://cloud.githubusercontent.com/assets/952783/5499855/ad455b4e-8705-11e4-86cb-fd47868e0cc8.png)](https://www.youtube.com/watch?v=jbGm3mJXh_s)
+
 ---
 ### Getting Started
 
