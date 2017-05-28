@@ -1,3 +1,9 @@
+## V0.8.1
+#### 05-28-2017
+
+### Fixed
++ Fix loading inspector in OS with case sensitive file system
+
 ## V0.8
 #### 02-28-2017
 
