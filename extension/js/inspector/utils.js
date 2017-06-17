@@ -1,20 +1,24 @@
-define(["underscore", "jquery"], function(_, $) {
+define([], function() {
     var utils = new (function() {
-
-        this.initialize = function() {
-            _.bindAll(this, 'httpRequest');
-        };
-
         this.httpRequest = function(method, url, callback, disableCaching) {
             var requestObj = {
-                type: method,
-                url: url
+                method: method
             };
             if (disableCaching === true) {
-                requestObj.cache = false;
+                requestObj.cache = 'no-cache';
             }
 
-            $.ajax(requestObj).always(callback); // the callback is called also if the request fails
+            fetch(url, requestObj)
+              .then(function(response) {
+                if (response.status >= 200 && response.status < 300) {
+                  response.text().then(callback);  
+                } else {  
+                  console.error('Error fetching ', url, ' - ', response.statusText);  
+                }
+              })
+              .catch(function() {
+                console.error('Error fetching ', url);
+              })
         };
 
         // String utility functions.
@@ -50,8 +54,6 @@ define(["underscore", "jquery"], function(_, $) {
                 return target;
             }
         }
-
-        this.initialize();
     })();
     return utils;
 });
