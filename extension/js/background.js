@@ -8,7 +8,7 @@
 var panelPorts = {};
 
 // Panel registration
-chrome.extension.onConnect.addListener(function(port) {
+chrome.runtime.onConnect.addListener(function(port) {
     if (port.name !== "devtoolspanel") return;
 
     port.onMessage.addListener(function(message) {
