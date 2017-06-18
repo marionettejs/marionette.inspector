@@ -1,6 +1,13 @@
 ;(function(Agent){
 
-  Agent.LazyWorker = Marionette.Object.extend({
+  Agent.LazyWorker = function() {
+    this.initTime = new Date();
+    this.queue = [];
+    this.startWork = _.debounce(this.startWork, this.deferTime);
+    // this.logSize();
+  };
+
+  _.extend(Agent.LazyWorker.prototype, Backbone.Events, {
 
     // time to wait until starting work
     deferTime: 200,
@@ -10,20 +17,13 @@
 
     jobId: 0,
 
-    initialize: function() {
-      this.initTime = new Date();
-      this.queue = [];
-      this.startWork = _.debounce(this.startWork, this.deferTime);
-      // this.logSize();
-    },
-
     push: function(job) {
       // console.log('** callee', Agent.stackFrame(8));
       // console.log('push called', this.queue.length, new Date() - this.initTime);
 
       job.jobId = this.jobId++;
       this.queue.push(job);
-      this.triggerMethod('push');
+      this.trigger('push');
       this.startWork();
     },
 
@@ -32,7 +32,7 @@
         return;
       }
 
-      this.triggerMethod('work:start');
+      this.trigger('work:start');
       // window.setTimeout(this.stopWork.bind(this), this.workTime);
       this.isWorking = true;
       this.startTime = new Date();
@@ -45,7 +45,7 @@
         if (!job) {
           //console.log('queue is empty', new Date() - this.startTime)
           this.stopWork();
-          this.triggerMethod('queue:empty');
+          this.trigger('queue:empty');
           return;
         }
 
@@ -67,7 +67,7 @@
       }
 
       //console.log('stop work called', new Date() - this.startTime);
-      this.triggerMethod('work:stop')
+      this.trigger('work:stop')
       this.isWorking = false;
     },
 
