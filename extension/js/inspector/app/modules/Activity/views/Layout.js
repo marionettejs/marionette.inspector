@@ -9,7 +9,7 @@ define([
   'app/modules/Activity/views/ActivityGraph'
 ], function(Marionette, tpl, Radio, ActivityNode, ActivityTree, ActionList, ActivityInfo, ActivityGraph) {
 
-  return Marionette.LayoutView.extend({
+  return Marionette.View.extend({
 
     template: tpl,
 

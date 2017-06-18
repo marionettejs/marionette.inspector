@@ -7,7 +7,7 @@ define([
   "util/presenters/currentValue"
 ], function(Marionette, tpl, Radio, client, logger, currentValue) {
 
-  return Marionette.LayoutView.extend({
+  return Marionette.View.extend({
 
     template: tpl,
 
@@ -116,6 +116,8 @@ define([
     onSearchUpdate: function(model, state) {
       this.ui.searchBtn.toggleClass('toggled-on', state);
     },
+
+    // todo: replace by templateContext
 
     serializeData: function() {
       var data = this.serializeModel(this.model);

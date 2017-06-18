@@ -11,7 +11,7 @@ define([
     SidebarPanesBehavior, ClickableProperties,
     presentListeners, presentAncestors) {
 
-  return Marionette.ItemView.extend({
+  return Marionette.View.extend({
 
     template: tpl,
 
@@ -29,6 +29,8 @@ define([
     },
 
     className: 'sidebar-panel',
+
+    // todo: replace by templateContext
 
     serializeData: function() {
       var infoItems = ['cid', 'id', '_pending', '_changing', '_listenerId', 'collection'];

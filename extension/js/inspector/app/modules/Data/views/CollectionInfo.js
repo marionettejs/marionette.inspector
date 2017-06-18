@@ -5,7 +5,7 @@ define([
   'app/behaviors/SidebarPanes'
 ], function(Marionette, Radio, tpl, SidebarPanesBehavior) {
 
-  return Marionette.ItemView.extend({
+  return Marionette.View.extend({
 
     template: tpl,
 
@@ -13,13 +13,6 @@ define([
       sidebarPanes: {
         behaviorClass: SidebarPanesBehavior,
       }
-    },
-
-    serializeData: function() {
-      var data = {};
-      _.extend(data, this.serializeModel(this.model));
-
-      return data;
     }
   });
 })

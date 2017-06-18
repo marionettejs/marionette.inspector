@@ -10,7 +10,7 @@ define([
   'util/presenters/currentValue'
 ], function(Backbone, Marionette, tpl, Radio, ModelList, ModelInfo, CollectionInfo, CollectionList, currentValue) {
 
-  return Marionette.LayoutView.extend({
+  return Marionette.View.extend({
 
     template: tpl,
 
@@ -47,7 +47,7 @@ define([
       });
 
       Radio.connectCommands('data', this.dataCommands, this);
-      this.bindEntityEvents(this.viewModel, this.viewModelEvents);
+      this.bindEvents(this.viewModel, this.viewModelEvents);
     },
 
     onNavClick: function(e) {
@@ -88,7 +88,8 @@ define([
         }));
       }
     },
-
+     
+    // todo: replace by templateContext 
     serializeData: function() {
       var data = {};
       data.active_nav = currentValue(

@@ -4,7 +4,7 @@ define([
   "text!templates/devTools/ui/loading.html",
 ], function(Marionette, Radio, tpl) {
 
-  return Marionette.ItemView.extend({
+  return Marionette.View.extend({
     template: tpl,
   });
 });

@@ -81,10 +81,10 @@ define([
       Radio.connectRequests('ui', this.uiRequests, this);
 
 
-      Marionette.bindEntityEvents(this, this.client, this.clientEvents);
+      Marionette.bindEvents(this, this.client, this.clientEvents);
 
       var regionTreeEvents = new ComponentReportToRegionTreeMap();
-      Marionette.bindEntityEvents(this, regionTreeEvents, this.regionTreeEvents);
+      Marionette.bindEvents(this, regionTreeEvents, this.regionTreeEvents);
     },
 
     requestView: function(cid) {

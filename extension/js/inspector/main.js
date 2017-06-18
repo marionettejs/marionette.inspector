@@ -9,7 +9,7 @@ require.config({
         jquery: '../lib/jquery/jquery',
         underscore: '../lib/underscore/underscore',
         backbone: '../lib/backbone/backbone',
-        radio: '../lib/backbone.radio/build/backbone.radio',
+        'backbone.radio': '../lib/backbone.radio/build/backbone.radio',
         marionette: '../lib/backbone.marionette/lib/backbone.marionette',
         text: '../lib/text/text',
         bootstrap: '../lib/bootstrap/dist/bootstrap',
@@ -101,11 +101,6 @@ require([
 
         window.app = new App();
         app.start();
-
-        app.module('Data', DataApp);
-        app.module('Radio', RadioApp);
-        app.module('UI', UIApp);
-        app.module('Activity', ActivityApp);
 
         if (window.appLoadCallback) {
           window.appLoadCallback();

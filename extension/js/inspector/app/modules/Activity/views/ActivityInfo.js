@@ -6,7 +6,7 @@ define([
   'app/behaviors/ClickableProperties'
 ], function(Marionette, Radio, tpl, SidebarPanesBehavior, ClickableProperties) {
 
-  var ActivityInfo = Marionette.ItemView.extend({
+  var ActivityInfo = Marionette.View.extend({
 
     template: tpl,
 
@@ -24,6 +24,7 @@ define([
       return Math.round(duration*1000)/1000;
     },
 
+    // todo replace by templateContext
     serializeData: function() {
       var data = ActivityInfo.__super__.serializeData.apply(this, arguments);
       data.duration = this.presentDuration();

@@ -40,12 +40,12 @@ function(Backbone, logger, Radio) {
         },
 
         runModule: function(moduleName, moduleClass, method, routeArgs) {
-            logger.log('router', 'starting module', moduleName);
+            logger.log('router', 'running module', moduleName, ' - method', method);
 
-            var module = this.app[moduleName];
+            var module = this.app.modules[moduleName];
 
             if (!module) {
-                module = this.app.module(moduleName, moduleClass);
+                module = this.app.modules[moduleName] = new moduleClass();
             }
 
             if (this.app.pageModule != module) {

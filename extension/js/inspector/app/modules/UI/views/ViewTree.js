@@ -44,7 +44,7 @@ define([
       this.viewModel = options.viewCollection.findView(this.model.get('cid'));
 
       if (this.viewModel) {
-        this.bindEntityEvents(this.viewModel, this.viewModelEvents);
+        this.bindEvents(this.viewModel, this.viewModelEvents);
         this.viewModel.treeProperties = _.clone(this.model.attributes);
         this.viewModel.treeProperties.isAttached = true
       }
@@ -141,6 +141,8 @@ define([
         path: '$el'
       });
     },
+
+    // todo: replace by templateContext
 
     serializeData: function() {
       var data = Tree.prototype.serializeData.apply(this, arguments);

@@ -1,7 +1,7 @@
 define(['backbone', 'marionette', 'app/modules/Activity/d3/graph', 'text!templates/devTools/activity/graph.html'
   ], function(Backbone, Marionette, Graph, tpl) {
 
-  var ActivityGraph = Backbone.Marionette.ItemView.extend({
+  var ActivityGraph = Backbone.Marionette.View.extend({
     
     template: tpl,
 
@@ -9,7 +9,7 @@ define(['backbone', 'marionette', 'app/modules/Activity/d3/graph', 'text!templat
 
     className: 'activity-graph',
 
-    defaults: {
+    options: {
       activityCollection: undefined
     },
 

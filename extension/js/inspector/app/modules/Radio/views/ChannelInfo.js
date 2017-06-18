@@ -6,7 +6,7 @@ define([
   'app/behaviors/ClickableProperties'
 ], function(Marionette, Radio, tpl, SidebarPanesBehavior, ClickableProperties) {
 
-  return Marionette.ItemView.extend({
+  return Marionette.View.extend({
 
     template: tpl,
 
@@ -18,7 +18,7 @@ define([
         behaviorClass: ClickableProperties
       }
     },
-
+    // todo: replace by templateContext
     serializeData: function() {
       var data = {};
       _.extend(data, this.serializeModel(this.model));

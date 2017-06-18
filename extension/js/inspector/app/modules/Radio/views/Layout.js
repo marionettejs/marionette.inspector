@@ -6,7 +6,7 @@ define([
   'app/modules/Radio/views/ChannelInfo',
 ], function(Marionette, tpl, Radio, ChannelList, ChannelInfo) {
 
-  return Marionette.LayoutView.extend({
+  return Marionette.View.extend({
 
     template: tpl,
 
