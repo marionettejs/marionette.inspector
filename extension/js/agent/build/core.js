@@ -14,17 +14,10 @@ if (typeof window.$ == "undefined") {
 this.$ = $ || window.$ || window.jQuery;
 var $ = this.$;
 
-// @include ../../lib/underscore-contrib/dist/underscore-contrib.js
-
-
 // @include ../../lib/backbone-no-amd.js
-// @include ../../lib/backbone.radio/build/backbone.radio.js
-// @include ../../lib/backbone.marionette/lib/backbone.marionette.js
 
-// define Backbone and Marionette locally in the agent closure
+// define Backbone locally in the agent closure
 var Backbone = this.Backbone;
-var Marionette = this.Marionette;
-
 
 var Agent = this;
 
@@ -33,8 +26,6 @@ var Agent = this;
   *
   */
 
-// @include ../../lib/function-bind-polyfill.js
-// @include ../../lib/function-performance-polyfill.js
 // @include ../../lib/watchjs/src/watch.js
 
 /*
