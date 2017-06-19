@@ -102,6 +102,11 @@ require([
         window.app = new App();
         app.start();
 
+        app.modules.UI = new UIApp();
+        app.modules.Data = new DataApp();
+        app.modules.Radio = new RadioApp();
+        app.modules.Activity = new ActivityApp();
+
         if (window.appLoadCallback) {
           window.appLoadCallback();
         }
