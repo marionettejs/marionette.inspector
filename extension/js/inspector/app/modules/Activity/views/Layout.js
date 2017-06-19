@@ -48,10 +48,7 @@ define([
 
     },
 
-    onBeforeRender: function() {
-    },
-
-    onBeforeShow: function() {
+    onRender: function() {
       this.actionCollection.resetCollapse();
       this.getRegion('activityList').show(new ActionList({
         collection: this.actionCollection
