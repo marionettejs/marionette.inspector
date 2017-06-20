@@ -59,10 +59,10 @@ define([
       this.$el.attr('class', this.className());
     },
 
-    serializeData: function() {
-      var data = Backbone.Marionette.View.prototype.serializeData.apply(this, this.model);
-      data.collapseClass = this.chevronClass();
-      return data;
+    templateContext: function() {
+      return {
+        collapseClass: this.chevronClass()
+      };
     },
 
     chevronClass: function() {

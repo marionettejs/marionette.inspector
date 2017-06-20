@@ -57,14 +57,11 @@ define([
       }
     },
 
-    // replace by templateContext
-
-    serializeData: function () {
-      var data = ActivityTree.__super__.serializeData.apply(this, arguments);
-      data.isRoot = this.model.level === 1;
-
+    templateContext: function () {
+      var data = {
+        isRoot: this.model.level === 1
+      };
       this.serializeEvent(data);
-
       return data;
     }
   });

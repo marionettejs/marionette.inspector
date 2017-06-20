@@ -30,25 +30,19 @@ define([
 
     className: 'sidebar-panel',
 
-    // todo: replace by templateContext
-
-    serializeData: function() {
+    templateContext: function() {
       var infoItems = ['cid', 'id', '_pending', '_changing', '_listenerId', 'collection'];
       var instancePropertes = [
         'changed', '_previousAttributes', 'attributes',
         '_events', '_className', '_requirePath'
       ];
 
-      var data = {};
-
-      _.extend(data, this.serializeModel(this.model));
-
-      data.ancestors = presentAncestors(data, infoItems, instancePropertes);
-      data.listeners = presentListeners(data._events);
-      data.info = _.pick(data.properties, infoItems);
-      data.properties = _.omit(data.properties, infoItems, instancePropertes);
-
-      return data;
+      return {
+        ancestors: presentAncestors(data, infoItems, instancePropertes),
+        listeners: presentListeners(data._events),
+        info: _.pick(data.properties, infoItems),
+        properties: _.omit(data.properties, infoItems, instancePropertes)
+      };
     }
   });
 })

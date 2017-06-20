@@ -17,12 +17,6 @@ define([
       clickableProperties: {
         behaviorClass: ClickableProperties
       }
-    },
-    // todo: replace by templateContext
-    serializeData: function() {
-      var data = {};
-      _.extend(data, this.serializeModel(this.model));
-      return data;
     }
   });
 })

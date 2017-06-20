@@ -88,15 +88,11 @@ define([
         }));
       }
     },
-     
-    // todo: replace by templateContext 
-    serializeData: function() {
-      var data = {};
-      data.active_nav = currentValue(
-        ['model', 'collection'],
-        this.viewModel.get('active')
-      )
-      return data;
+
+    templateContext: function() {
+      return {
+        active_nav: currentValue(['model', 'collection'], this.viewModel.get('active'))
+      };
     }
 
   });

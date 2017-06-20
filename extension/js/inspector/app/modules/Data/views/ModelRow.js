@@ -53,13 +53,11 @@ define([
     unhighlightRow: function() {
       this.$el.removeClass('bg-info');
     },
-    
-    // todo: replace by templateContext
-    serializeData: function() {
-      var data = {};
-      _.extend(data, this.serializeModel(this.model));
-      data.title_summary = _.keys(data.attributes.value).slice(0,2).join(", ") + " ..."
-      return data;
+
+    templateContext: function() {
+      return {
+        title_summary: _.keys(this.model.get('attributes').value).slice(0,2).join(", ") + " ..."
+      };
     }
   });
 })

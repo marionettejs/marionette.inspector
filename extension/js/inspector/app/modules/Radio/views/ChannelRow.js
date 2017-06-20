@@ -36,13 +36,6 @@ define([
 
     unhighlightRow: function() {
       this.$el.removeClass('bg-info');
-    },
-
-    // todo: replace by templateContext
-    serializeData: function() {
-      var data = {};
-      _.extend(data, this.serializeModel(this.model));
-      return data;
     }
   });
 })

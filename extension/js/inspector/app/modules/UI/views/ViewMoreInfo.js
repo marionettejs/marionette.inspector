@@ -223,16 +223,13 @@ define([
       return sortedAttributes;
     },
 
-    // todo: replace by templateContext
-
-    serializeData: function() {
+    templateContext: function() {
       var infoItems = ['cid', 'model', 'collection', 'parentClass', 'tagName', 'template'];
       var instanceProperties = [
         'options', '_events', 'events', '_events',
         'ui', 'triggers', 'modelEvents', 'collectionEvents', 'el', '$el'
       ];
-      var data = {};
-      _.extend(data, this.serializeModel(this.model));
+      var data = this.model.toJSON();
 
       data.model = this.presentModel();
       data.listeners = presentListeners(data._events);

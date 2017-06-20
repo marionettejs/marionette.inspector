@@ -94,14 +94,13 @@ define([
       this.$el.attr('class', this.className());
     },
 
-    serializeData: function() {
-      var data = Backbone.Marionette.CompositeView.prototype.serializeData.apply(this, this.model);
-      data.level = "level-"+this.model.level;
-      data.collapseClass = this.chevronClass();
-      data.hasNodes = this.model.hasNodes();
-      data.leafClass = this.model.hasNodes() ? 'is-parent' : 'is-leaf';
-
-      return data;
+    templateContext: function() {
+      return {
+        level: "level-"+this.model.level,
+        collapseClass: this.chevronClass(),
+        hasNodes: this.model.hasNodes(),
+        leafClass: this.model.hasNodes() ? 'is-parent' : 'is-leaf'
+      }
     },
 
     chevronClass: function() {
