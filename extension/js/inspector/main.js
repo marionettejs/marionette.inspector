@@ -87,6 +87,8 @@ require([
       return compiledTpl(data);
     };
 
+    Marionette.setEnabled('childViewEventPrefix', false);
+
     /*
      * This flag is used to turn on the recorder
      * for when you want to run the inspector in a sandboxed environment
