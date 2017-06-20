@@ -143,10 +143,12 @@ define([
     },
 
     templateContext: function() {
-      return {
+      var data = Tree.prototype.templateContext.apply(this, arguments);
+      Object.assign(data, {
         isRoot: this.model.get('name') === 'app',
         summary: (this.viewModel && this.viewModel.get('_className')) || this.model.get('name')
-      };
+      });
+      return data;
     }
 
   });

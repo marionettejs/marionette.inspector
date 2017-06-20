@@ -58,9 +58,10 @@ define([
     },
 
     templateContext: function () {
-      var data = {
+      var data = Tree.prototype.templateContext.apply(this, arguments);
+      Object.assign(data, {
         isRoot: this.model.level === 1
-      };
+      });
       this.serializeEvent(data);
       return data;
     }
