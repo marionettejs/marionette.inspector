@@ -13,7 +13,7 @@ define(['backbone', 'marionette', 'app/modules/Activity/d3/graph', 'text!templat
       activityCollection: undefined
     },
 
-    onShow: function() {
+    onAttach: function() {
 
       this.showSlider();
 
