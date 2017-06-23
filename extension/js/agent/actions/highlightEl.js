@@ -10,27 +10,6 @@
     highlightMaskEl.style['z-index'] = 10e10;
   });
 
-  function getOffset(el) {
-    var rect = el.getBoundingClientRect(),
-      scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-      scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
-  }
-
-  function setOffset(el, coord) {
-    var curOffset = getOffset(el),
-      curTop = parseFloat(el.style.top) || 0,
-      curLeft = parseFloat(el.style.left) || 0;
-
-    if ( typeof coord.top === 'number' ) {
-      el.style.top = (( coord.top - curOffset.top ) + curTop) + 'px';
-    }
-
-    if ( typeof coord.left === 'number' ) {
-      el.style.left = (( coord.left - curOffset.left ) + curLeft) + 'px';
-    }
-  }
-
   Agent.highlightEl = function($el) {
     // todo: support zepto
     var el = $el.jquery ? $el[0] : $el
@@ -38,16 +17,16 @@
       return;
     }
 
-    var el_offset = getOffset(el);
+    var el_offset = Agent.getElementOffset(el);
 
-    var isPresent = _.isEqual(getOffset(highlightMaskEl), el_offset);
+    var isPresent = _.isEqual(Agent.getElementOffset(highlightMaskEl), el_offset);
     if (isPresent && highlightMaskEl.style.display !== 'none') {
       return;
     }
 
     highlightMaskEl.style.display = 'block';
     highlightMaskEl.style['pointer-events'] = 'none';
-    setOffset(highlightMaskEl, el_offset);
+    Agent.setElementOffset(highlightMaskEl, el_offset);
     highlightMaskEl.style.height = el.offsetHeight + 'px';
     highlightMaskEl.style.width = el.offsetWidth + 'px';
 

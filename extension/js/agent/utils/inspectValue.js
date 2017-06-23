@@ -105,7 +105,8 @@
     else if (type === 'date') { return value.toString(); }
     else if (type === 'string' || type === 'number' || type === 'boolean') { return value; }
     else if (value instanceof Error) { return 'Error: ' + value.message; }
-    else if (jQuery && value instanceof jQuery) { return formatJquery(value); }
+    // todo: support zepto
+    else if (type === 'object' && value.jquery) { return formatJquery(value); }
     else if (type === 'array') { return formatArray(value); }
     else if (type === 'object') { return formatObject(value); }
     else {
