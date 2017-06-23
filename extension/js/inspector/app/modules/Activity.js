@@ -36,7 +36,7 @@ define([
     },
 
     setupEvents: function() {
-      Marionette.bindEntityEvents(this, this.client, this.clientEvents);
+      Marionette.bindEvents(this, this.client, this.clientEvents);
       Radio.connectRequests('activity', this.activityRequests, this);
     },
 

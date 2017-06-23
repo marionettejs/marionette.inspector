@@ -3,7 +3,7 @@ define([
   'text!templates/devTools/radio/row.html',
   'util/Radio',
 ], function(Marionette, tpl, Radio) {
-  return Marionette.ItemView.extend({
+  return Marionette.View.extend({
     template: tpl,
 
     tagName: 'tr',
@@ -36,12 +36,6 @@ define([
 
     unhighlightRow: function() {
       this.$el.removeClass('bg-info');
-    },
-
-    serializeData: function() {
-      var data = {};
-      _.extend(data, this.serializeModel(this.model));
-      return data;
     }
   });
 })

@@ -13,7 +13,7 @@ define([
   SidebarPanesBehavior, formatEL, ClickableProperties,
   presentListeners, presentAncestors, sortAttributes) {
 
-  return Marionette.ItemView.extend({
+  return Marionette.View.extend({
     template: tpl,
 
     events: {
@@ -223,14 +223,13 @@ define([
       return sortedAttributes;
     },
 
-    serializeData: function() {
+    templateContext: function() {
       var infoItems = ['cid', 'model', 'collection', 'parentClass', 'tagName', 'template'];
       var instanceProperties = [
         'options', '_events', 'events', '_events',
         'ui', 'triggers', 'modelEvents', 'collectionEvents', 'el', '$el'
       ];
-      var data = {};
-      _.extend(data, this.serializeModel(this.model));
+      var data = this.model.toJSON();
 
       data.model = this.presentModel();
       data.listeners = presentListeners(data._events);

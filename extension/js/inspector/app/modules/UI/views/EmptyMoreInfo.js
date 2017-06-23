@@ -6,7 +6,7 @@ define([
   'logger'
 ], function(Marionette, Backbone, tpl, Radio, logger) {
 
-  return Marionette.ItemView.extend({
+  return Marionette.View.extend({
 
     template: tpl,
 

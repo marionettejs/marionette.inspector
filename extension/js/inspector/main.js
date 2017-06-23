@@ -9,7 +9,7 @@ require.config({
         jquery: '../lib/jquery/jquery',
         underscore: '../lib/underscore/underscore',
         backbone: '../lib/backbone/backbone',
-        radio: '../lib/backbone.radio/build/backbone.radio',
+        'backbone.radio': '../lib/backbone.radio/build/backbone.radio',
         marionette: '../lib/backbone.marionette/lib/backbone.marionette',
         text: '../lib/text/text',
         bootstrap: '../lib/bootstrap/dist/bootstrap',
@@ -87,6 +87,8 @@ require([
       return compiledTpl(data);
     };
 
+    Marionette.setEnabled('childViewEventPrefix', false);
+
     /*
      * This flag is used to turn on the recorder
      * for when you want to run the inspector in a sandboxed environment
@@ -102,10 +104,10 @@ require([
         window.app = new App();
         app.start();
 
-        app.module('Data', DataApp);
-        app.module('Radio', RadioApp);
-        app.module('UI', UIApp);
-        app.module('Activity', ActivityApp);
+        app.modules.UI = new UIApp();
+        app.modules.Data = new DataApp();
+        app.modules.Radio = new RadioApp();
+        app.modules.Activity = new ActivityApp();
 
         if (window.appLoadCallback) {
           window.appLoadCallback();

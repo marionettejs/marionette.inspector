@@ -1,6 +1,6 @@
 define([
   'marionette',
-  'radio',
+  'backbone.radio',
 ], function(Marionette, Radio) {
 
   Radio.connectCommands = function(channelName, commands, context) {
@@ -8,7 +8,7 @@ define([
             throw new Error('commands cannot be empty');
         }
 
-        var normalizedCommands = Marionette.normalizeMethods.call(context, commands);
+        var normalizedCommands = Marionette.normalizeMethods(context, commands);
         var channel = Radio.channel(channelName);
 
         _.each(normalizedCommands, function(fn, eventName) {
@@ -33,7 +33,7 @@ define([
             throw new Error('events cannot be empty');
         }
 
-        var normalizedEvents = Marionette.normalizeMethods.call(context, events);
+        var normalizedEvents = Marionette.normalizeMethods(context, events);
         var channel = Radio.channel(channelName);
 
         _.each(normalizedEvents, function(fn, eventName) {
@@ -46,7 +46,7 @@ define([
             throw new Error('events cannot be empty');
         }
 
-        var normalizedEvents = Marionette.normalizeMethods.call(context, events);
+        var normalizedEvents = Marionette.normalizeMethods(context, events);
         var channel = Radio.channel(channelName);
 
         _.each(normalizedEvents, function(fn, eventName) {
@@ -59,7 +59,7 @@ define([
             throw new Error('events cannot be empty');
         }
 
-        var normalizedRequests = Marionette.normalizeMethods.call(context, requests);
+        var normalizedRequests = Marionette.normalizeMethods(context, requests);
         var channel = Radio.channel(channelName);
 
         _.each(normalizedRequests, function(fn, eventName) {

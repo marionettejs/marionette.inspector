@@ -7,7 +7,7 @@ define([
   "util/presenters/currentValue"
 ], function(Marionette, tpl, Radio, client, logger, currentValue) {
 
-  return Marionette.LayoutView.extend({
+  return Marionette.View.extend({
 
     template: tpl,
 
@@ -64,8 +64,8 @@ define([
 
     onToolChange: function(model, tool) {
       this.ui.tools.removeClass('active');
-      var tool = this.$el.find('[data-tool="'+tool+'"]');
-      tool.addClass('active');
+      var $tool = this.$el.find('[data-tool="'+tool+'"]');
+      $tool.addClass('active');
     },
 
     onToolClick: function(e) {
@@ -96,8 +96,6 @@ define([
      * in the browser. We keep the `searchOn` field
      */
     onClickSearch: function(e) {
-      var $current = $(e.currentTarget);
-
       if (!this.model.get('isAgentActive')) {
         logger.log('app', 'cannot select tool when the agent is not active', e);
         return;
@@ -117,10 +115,10 @@ define([
       this.ui.searchBtn.toggleClass('toggled-on', state);
     },
 
-    serializeData: function() {
-      var data = this.serializeModel(this.model);
-      data.active_tool = currentValue(this.tools, this.model.get('tool'));
-      return data;
+    templateContext: function() {
+      return {
+        active_tool: currentValue(this.tools, this.model.get('tool'))
+      };
     }
   });
 });

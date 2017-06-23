@@ -6,7 +6,7 @@ define([
   "text!templates/devTools/activity/action.html",
 ], function(Backbone, Marionette, Radio, ActivityTree, tpl) {
 
-  var Action = Backbone.Marionette.LayoutView.extend({
+  var Action = Backbone.Marionette.View.extend({
 
     template: tpl,
 
@@ -59,10 +59,10 @@ define([
       this.$el.attr('class', this.className());
     },
 
-    serializeData: function() {
-      var data = Backbone.Marionette.ItemView.prototype.serializeData.apply(this, this.model);
-      data.collapseClass = this.chevronClass();
-      return data;
+    templateContext: function() {
+      return {
+        collapseClass: this.chevronClass()
+      };
     },
 
     chevronClass: function() {

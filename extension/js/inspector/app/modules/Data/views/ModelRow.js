@@ -3,7 +3,7 @@ define([
   'text!templates/devTools/data/row.html',
   'util/Radio',
 ], function(Marionette, tpl, Radio) {
-  return Marionette.ItemView.extend({
+  return Marionette.View.extend({
     template: tpl,
 
     tagName: 'tr',
@@ -54,11 +54,10 @@ define([
       this.$el.removeClass('bg-info');
     },
 
-    serializeData: function() {
-      var data = {};
-      _.extend(data, this.serializeModel(this.model));
-      data.title_summary = _.keys(data.attributes.value).slice(0,2).join(", ") + " ..."
-      return data;
+    templateContext: function() {
+      return {
+        title_summary: _.keys(this.model.get('attributes').value).slice(0,2).join(", ") + " ..."
+      };
     }
   });
 })

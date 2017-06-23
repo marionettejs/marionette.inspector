@@ -6,7 +6,7 @@ define([
   'app/behaviors/ClickableProperties'
 ], function(Marionette, Radio, tpl, SidebarPanesBehavior, ClickableProperties) {
 
-  return Marionette.ItemView.extend({
+  return Marionette.View.extend({
 
     template: tpl,
 
@@ -17,12 +17,6 @@ define([
       clickableProperties: {
         behaviorClass: ClickableProperties
       }
-    },
-
-    serializeData: function() {
-      var data = {};
-      _.extend(data, this.serializeModel(this.model));
-      return data;
     }
   });
 })

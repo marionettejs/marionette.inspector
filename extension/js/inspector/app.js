@@ -1,7 +1,7 @@
 define([
   'backbone',
   'marionette',
-  'radio',
+  'backbone.radio',
   'logger',
   'util/Router',
   'util/ModuleRoutes',
@@ -14,11 +14,14 @@ define([
 
   return Marionette.Application.extend({
 
-    appCommands: {
+    channelName: 'app',
+
+    radioRequests: {
       'show:tool': 'showTool',
       'navigate': 'navigate',
       'search:stop': 'stopSearch',
-      'navigate:knownObject': 'navigateToKnowonObject'
+      'navigate:knownObject': 'navigateToKnowonObject',
+      'active:tool': 'activeTool'
     },
 
     clientEvents: {
@@ -29,16 +32,14 @@ define([
       'updated': 'onPageUpdated'
     },
 
-    appRequests: {
-      'active:tool': 'activeTool'
-    },
+    region: '.app',
 
     onStart: function() {
+      this.modules = {};
       this.logger = logger;
 
       logger.log('app', 'start');
 
-      this.addRegions({layout: ".app"});
       this.client = client;
       this.router = new Router(this, moduleRoutes);
       this.router.begin();
@@ -46,7 +47,7 @@ define([
       this.setupData();
       this.setupEvents();
 
-      this.layout.show(new Layout({
+      this.getRegion().show(new Layout({
         model: this.appData
       }));
     },
@@ -63,9 +64,7 @@ define([
     },
 
     setupEvents: function() {
-      Radio.connectRequests('app', this.appRequests, this);
-      Radio.connectCommands('app', this.appCommands, this);
-      Marionette.bindEntityEvents(this, this.client, this.clientEvents);
+      Marionette.bindEvents(this, this.client, this.clientEvents);
     },
 
     activeTool: function() {
@@ -75,7 +74,7 @@ define([
     showTool: function(tool, layout) {
       logger.log('app', 'showing tool', tool);
       this.appData.set('tool', tool);
-      this.layout.currentView.tool.show(layout);
+      this.getRegion().currentView.getRegion('tool').show(layout);
     },
 
     onPageReady: function() {

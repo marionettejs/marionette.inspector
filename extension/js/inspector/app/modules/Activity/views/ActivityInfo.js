@@ -6,7 +6,7 @@ define([
   'app/behaviors/ClickableProperties'
 ], function(Marionette, Radio, tpl, SidebarPanesBehavior, ClickableProperties) {
 
-  var ActivityInfo = Marionette.ItemView.extend({
+  var ActivityInfo = Marionette.View.extend({
 
     template: tpl,
 
@@ -24,12 +24,11 @@ define([
       return Math.round(duration*1000)/1000;
     },
 
-    serializeData: function() {
-      var data = ActivityInfo.__super__.serializeData.apply(this, arguments);
-      data.duration = this.presentDuration();
-      data.hasArgs = this.model.get('args') && this.model.get('args').length;
-
-      return data;
+    templateContext: function() {
+      return {
+        duration: this.presentDuration(),
+        hasArgs: this.model.get('args') && this.model.get('args').length
+      };
     }
   });
 

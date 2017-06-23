@@ -12,7 +12,7 @@ define([
 ], function(Marionette, Backbone, tpl, Radio, logger,
    EmptyMoreInfo, ViewMoreInfo, TreeNode, ViewTree, LoadingView) {
 
-  return Marionette.LayoutView.extend({
+  return Marionette.View.extend({
 
     template: tpl,
 

@@ -42,43 +42,10 @@ define([
       this.events = _.extend({}, Tree.prototype.events, this.events || {});
       this.modelEvents = _.extend({}, Tree.prototype.modelEvents, this.modelEvents || {});
 
-      this._onCollectionFinishAdding = _.debounce(this._onCollectionFinishAdding, 50);
-
       Backbone.Marionette.CompositeView.prototype.constructor.apply(this, arguments);
 
       this.treeCount = ++window.treeCount;
       // console.log('!!! new tree', this.treeCount, this.el);
-    },
-
-    /**
-     We're overriding CollectionView._onCollectionAdd here so that we can
-     do something pretty tricky:
-
-      It turns out that when a collection receives an add w/ a large array e.g. `cv.add([{},{},{}])`
-      Each add will update the dom. We change that default behavior, by starting a
-      buffer session and finishing after no more add's happen after a certain threshold.
-
-      This fix/hack saved chrome it twas that bad.
-     */
-    _onCollectionAdd: function() {
-      if (!this.isAdding) {
-        this.isAdding = true;
-        this.startBuffering();
-        this._onCollectionFinishAdding();
-      }
-
-      // console.log('adding collection item', this.cid, this.isBuffering);
-      Marionette.CollectionView.prototype._onCollectionAdd.apply(this, arguments);
-    },
-
-    _onCollectionFinishAdding: function() {
-      if (!this.isAdding) {
-        return;
-      }
-
-      // console.log('finished adding collection', this.cid);
-      this.isAdding = false;
-      this.endBuffering();
     },
 
     onClickToggle: function() {
@@ -127,14 +94,13 @@ define([
       this.$el.attr('class', this.className());
     },
 
-    serializeData: function() {
-      var data = Backbone.Marionette.CompositeView.prototype.serializeData.apply(this, this.model);
-      data.level = "level-"+this.model.level;
-      data.collapseClass = this.chevronClass();
-      data.hasNodes = this.model.hasNodes();
-      data.leafClass = this.model.hasNodes() ? 'is-parent' : 'is-leaf';
-
-      return data;
+    templateContext: function() {
+      return {
+        level: "level-"+this.model.level,
+        collapseClass: this.chevronClass(),
+        hasNodes: this.model.hasNodes(),
+        leafClass: this.model.hasNodes() ? 'is-parent' : 'is-leaf'
+      }
     },
 
     chevronClass: function() {

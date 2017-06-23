@@ -44,7 +44,7 @@ define([
       this.viewModel = options.viewCollection.findView(this.model.get('cid'));
 
       if (this.viewModel) {
-        this.bindEntityEvents(this.viewModel, this.viewModelEvents);
+        this.bindEvents(this.viewModel, this.viewModelEvents);
         this.viewModel.treeProperties = _.clone(this.model.attributes);
         this.viewModel.treeProperties.isAttached = true
       }
@@ -142,13 +142,12 @@ define([
       });
     },
 
-    serializeData: function() {
-      var data = Tree.prototype.serializeData.apply(this, arguments);
-      data.isRoot = this.model.get('name') === 'app';
-
-      data.summary = (this.viewModel && this.viewModel.get('_className')) ||
-       this.model.get('name');
-
+    templateContext: function() {
+      var data = Tree.prototype.templateContext.apply(this, arguments);
+      Object.assign(data, {
+        isRoot: this.model.get('name') === 'app',
+        summary: (this.viewModel && this.viewModel.get('_className')) || this.model.get('name')
+      });
       return data;
     }
 

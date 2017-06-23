@@ -9,7 +9,7 @@ define([
   'app/modules/Activity/views/ActivityGraph'
 ], function(Marionette, tpl, Radio, ActivityNode, ActivityTree, ActionList, ActivityInfo, ActivityGraph) {
 
-  return Marionette.LayoutView.extend({
+  return Marionette.View.extend({
 
     template: tpl,
 
@@ -48,10 +48,7 @@ define([
 
     },
 
-    onBeforeRender: function() {
-    },
-
-    onBeforeShow: function() {
+    onRender: function() {
       this.actionCollection.resetCollapse();
       this.getRegion('activityList').show(new ActionList({
         collection: this.actionCollection
