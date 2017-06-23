@@ -14,6 +14,9 @@ if (typeof window.$ == "undefined") {
 this.$ = $ || window.$ || window.jQuery;
 var $ = this.$;
 
+// @include ../../lib/nanodom.js
+var nanodom = this.nanodom;
+
 // @include ../../lib/backbone-events-standalone/backbone-events-standalone.js
 
 // define BackboneEvents locally in the agent closure

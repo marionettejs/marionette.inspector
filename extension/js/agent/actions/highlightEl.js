@@ -1,45 +1,65 @@
 ;(function(Agent) {
 
-  var $highlightMask;
+  var highlightMaskEl;
 
   // setup the highlight mask
-  $(document).ready(function() {
-    $highlightMask = $('<div id="highlightMask" class="marionette-inspector-highlighted-element" style="position: absolute;">');
-    $('body').prepend($highlightMask);
-    $highlightMask.css('z-index', 10e10);
+  document.addEventListener("DOMContentLoaded", function() {
+    var $highlightMask = nanodom('<div id="highlightMask" class="marionette-inspector-highlighted-element" style="position: absolute;">');
+    nanodom('body').prepend($highlightMask);
+    highlightMaskEl = $highlightMask[0];
+    highlightMaskEl.style['z-index'] = 10e10;
   });
 
+  function getOffset(el) {
+    var rect = el.getBoundingClientRect(),
+      scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+      scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+  }
+
+  function setOffset(el, coord) {
+    var curOffset = getOffset(el),
+      curTop = parseFloat(el.style.top) || 0,
+      curLeft = parseFloat(el.style.left) || 0;
+
+    if ( typeof coord.top === 'number' ) {
+      el.style.top = (( coord.top - curOffset.top ) + curTop) + 'px';
+    }
+
+    if ( typeof coord.left === 'number' ) {
+      el.style.left = (( coord.left - curOffset.left ) + curLeft) + 'px';
+    }
+  }
+
   Agent.highlightEl = function($el) {
-    if (!$el || !$highlightMask) {
+    // todo: support zepto
+    var el = $el.jquery ? $el[0] : $el
+    if (!(el instanceof HTMLElement) || !highlightMaskEl) {
       return;
     }
 
-    if (!($el instanceof jQuery)) {
-      $el = $($el);
-    }
+    var el_offset = getOffset(el);
 
-    var el_offset = $el.offset();
-
-    var isPresent = _.isEqual($highlightMask.offset(), el_offset);
-    if (isPresent && $highlightMask.is(":visible")) {
+    var isPresent = _.isEqual(getOffset(highlightMaskEl), el_offset);
+    if (isPresent && highlightMaskEl.style.display !== 'none') {
       return;
     }
 
-    $highlightMask.css('display', 'block');
-    $highlightMask.css('pointer-events', 'none')
-    $highlightMask.offset(el_offset);
-    $highlightMask.height($el.outerHeight());
-    $highlightMask.width($el.outerWidth());
+    highlightMaskEl.style.display = 'block';
+    highlightMaskEl.style['pointer-events'] = 'none';
+    setOffset(highlightMaskEl, el_offset);
+    highlightMaskEl.style.height = el.offsetHeight + 'px';
+    highlightMaskEl.style.width = el.offsetWidth + 'px';
 
     // debug.log('highlight', $el.get(0));
   };
 
   Agent.unhighlightEl = function() {
-    if (!$highlightMask) {
+    if (!highlightMaskEl) {
       return;
     }
 
-    $highlightMask.css('display', 'none');
+    highlightMaskEl.style.display = 'none';
   };
 
 
