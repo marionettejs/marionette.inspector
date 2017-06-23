@@ -14,10 +14,10 @@ if (typeof window.$ == "undefined") {
 this.$ = $ || window.$ || window.jQuery;
 var $ = this.$;
 
-// @include ../../lib/backbone-no-amd.js
+// @include ../../lib/backbone-events-standalone/backbone-events-standalone.js
 
-// define Backbone locally in the agent closure
-var Backbone = this.Backbone;
+// define BackboneEvents locally in the agent closure
+var BackboneEvents = this.BackboneEvents || window.BackboneEvents;
 
 var Agent = this;
 
