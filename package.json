@@ -29,7 +29,7 @@
     "chai-jquery": "^2.0.0",
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
-    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-mocha": "^1.0.4",
     "grunt-preprocess": "^5.1.0",
