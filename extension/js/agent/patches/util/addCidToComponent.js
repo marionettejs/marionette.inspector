@@ -8,7 +8,7 @@
   */
 
   Agent.addCidToComponent = function(object) {
-    Agent.setHiddenProperty(object, 'cid',  _.uniqueId('c'));
+    if (!object.cid) Agent.setHiddenProperty(object, 'cid',  _.uniqueId('c'));
   }
 
 }(Agent));
