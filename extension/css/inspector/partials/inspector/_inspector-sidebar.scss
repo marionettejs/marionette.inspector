@@ -223,10 +223,10 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    -webkit-user-select: text;
+    user-select: text;
     cursor: default;
-    padding-top: 2px;
-    line-height: 12px;
+    padding-top: 1px;
+    line-height: 13px;
 }
 
 .properties-tree li.parent {
