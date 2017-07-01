@@ -5,9 +5,10 @@
     // debug.log('serializeView', view)
 
     if (!_.isObject(view)) {
-      return {};
+      return data;
     }
 
+    var knownType = Agent.knownType(view);
 
     data.cid = view.cid;
     data.isLoading = false; // set when a view is registered, but not serialized
@@ -25,8 +26,8 @@
     data.ancestorInfo = Agent.ancestorInfo(view);
     data._requirePath = view._requirePath;
     data._className = Agent.serializeClassName(view);
-    data.parentClass = Agent.isKnownType(view) ? Agent.knownType(view).name : '';
-    data.inspect = Agent.inspectValue(view);
+    data.parentClass = knownType ? knownType.name : '';
+    data.inspect = Agent.inspectValue(view, undefined, knownType);
     data.classId = Agent.getHiddenProperty(view, 'classId');
 
     if (view.model) {

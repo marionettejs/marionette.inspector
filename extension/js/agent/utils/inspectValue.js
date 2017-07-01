@@ -32,17 +32,15 @@
   var formatArray = function(value) {
     if (value.length === 0) { return '[]'; }
 
-    var ret;
+    var ret, obj = value[0], knownType = Agent.knownType(obj);
 
-    if (Agent.isKnownType(value[0])) {
-      ret = Agent.knownTypeString(value[0]);
+    if (knownType) {
+      ret = knownType.toString(obj);
     } else {
-      ret = inspect(value[0]);
+      ret = inspect(obj);
     }
 
-    var suffix = ' ]';
-
-    if(value.length > 1) suffix = ', ... ]';
+    var suffix = (value.length > 1) ? ', ... ]' : ' ]';
 
     return '[ ' + ret + suffix;
   }
@@ -69,7 +67,9 @@
       }
       t = typeOf(v);
 
-      if (Agent.isKnownType(v)) { v = Agent.knownTypeString(v); }
+      var knownType = Agent.knownType(v);
+
+      if (knownType) { v = knownType.toString(v); }
       else if (v === 'toString') { continue; } // ignore useless items
       else if (t === 'function') { v = 'function() {}'; }
       else if (t === 'array') { v = '[Array : ' + v.length + ']'; }
@@ -78,9 +78,7 @@
       ret.push(key + ': ' + v);
     };
 
-    var suffix = ' }';
-
-    if(broken) suffix = ' ...}';
+    var suffix = broken ? ' ...}' : ' }';
 
     return '{ ' + ret.join(', ') + suffix;
   }
@@ -120,11 +118,10 @@
    *   {type:'object', inspect:"{a: 2, b: 3, ... }"}
    *
    */
-  Agent.inspectValue = function(value, object) {
-    var key = this.findKey(object, value);
+  Agent.inspectValue = function(value, object, type = this.knownType(value)) {
+    var key = object ? this.findKey(object, value) : '';
 
-    if (this.isKnownType(value)) {
-      var type = this.knownType(value);
+    if (type) {
       return {
         type: 'type-' + type.name,
         inspect: type.str,

@@ -65,6 +65,8 @@
 
       _.each(marionetteClasses, Agent.patchBackboneTrigger, this);
 
+      Agent.initializeKnownTypes();
+
       Agent.markEvent('start', {
         marionette_version: Marionette.VERSION,
         backbone_version: Backbone.VERSION,
