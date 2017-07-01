@@ -32,36 +32,32 @@
     var WatchJS = {
         noMore: false
     },
+    toString = {}.toString,
     lengthsubjects = [];
 
-    var isFunction = function (functionToCheck) {
-            var getType = {};
-            return functionToCheck && getType.toString.call(functionToCheck) == '[object Function]';
-    };
-
-    var isInt = function (x) {
-        return x % 1 === 0;
+    var isFunction = function (fn) {
+        return fn && toString.call(fn) === '[object Function]';
     };
 
     var isArray = function(obj) {
-        return Object.prototype.toString.call(obj) === '[object Array]';
+        return Array.isArray(obj);
     };
 
     var getObjDiff = function(a, b){
         var aplus = [],
-        bplus = [];
+        bplus = [], attr;
 
-        if(!(typeof a == "string") && !(typeof b == "string")){
+        if(!(typeof a === "string") && !(typeof b === "string")){
 
             if (isArray(a)) {
-                for (var i=0; i<a.length; i++) {
+                for (var i = 0; i < a.length; i++) {
                     if (b[i] === undefined) aplus.push(i);
                 }
             } else {
-                for(var i in a){
-                    if (a.hasOwnProperty(i)) {
-                        if(b && !b.hasOwnProperty(i)) {
-                            aplus.push(i);
+                for(attr in a){
+                    if (a.hasOwnProperty(attr)) {
+                        if(b && !b.hasOwnProperty(attr)) {
+                            aplus.push(attr);
                         }
                     }
                 }
@@ -72,10 +68,10 @@
                     if (a[j] === undefined) bplus.push(j);
                 }
             } else {
-                for(var j in b){
-                    if (b.hasOwnProperty(j)) {
-                        if(a && !a.hasOwnProperty(j)) {
-                            bplus.push(j);
+                for(attr in b){
+                    if (b.hasOwnProperty(attr)) {
+                        if(a && !a.hasOwnProperty(attr)) {
+                            bplus.push(attr);
                         }
                     }
                 }
@@ -90,7 +86,7 @@
 
     var clone = function(obj){
 
-        if (null == obj || "object" != typeof obj) {
+        if (!obj || "object" !== typeof obj) {
             return obj;
         }
 
@@ -137,7 +133,7 @@
 
     var watchAll = function (obj, watcher, level, addNRemove) {
 
-        if ((typeof obj == "string") || (!(obj instanceof Object) && !isArray(obj))) { //accepts only objects and array (not string)
+        if ((typeof obj === "string") || (!(obj instanceof Object) && !isArray(obj))) { //accepts only objects and array (not string)
             return;
         }
 
@@ -150,9 +146,9 @@
             }
         } else {
             for (var prop2 in obj) { //for each attribute if obj is an object
-				if (prop2 == "$val") {
-					continue;
-				}
+                if (prop2 === "$val") {
+                  continue;
+                }
 
                 if (Object.prototype.hasOwnProperty.call(obj, prop2)) {
                     props.push(prop2); //put in the props
@@ -170,7 +166,7 @@
 
     var watchMany = function (obj, props, watcher, level, addNRemove) {
 
-        if ((typeof obj == "string") || (!(obj instanceof Object) && !isArray(obj))) { //accepts only objects and array (not string)
+        if ((typeof obj === "string") || (!(obj instanceof Object) && !isArray(obj))) { //accepts only objects and array (not string)
             return;
         }
 
@@ -182,7 +178,7 @@
     };
 
     var watchOne = function (obj, prop, watcher, level, addNRemove) {
-        if ((typeof obj == "string") || (!(obj instanceof Object) && !isArray(obj)) || prop instanceof Object) { //accepts only objects and array (not string)
+        if ((typeof obj === "string") || (!(obj instanceof Object) && !isArray(obj)) || prop instanceof Object) { //accepts only objects and array (not string)
             return;
         }
 
@@ -351,7 +347,7 @@
             for (var i=0; i<obj.watchers[prop].length; i++) {
                 var w = obj.watchers[prop][i];
 
-                if(w == watcher) {
+                if(w === watcher) {
                     obj.watchers[prop].splice(i, 1);
                 }
             }
@@ -431,7 +427,7 @@
         for (var i=0; i<lengthsubjects.length; i++) {
             var subj = lengthsubjects[i];
 
-            if (subj.obj == obj && subj.prop == prop && subj.watcher == watcher) {
+            if (subj.obj === obj && subj.prop === prop && subj.watcher === watcher) {
                 lengthsubjects.splice(i, 1);
             }
         }
