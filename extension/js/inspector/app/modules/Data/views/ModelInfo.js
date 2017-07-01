@@ -32,16 +32,18 @@ define([
 
     templateContext: function() {
       var infoItems = ['cid', 'id', '_pending', '_changing', '_listenerId', 'collection'];
-      var instancePropertes = [
+      var instanceProperties = [
         'changed', '_previousAttributes', 'attributes',
         '_events', '_className', '_requirePath'
       ];
 
+      var data = this.model.toJSON();
+
       return {
-        ancestors: presentAncestors(data, infoItems, instancePropertes),
+        ancestors: presentAncestors(data, infoItems, instanceProperties),
         listeners: presentListeners(data._events),
         info: _.pick(data.properties, infoItems),
-        properties: _.omit(data.properties, infoItems, instancePropertes)
+        properties: _.omit(data.properties, infoItems, instanceProperties)
       };
     }
   });
