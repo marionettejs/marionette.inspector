@@ -27,7 +27,7 @@
   };
 
   var patchModelAttributesChange = _.debounce(function(model, prop, action, difference, oldvalue) {
-    var data = Agent.lazyWorker.push({
+    Agent.lazyWorker.push({
         context: Agent,
         args: [model],
         callback: function(model) {
@@ -52,12 +52,12 @@
           callback: function(model) {
             // registra il nuovo componente dell'app
             var data = Agent.serializeModel(model);
-            var modelIndex = Agent.registerAppComponent('Model', model, data);
+            Agent.registerAppComponent('Model', model, data);
           }
         });
 
         // monitora i cambiamenti alle proprietà d'interesse del componente dell'app
-        Agent.onChange(model.attributes, _.partial(patchModelAttributesChange, model))
+        Agent.onChange(model.attributes, _.partial(patchModelAttributesChange, model));
 
         Agent.onDefined(model, '_events', function() {
           Agent.onChange(model._events, _.partial(patchModelEventsChanges, model));

@@ -11,8 +11,7 @@
 
     Agent.patchBackboneComponent(MarionetteController, function(controller) { // on new instance
       Agent.addCidToComponent(controller);
-      var data = {};
-      var controllerIndex = Agent.registerAppComponent('Controller', controller, data);
+      Agent.registerAppComponent('Controller', controller, {});
     });
   };
 

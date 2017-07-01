@@ -21,7 +21,7 @@ define([
     },
 
     onClientEvent: function(eventName, options) {
-      if (eventName != "agent:trigger") {
+      if (eventName !== "agent:trigger") {
         return;
       }
 

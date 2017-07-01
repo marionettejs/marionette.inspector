@@ -56,7 +56,6 @@
 
         // function signature: trigger(eventName, arg1, arg2, ...)
         var args  = _.rest(arguments);
-        var context = this;
 
         depth++;
         var start = performance.now();

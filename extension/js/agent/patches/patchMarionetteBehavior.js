@@ -2,12 +2,11 @@
 
   // @private
   Agent.patchMarionetteBehavior = function(MarionetteBehavior) {
-    debug.log('Backbone.View detected');
+    debug.log('Backbone.Behavior detected');
 
     Agent.patchBackboneComponent(MarionetteBehavior, function(behavior) { // on new instance
       Agent.addCidToComponent(behavior);
-      var data = {};
-      var behaviorIndex = Agent.registerAppComponent('Behavior', behavior, data);
+      Agent.registerAppComponent('Behavior', behavior, {});
     });
   };
 
