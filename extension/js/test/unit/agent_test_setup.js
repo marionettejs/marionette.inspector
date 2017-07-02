@@ -48,7 +48,6 @@
       window.Marionette = window.MarionetteFactory(Backbone);
       window.patchBackbone(Backbone);
       window.patchMarionette(Backbone, Marionette);
-      window.knownTypes();
       window.lazyWorker = new window.LazyWorker();
 
   });
