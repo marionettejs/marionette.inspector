@@ -3,8 +3,15 @@
   var waitForMarionetteLoad = function(object, callback) {
     Agent.onObjectAndPropertiesSetted(
       object,
-      'Marionette', ['Application', 'Module'],
-      callback
+      'Marionette', ['VERSION'],
+      function (Marionette) {
+        var mnVersion = Marionette.VERSION && Marionette.VERSION[0];
+        if (mnVersion === '2') {
+          Agent.onceSetted(Marionette, 'Module', callback);
+        } else {
+          callback();
+        }
+      }
     );
   }
 
