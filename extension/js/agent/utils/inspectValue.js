@@ -118,7 +118,8 @@
    *   {type:'object', inspect:"{a: 2, b: 3, ... }"}
    *
    */
-  Agent.inspectValue = function(value, object, type = this.knownType(value)) {
+  Agent.inspectValue = function(value, object, type) {
+    if (typeof type === 'undefined') type = this.knownType(value);
     var key = object ? this.findKey(object, value) : '';
 
     if (type) {

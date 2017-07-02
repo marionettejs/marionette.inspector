@@ -1,6 +1,7 @@
 ;(function(Agent) {
 
-  Agent.objectPath = function (obj, path, defaultValue, pathIndex = 0) {
+  Agent.objectPath = function (obj, path, defaultValue, pathIndex) {
+    if (typeof pathIndex === 'undefined') pathIndex = 0;
     if (!obj) return defaultValue;
     if (path.length === pathIndex) return obj;
     if (typeof path === "string") path = path.split(".");
