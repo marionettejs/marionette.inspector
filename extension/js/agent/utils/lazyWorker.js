@@ -10,7 +10,7 @@
   _.extend(Agent.LazyWorker.prototype, Backbone.Events, {
 
     // time to wait until starting work
-    deferTime: 200,
+    deferTime: 160,
 
     // time to work and potentially freeze the screen
     workTime: 80,
