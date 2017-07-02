@@ -6,12 +6,13 @@
       debug.log('Marionette.Application detected');
       Agent.addCidToComponent(app);
 
-      var data = {};
-      var appIndex = Agent.registerAppComponent('Application', app, data);
+      var appIndex = Agent.registerAppComponent('Application', app, {});
 
       if (appIndex === 0) {
         Agent.patchedApp = app;
         debug.log('Main Marionette application registered');
+      } else {
+        debug.log('Secondary Marionette application registered');
       }
 
       Agent.patchAppComponentTrigger(app, 'application');

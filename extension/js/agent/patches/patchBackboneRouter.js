@@ -4,7 +4,7 @@
     debug.log('Backbone.Router detected');
 
     Agent.patchBackboneComponent(BackboneRouter, function(router) {
-      var routerIndex = Agent.registerAppComponent('Router', router);
+      Agent.registerAppComponent('Router', router);
       Agent.patchAppComponentTrigger(router);
     });
   };

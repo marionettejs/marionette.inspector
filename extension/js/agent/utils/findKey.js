@@ -6,7 +6,7 @@
    */
   Agent.findKey = function (obj, value) {
 
-    if (typeof obj == 'string') {
+    if (typeof obj === 'string') {
       return obj;
     }
 

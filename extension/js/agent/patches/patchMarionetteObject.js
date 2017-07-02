@@ -6,8 +6,7 @@
 
       Agent.patchBackboneComponent(MarionetteObject, function(object) { // on new instance
           Agent.addCidToComponent(object);
-          var data = {};
-          var objectIndex = Agent.registerAppComponent('Object', object, data);
+          Agent.registerAppComponent('Object', object, {});
       });
   };
 
