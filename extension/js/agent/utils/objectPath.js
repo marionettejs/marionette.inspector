@@ -1,18 +1,18 @@
 ;(function(Agent) {
 
-  Agent.objectPath = function (obj, path, defaultValue) {
-    if (typeof path == "string") path = path.split(".");
-    if (obj === undefined) return defaultValue;
-    if (path.length === 0) return obj;
-    if (obj === null) return defaultValue;
+  Agent.objectPath = function (obj, path, defaultValue, pathIndex) {
+    if (typeof pathIndex === 'undefined') pathIndex = 0;
+    if (!obj) return defaultValue;
+    if (path.length === pathIndex) return obj;
+    if (typeof path === "string") path = path.split(".");
 
-    var part = _.first(path);
-    if (part == "") {
+    var part = path[pathIndex];
+    if (!part) {
       return obj;
     }
 
     try {
-      return Agent.objectPath(obj[part], _.rest(path), defaultValue);
+      return Agent.objectPath(obj[part], path, defaultValue, ++pathIndex);
     }
     catch (error) {
       return defaultValue;

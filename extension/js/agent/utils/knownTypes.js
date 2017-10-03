@@ -4,36 +4,23 @@
     var name = obj._className ? obj._className : this.className;
     var cid = _.isFunction(this.cid) ? this.cid(obj) : this.cid;
     return '<' + name + ' ' + cid + '>';
-  }
-
-  Agent.isKnownType = function(obj) {
-    return !!Agent.knownType(obj);
-  };
-
-  Agent.knownTypeString = function(obj) {
-    var type = Agent.knownType(obj);
-
-    if (!type) {
-      return ''
-    }
-
-     return type.toString(obj);
   };
 
   Agent.knownType = function (o) {
-    if (_.isUndefined(Agent.patchedBackbone) || _.isUndefined(Agent.patchedMarionette)) {
-      return;
+    if (!Object.keys(Agent._knownTypes).length) {
+      debug.log('knownType called with knownTypes not initialized');
+      return null;
     }
 
-    var type = _.find(Agent.knownTypes(), function(knownType) {
+    var key = _.findKey(Agent._knownTypes, function(knownType) {
       return (o instanceof knownType.type)
-    }, Agent);
+    });
 
-    if (!type) {
-      return;
+    if (!key) {
+      return null;
     }
 
-    var type = _.clone(type);
+    var type = _.clone(Agent._knownTypes[key]);
     type.str = type.toString(o);
     type.cid = type.cid(o);
 
@@ -42,8 +29,8 @@
 
   Agent._knownTypes = {};
 
-  Agent.knownTypes = function() {
-    var knownTypes = {};
+  Agent.initializeKnownTypes = function() {
+    var knownTypes = Object.create(null);
 
     if (!_.isEmpty(Agent._knownTypes)) {
       return Agent._knownTypes;
@@ -122,7 +109,7 @@
         type: Agent.patchedMarionette.Region,
         name: 'marionette-region',
         className: 'Marionette.Region',
-        cid: function(obj) { return '' },
+        cid: function(obj) { return obj.cid || '' },
         toString: toString
       },
 
@@ -178,7 +165,7 @@
           type: Agent.patchedMarionette.Object,
           name: 'marionette-object',
           className: 'Marionette.Object',
-          cid: function(obj) { return obj.__marionette_inspector__cid },
+          cid: function(obj) { return obj.cid || obj.__marionette_inspector__cid },
           toString: toString
         }
       });
@@ -190,7 +177,7 @@
           type: Agent.patchedMarionette.Behavior,
           name: 'marionette-behavior',
           className: 'Marionette.Behavior',
-          cid: function(obj) { return obj.__marionette_inspector__cid },
+          cid: function(obj) { return obj.cid || obj.__marionette_inspector__cid },
           toString: toString
         }
       });
