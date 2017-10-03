@@ -7,7 +7,7 @@
     // this.logSize();
   };
 
-  _.extend(Agent.LazyWorker.prototype, Backbone.Events, {
+  _.extend(Agent.LazyWorker.prototype, BackboneEvents, {
 
     // time to wait until starting work
     deferTime: 160,

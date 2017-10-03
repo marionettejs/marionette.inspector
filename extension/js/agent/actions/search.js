@@ -24,15 +24,17 @@
       var views = appObserver.viewList();
 
       this.addViewCidAttributes(views);
-      this.$clickMask = this.buildClickMask();
+      this.clickMaskEl = this.buildClickMask();
       this.searchEnabled = true;
 
-      $(document).on('mouseleave.regionSearch', function() {
-        Agent.stopSearch();
-        Agent.unhighlightEl();
-      });
+      document.addEventListener('mouseleave', this.onDocumentMouseLeave);
+
+      this.onMouseOver = this.onMouseOver.bind(this);
+      this.onMouseLeave = this.onMouseLeave.bind(this);
+      this.onMouseDown = this.onMouseDown.bind(this);
 
       this.bindElEvents(views);
+
 
       console.log('start search', this);
     };
@@ -41,16 +43,21 @@
 
     bindElEvents: function(views) {
       var mouse_events = {
-        'mouseover.regionSearch' : _.bind(this.onMouseOver, this),
-        'mouseleave.regionSearch': _.bind(this.onMouseLeave, this),
-        'mousedown.regionSearch' : _.bind(this.onMouseDown, this)
+        'mouseover' : this.onMouseOver,
+        'mouseleave': this.onMouseLeave,
+        'mousedown' : this.onMouseDown
       };
 
-      var $els = _.pluck(views, '$el');
-      observedElements = observedElements.concat($els);
+      var els = _.pluck(views, 'el');
+      var elEvents = els.map(function (el) {
+        return {el: el, events: mouse_events}
+      })
+      observedElements = observedElements.concat(elEvents);
 
-      _.each($els, function($el){
-        $el.on(mouse_events);
+      _.each(els, function(el){
+        _.each(mouse_events, function (value, key) {
+          el.addEventListener(key, value);
+        });
       });
     },
 
@@ -59,10 +66,10 @@
         return;
       }
       e.stopPropagation();
-      var $current = $(e.currentTarget);
-      var cid = $current.attr('data-view-id');
+      var current = e.currentTarget;
+      var cid = current.getAttribute('data-view-id');
 
-      Agent.highlightEl($current);
+      Agent.highlightEl(current);
 
       Agent.sendAppComponentReport('search', {
         name: 'mouseover',
@@ -75,8 +82,8 @@
         return;
       }
       e.stopPropagation();
-      var $current = $(e.currentTarget);
-      var cid = $current.attr('data-view-id');
+      var current = e.currentTarget;
+      var cid = current.getAttribute('data-view-id');
 
       Agent.sendAppComponentReport('search', {
         name: 'mouseleave',
@@ -89,10 +96,10 @@
         return;
       }
       e.stopPropagation();
-      var $current = $(e.currentTarget);
-      var cid = $current.attr('data-view-id');
+      var current = e.currentTarget;
+      var cid = current.getAttribute('data-view-id');
 
-      this.placeClickElMask($current);
+      this.placeClickElMask(current);
 
       this.searchEnabled = false;
       Agent.stopSearch();
@@ -105,6 +112,12 @@
       return false;
     },
 
+    onDocumentMouseLeave: function (e) {
+      if (!_.findWhere(observedElements, {el: e.currentTarget})) return;
+      Agent.stopSearch();
+      Agent.unhighlightEl();
+    },
+
 
     /*
      * Creates a mask over the element which captures click events.
@@ -112,28 +125,31 @@
      * element to be captured.
      */
     buildClickMask: function() {
-      var $clickMask = $('<div id="regionSearch-click-mask" style="position: absolute;">');
-      $('body').prepend($clickMask);
-      $clickMask.css('z-index', 10e10);
+      var $clickMask = nanodom('<div id="regionSearch-click-mask" style="position: absolute;">');
+      nanodom('body').prepend($clickMask);
+      var clickMaskEl = $clickMask[0]
+      clickMaskEl.style['z-index'] = 10e10;
 
-      return $clickMask;
+      return clickMaskEl;
     },
 
-    placeClickElMask: function($el) {
-      var $clickMask = this.$clickMask;
+    placeClickElMask: function(el) {
+      var clickMaskEl = this.clickMaskEl;
 
-      $clickMask.offset($el.offset());
-      $clickMask.height($el.outerHeight());
-      $clickMask.width($el.outerWidth());
+      Agent.setElementOffset(clickMaskEl, Agent.getElementOffset(el));
+      clickMaskEl.style.height = el.offsetHeight + 'px';
+      clickMaskEl.style.width = el.offsetWidth + 'px';
 
-      $clickMask.on('click mouseup mouseout', function() {
-        $clickMask.remove();
-      });
+      ['click', 'mouseup', 'mouseout'].forEach(function (event) {
+        clickMaskEl.addEventListener(event, function () {
+          if (clickMaskEl.parentNode) clickMaskEl.parentNode.removeChild(clickMaskEl);
+        })
+      })
     },
 
     addViewCidAttributes: function(views) {
       _.each(views, function addCid(view) {
-        view.$el.attr('data-view-id', view.cid);
+        view.el.setAttribute('data-view-id', view.cid);
       });
     }
   })
@@ -143,19 +159,22 @@
   }
 
   /*
-   * stopSearch stops the magifying glass
+   * stopSearch stops the magnifying glass
    * it also unbinds all of the events and clears the observedElements cache
    *
    */
   Agent.stopSearch = function() {
-    _.each(observedElements, function($el) {
-      $el.off('.regionSearch');
-      $el.removeAttr('data-view-id');
+    _.each(observedElements, function(elEvents) {
+      var el = elEvents.el
+      _.each(elEvents.events, function (value, key) {
+        el.removeEventListener(key, value)
+      });
+      el.removeAttribute('data-view-id');
     });
 
     observedElements = [];
 
-    $(document).off('mouseleave.regionSearch');
+    document.removeEventListener('mouseleave', Search.prototype.onDocumentMouseLeave);
     Agent.unhighlightEl();
   };
 

@@ -4,20 +4,13 @@ if (typeof window._ == "undefined") {
  var _ = this._;
 }
 
-// add jQuery if it's not there
-if (typeof window.$ == "undefined") {
-  // @include ../../lib/jquery/jquery.js
- var $ = this.$;
-}
+// @include ../../lib/nanodom.js
+var nanodom = this.nanodom;
 
-// add jQuery to window.__agent because Backbone requires it on the root
-this.$ = $ || window.$ || window.jQuery;
-var $ = this.$;
+// @include ../../lib/backbone-events-standalone/backbone-events-standalone.js
 
-// @include ../../lib/backbone-no-amd.js
-
-// define Backbone locally in the agent closure
-var Backbone = this.Backbone;
+// define BackboneEvents locally in the agent closure
+var BackboneEvents = this.BackboneEvents || window.BackboneEvents;
 
 var Agent = this;
 
@@ -35,6 +28,7 @@ var Agent = this;
 
 
 // @include ../../common/util/debug.js
+// @include ../utils/domHelpers.js
 // @include ../utils/sendMessage.js
 // @include ../utils/hiddenProperty.js
 // @include ../utils/setProperty.js
