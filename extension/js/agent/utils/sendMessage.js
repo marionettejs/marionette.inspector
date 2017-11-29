@@ -29,7 +29,8 @@
     },
 
     sendBatchImmediate: function() {
-      this.send();
+      Agent.postMessage(_.clone(this.queue));
+      this.queue = [];
     },
 
     send: function() {
