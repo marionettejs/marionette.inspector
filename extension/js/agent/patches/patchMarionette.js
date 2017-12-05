@@ -67,11 +67,11 @@
 
       Agent.initializeKnownTypes();
 
-      Agent.markEvent('start', {
-        marionette_version: Marionette.VERSION,
-        backbone_version: Backbone.VERSION,
-        jquery_version: Backbone.$.fn.jquery,
-        // underscore_version is tough to get because it's inside the backbone and marionette closure and not exposed
+      Agent.sendAppComponentReport('load', {
+        marionette: Marionette.VERSION || '1.x.x',
+        backbone: Backbone.VERSION,
+        radio: Backbone.Radio && Backbone.Radio.VERSION,
+        jquery: Backbone.$.fn && Backbone.$.fn.jquery
       })
     };
 

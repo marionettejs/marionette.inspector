@@ -21,12 +21,14 @@ define([
       'navigate': 'navigate',
       'search:stop': 'stopSearch',
       'navigate:knownObject': 'navigateToKnowonObject',
-      'active:tool': 'activeTool'
+      'active:tool': 'activeTool',
+      'load:info': 'loadInfo'
     },
 
     clientEvents: {
       'app:load-failed': 'onAppLoadFail',
       'agent:start': 'onAgentStart',
+      'agent:load': 'onAgentLoad',
       'Application:new': 'onAppFound',
       'ready': 'onPageReady',
       'updated': 'onPageUpdated'
@@ -55,11 +57,12 @@ define([
     setupData: function() {
       this.appData = new Backbone.Model({
         isAgentActive: false, // the inspector agent is injected into the inspected page
-        isWaiting: false, // the inpector is waiting on the inspected page to load (document.readyState)
+        isWaiting: false, // the inspector is waiting on the inspected page to load (document.readyState)
         hasStarted: false, // the inspector was started by user
         isInjecting: false, // the inspector is currently injecting the agent
         searchOn: false,  // inspector search
-        tool: '' // active tool name
+        tool: '', // active tool name
+        loadInfo: {} // info about loaded libraries
       });
     },
 
@@ -69,6 +72,10 @@ define([
 
     activeTool: function() {
       return this.appData.get('tool');
+    },
+
+    loadInfo: function() {
+      return this.appData.get('loadInfo');
     },
 
     showTool: function(tool, layout) {
@@ -132,6 +139,11 @@ define([
       this.navigate('ui');
     },
 
+    onAgentLoad: function(loadInfo) {
+      console.log('agent:load', loadInfo)
+      this.appData.set('loadInfo', loadInfo);
+    },
+
     onAppFound: function() {
       logger.log('app', 'inspected application was found');
       this.appData.set('hasLoadFailed', false);
@@ -160,14 +172,15 @@ define([
         return;
       }
 
-      if (object.type == "type-backbone-model") {
-        var url = 'data/models/'+object.cid;
+      var url;
+
+      if (object.type === 'type-backbone-model') {
+        url = 'data/models/'+object.cid;
         this.navigate(url);
       } else if (isViewType(object)) {
-        var url = 'data/views/'+object.cid;
+        url = 'data/views/'+object.cid;
         this.navigate(url);
       }
-
     },
 
   });
