@@ -22,7 +22,8 @@ define([
     className: 'app-tool',
 
     radioCommands: {
-      'show:info': 'showInfo'
+      'show:info': 'showInfo',
+      'library:version': 'libraryVersion'
     },
 
     initialize: function(options) {
@@ -39,6 +40,11 @@ define([
       this.getRegion('channelInfo').show(new ChannelInfo({
         model: channelModel
       }));
+    },
+
+    libraryVersion: function() {
+      var loadInfo = Radio.request('app', 'load:info');
+      return loadInfo.radio
     }
 
   });
