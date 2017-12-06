@@ -1,3 +1,18 @@
+## V0.9
+#### 12-06-2017
+
+### Fixed
++ Do not show Commands section in Radio side pane when using Radio >= v2 
+
+### Added
++ Support for Firefox
+
+### Changed
++ Reduced size of injected script (window.__agent)
++ Reduced latency between layout changes and UI inspector update
++ Migrated inspector to Marionette V3 
+
+
 ## V0.8.1
 #### 05-28-2017
 
@@ -34,7 +49,7 @@
 + scrolling when an element is selected
 + fixed serializing views with undefined getters
 
-### Addded
+### Added
 + responsive info panels
 + Moved watch loop into it's own file
 + added class names based on require path
@@ -154,7 +169,7 @@ The other nice little thing, is a "View is loading" pane, which is useful now th
 ### Overview
 + We're enabling the Activity Pane for the first time
 + UI Info shows triggers, listeners, activity, and warnings
-+ Data Info shows class heirarchy
++ Data Info shows class hierarchy
 + Radio handler contexts and callbacks are much better supported
 
 
@@ -164,7 +179,7 @@ The other nice little thing, is a "View is loading" pane, which is useful now th
 + Added printProperty helper for console messages
 + Re-styled inspector header
 + Add view Triggers pane
-+ Add view Listners pane
++ Add view Listeners pane
 + Improved findKey helper so that it unwraps listenToOnce and detects the underlying callback
 + Improved findKey helper so that it looks up the prototype chain
 + Added class heiararchy panes to Model
@@ -258,7 +273,7 @@ Version 0.2 sports a brand new UI tree with significantly improved performance a
 + Added an inspector view collection for keeping track of view instances created in the inspected app.
 + Added a new ui architecture for updating the UI tree on changes. Previously the full serialized ui tree was sent with every change, now a trimmed down UI tree with just cids is sent. This results in a 30% performance improvement.
 + Added a scriptUrl for the injected script (agent.js)
-+ Addeed sass compilation
++ Added sass compilation
 
 ### Fixed
 + Fix page refresh logic so that the inspector stays uptodate after router.navigate calls
