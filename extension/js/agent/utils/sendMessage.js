@@ -29,7 +29,8 @@
     },
 
     sendBatchImmediate: function() {
-      this.send();
+      Agent.postMessage(this.queue);
+      this.queue = [];
     },
 
     send: function() {
@@ -37,7 +38,7 @@
       debug.log('postMessage sent ' + this.queue.length + ' messages.');
       Agent.lazyWorker.push({
         context: Agent,
-        args: [_.clone(this.queue)],
+        args: [this.queue],
         callback: Agent.postMessage
       });
 
