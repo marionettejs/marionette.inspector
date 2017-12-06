@@ -40,6 +40,6 @@ window.setTimeout(function() {
   }
 
   console.warn("Marionette Inspector: Hmmm... couldn't find yo Backbone");
-  console.log("Please peruse https://github.com/marionettejs/marionette.inspector#caveats");
+  console.log("Please peruse https://github.com/marionettejs/marionette.inspector#setup");
 
 }, 5000);
