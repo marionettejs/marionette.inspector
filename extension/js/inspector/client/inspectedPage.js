@@ -14,7 +14,7 @@ define([
 
             this.messageCache = [];
 
-            // true when the injection process is being executed, tipically used by the router
+            // true when the injection process is being executed, typically used by the router
             // to decide whether to reload the panel or not.
             this.isInjecting = false;
 
@@ -45,14 +45,14 @@ define([
 
         // Execute the "func" function in the inspected page,
         // passing to it the arguments specified in the "args" array (that must be JSON-compatible),
-        // a more specific context can be setted by using the "context" parameter.
+        // a more specific context can be set by using the "context" parameter.
         // The callback "onExecuted" is called with the function return value.
         // The method is implemented by using devtools.inspectedWindow.eval.
         this.execFunction = function(func, args, onExecuted, context) {
-            chrome.devtools.inspectedWindow.eval(serializeFunc(func, args, context), function(result, isException) {
-                if (isException) {
-                    var error = _.isObject(isException) ? isException.value : result;
-                    throw error;
+            chrome.devtools.inspectedWindow.eval(serializeFunc(func, args, context), function(result, exceptionInfo) {
+                if (exceptionInfo) {
+                    var message = exceptionInfo.isException ? exceptionInfo.value : exceptionInfo.code;
+                    throw message || 'unknown eval error';
                 } else {
                     onExecuted(result);
                 }
@@ -171,7 +171,7 @@ define([
         // - its scripts ("files" array) which will be injected in the provided order INSIDE the application scope.
         // Note: the urls are considered as relative to the base path.
         // "injectionData" is an optional JSON-compatible hash accessible to the application via the options variable,
-        // is tipically used to pass special data not directly accessible from the page, such as the
+        // is typically used to pass special data not directly accessible from the page, such as the
         // extension url, or for app configuration options.
         this.reloadInjecting = function(appBasePath, injectionData) {
             injectionData = injectionData || {};
