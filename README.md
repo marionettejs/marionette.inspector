@@ -11,7 +11,6 @@
 ![](http://f.cl.ly/items/0D0k2I0N2p2D2s3M1S21/Image%202014-12-18%20at%2011.05.43%20PM.png)
 
 
-
 ### Functionality
 
 The inspector makes it possible to understand how your App works, without needing to understand how all the code works. This is possible because everything's one click away. You'll be amazed at how quickly this changes everything.
@@ -28,7 +27,7 @@ The inspector makes it possible to understand how your App works, without needin
 
 ### Try it out on a live app!
 
-Once you've installed the Chrome extension, open the DevTools, click on the "Marionette" tab, and inspect this app!
+Once you've installed the Chrome or Firefox extension, open the DevTools, click on the "Marionette" tab, and inspect this app!
 
 [Marionette Wires](https://marionette-wires.herokuapp.com/)
 
@@ -40,14 +39,16 @@ Once you've installed the Chrome extension, open the DevTools, click on the "Mar
 The inspector should work out of the box with most setups. You can download it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/marionette-inspector/fbgfjlockdhidoaempmjcddibjklhpka?hl=en).
 
 #### Usage
-* Load the app in Google Chrome
+* Load the app in Google Chrome or Firefox
 * Open the devtools (F12 or Ctrl + Shift + I)
 * Select Marionette tab
 * Click in 'Start the Inspector!' button
 
 > The extension icon next to URL bar has no functionality and can be ignored 
 
-#### Caveats
+#### Setup
+
+##### Libraries
 If you're either using `Browserify` or `Webpack` or not exposing `Backbone` & `Marionette` as globals, you'll need to add one block to your setup.
 
 ```js
@@ -60,7 +61,13 @@ if (window.__agent) {
 
 > Since EcmaScript `import` statements are hoisted, i.e., always called in the start of the module, putting `__agent.start` call before the import of a module 
 > that defines an Marionette class will not work. See [related issue](https://github.com/marionettejs/marionette.inspector/issues/305).
-> When using EcmaScript modules is recommended to put the `__agent.start` call in a separated module as in [Marionette Wires](https://github.com/thejameskyle/marionette-wires/blob/master/src/plugins.js)      
+> When using EcmaScript modules is recommended to put the `__agent.start` call in a separated module as in [Marionette Wires](https://github.com/thejameskyle/marionette-wires/blob/master/src/plugins.js)
+
+##### UI Layout
+The topmost view must be set to `layout` or `rootView` property of a Marionette Application instance. Alternatively, the view instance show in 
+`Aplication.region` will be used to build the UI tree.
+
+Examples [here](https://github.com/blikblum/marionette-wires-revisited/blob/master/src/application/application.js#L17) and [here](https://github.com/blikblum/marionette-contact-manager/blob/master/src/main.js#L23) 
 
 #### Frequently Asked Questions
 If you have any additional questions, check out our [FAQ](https://github.com/marionettejs/marionette.inspector/blob/master/docs/faq.md).
@@ -98,11 +105,18 @@ grunt build
 ```
 
 
-#### 3. Install in Chrome
+#### 3a. Install in Chrome
 ```
 1. go to the Extensions tab in chrome > Window
 2. check the "Developer Mode" checkbox
 3. click the "Load unpacked extension" and select the extension folder in the repo
+```
+
+#### 3b. Install in Firefox
+```
+1. go to the Add-ons page (`about:addons`)
+2. click on preferences button (in top right) and select "Debug Add-ons"
+3. click the "Load Temporary Add-on" and select the extension folder in the repo
 ```
 
 
