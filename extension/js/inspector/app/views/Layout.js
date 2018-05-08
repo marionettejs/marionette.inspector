@@ -1,15 +1,14 @@
 define([
   'marionette',
-  "text!templates/devTools/appLayout.html",
   "util/Radio",
   "client",
   "logger",
   "util/presenters/currentValue"
-], function(Marionette, tpl, Radio, client, logger, currentValue) {
+], function(Marionette, Radio, client, logger, currentValue) {
 
   return Marionette.View.extend({
 
-    template: tpl,
+    template: 'appLayout.html',
 
     tools: ['ui', 'radio', 'data', 'activity'],
 

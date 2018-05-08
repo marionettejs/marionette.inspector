@@ -3,7 +3,7 @@
 require.config({
     // paths configuration
     paths: {
-        templates: '../../templates',
+        templates: './templates',
         test: '../test/',
 
         jquery: '../lib/jquery/dist/jquery',
@@ -59,7 +59,6 @@ require.config({
 require([
   "jquery",
   "jquery.treegrid",
-  "handlebars",
   "marionette",
   "logger",
   "app",
@@ -67,23 +66,17 @@ require([
   "app/modules/UI",
   "app/modules/Data",
   "app/modules/Activity",
-  "text!templates/devTools/partials/_property.html"
+  "templates"
 ], function(
-    $, treeGrid, Handlebars, Marionette,
+    $, treeGrid, Marionette,
     logger, App, RadioApp, UIApp, DataApp, ActivityApp,
-    _property) {
+    templates) {
 
-    var tplCache = {};
-
-    Marionette.Renderer.render = function(template, data, view) {
-      var compiledTpl = tplCache[template];
-      if (_.isFunction(compiledTpl)) {
-        return compiledTpl(data);
+    Marionette.Renderer.render = function(template, data) {
+      var compiledTpl = templates[template];
+      if (!compiledTpl) {
+        throw new Error(`Unable to find template: "${template}"`)
       }
-
-      compiledTpl =  Handlebars.compile(template);
-      tplCache[template] = compiledTpl;
-
       return compiledTpl(data);
     };
 
@@ -98,8 +91,6 @@ require([
     $(document).ready(function() {
         // var router = new Router();
         // Backbone.history.start();
-
-        Handlebars.registerPartial('templates/devTools/partials/_property.html', _property);
 
         window.app = new App();
         app.start();

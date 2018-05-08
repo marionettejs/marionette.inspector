@@ -3,12 +3,11 @@ define([
   'marionette',
   'util/Radio',
   'app/modules/Activity/views/ActivityTree',
-  "text!templates/devTools/activity/action.html",
-], function(Backbone, Marionette, Radio, ActivityTree, tpl) {
+], function(Backbone, Marionette, Radio, ActivityTree) {
 
   var Action = Backbone.Marionette.View.extend({
 
-    template: tpl,
+    template: 'activity/action.html',
 
     regions: {
       eventTree: '[data-event-tree]'

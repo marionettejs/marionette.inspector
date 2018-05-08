@@ -1,14 +1,13 @@
 define([
   'app/components/tree/views/Tree',
   'util/Radio',
-  "text!templates/devTools/activity/tree.html",
   'app/behaviors/ClickableProperties',
   'util/isViewType',
-], function(Tree, Radio, tpl, ClickableProperties, isViewType) {
+], function(Tree, Radio, ClickableProperties, isViewType) {
 
   var ActivityTree = Tree.extend({
 
-    template: tpl,
+    template: 'activity/tree.html',
 
     ui: {
       eventLink: '[data-action="show:event"]',

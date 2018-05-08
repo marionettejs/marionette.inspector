@@ -42,13 +42,33 @@ module.exports = function(grunt) {
         'extension/js/agent/**/*.js',
         'extension/js/common/**/*.js',
         '!extension/js/agent/build/src/*.js',
-        'extension/css/inspector/**/*.scss'
+        'extension/css/inspector/**/*.scss',
+        'extension/templates/devTools/**/*.html'
         ],
       tasks: ['build']
     },
 
+    handlebars: {
+      compile: {
+        options: {
+          namespace: '__devToolsTemplates',
+          amd: true,
+          processName: function(filePath) {
+            return filePath.replace(/extension\/templates\/devTools\//, '');
+          },
+          processPartialName: function(filePath) {
+            var pieces = filePath.split('/');
+            return pieces[pieces.length - 1];
+          }
+        },
+        files: {
+          'extension/js/inspector/templates.js': 'extension/templates/devTools/**/*.html'
+        }
+      }
+    }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-preprocess');
   grunt.loadNpmTasks('grunt-contrib-clean');
@@ -58,7 +78,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('agent', ['preprocess']);
 
-  grunt.registerTask('build', ['agent', 'sass']);
+  grunt.registerTask('build', ['agent', 'sass', 'handlebars']);
 
   grunt.registerTask('test', ['agent', 'run:test']);
 

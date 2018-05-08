@@ -1,14 +1,13 @@
 define([
   'marionette',
-  "text!templates/devTools/radio/layout.html",
   "util/Radio",
   'app/modules/Radio/views/ChannelList',
   'app/modules/Radio/views/ChannelInfo',
-], function(Marionette, tpl, Radio, ChannelList, ChannelInfo) {
+], function(Marionette, Radio, ChannelList, ChannelInfo) {
 
   return Marionette.View.extend({
 
-    template: tpl,
+    template: "radio/layout.html",
 
     regions: {
       channelList: '[data-region="channel-list"]',
