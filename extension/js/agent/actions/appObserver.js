@@ -4,12 +4,6 @@
 
   _.extend(Agent.AppObserver.prototype, {
 
-    // expression that's eval'd on the window to get the app
-    appExpression: '__agent.patchedApp',
-
-    // expresion that's eval'd on the window to get the radio
-    radioExpression: 'app.wreqr',
-
     startSearch: function() {
       Agent.startSearch(this, this.getApp());
     },
@@ -88,7 +82,7 @@
     },
 
     isAppLoaded: function() {
-      return window.eval('typeof ' + this.appExpression + ' !== "undefined"');
+      return !!(window.__agent && window.__agent.patchedApp);
     }
 
   });
