@@ -1,7 +1,6 @@
 define([
   'marionette',
   'util/Radio',
-  "text!templates/devTools/ui/moreInfo.html",
   'app/behaviors/SidebarPanes',
   'util/presenters/formatEL',
   'app/behaviors/ClickableProperties',
@@ -9,12 +8,12 @@ define([
   'util/presenters/presentAncestors',
   'util/sortAttributes'
 ], function(
-  Marionette, Radio, tpl,
+  Marionette, Radio,
   SidebarPanesBehavior, formatEL, ClickableProperties,
   presentListeners, presentAncestors, sortAttributes) {
 
   return Marionette.View.extend({
-    template: tpl,
+    template: 'ui/moreInfo.html',
 
     events: {
       'click @ui.uiElement': 'onClickUIElement',

@@ -1,12 +1,11 @@
 define([
   'marionette',
   'util/Radio',
-  'text!templates/devTools/data/list.html',
   'app/modules/Data/views/ModelRow',
-], function(Marionette, Radio, tpl, ModelRow) {
+], function(Marionette, Radio, ModelRow) {
 
   return Marionette.CompositeView.extend({
-    template: tpl,
+    template: 'data/list.html',
 
     childViewContainer: '[data-child-view-container]',
 

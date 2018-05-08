@@ -30,6 +30,7 @@
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-handlebars": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-preprocess": "^5.1.0",
     "grunt-run": "^0.8.0",

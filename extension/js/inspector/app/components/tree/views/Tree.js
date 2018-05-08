@@ -1,8 +1,7 @@
 define([
   'backbone',
-  'marionette',
-  'text!templates/devTools/components/tree/tree.html',
-], function(Backbone, Marionette, tpl) {
+  'marionette'
+], function(Backbone, Marionette) {
 
   window.treeCount = 0;
 
@@ -32,7 +31,7 @@ define([
       'collapse': 'collapseNode'
     },
 
-    template: tpl,
+    template: 'components/tree/tree.html',
 
     constructor: function(options) {
       this.collection = options.model.nodes;

@@ -1,10 +1,9 @@
 define([
   'marionette',
-  'text!templates/devTools/radio/row.html',
   'util/Radio',
-], function(Marionette, tpl, Radio) {
+], function(Marionette, Radio) {
   return Marionette.View.extend({
-    template: tpl,
+    template: 'radio/row.html',
 
     tagName: 'tr',
 

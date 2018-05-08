@@ -1,14 +1,13 @@
 define([
   'marionette',
   'util/Radio',
-  "text!templates/devTools/activity/info.html",
   'app/behaviors/SidebarPanes',
   'app/behaviors/ClickableProperties'
-], function(Marionette, Radio, tpl, SidebarPanesBehavior, ClickableProperties) {
+], function(Marionette, Radio, SidebarPanesBehavior, ClickableProperties) {
 
   var ActivityInfo = Marionette.View.extend({
 
-    template: tpl,
+    template: 'activity/info.html',
 
     behaviors: {
       sidebarPanes: {

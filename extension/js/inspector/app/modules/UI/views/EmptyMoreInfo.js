@@ -1,14 +1,13 @@
 define([
   'marionette',
   'backbone',
-  'text!templates/devTools/ui/emptyMoreInfo.html',
   'util/Radio',
   'logger'
-], function(Marionette, Backbone, tpl, Radio, logger) {
+], function(Marionette, Backbone, Radio, logger) {
 
   return Marionette.View.extend({
 
-    template: tpl,
+    template: 'ui/emptyMoreInfo.html',
 
     className: 'sidebar-panel',
 

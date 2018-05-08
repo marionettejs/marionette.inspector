@@ -1,8 +1,7 @@
 define([
   'app/components/tree/views/Tree',
   'util/Radio',
-  "text!templates/devTools/ui/tree.html",
-], function(Tree, Radio, tpl) {
+], function(Tree, Radio) {
   return Tree.extend({
 
     ui: {
@@ -38,7 +37,7 @@ define([
       return data;
     },
 
-    template: tpl,
+    template: 'ui/tree.html',
 
     initialize: function(options) {
       this.viewModel = options.viewCollection.findView(this.model.get('cid'));

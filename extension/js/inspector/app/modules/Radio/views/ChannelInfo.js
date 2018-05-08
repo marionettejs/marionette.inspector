@@ -1,16 +1,15 @@
 define([
   'marionette',
   'util/Radio',
-  "text!templates/devTools/radio/info.html",
   'app/behaviors/SidebarPanes',
   'app/behaviors/ClickableProperties'
-], function(Marionette, Radio, tpl, SidebarPanesBehavior, ClickableProperties) {
+], function(Marionette, Radio, SidebarPanesBehavior, ClickableProperties) {
 
   var hasCommandsMatcher = /^[01]\./
 
   return Marionette.View.extend({
 
-    template: tpl,
+    template: 'radio/info.html',
 
     behaviors: {
       sidebarPanes: {

@@ -1,19 +1,18 @@
 define([
   'marionette',
   'util/Radio',
-  "text!templates/devTools/data/info.html",
   'app/behaviors/SidebarPanes',
   'app/behaviors/ClickableProperties',
   'util/presenters/presentListeners',
   'util/presenters/presentAncestors'
 ], function(
-    Marionette, Radio, tpl,
+    Marionette, Radio,
     SidebarPanesBehavior, ClickableProperties,
     presentListeners, presentAncestors) {
 
   return Marionette.View.extend({
 
-    template: tpl,
+    template: 'data/info.html',
 
     behaviors: {
       sidebarPanes: {
