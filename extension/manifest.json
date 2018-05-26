@@ -1,6 +1,6 @@
 {
   "name": "Marionette Inspector",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "A devtool for Marionette",
   "author": "Jason Laster",
   "minimum_chrome_version": "22.0",
@@ -33,7 +33,7 @@
     "js/agent/*"
   ],
 
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "content_security_policy": "script-src 'self'; object-src 'self'",
 
   "permissions": [
     "tabs"
