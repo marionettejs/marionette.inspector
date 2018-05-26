@@ -11,11 +11,9 @@ require.config({
         backbone: '../lib/backbone/backbone',
         'backbone.radio': '../lib/backbone.radio/build/backbone.radio',
         marionette: '../lib/backbone.marionette/lib/backbone.marionette',
-        text: '../lib/text/text',
         bootstrap: '../lib/bootstrap/dist/js/bootstrap',
         d3: '../lib/d3/d3',
-        handlebars: '../lib/handlebars/handlebars',
-        'jquery.treegrid': '../lib/jquery-treegrid/js/jquery.treegrid',
+        handlebars: '../lib/handlebars/handlebars',        
         logger: '../common/util/Logger'
     },
     // non-amd library loaders
@@ -32,10 +30,6 @@ require.config({
                 // exports
                 return this.Backbone.noConflict();
             }
-        },
-        "jquery.treegrid": {
-            deps: ["jquery"],
-            exports: "jQuery.fn.treegrid",
         },
         // 'marionette': {
         //     deps: ['underscore', 'jquery'],
@@ -57,8 +51,7 @@ require.config({
 
 
 require([
-  "jquery",
-  "jquery.treegrid",
+  "jquery",  
   "marionette",
   "logger",
   "app",
@@ -68,7 +61,7 @@ require([
   "app/modules/Activity",
   "templates"
 ], function(
-    $, treeGrid, Marionette,
+    $, Marionette,
     logger, App, RadioApp, UIApp, DataApp, ActivityApp,
     templates) {
 
