@@ -1,3 +1,16 @@
+## V0.9.1
+#### 05-26-2018
+
+### Fixed
++ Compatibility with newer Chrome versions
++ Serialization of events arguments (Activity tab)
+
+### Changed
++ Remove BackboneEvents from agent build
++ Remove unused assets
++ Precompile handlebars templates
+
+
 ## V0.9
 #### 12-06-2017
 
