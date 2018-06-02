@@ -50,6 +50,7 @@
 
         window.startAnalytics();
         window.Backbone = window.BackboneFactory(window._, window.jQuery || window.$);
+        Object.assign(window.LazyWorker.prototype, window.Backbone.Events);
         window.Marionette = window.MarionetteFactory(Backbone);
         window.patchBackbone(Backbone);
         window.patchMarionette(Backbone, Marionette);

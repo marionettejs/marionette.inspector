@@ -7,7 +7,7 @@
     // this.logSize();
   };
 
-  _.extend(Agent.LazyWorker.prototype, BackboneEvents, {
+  _.extend(Agent.LazyWorker.prototype, {
 
     // time to wait until starting work
     deferTime: 160,
@@ -16,6 +16,9 @@
     workTime: 80,
 
     jobId: 0,
+
+    // abstract method
+    trigger: function() {},
 
     push: function(job) {
       // console.log('** callee', Agent.stackFrame(8));
