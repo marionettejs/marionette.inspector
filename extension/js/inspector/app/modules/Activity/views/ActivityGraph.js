@@ -1,9 +1,9 @@
-define(['backbone', 'marionette', 'app/modules/Activity/d3/graph', 'text!templates/devTools/activity/graph.html'
-  ], function(Backbone, Marionette, Graph, tpl) {
+define(['backbone', 'marionette', 'app/modules/Activity/d3/graph'
+  ], function(Backbone, Marionette, Graph) {
 
   var ActivityGraph = Backbone.Marionette.View.extend({
     
-    template: tpl,
+    template: 'activity/graph.html',
 
     tagName: "div",
 

@@ -36,7 +36,7 @@
       startTime: start,
       endTime: end,
       eventName: eventName,
-      args: _.map(args, Agent.inspectValue, Agent),
+      args: _.map(args, arg => Agent.inspectValue(arg)),
       depth: depth,
       context: Agent.inspectValue(ctx),
       listeners: listeners

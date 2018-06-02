@@ -1,17 +1,16 @@
 define([
   'marionette',
-  "text!templates/devTools/activity/layout.html",
-  "util/Radio",
+  'util/Radio',
   'app/modules/Activity/models/ActivityNode',
   'app/modules/Activity/views/ActivityTree',
   'app/modules/Activity/views/ActionList',
   'app/modules/Activity/views/ActivityInfo',
   'app/modules/Activity/views/ActivityGraph'
-], function(Marionette, tpl, Radio, ActivityNode, ActivityTree, ActionList, ActivityInfo, ActivityGraph) {
+], function(Marionette, Radio, ActivityNode, ActivityTree, ActionList, ActivityInfo, ActivityGraph) {
 
   return Marionette.View.extend({
 
-    template: tpl,
+    template: 'activity/layout.html',
 
     regions: {
       activityGraph: '[data-region="activity-graph"]',

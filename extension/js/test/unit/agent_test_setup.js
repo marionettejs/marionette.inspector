@@ -4,64 +4,70 @@
   window.expect = chai.expect;
   window.sinon = sinon;
 
+  window._mochaDone = false;
+
   window.onload = function() {
-  // mocha.checkLeaks();
-  mocha.run();
+    // mocha.checkLeaks();
+    var isHeadless = /Headless/.test(navigator.userAgent)
+    mocha.reporter(isHeadless ? 'spec' : 'html').run(() => {
+      window._mochaDone = true
+    });
 
-  // stubbed for the Lazy Worker tests (was seeing a call stack exceeded maximum before)
-  Agent.postMessage = function() {};
+    // stubbed for the Lazy Worker tests (was seeing a call stack exceeded maximum before)
+    Agent.postMessage = function() {};
 
-  var $fixtures = $('#fixtures');
+    var $fixtures = $('#fixtures');
 
-  var setFixtures = function () {
-      _.each(arguments, function (content) {
-          $fixtures.append(content);
-      });
-  };
+    var setFixtures = function () {
+        _.each(arguments, function (content) {
+            $fixtures.append(content);
+        });
+    };
 
-  var clearFixtures = function () {
-      $fixtures.empty();
-  };
+    var clearFixtures = function () {
+        $fixtures.empty();
+    };
 
-  var originalHash = window.location.hash;
+    var originalHash = window.location.hash;
 
-  window.__agent = {};
+    window.__agent = {};
 
-  before(function() {
-      this.setFixtures = setFixtures;
-      this.clearFixtures = clearFixtures;
-  });
+    before(function() {
+        this.setFixtures = setFixtures;
+        this.clearFixtures = clearFixtures;
+    });
 
-  beforeEach(function () {
-      this.sinon = sinon.sandbox.create();
+    beforeEach(function () {
+        this.sinon = sinon.sandbox.create();
 
-      /*
-       * This is the Agent secret sauce.
-       * We'll want to be able to run this before/after each unit test...
-       * but to do that, we'll need to be able to pass in a new Backbone,Marionette
-       * which means wrapping these libs in a factory that creates a new one.
-      */
+        /*
+         * This is the Agent secret sauce.
+         * We'll want to be able to run this before/after each unit test...
+         * but to do that, we'll need to be able to pass in a new Backbone,Marionette
+         * which means wrapping these libs in a factory that creates a new one.
+        */
 
 
-      window.startAnalytics();
-      window.Backbone = window.BackboneFactory(window._, window.jQuery || window.$);
-      window.Marionette = window.MarionetteFactory(Backbone);
-      window.patchBackbone(Backbone);
-      window.patchMarionette(Backbone, Marionette);
-      window.lazyWorker = new window.LazyWorker();
+        window.startAnalytics();
+        window.Backbone = window.BackboneFactory(window._, window.jQuery || window.$);
+        Object.assign(window.LazyWorker.prototype, window.Backbone.Events);
+        window.Marionette = window.MarionetteFactory(Backbone);
+        window.patchBackbone(Backbone);
+        window.patchMarionette(Backbone, Marionette);
+        window.lazyWorker = new window.LazyWorker();
 
-  });
+    });
 
-  afterEach(function () {
-      window.lazyWorker.queue = [];
-      this.sinon.restore();
-      this.clearFixtures();
-      delete window.patchedBackbone;
-      delete window.patchedMarionette;
-      delete window._knownTypes;
-      window.location.hash = originalHash;
-      Backbone.history.stop();
-      Backbone.history.handlers.length = 0;
-  });
+    afterEach(function () {
+        window.lazyWorker.queue = [];
+        this.sinon.restore();
+        this.clearFixtures();
+        delete window.patchedBackbone;
+        delete window.patchedMarionette;
+        delete window._knownTypes;
+        window.location.hash = originalHash;
+        Backbone.history.stop();
+        Backbone.history.handlers.length = 0;
+    });
   };
 })();

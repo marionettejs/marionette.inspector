@@ -1,18 +1,17 @@
 define([
   'backbone',
   'marionette',
-  "text!templates/devTools/data/layout.html",
   "util/Radio",
   'app/modules/Data/views/ModelList',
   'app/modules/Data/views/ModelInfo',
   'app/modules/Data/views/CollectionInfo',
   'app/modules/Data/views/CollectionList',
   'util/presenters/currentValue'
-], function(Backbone, Marionette, tpl, Radio, ModelList, ModelInfo, CollectionInfo, CollectionList, currentValue) {
+], function(Backbone, Marionette, Radio, ModelList, ModelInfo, CollectionInfo, CollectionList, currentValue) {
 
   return Marionette.View.extend({
 
-    template: tpl,
+    template: 'data/layout.html',
 
     regions: {
       list: '[data-region="list"]',

@@ -1,7 +1,7 @@
 
 # Marionette Inspector
 
-+ [Chrome Web Store](https://chrome.google.com/webstore/detail/marionette-inspector/fbgfjlockdhidoaempmjcddibjklhpka?hl=en)
++ [Chrome Web Store](https://chrome.google.com/webstore/detail/marionette-inspector/fbgfjlockdhidoaempmjcddibjklhpka?hl=en) / [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/marionette-inspector/)
 
 + [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/marionettejs/marionette.inspector?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 

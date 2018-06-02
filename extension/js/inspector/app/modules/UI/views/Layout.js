@@ -1,7 +1,6 @@
 define([
   'marionette',
   'backbone',
-  'text!templates/devTools/ui/layout.html',
   'util/Radio',
   'logger',
   'app/modules/UI/views/EmptyMoreInfo',
@@ -9,12 +8,12 @@ define([
   'app/modules/UI/models/TreeNode',
   'app/modules/UI/views/ViewTree',
   'app/modules/UI/views/LoadingView',
-], function(Marionette, Backbone, tpl, Radio, logger,
+], function(Marionette, Backbone, Radio, logger,
    EmptyMoreInfo, ViewMoreInfo, TreeNode, ViewTree, LoadingView) {
 
   return Marionette.View.extend({
 
-    template: tpl,
+    template: 'ui/layout.html',
 
     attributes: {
       view: 'ui-layout'

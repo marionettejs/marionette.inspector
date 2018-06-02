@@ -35,7 +35,7 @@
       <div class="section expanded">
         <ol data-property-key="options" class="properties properties-tree monospace">
           {{#each options}}
-            {{> templates/devTools/partials/_property.html this}}
+            {{> _property.html this}}
           {{/each}}
         </ol>
       </div>
@@ -203,7 +203,7 @@
       <div class="section">
         <ol data-property-key="{{path}}" class="properties properties-tree monospace">
           {{#each properties}}
-            {{> templates/devTools/partials/_property.html this}}
+            {{> _property.html this}}
           {{/each}}
         </ol>
       </div>

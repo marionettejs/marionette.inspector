@@ -7,11 +7,6 @@ if (typeof window._ == "undefined") {
 // @include ../../lib/nanodom.js
 var nanodom = this.nanodom;
 
-// @include ../../lib/backbone-events-standalone/backbone-events-standalone.js
-
-// define BackboneEvents locally in the agent closure
-var BackboneEvents = this.BackboneEvents || window.BackboneEvents;
-
 var Agent = this;
 
  /*
