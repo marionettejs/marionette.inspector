@@ -41,7 +41,7 @@
     } else { // simple view v2
       //debug.log('ri: found simple view');
 
-      if (Agent.mnVersion === '3') return;
+      if (Agent.mnVersion >= 3) return;
 
       return {
         _view: shouldSerialize ? serializeView(obj) :  obj

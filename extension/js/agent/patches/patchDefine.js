@@ -12,11 +12,7 @@
   };
 
   var isMarionette = function(Candidate) {
-    return moduleHasComponents(Candidate, [
-      'View', 'ItemView', 'CollectionView',
-      'CompositeView', 'Region', 'RegionManager',
-      'Application', 'Module'
-    ]);
+    return moduleHasComponents(Candidate, ['View', 'CollectionView', 'Region', 'Application']);
   };
 
   // find the factory function to patch it

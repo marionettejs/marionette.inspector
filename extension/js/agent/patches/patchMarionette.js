@@ -2,7 +2,9 @@
 
   var assignClassNames = function(Backbone, Marionette) {
     Marionette.CollectionView.prototype._className = 'CollectionView';
-    Marionette.CompositeView.prototype._className = 'CompositeView';
+    if (Marionette.CompositeView) {
+      Marionette.CompositeView.prototype._className = 'CompositeView';
+    }
     Marionette.View.prototype._className = 'Marionette.View';
     Backbone.View.prototype._className = 'Backbone.View';
     Backbone.Model.prototype._className = 'Backbone.Model';
@@ -20,6 +22,10 @@
     }
   };
 
+  Agent.getMarionetteVersion = function(Marionette) {
+    return parseInt(Marionette.VERSION && Marionette.VERSION[0]);
+  };
+
   Agent.patchMarionette = function() {
 
     var patchMarionette = function(Backbone, Marionette) {
@@ -32,13 +38,15 @@
       Agent.patchedMarionette = Marionette;
       debug.log('Marionette detected: ', Marionette);
 
-      Agent.mnVersion = Marionette.VERSION && Marionette.VERSION[0];
+      Agent.mnVersion = Agent.getMarionetteVersion(Marionette);
 
       assignClassNames(Backbone, Marionette);
 
-      if (Marionette.Object) {
-        Agent.patchMarionetteObject(Marionette.Object);
-        Agent.patchBackboneTrigger(Marionette.Object.prototype);
+      var ObjectClass = Marionette.Object || Marionette.MnObject;
+
+      if (ObjectClass) {
+        Agent.patchMarionetteObject(ObjectClass);
+        Agent.patchBackboneTrigger(ObjectClass.prototype);
       }
 
       Agent.patchMarionetteApplication(Marionette.Application);
