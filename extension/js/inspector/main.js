@@ -65,7 +65,7 @@ require([
     logger, App, RadioApp, UIApp, DataApp, ActivityApp,
     templates) {
 
-    Marionette.Renderer.render = function(template, data) {
+    function templateRenderer (template, data) {
       var compiledTpl = templates[template];
       if (!compiledTpl) {
         throw new Error(`Unable to find template: "${template}"`)
@@ -73,7 +73,7 @@ require([
       return compiledTpl(data);
     };
 
-    Marionette.setEnabled('childViewEventPrefix', false);
+    Marionette.setRenderer(templateRenderer);
 
     /*
      * This flag is used to turn on the recorder

@@ -9,7 +9,7 @@ define([
   *
   */
 
-  return Marionette.Object.extend({
+  return Marionette.MnObject.extend({
 
     events: [
       'show', 'close', 'swap', 'remove', 'destroy'

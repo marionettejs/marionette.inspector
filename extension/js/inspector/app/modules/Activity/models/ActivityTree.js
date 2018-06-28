@@ -2,7 +2,7 @@ define([
   'marionette',
   'logger',
 ], function(Marionette, logger) {
-  return Marionette.Object.extend({
+  return Marionette.MnObject.extend({
 
     initialize: function(activityCollection) {
       this.activityCollection = activityCollection;

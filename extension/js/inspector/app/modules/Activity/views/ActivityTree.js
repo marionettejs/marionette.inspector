@@ -25,6 +25,10 @@ define([
       }
     },
 
+    childView: function () {
+      return ActivityTree
+    },
+
     onShowInfo: function (evt) {
       evt.stopPropagation();
       if (this.model.get('event')) {

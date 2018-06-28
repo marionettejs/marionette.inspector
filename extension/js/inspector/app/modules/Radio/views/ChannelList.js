@@ -4,7 +4,7 @@ define([
   'app/modules/Radio/views/ChannelRow',
 ], function(Marionette, Radio, ChannelRow) {
 
-  return Marionette.CompositeView.extend({
+  return Marionette.CollectionView.extend({
     template: 'radio/list.html',
 
     childViewContainer: '[data-child-view-container]',
