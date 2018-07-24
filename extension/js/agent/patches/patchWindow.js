@@ -5,8 +5,8 @@
       object,
       'Marionette', ['VERSION'],
       function (Marionette) {
-        var mnVersion = Marionette.VERSION && Marionette.VERSION[0];
-        if (mnVersion === '2') {
+        var mnVersion = Agent.getMarionetteVersion(Marionette);
+        if (mnVersion === 2) {
           Agent.onceSetted(Marionette, 'Module', callback);
         } else {
           callback();

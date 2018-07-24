@@ -73,14 +73,6 @@
         toString: toString
       },
 
-      'Marionette.CompositeView': {
-        type: Agent.patchedMarionette.CompositeView,
-        name: 'marionette-composite-view',
-        className: 'Marionette.CompositeView',
-        cid: function(obj) { return obj.cid },
-        toString: toString
-      },
-
       'Marionette.CollectionView': {
         type: Agent.patchedMarionette.CollectionView,
         name: 'marionette-collection-view',
@@ -134,6 +126,18 @@
       });
     }
 
+    if (Agent.patchedMarionette.CompositeView) {
+      _.extend(knownTypes, {
+        'Marionette.CompositeView': {
+          type: Agent.patchedMarionette.CompositeView,
+          name: 'marionette-composite-view',
+          className: 'Marionette.CompositeView',
+          cid: function(obj) { return obj.cid },
+          toString: toString
+        }
+      });
+    }
+
     if (Agent.patchedMarionette.Module) {
       _.extend(knownTypes, {
         'Marionette.Module': {
@@ -165,6 +169,18 @@
           type: Agent.patchedMarionette.Object,
           name: 'marionette-object',
           className: 'Marionette.Object',
+          cid: function(obj) { return obj.cid || obj.__marionette_inspector__cid },
+          toString: toString
+        }
+      });
+    }
+
+    if (Agent.patchedMarionette.MnObject) {
+      _.extend(knownTypes, {
+        'Marionette.MnObject': {
+          type: Agent.patchedMarionette.MnObject,
+          name: 'marionette-mn-object',
+          className: 'Marionette.MnObject',
           cid: function(obj) { return obj.cid || obj.__marionette_inspector__cid },
           toString: toString
         }
