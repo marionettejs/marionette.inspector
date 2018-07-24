@@ -10,7 +10,7 @@ define([
   TODO: seriously consider using fancyTree https://github.com/mar10/fancytree
   why? because it seems to do lazy rendering well and we could potentially be showng a big tree.
   */
-  var Tree = Backbone.Marionette.CompositeView.extend({
+  var Tree = Marionette.CollectionView.extend({
     tagName: 'ul',
 
     className: function() {
@@ -41,7 +41,7 @@ define([
       this.events = _.extend({}, Tree.prototype.events, this.events || {});
       this.modelEvents = _.extend({}, Tree.prototype.modelEvents, this.modelEvents || {});
 
-      Backbone.Marionette.CompositeView.prototype.constructor.apply(this, arguments);
+      Marionette.CollectionView.prototype.constructor.apply(this, arguments);
 
       this.treeCount = ++window.treeCount;
       // console.log('!!! new tree', this.treeCount, this.el);

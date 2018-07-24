@@ -4,7 +4,7 @@ define([
   'app/modules/Activity/views/Action'
 ], function(Backbone, Marionette, Action) {
 
-  var ActionList = Backbone.Marionette.NextCollectionView.extend({
+  var ActionList = Marionette.CollectionView.extend({
     tagName: 'ul',
     className: 'action-list',
     childView: Action

@@ -2,7 +2,7 @@ define([
   'app/components/tree/views/Tree',
   'util/Radio',
 ], function(Tree, Radio) {
-  return Tree.extend({
+  var ViewTree = Tree.extend({
 
     ui: {
       moreInfoLink: "[data-action='more-info']",
@@ -48,6 +48,10 @@ define([
         this.viewModel.treeProperties.isAttached = true
       }
 
+    },
+
+    childView: function () {
+      return ViewTree
     },
 
     childViewOptions: function() {
@@ -151,4 +155,6 @@ define([
     }
 
   });
+
+  return ViewTree;
 })

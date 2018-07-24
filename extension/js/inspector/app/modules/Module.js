@@ -4,12 +4,12 @@ define([
   'logger'
 ], function(Marionette, Radio, logger) {
 
-  return Marionette.Object.extend({
+  return Marionette.MnObject.extend({
 
     channelName: '',
 
     constructor: function() {
-      Marionette.Object.prototype.constructor.apply(this, arguments);
+      Marionette.MnObject.prototype.constructor.apply(this, arguments);
       this.setupData();
       this.setupEvents();
     },

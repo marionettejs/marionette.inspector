@@ -5,7 +5,7 @@ define([
   'app/modules/Activity/views/ActivityTree',
 ], function(Backbone, Marionette, Radio, ActivityTree) {
 
-  var Action = Backbone.Marionette.View.extend({
+  var Action = Marionette.View.extend({
 
     template: 'activity/action.html',
 

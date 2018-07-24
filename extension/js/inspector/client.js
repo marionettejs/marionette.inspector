@@ -6,7 +6,7 @@ define([
 ], function(Marionette, agent, inspectedPage, logger) {
 
 
-  var DevToolClient = Marionette.Object.extend({
+  var DevToolClient = Marionette.MnObject.extend({
 
     initialize: function() {
       this.agent = agent;
@@ -68,7 +68,7 @@ define([
 
     waitForClientLoad: function() {
       var promise = this.agent.waitFor(function() {
-        return this.appObserver != undefined;
+        return this.appObserver !== undefined;
       });
 
       promise.catch(function(e) {

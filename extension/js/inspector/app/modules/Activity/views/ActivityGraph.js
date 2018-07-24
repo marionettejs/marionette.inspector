@@ -1,7 +1,7 @@
 define(['backbone', 'marionette', 'app/modules/Activity/d3/graph'
   ], function(Backbone, Marionette, Graph) {
 
-  var ActivityGraph = Backbone.Marionette.View.extend({
+  var ActivityGraph = Marionette.View.extend({
     
     template: 'activity/graph.html',
 

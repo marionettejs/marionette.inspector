@@ -4,7 +4,7 @@ define([
   'app/modules/Data/views/CollectionRow',
 ], function(Marionette, Radio, CollectionRow) {
 
-  return Marionette.CompositeView.extend({
+  return Marionette.CollectionView.extend({
     template: 'data/collection-list.html',
 
     childViewContainer: '[data-child-view-container]',
